@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "33985731065",
+    "project_id": "aut-toolkit",
+    "storage_bucket": "aut-toolkit.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33985731065:android:728a97736c321293aa8528",
+        "android_client_info": {
+          "package_name": "sk.krib.aut_toolkit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIWNm6LStkUmckj2pR8_3OIMWwXxDgBo4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
