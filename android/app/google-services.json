@@ -12,7 +12,20 @@
           "package_name": "sk.krib.aut_toolkit"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "33985731065-11qkgghnus0do4181fvcshts1n5s8mii.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sk.krib.aut_toolkit",
+            "certificate_hash": "d7520792ceffe35940e9e6183825d06356210b7b"
+          }
+        },
+        {
+          "client_id": "33985731065-ur93b6693hm57b8hdrun455skeesj8q9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAIWNm6LStkUmckj2pR8_3OIMWwXxDgBo4"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "33985731065-ur93b6693hm57b8hdrun455skeesj8q9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "33985731065-rb79g0mmeob7e39gq5nfkm8dsvsbvelh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "sk.krib.autToolkit"
+              }
+            }
+          ]
         }
       }
     }
