@@ -3,8 +3,6 @@
   "sign_in": "Please sign in to use AutToolkit",
   "sign_in_google": "Sign in with Google",
   "sign_in_mail": "Sign in with Email",
-  "sign_in_guest": "Continue as Guest",
-  "sign_in_guest_message": "Some features will be unavailable when using the app without signing in",
   "password": "Password",
   "password_again": "Confirm password",
   "no_account": "No account yet?",
@@ -16,5 +14,12 @@
   "invalid_password": "Password must contain at elast 6 characters",
   "invalid_email_password": "Incorrect e-mail or password",
   "sign_in_button": "Sign in",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "home": "Home",
+  "settings": "Settings",
+  "kid_mode_button": "Child app mode",
+  "signed_in_as": "Signed in as: ",
+  "log_out": "Log out",
+  "app_language": "App language: ",
+  "change": "Change"
 }

@@ -15,9 +15,11 @@ class AuthenticationPage extends ConsumerStatefulWidget {
 }
 
 class _SignInPageState extends ConsumerState<AuthenticationPage> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  AppLocale _selectedLocale = LocaleSettings.currentLocale;
+  final loginEmailController = TextEditingController();
+  final loginPasswordController = TextEditingController();
+  final signInEmailController = TextEditingController();
+  final signInPasswordController = TextEditingController();
+  final signInPasswordRepeatController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,31 +30,20 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: DropdownButton<AppLocale>(
-              value: _selectedLocale,
-              underline: const SizedBox(),
-              // remove default underline
-              icon: const Icon(Icons.language, color: Colors.black),
-              dropdownColor: Colors.white,
-              style: const TextStyle(color: Colors.black),
-              // text color
-              items: AppLocale.values.map((locale) {
-                return DropdownMenuItem(
-                  value: locale,
-                  child: Text(
-                    locale.name.toUpperCase(),
-                    style: const TextStyle(color: Colors.black),
-                  ),
-                );
-              }).toList(),
-              onChanged: (locale) {
-                if (locale != null) {
-                  setState(() {
-                    _selectedLocale = locale;
-                    LocaleSettings.setLocaleRaw(locale.name);
-                  });
-                }
+            child: PopupMenuButton<AppLocale>(
+              onSelected: (locale) {
+                setState(() {
+                  LocaleSettings.setLocaleRaw(locale.name);
+                });
               },
+              itemBuilder: (BuildContext context) =>
+                  AppLocale.values.map((locale) {
+                    return PopupMenuItem<AppLocale>(
+                      value: locale,
+                      child: Text(locale.name.toUpperCase()),
+                    );
+                  }).toList(),
+              icon: const Icon(Icons.language),
             ),
           ),
         ],
@@ -89,27 +80,33 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                TextField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(labelText: 'Email'),
-                ),
-                TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: Translations
-                        .of(context)
-                        .password,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: TextField(
+                    controller: loginEmailController,
+                    decoration: const InputDecoration(labelText: 'Email'),
                   ),
                 ),
-                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: TextField(
+                    controller: loginPasswordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: Translations
+                          .of(context)
+                          .password,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 25),
                 ElevatedButton(
                   onPressed: () async {
                     String? result = await ref
                         .read(authentificationNotifierProvider.notifier)
                         .signIn(
-                      _emailController.text.trim(),
-                      _passwordController.text.trim(),
+                      loginEmailController.text.trim(),
+                      loginPasswordController.text.trim(),
                     );
                     if (result == null) {
                       router.go('/home');
@@ -150,10 +147,6 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
   }
 
   void _showTwoTextFieldDialog(BuildContext context) {
-    TextEditingController mailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-    TextEditingController passwordRepeatController = TextEditingController();
-
     showDialog(
       context: context,
       builder: (context) {
@@ -163,11 +156,12 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                controller: mailController,
+                controller: signInEmailController,
                 decoration: InputDecoration(labelText: "E-mail"),
               ),
               TextField(
-                controller: passwordController,
+                controller: signInPasswordController,
+                obscureText: true,
                 decoration: InputDecoration(
                   labelText: Translations
                       .of(context)
@@ -175,7 +169,8 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
                 ),
               ),
               TextField(
-                controller: passwordRepeatController,
+                controller: signInPasswordRepeatController,
+                obscureText: true,
                 decoration: InputDecoration(
                   labelText: Translations
                       .of(context)
@@ -195,44 +190,7 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                if ((_passwordController.text
-                    .trim()
-                    .isEmpty ||
-                    passwordRepeatController.text
-                        .trim()
-                        .isEmpty) ||
-                    mailController.text
-                        .trim()
-                        .isEmpty) {
-                  ScaffoldMessengerUtils().showSnackBar(context, Translations
-                      .of(context)
-                      .no_sign_in_details);
-                } else if (_passwordController.text.trim() !=
-                    passwordRepeatController.text.trim()) {
-                  ScaffoldMessengerUtils().showSnackBar(context, Translations
-                      .of(context)
-                      .passwords_dont_match);
-                } else if (!StringUtils().isMailValid(
-                  mailController.text.trim(),
-                )) {
-                  ScaffoldMessengerUtils().showSnackBar(context, Translations
-                      .of(context)
-                      .invalid_mail);
-                } else if (_passwordController.text
-                    .trim()
-                    .length < 6) {
-                  ScaffoldMessengerUtils().showSnackBar(context, Translations
-                      .of(context)
-                      .invalid_password);
-                } else {
-                  ref
-                      .read(authentificationNotifierProvider.notifier)
-                      .signUp(
-                    mailController.text.trim(),
-                        _passwordController.text.trim(),
-                  );
-                  Navigator.of(context).pop();
-                }
+                _signIn();
               },
               child: Text(Translations
                   .of(context)
@@ -243,4 +201,46 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
       },
     );
   }
+
+  void _signIn() {
+    if ((loginPasswordController.text
+        .trim()
+        .isEmpty ||
+        signInPasswordRepeatController.text
+            .trim()
+            .isEmpty) ||
+        signInEmailController.text
+            .trim()
+            .isEmpty) {
+      ScaffoldMessengerUtils().showSnackBar(context, Translations
+          .of(context)
+          .no_sign_in_details);
+    } else if (loginPasswordController.text.trim() !=
+        signInPasswordRepeatController.text.trim()) {
+      ScaffoldMessengerUtils().showSnackBar(context, Translations
+          .of(context)
+          .passwords_dont_match);
+    } else if (!StringUtils().isMailValid(
+      signInEmailController.text.trim(),
+    )) {
+      ScaffoldMessengerUtils().showSnackBar(context, Translations
+          .of(context)
+          .invalid_mail);
+    } else if (loginPasswordController.text
+        .trim()
+        .length < 6) {
+      ScaffoldMessengerUtils().showSnackBar(context, Translations
+          .of(context)
+          .invalid_password);
+    } else {
+      ref
+          .read(authentificationNotifierProvider.notifier)
+          .signUp(
+        signInEmailController.text.trim(),
+        loginPasswordController.text.trim(),
+      );
+      Navigator.of(context).pop();
+    }
+  }
+
 }

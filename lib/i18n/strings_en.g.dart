@@ -61,13 +61,6 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   /// en: 'Sign in with Email'
   String get sign_in_mail => 'Sign in with Email';
 
-  /// en: 'Continue as Guest'
-  String get sign_in_guest => 'Continue as Guest';
-
-  /// en: 'Some features will be unavailable when using the app without signing in'
-  String get sign_in_guest_message =>
-      'Some features will be unavailable when using the app without signing in';
-
   /// en: 'Password'
   String get password => 'Password';
 
@@ -103,6 +96,27 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
   /// en: 'Cancel'
   String get cancel => 'Cancel';
+
+  /// en: 'Home'
+  String get home => 'Home';
+
+  /// en: 'Settings'
+  String get settings => 'Settings';
+
+  /// en: 'Child app mode'
+  String get kid_mode_button => 'Child app mode';
+
+  /// en: 'Signed in as: '
+  String get signed_in_as => 'Signed in as: ';
+
+  /// en: 'Log out'
+  String get log_out => 'Log out';
+
+  /// en: 'App language: '
+  String get app_language => 'App language: ';
+
+  /// en: 'Change'
+  String get change => 'Change';
 }
 
 /// Flat map(s) containing all translations.
@@ -118,10 +132,6 @@ extension on Translations {
         return 'Sign in with Google';
       case 'sign_in_mail':
         return 'Sign in with Email';
-      case 'sign_in_guest':
-        return 'Continue as Guest';
-      case 'sign_in_guest_message':
-        return 'Some features will be unavailable when using the app without signing in';
       case 'password':
         return 'Password';
       case 'password_again':
@@ -146,6 +156,20 @@ extension on Translations {
         return 'Sign in';
       case 'cancel':
         return 'Cancel';
+      case 'home':
+        return 'Home';
+      case 'settings':
+        return 'Settings';
+      case 'kid_mode_button':
+        return 'Child app mode';
+      case 'signed_in_as':
+        return 'Signed in as: ';
+      case 'log_out':
+        return 'Log out';
+      case 'app_language':
+        return 'App language: ';
+      case 'change':
+        return 'Change';
       default:
         return null;
     }

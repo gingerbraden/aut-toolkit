@@ -52,11 +52,6 @@ class TranslationsSk implements Translations {
 
   @override String get sign_in_mail => 'Prihlásiť sa pomocou e-mailu';
 
-  @override String get sign_in_guest => 'Pokračovať bez prihlásenia';
-
-  @override String get sign_in_guest_message =>
-      'Pri používaní aplikácie bez prihlásenia budú niektoré funkcionality zablokované';
-
   @override String get password => 'Heslo';
 
   @override String get password_again => 'Potvrďte heslo';
@@ -81,6 +76,20 @@ class TranslationsSk implements Translations {
   @override String get sign_in_button => 'Registrovať sa';
 
   @override String get cancel => 'Zrušiť';
+
+  @override String get home => 'Domov';
+
+  @override String get settings => 'Nastavenia';
+
+  @override String get kid_mode_button => 'Mód aplikácie dieťaťa';
+
+  @override String get signed_in_as => 'Prihlásený ako: ';
+
+  @override String get log_out => 'Odhlásiť sa';
+
+  @override String get app_language => 'Jazyk aplikácie: ';
+
+  @override String get change => 'Zmeniť';
 }
 
 /// Flat map(s) containing all translations.
@@ -96,10 +105,6 @@ extension on TranslationsSk {
         return 'Prihlásiť sa pomocou Google';
       case 'sign_in_mail':
         return 'Prihlásiť sa pomocou e-mailu';
-      case 'sign_in_guest':
-        return 'Pokračovať bez prihlásenia';
-      case 'sign_in_guest_message':
-        return 'Pri používaní aplikácie bez prihlásenia budú niektoré funkcionality zablokované';
       case 'password':
         return 'Heslo';
       case 'password_again':
@@ -124,6 +129,20 @@ extension on TranslationsSk {
         return 'Registrovať sa';
       case 'cancel':
         return 'Zrušiť';
+      case 'home':
+        return 'Domov';
+      case 'settings':
+        return 'Nastavenia';
+      case 'kid_mode_button':
+        return 'Mód aplikácie dieťaťa';
+      case 'signed_in_as':
+        return 'Prihlásený ako: ';
+      case 'log_out':
+        return 'Odhlásiť sa';
+      case 'app_language':
+        return 'Jazyk aplikácie: ';
+      case 'change':
+        return 'Zmeniť';
       default:
         return null;
     }
