@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app/router.dart';
+import 'i18n/strings.g.dart';
 import 'shared/services/firebase_options.dart';
 
 void main() async {
@@ -10,7 +12,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(TranslationProvider(child: ProviderScope(child: const MyApp())));
 }
 
 class MyApp extends StatelessWidget {
@@ -21,6 +23,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: router,
       title: 'AutToolkit',
+      locale: TranslationProvider
+          .of(context)
+          .flutterLocale,
+      // use provider
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       debugShowCheckedModeBanner: false,
     );
   }

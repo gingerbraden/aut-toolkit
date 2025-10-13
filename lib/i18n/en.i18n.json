@@ -1,8 +1,20 @@
 {
-  "good_day": "Good day",
-  "sign_in": "Sign in to use AutoToolkit",
+  "good_day": "Hello!",
+  "sign_in": "Please sign in to use AutToolkit",
   "sign_in_google": "Sign in with Google",
   "sign_in_mail": "Sign in with Email",
   "sign_in_guest": "Continue as Guest",
-  "sign_in_guest_message": "Some features will be unavailable when using the app without signing in"
+  "sign_in_guest_message": "Some features will be unavailable when using the app without signing in",
+  "password": "Password",
+  "password_again": "Confirm password",
+  "no_account": "No account yet?",
+  "create_account": "Create account",
+  "log_in_button": "Log in",
+  "no_sign_in_details": "Missing e-mail or password",
+  "passwords_dont_match": "Passwords don't match",
+  "invalid_mail": "Invalid e-mail address",
+  "invalid_password": "Password must contain at elast 6 characters",
+  "invalid_email_password": "Incorrect e-mail or password",
+  "sign_in_button": "Sign in",
+  "cancel": "Cancel"
 }

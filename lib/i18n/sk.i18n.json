@@ -4,5 +4,17 @@
   "sign_in_google": "Prihlásiť sa pomocou Google",
   "sign_in_mail": "Prihlásiť sa pomocou e-mailu",
   "sign_in_guest": "Pokračovať bez prihlásenia",
-  "sign_in_guest_message": "Pri používaní aplikácie bez prihlásenia budú niektoré funkcionality zablokované"
+  "sign_in_guest_message": "Pri používaní aplikácie bez prihlásenia budú niektoré funkcionality zablokované",
+  "password": "Heslo",
+  "password_again": "Potvrďte heslo",
+  "no_account": "Nemáte ešte účet?",
+  "create_account": "Vytvoriť účet",
+  "log_in_button": "Prihlásiť sa",
+  "no_sign_in_details": "Chýbajuci e-mail alebo heslo",
+  "passwords_dont_match": "Heslá sa nezhodujú",
+  "invalid_mail": "Neplatná e-mailová adresa",
+  "invalid_password": "Heslo musí obsahovať aspoň 6 znakov",
+  "invalid_email_password": "Nesprávny e-mail alebo heslo",
+  "sign_in_button": "Registrovať sa",
+  "cancel": "Zrušiť"
 }
