@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -46,8 +47,8 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAsXzDWBdz-lOca7AYnU4fy4FO2wR5OpnY',
+  static final FirebaseOptions web = FirebaseOptions(
+    apiKey: dotenv.env['FIREBASE_API_KEY']!,
     appId: '1:33985731065:web:9d01e1ba25d23704aa8528',
     messagingSenderId: '33985731065',
     projectId: 'aut-toolkit',
@@ -56,16 +57,16 @@ class DefaultFirebaseOptions {
     measurementId: 'G-3VB9VECK7G',
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAIWNm6LStkUmckj2pR8_3OIMWwXxDgBo4',
+  static final FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env['FIREBASE_API_KEY']!,
     appId: '1:33985731065:android:728a97736c321293aa8528',
     messagingSenderId: '33985731065',
     projectId: 'aut-toolkit',
     storageBucket: 'aut-toolkit.firebasestorage.app',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCRtzSSiVf3VLiq9aNCZ0HpclHfM9EO5tk',
+  static final FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.env['FIREBASE_API_KEY']!,
     appId: '1:33985731065:ios:c94b08a4490a82beaa8528',
     messagingSenderId: '33985731065',
     projectId: 'aut-toolkit',

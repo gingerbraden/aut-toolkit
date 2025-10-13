@@ -21,8 +21,6 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
 
   @override
   Widget build(BuildContext context) {
-    // LocaleSettings.setLocaleRaw(AppLocale.sk.name);
-
 
     return Scaffold(
       appBar: AppBar(

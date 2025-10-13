@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,11 +8,17 @@ import 'app/router.dart';
 import 'i18n/strings.g.dart';
 import 'shared/services/firebase_options.dart';
 
-void main() async {
+Future main() async {
+  await dotenv.load(fileName: ".env");
+  LocaleSettings.setLocale(AppLocale.sk);
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+      name: 'aut-toolkit',
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
+
   runApp(TranslationProvider(child: ProviderScope(child: const MyApp())));
 }
 
@@ -23,10 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: router,
       title: 'AutToolkit',
-      locale: TranslationProvider
-          .of(context)
-          .flutterLocale,
-      // use provider
+      locale: AppLocale.sk.flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       debugShowCheckedModeBanner: false,
