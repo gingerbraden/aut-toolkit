@@ -3,7 +3,6 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -48,28 +47,28 @@ class DefaultFirebaseOptions {
   }
 
   static final FirebaseOptions web = FirebaseOptions(
-    apiKey: dotenv.env['FIREBASE_API_KEY']!,
-    appId: '1:33985731065:web:9d01e1ba25d23704aa8528',
-    messagingSenderId: '33985731065',
-    projectId: 'aut-toolkit',
+    apiKey: 'HIDDEN',
+    appId: 'HIDDEN',
+    messagingSenderId: 'HIDDEN',
+    projectId: 'HIDDEN',
     authDomain: 'aut-toolkit.firebaseapp.com',
     storageBucket: 'aut-toolkit.firebasestorage.app',
     measurementId: 'G-3VB9VECK7G',
   );
 
   static final FirebaseOptions android = FirebaseOptions(
-    apiKey: dotenv.env['FIREBASE_API_KEY']!,
-    appId: '1:33985731065:android:728a97736c321293aa8528',
-    messagingSenderId: '33985731065',
-    projectId: 'aut-toolkit',
+    apiKey: 'HIDDEN',
+    appId: 'HIDDEN',
+    messagingSenderId: 'HIDDEN',
+    projectId: 'HIDDEN',
     storageBucket: 'aut-toolkit.firebasestorage.app',
   );
 
   static final FirebaseOptions ios = FirebaseOptions(
-    apiKey: dotenv.env['FIREBASE_API_KEY']!,
-    appId: '1:33985731065:ios:c94b08a4490a82beaa8528',
-    messagingSenderId: '33985731065',
-    projectId: 'aut-toolkit',
+    apiKey: 'HIDDEN',
+    appId: 'HIDDEN',
+    messagingSenderId: 'HIDDEN',
+    projectId: 'HIDDEN',
     storageBucket: 'aut-toolkit.firebasestorage.app',
     iosBundleId: 'sk.krib.autToolkit',
   );
