@@ -14,7 +14,6 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp(
-      name: 'aut-toolkit',
       options: DefaultFirebaseOptions.currentPlatform,
     );
   }

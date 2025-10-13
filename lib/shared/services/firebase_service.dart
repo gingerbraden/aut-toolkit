@@ -34,8 +34,6 @@ class FirebaseService {
       final result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       return result.user; // Success
-    } on FirebaseAuthException catch (e) {
-      return null;
     } catch (e) {
       return null;
     }

@@ -150,9 +150,9 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
   }
 
   void _showTwoTextFieldDialog(BuildContext context) {
-    TextEditingController _mailController = TextEditingController();
-    TextEditingController _passwordController = TextEditingController();
-    TextEditingController _passwordRepeatController = TextEditingController();
+    TextEditingController mailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+    TextEditingController passwordRepeatController = TextEditingController();
 
     showDialog(
       context: context,
@@ -163,11 +163,11 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                controller: _mailController,
+                controller: mailController,
                 decoration: InputDecoration(labelText: "E-mail"),
               ),
               TextField(
-                controller: _passwordController,
+                controller: passwordController,
                 decoration: InputDecoration(
                   labelText: Translations
                       .of(context)
@@ -175,7 +175,7 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
                 ),
               ),
               TextField(
-                controller: _passwordRepeatController,
+                controller: passwordRepeatController,
                 decoration: InputDecoration(
                   labelText: Translations
                       .of(context)
@@ -198,22 +198,22 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
                 if ((_passwordController.text
                     .trim()
                     .isEmpty ||
-                    _passwordRepeatController.text
+                    passwordRepeatController.text
                         .trim()
                         .isEmpty) ||
-                    _mailController.text
+                    mailController.text
                         .trim()
                         .isEmpty) {
                   ScaffoldMessengerUtils().showSnackBar(context, Translations
                       .of(context)
                       .no_sign_in_details);
                 } else if (_passwordController.text.trim() !=
-                    _passwordRepeatController.text.trim()) {
+                    passwordRepeatController.text.trim()) {
                   ScaffoldMessengerUtils().showSnackBar(context, Translations
                       .of(context)
                       .passwords_dont_match);
                 } else if (!StringUtils().isMailValid(
-                  _mailController.text.trim(),
+                  mailController.text.trim(),
                 )) {
                   ScaffoldMessengerUtils().showSnackBar(context, Translations
                       .of(context)
@@ -228,7 +228,7 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
                   ref
                       .read(authentificationNotifierProvider.notifier)
                       .signUp(
-                    _mailController.text.trim(),
+                    mailController.text.trim(),
                         _passwordController.text.trim(),
                   );
                   Navigator.of(context).pop();
