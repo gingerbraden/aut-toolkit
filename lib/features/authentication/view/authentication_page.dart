@@ -17,7 +17,7 @@ class AuthenticationPage extends ConsumerStatefulWidget {
 class _SignInPageState extends ConsumerState<AuthenticationPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  AppLocale _selectedLocale = AppLocale.sk;
+  AppLocale _selectedLocale = LocaleSettings.currentLocale;
 
   @override
   Widget build(BuildContext context) {
