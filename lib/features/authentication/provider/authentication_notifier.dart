@@ -40,6 +40,8 @@ class AuthentificationNotifier extends Notifier<User?> {
     await _firebaseService.signOut();
     state = null;
   }
+
+  User? getUser() => state;
 }
 
 final authentificationNotifierProvider =
