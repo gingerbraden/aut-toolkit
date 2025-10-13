@@ -1,0 +1,48 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../shared/services/firebase_service.dart';
+
+class AuthentificationNotifier extends Notifier<User?> {
+  final FirebaseService _firebaseService = FirebaseService();
+
+  @override
+  User? build() {
+    // Initialize with current user
+    return _firebaseService.currentUser;
+  }
+
+  Future<String?> signUp(String email, String password) async {
+    final error = await _firebaseService.signUp(
+      email: email,
+      password: password,
+    );
+    if (error == null) {
+      // Update state
+      state = _firebaseService.currentUser;
+    }
+    return error;
+  }
+
+  Future<String?> signIn(String email, String password) async {
+    final user = await _firebaseService.signIn(
+      email: email,
+      password: password,
+    );
+    if (user != null) {
+      state = user;
+      return null;
+    }
+    return 'Sign-in failed';
+  }
+
+  Future<void> signOut() async {
+    await _firebaseService.signOut();
+    state = null;
+  }
+}
+
+final authentificationNotifierProvider =
+    NotifierProvider<AuthentificationNotifier, User?>(() {
+      return AuthentificationNotifier();
+    });
