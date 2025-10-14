@@ -18,7 +18,7 @@ class _LogOutTileState extends ConsumerState<LogOutTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.logout, color: Colors.black),
+      leading: const Icon(Icons.logout),
       title: Text(t.log_out),
       onTap: isLoading ? null : _confirmSignOut,
       trailing: isLoading

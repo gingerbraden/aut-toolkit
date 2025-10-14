@@ -27,5 +27,9 @@
   "really_log_out": "Naozaj sa chcete odhlásiť?",
   "yes": "Áno",
   "no": "Nie",
-  "change_app_language": "Zmeniť jazyk aplikácie"
+  "change_app_language": "Zmeniť jazyk aplikácie",
+  "dark_mode_toggle": "Tmavý režim",
+  "good_habits": "Návyky",
+  "bad_habits": "Nevhodné správanie",
+  "eating_habits": "Jedálniček"
 }

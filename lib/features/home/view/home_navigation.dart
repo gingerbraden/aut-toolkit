@@ -20,11 +20,12 @@ class _HomeNavigationState extends ConsumerState<HomeNavigation> {
   // Example pages for each tab
   final List<Widget> _pages = [
     const HomePage(),
-    const HomePage(),
+    const Center(),
     const SettingsPage(),
   ];
 
   void _onItemTapped(int index) {
+    if (index == 1) return;
     setState(() {
       _selectedIndex = index;
     });

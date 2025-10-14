@@ -1,6 +1,7 @@
 import 'package:aut_toolkit/features/authentication/provider/authentication_notifier.dart';
 import 'package:aut_toolkit/features/settings/app_language_tile.dart';
 import 'package:aut_toolkit/features/settings/log_out_tile.dart';
+import 'package:aut_toolkit/features/settings/theme_mode_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -40,6 +41,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           // Language setting
           AppLanguageTile(),
           const Divider(),
+          ThemeModeTile(),
+          const Divider()
         ],
       ),
     );

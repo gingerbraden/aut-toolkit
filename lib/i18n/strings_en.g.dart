@@ -13,25 +13,25 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	///
 	/// Usage:
 	/// final t = Translations.of(context);
-	static Translations of(BuildContext context) =>
-			InheritedLocaleData
-					.of<AppLocale, Translations>(context)
-					.translations;
+  static Translations of(BuildContext context) =>
+      InheritedLocaleData
+          .of<AppLocale, Translations>(context)
+          .translations;
 
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	Translations({Map<String,
-			Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<
-			AppLocale,
-			Translations>? meta})
-			: assert(overrides ==
-			null, 'Set "translation_overrides: true" in order to enable this feature.'),
-				$meta = meta ?? TranslationMetadata(
-					locale: AppLocale.en,
-					overrides: overrides ?? {},
-					cardinalResolver: cardinalResolver,
-					ordinalResolver: ordinalResolver,
-				) {
+  Translations({Map<String,
+      Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<
+      AppLocale,
+      Translations>? meta})
+      : assert(overrides ==
+      null, 'Set "translation_overrides: true" in order to enable this feature.'),
+        $meta = meta ?? TranslationMetadata(
+          locale: AppLocale.en,
+          overrides: overrides ?? {},
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        ) {
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -39,13 +39,13 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	dynamic operator [](String key) => $meta.getTranslation(key);
+  dynamic operator [](String key) => $meta.getTranslation(key);
 
 	late final Translations _root = this; // ignore: unused_field
 
-	Translations $copyWith(
-			{TranslationMetadata<AppLocale, Translations>? meta}) =>
-			Translations(meta: meta ?? this.$meta);
+  Translations $copyWith(
+      {TranslationMetadata<AppLocale, Translations>? meta}) =>
+      Translations(meta: meta ?? this.$meta);
 
 	// Translations
 
@@ -135,6 +135,18 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Change app language'
 	String get change_app_language => 'Change app language';
+
+  /// en: 'Dark mode'
+  String get dark_mode_toggle => 'Dark mode';
+
+  /// en: 'Habits'
+  String get good_habits => 'Habits';
+
+  /// en: 'Bad habits'
+  String get bad_habits => 'Bad habits';
+
+  /// en: 'Eating habits'
+  String get eating_habits => 'Eating habits';
 }
 
 /// Flat map(s) containing all translations.
@@ -142,66 +154,74 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'good_day':
-				return 'Hello!';
-			case 'sign_in':
-				return 'Please sign in to use AutToolkit';
-			case 'sign_in_google':
-				return 'Sign in with Google';
-			case 'sign_in_mail':
-				return 'Sign in with Email';
-			case 'password':
-				return 'Password';
-			case 'password_again':
-				return 'Confirm password';
-			case 'no_account':
-				return 'No account yet?';
-			case 'create_account':
-				return 'Create account';
-			case 'log_in_button':
-				return 'Log in';
-			case 'no_sign_in_details':
-				return 'Missing e-mail or password';
-			case 'passwords_dont_match':
-				return 'Passwords don\'t match';
-			case 'invalid_mail':
-				return 'Invalid e-mail address';
-			case 'invalid_password':
-				return 'Password must contain at elast 6 characters';
-			case 'invalid_email_password':
-				return 'Incorrect e-mail or password';
-			case 'sign_in_button':
-				return 'Sign in';
-			case 'cancel':
-				return 'Cancel';
-			case 'home':
-				return 'Home';
-			case 'settings':
-				return 'Settings';
-			case 'kid_mode_button':
-				return 'Child app mode';
-			case 'signed_in_as':
-				return 'Signed in as: ';
-			case 'log_out':
-				return 'Log out';
-			case 'app_language':
-				return 'App language';
-			case 'change':
-				return 'Change';
-			case 'email':
-				return 'E-mail';
-			case 'enter_details':
-				return 'Enter details';
-			case 'really_log_out':
-				return 'Do you really want to log out?';
-			case 'yes':
-				return 'Yes';
-			case 'no':
-				return 'No';
-			case 'change_app_language':
-				return 'Change app language';
-			default:
-				return null;
+      case 'good_day':
+        return 'Hello!';
+      case 'sign_in':
+        return 'Please sign in to use AutToolkit';
+      case 'sign_in_google':
+        return 'Sign in with Google';
+      case 'sign_in_mail':
+        return 'Sign in with Email';
+      case 'password':
+        return 'Password';
+      case 'password_again':
+        return 'Confirm password';
+      case 'no_account':
+        return 'No account yet?';
+      case 'create_account':
+        return 'Create account';
+      case 'log_in_button':
+        return 'Log in';
+      case 'no_sign_in_details':
+        return 'Missing e-mail or password';
+      case 'passwords_dont_match':
+        return 'Passwords don\'t match';
+      case 'invalid_mail':
+        return 'Invalid e-mail address';
+      case 'invalid_password':
+        return 'Password must contain at elast 6 characters';
+      case 'invalid_email_password':
+        return 'Incorrect e-mail or password';
+      case 'sign_in_button':
+        return 'Sign in';
+      case 'cancel':
+        return 'Cancel';
+      case 'home':
+        return 'Home';
+      case 'settings':
+        return 'Settings';
+      case 'kid_mode_button':
+        return 'Child app mode';
+      case 'signed_in_as':
+        return 'Signed in as: ';
+      case 'log_out':
+        return 'Log out';
+      case 'app_language':
+        return 'App language';
+      case 'change':
+        return 'Change';
+      case 'email':
+        return 'E-mail';
+      case 'enter_details':
+        return 'Enter details';
+      case 'really_log_out':
+        return 'Do you really want to log out?';
+      case 'yes':
+        return 'Yes';
+      case 'no':
+        return 'No';
+      case 'change_app_language':
+        return 'Change app language';
+      case 'dark_mode_toggle':
+        return 'Dark mode';
+      case 'good_habits':
+        return 'Habits';
+      case 'bad_habits':
+        return 'Bad habits';
+      case 'eating_habits':
+        return 'Eating habits';
+      default:
+        return null;
 		}
 	}
 }

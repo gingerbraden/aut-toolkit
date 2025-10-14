@@ -1,4 +1,5 @@
 import 'package:aut_toolkit/shared/provider/locale_change_notifier.dart';
+import 'package:aut_toolkit/shared/provider/theme_mode_notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -30,6 +31,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final locale = ref.watch(localeChangeNotifierProvider);
+    final themeMode = ref.watch(themeModeNotifierProvider);
     return MaterialApp.router(
       routerConfig: router,
       title: 'AutToolkit',
@@ -38,8 +40,15 @@ class MyApp extends ConsumerWidget {
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+        useMaterial3: true,
       ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.orange, brightness: Brightness.dark),
+        useMaterial3: true,
+      ),
+      themeMode: themeMode,
     );
   }
 }

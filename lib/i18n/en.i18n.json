@@ -27,5 +27,9 @@
   "really_log_out": "Do you really want to log out?",
   "yes": "Yes",
   "no": "No",
-  "change_app_language": "Change app language"
+  "change_app_language": "Change app language",
+  "dark_mode_toggle": "Dark mode",
+  "good_habits": "Habits",
+  "bad_habits": "Bad habits",
+  "eating_habits": "Eating habits"
 }
