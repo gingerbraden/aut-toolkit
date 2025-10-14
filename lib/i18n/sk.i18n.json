@@ -20,6 +20,12 @@
   "kid_mode_button": "Mód aplikácie dieťaťa",
   "signed_in_as": "Prihlásený ako: ",
   "log_out": "Odhlásiť sa",
-  "app_language": "Jazyk aplikácie: ",
-  "change": "Zmeniť"
+  "app_language": "Jazyk aplikácie",
+  "change": "Zmeniť",
+  "email": "E-mail",
+  "enter_details": "Zadajte údaje",
+  "really_log_out": "Naozaj sa chcete odhlásiť?",
+  "yes": "Áno",
+  "no": "Nie",
+  "change_app_language": "Zmeniť jazyk aplikácie"
 }

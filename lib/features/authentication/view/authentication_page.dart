@@ -23,29 +23,10 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        // title: Text("Authentication"),
         actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: PopupMenuButton<AppLocale>(
-              onSelected: (locale) {
-                setState(() {
-                  LocaleSettings.setLocaleRaw(locale.name);
-                });
-              },
-              itemBuilder: (BuildContext context) =>
-                  AppLocale.values.map((locale) {
-                    return PopupMenuItem<AppLocale>(
-                      value: locale,
-                      child: Text(locale.name.toUpperCase()),
-                    );
-                  }).toList(),
-              icon: const Icon(Icons.language),
-            ),
-          ),
+          _languagePopup()
         ],
       ),
       // appBar: AppBar(title: const Text('Firebase Auth Service')),
@@ -55,89 +36,10 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Text(
-                    Translations
-                        .of(context)
-                        .good_day,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .displayLarge,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(25.0, 0, 25.0, 45.0),
-                  child: Text(
-                    Translations
-                        .of(context)
-                        .sign_in,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: TextField(
-                    controller: loginEmailController,
-                    decoration: const InputDecoration(labelText: 'Email'),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: TextField(
-                    controller: loginPasswordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: Translations
-                          .of(context)
-                          .password,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 25),
-                ElevatedButton(
-                  onPressed: () async {
-                    String? result = await ref
-                        .read(authentificationNotifierProvider.notifier)
-                        .signIn(
-                      loginEmailController.text.trim(),
-                      loginPasswordController.text.trim(),
-                    );
-                    if (result == null) {
-                      router.go('/home');
-                    } else {
-                      ScaffoldMessengerUtils().showSnackBar(
-                          context, Translations
-                          .of(context)
-                          .invalid_email_password);
-                    };
-                  },
-                  child: Text(Translations
-                      .of(context)
-                      .log_in_button),
-                ),
+                ..._initialText(),
+                ..._logInArea(),
                 Padding(padding: const EdgeInsets.all(20.0), child: Divider()),
-                Text(
-                  Translations
-                      .of(context)
-                      .no_account,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .titleSmall,
-                  textAlign: TextAlign.center,
-                ),
-                TextButton(
-                  onPressed: () => {_showTwoTextFieldDialog(context)},
-                  child: Text(Translations
-                      .of(context)
-                      .create_account),
-                ),
+                ..._noAccountArea()
               ],
             ),
           ),
@@ -146,35 +48,142 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
     );
   }
 
+
+  Widget _languagePopup() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      child: PopupMenuButton<AppLocale>(
+        onSelected: (locale) {
+          setState(() {
+            LocaleSettings.setLocaleRaw(locale.name);
+          });
+        },
+        itemBuilder: (BuildContext context) =>
+            AppLocale.values.map((locale) {
+              return PopupMenuItem<AppLocale>(
+                value: locale,
+                child: Text(locale.name.toUpperCase()),
+              );
+            }).toList(),
+        icon: const Icon(Icons.language),
+      ),
+    );
+  }
+
+  List<Widget> _initialText() {
+    return [
+      Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Text(
+          t.good_day,
+          style: Theme
+              .of(context)
+              .textTheme
+              .displayLarge,
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(25.0, 0, 25.0, 45.0),
+        child: Text(
+          t.sign_in,
+          style: Theme
+              .of(context)
+              .textTheme
+              .titleLarge,
+          textAlign: TextAlign.center,
+        ),
+      )
+    ];
+  }
+
+  List<Widget> _logInArea() {
+    return [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: TextField(
+          controller: loginEmailController,
+          decoration: InputDecoration(labelText: t.email),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: TextField(
+          controller: loginPasswordController,
+          obscureText: true,
+          decoration: InputDecoration(
+            labelText: t.password,
+          ),
+        ),
+      ),
+      const SizedBox(height: 25),
+      ElevatedButton(
+        onPressed: () async {
+          _logIn();
+        },
+        child: Text(t.log_in_button),
+      )
+    ];
+  }
+
+  List<Widget> _noAccountArea() {
+    return [
+      Text(
+        t.no_account,
+        style: Theme
+            .of(context)
+            .textTheme
+            .titleSmall,
+        textAlign: TextAlign.center,
+      ),
+      TextButton(
+        onPressed: () => {_showTwoTextFieldDialog(context)},
+        child: Text(t.create_account),
+      )
+    ];
+  }
+
+  Future<void> _logIn() async {
+    String? result = await ref
+        .read(authentificationNotifierProvider.notifier)
+        .signIn(
+      loginEmailController.text.trim(),
+      loginPasswordController.text.trim(),
+    );
+    if (result == null) {
+      router.go('/home');
+    } else {
+      ScaffoldMessengerUtils().showSnackBar(
+        context,
+        t.invalid_email_password,
+      );
+    }
+  }
+
   void _showTwoTextFieldDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Enter Details"),
+          title: Text(t.enter_details),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: signInEmailController,
-                decoration: InputDecoration(labelText: "E-mail"),
+                decoration: InputDecoration(labelText: t.email),
               ),
               TextField(
                 controller: signInPasswordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  labelText: Translations
-                      .of(context)
-                      .password,
+                  labelText: t.password,
                 ),
               ),
               TextField(
                 controller: signInPasswordRepeatController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  labelText: Translations
-                      .of(context)
-                      .password_again,
+                  labelText: t.password_again,
                 ),
               ),
             ],
@@ -184,17 +193,13 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(Translations
-                  .of(context)
-                  .cancel),
+              child: Text(t.cancel),
             ),
             ElevatedButton(
               onPressed: () {
                 _signIn();
               },
-              child: Text(Translations
-                  .of(context)
-                  .sign_in_button),
+              child: Text(t.sign_in_button),
             ),
           ],
         );
@@ -212,26 +217,28 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
         signInEmailController.text
             .trim()
             .isEmpty) {
-      ScaffoldMessengerUtils().showSnackBar(context, Translations
-          .of(context)
-          .no_sign_in_details);
+      ScaffoldMessengerUtils().showSnackBar(
+        context,
+        t.no_sign_in_details,
+      );
     } else if (loginPasswordController.text.trim() !=
         signInPasswordRepeatController.text.trim()) {
-      ScaffoldMessengerUtils().showSnackBar(context, Translations
-          .of(context)
-          .passwords_dont_match);
-    } else if (!StringUtils().isMailValid(
-      signInEmailController.text.trim(),
-    )) {
-      ScaffoldMessengerUtils().showSnackBar(context, Translations
-          .of(context)
-          .invalid_mail);
+      ScaffoldMessengerUtils().showSnackBar(
+        context,
+        t.passwords_dont_match,
+      );
+    } else if (!StringUtils().isMailValid(signInEmailController.text.trim())) {
+      ScaffoldMessengerUtils().showSnackBar(
+        context,
+        t.invalid_mail,
+      );
     } else if (loginPasswordController.text
         .trim()
         .length < 6) {
-      ScaffoldMessengerUtils().showSnackBar(context, Translations
-          .of(context)
-          .invalid_password);
+      ScaffoldMessengerUtils().showSnackBar(
+        context,
+        t.invalid_password,
+      );
     } else {
       ref
           .read(authentificationNotifierProvider.notifier)

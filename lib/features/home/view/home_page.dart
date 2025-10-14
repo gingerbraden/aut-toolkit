@@ -1,4 +1,4 @@
-import 'package:aut_toolkit/features/home/view/settings_page.dart';
+import 'package:aut_toolkit/features/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,8 +17,8 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   // Example pages for each tab
   final List<Widget> _pages = [
-    const Center(child: Text('Dashboard')),
-    const Center(child: Text('Search')),
+    Center(child: Text(t.home)),
+    const Center(child: Text('TODO')),
     const SettingsPage(),
   ];
 
@@ -38,15 +38,15 @@ class _HomePageState extends ConsumerState<HomePage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: Translations.of(context).home,
+            label: t.home,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: Translations.of(context).kid_mode_button,
+            label: t.kid_mode_button,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: Translations.of(context).settings,
+            icon: Icon(Icons.settings),
+            label: t.settings,
           ),
         ],
       ),

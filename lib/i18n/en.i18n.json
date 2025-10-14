@@ -20,6 +20,12 @@
   "kid_mode_button": "Child app mode",
   "signed_in_as": "Signed in as: ",
   "log_out": "Log out",
-  "app_language": "App language: ",
-  "change": "Change"
+  "app_language": "App language",
+  "change": "Change",
+  "email": "E-mail",
+  "enter_details": "Enter details",
+  "really_log_out": "Do you really want to log out?",
+  "yes": "Yes",
+  "no": "No",
+  "change_app_language": "Change app language"
 }

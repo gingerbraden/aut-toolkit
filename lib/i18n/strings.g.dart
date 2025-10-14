@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 46 (23 per locale)
+/// Strings: 58 (29 per locale)
 ///
-/// Built on 2025-10-13 at 16:22 UTC
+/// Built on 2025-10-14 at 15:12 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -161,7 +161,7 @@ class LocaleSettings
 	static Future<AppLocale> setLocaleRaw(String rawLocale,
 			{bool? listenToDeviceLocale = false}) =>
 			instance.setLocaleRaw(
-					rawLocale, listenToDeviceLocale: listenToDeviceLocale);
+			rawLocale, listenToDeviceLocale: listenToDeviceLocale);
 	static Future<AppLocale> useDeviceLocale() => instance.useDeviceLocale();
 
 	static Future<void> setPluralResolver(
@@ -177,12 +177,12 @@ class LocaleSettings
 	static AppLocale setLocaleSync(AppLocale locale,
 			{bool? listenToDeviceLocale = false}) =>
 			instance.setLocaleSync(
-					locale, listenToDeviceLocale: listenToDeviceLocale);
+			locale, listenToDeviceLocale: listenToDeviceLocale);
 
 	static AppLocale setLocaleRawSync(String rawLocale,
 			{bool? listenToDeviceLocale = false}) =>
 			instance.setLocaleRawSync(
-					rawLocale, listenToDeviceLocale: listenToDeviceLocale);
+			rawLocale, listenToDeviceLocale: listenToDeviceLocale);
 	static AppLocale useDeviceLocaleSync() => instance.useDeviceLocaleSync();
 
 	static void setPluralResolverSync(
