@@ -1,15 +1,17 @@
+import 'package:aut_toolkit/shared/provider/locale_change_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../i18n/strings.g.dart';
 
-class AppLanguageTile extends StatefulWidget {
+class AppLanguageTile extends ConsumerStatefulWidget {
   const AppLanguageTile({super.key});
 
   @override
-  State<AppLanguageTile> createState() => _AppLanguageTileState();
+  ConsumerState<AppLanguageTile> createState() => _AppLanguageTileState();
 }
 
-class _AppLanguageTileState extends State<AppLanguageTile> {
+class _AppLanguageTileState extends ConsumerState<AppLanguageTile> {
   AppLocale _selectedLocale = LocaleSettings.currentLocale;
 
   @override
@@ -59,6 +61,9 @@ class _AppLanguageTileState extends State<AppLanguageTile> {
       setState(() {
         _selectedLocale = chosenLocale;
         LocaleSettings.setLocaleRaw(chosenLocale.name);
+        ref
+            .read(localeChangeNotifierProvider.notifier)
+            .changeLocale(chosenLocale);
       });
     }
   }

@@ -1,3 +1,4 @@
+import 'package:aut_toolkit/shared/provider/locale_change_notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -23,15 +24,16 @@ Future main() async {
   runApp(TranslationProvider(child: ProviderScope(child: const MyApp())));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final locale = ref.watch(localeChangeNotifierProvider);
     return MaterialApp.router(
       routerConfig: router,
       title: 'AutToolkit',
-      locale: AppLocale.sk.flutterLocale,
+      locale: locale.flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       debugShowCheckedModeBanner: false,
