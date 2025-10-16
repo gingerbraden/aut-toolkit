@@ -1,8 +1,7 @@
+import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:aut_toolkit/shared/provider/theme_mode_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../i18n/strings.g.dart';
 
 class ThemeModeTile extends ConsumerStatefulWidget {
   const ThemeModeTile({super.key});

@@ -84,6 +84,22 @@ class TranslationsSk implements Translations {
   @override String get bad_habits => 'Nevhodné správanie';
 
   @override String get eating_habits => 'Jedálniček';
+
+  @override String get is_eating => 'Je';
+
+  @override String get is_not_eating => 'Neje';
+
+  @override String get active => 'Aktívne';
+
+  @override String get inactive => 'Neaktívne';
+
+  @override String get search => 'Vyhľadať';
+
+  @override String get no_entries => 'Žiadne záznamy';
+
+  @override String get from => 'Od';
+
+  @override String get to => 'Do';
 }
 
 /// Flat map(s) containing all translations.
@@ -157,6 +173,22 @@ extension on TranslationsSk {
         return 'Nevhodné správanie';
       case 'eating_habits':
         return 'Jedálniček';
+      case 'is_eating':
+        return 'Je';
+      case 'is_not_eating':
+        return 'Neje';
+      case 'active':
+        return 'Aktívne';
+      case 'inactive':
+        return 'Neaktívne';
+      case 'search':
+        return 'Vyhľadať';
+      case 'no_entries':
+        return 'Žiadne záznamy';
+      case 'from':
+        return 'Od';
+      case 'to':
+        return 'Do';
       default:
         return null;
 		}

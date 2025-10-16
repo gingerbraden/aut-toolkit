@@ -31,5 +31,14 @@
   "dark_mode_toggle": "Tmavý režim",
   "good_habits": "Návyky",
   "bad_habits": "Nevhodné správanie",
-  "eating_habits": "Jedálniček"
+  "eating_habits": "Jedálniček",
+  "is_eating": "Je",
+  "is_not_eating": "Neje",
+  "active": "Aktívne",
+  "inactive": "Neaktívne",
+  "search": "Vyhľadať",
+  "no_entries": "Žiadne záznamy",
+  "from": "Od",
+  "to": "Do"
+
 }

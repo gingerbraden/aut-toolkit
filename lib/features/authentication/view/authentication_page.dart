@@ -1,6 +1,6 @@
 import 'package:aut_toolkit/app/router.dart';
-import 'package:aut_toolkit/core/utils/ScaffoldMessengerUtils.dart';
-import 'package:aut_toolkit/core/utils/StringUtils.dart';
+import 'package:aut_toolkit/core/utils/scaffold_messenger_util.dart';
+import 'package:aut_toolkit/core/utils/string_util.dart';
 import 'package:aut_toolkit/features/authentication/provider/authentication_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

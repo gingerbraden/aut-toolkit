@@ -3,7 +3,7 @@ import 'package:aut_toolkit/features/authentication/provider/authentication_noti
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../i18n/strings.g.dart';
+import '../../../i18n/strings.g.dart';
 
 class LogOutTile extends ConsumerStatefulWidget {
   const LogOutTile({super.key});

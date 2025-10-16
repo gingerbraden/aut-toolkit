@@ -2,7 +2,7 @@ import 'package:aut_toolkit/shared/provider/locale_change_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../i18n/strings.g.dart';
+import '../../../i18n/strings.g.dart';
 
 class AppLanguageTile extends ConsumerStatefulWidget {
   const AppLanguageTile({super.key});

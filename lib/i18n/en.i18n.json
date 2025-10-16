@@ -31,5 +31,13 @@
   "dark_mode_toggle": "Dark mode",
   "good_habits": "Habits",
   "bad_habits": "Bad habits",
-  "eating_habits": "Eating habits"
+  "eating_habits": "Eating habits",
+  "is_eating": "Eats",
+  "is_not_eating": "Does not eat",
+  "active": "Active",
+  "inactive": "Inactive",
+  "search": "Search",
+  "no_entries": "No entries",
+  "from": "From",
+  "to": "To"
 }

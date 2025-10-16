@@ -147,6 +147,30 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
   /// en: 'Eating habits'
   String get eating_habits => 'Eating habits';
+
+  /// en: 'Eats'
+  String get is_eating => 'Eats';
+
+  /// en: 'Does not eat'
+  String get is_not_eating => 'Does not eat';
+
+  /// en: 'Active'
+  String get active => 'Active';
+
+  /// en: 'Inactive'
+  String get inactive => 'Inactive';
+
+  /// en: 'Search'
+  String get search => 'Search';
+
+  /// en: 'No entries'
+  String get no_entries => 'No entries';
+
+  /// en: 'From'
+  String get from => 'From';
+
+  /// en: 'To'
+  String get to => 'To';
 }
 
 /// Flat map(s) containing all translations.
@@ -220,6 +244,22 @@ extension on Translations {
         return 'Bad habits';
       case 'eating_habits':
         return 'Eating habits';
+      case 'is_eating':
+        return 'Eats';
+      case 'is_not_eating':
+        return 'Does not eat';
+      case 'active':
+        return 'Active';
+      case 'inactive':
+        return 'Inactive';
+      case 'search':
+        return 'Search';
+      case 'no_entries':
+        return 'No entries';
+      case 'from':
+        return 'From';
+      case 'to':
+        return 'To';
       default:
         return null;
 		}
