@@ -46,11 +46,15 @@ dependencies:
   slang_flutter: 4.9.0
   riverpod_annotation: ^3.0.3
   flutter_dotenv: 6.0.0
+  objectbox: ^5.0.0
+  objectbox_flutter_libs: any
 
 
 dev_dependencies:
+
   flutter_test:
     sdk: flutter
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -60,6 +64,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   riverpod_generator: ^3.0.3
   build_runner: ^2.7.1
+  objectbox_generator: any
 
 # For information  on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -1,5 +1,6 @@
 import 'package:aut_toolkit/shared/provider/locale_change_notifier.dart';
 import 'package:aut_toolkit/shared/provider/theme_mode_notifier.dart';
+import 'package:aut_toolkit/shared/services/objectbox.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -9,10 +10,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app/router.dart';
 import 'i18n/strings.g.dart';
 
+late final ObjectBox objectbox;
+
 Future main() async {
   await dotenv.load(fileName: ".env");
   LocaleSettings.setLocale(AppLocale.sk);
   WidgetsFlutterBinding.ensureInitialized();
+  objectbox = await ObjectBox.create();
   await Firebase.initializeApp(
     options: FirebaseOptions(
       apiKey: dotenv.env['FIREBASE_API_KEY'] ?? '',

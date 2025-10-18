@@ -1,5 +1,5 @@
 import 'package:aut_toolkit/app/router.dart';
-import 'package:aut_toolkit/features/eating_habits/model/eating_habit.dart';
+import 'package:aut_toolkit/features/eating_habits/domain/model/eating_habit.dart';
 import 'package:aut_toolkit/features/eating_habits/provider/eating_habits_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,7 +27,7 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
 
   @override
   Widget build(BuildContext context) {
-    final habits = ref.watch(eatingHabitsNotifierProvider);
+    final habits = ref.watch(eatingHabitsProvider);
 
     final filteredHabits = _checkFilters(habits);
 
@@ -95,7 +95,7 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
                         return Card(
                           elevation: 0,
                           child: ListTile(
-                            title: Text(habit.name ?? ''),
+                            title: Text(habit.name),
                             subtitle: Text(
                               '${t.from} ${DateUtil().returnDateInStringFormat(habit.from)}',
                             ),
@@ -117,7 +117,16 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          habits.add(EatingHabit(from: DateTime.timestamp(),
+              to: null,
+              isEatingFlag: true,
+              name: "ok",
+              description: "o"));
+          setState(() {
+
+          });
+        },
         child: const Icon(Icons.add),
       ),
     );
@@ -126,8 +135,7 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
   List<EatingHabit> _checkFilters(List<EatingHabit> habits) {
     return habits.where((habit) {
       final matchesSearch =
-          habit.name != null &&
-          habit.name!.toLowerCase().contains(_searchQuery.toLowerCase());
+      habit.name.toLowerCase().contains(_searchQuery.toLowerCase());
 
       bool matchesFilter = true;
 
