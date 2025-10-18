@@ -1,7 +1,6 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart'; // Import GoRouter
 
 import '../../../i18n/strings.g.dart';
 
@@ -29,8 +28,9 @@ class _HomePageState extends ConsumerState<HomePage> {
               SizedBox(height: 8),
               buildCard(
                 t.eating_habits,
-                "Description duis aute irure dolor in reprehenderit in voluptsafweffffffffffffffffffate velit.",/home/eating-habits', // route
-              )),
+                  "Description duis aute irure dolor in reprehenderit in voluptsafweffffffffffffffffffate velit.",
+                  '/home/eating-habits' // route
+              ),
               SizedBox(height: 8),
               buildCard(
                 t.good_habits,
