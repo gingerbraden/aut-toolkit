@@ -76,7 +76,7 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          router.push(RouterUtils.getNewEatingHabitPath(), extra: new EatingHabit(from: DateTime.now(), to: null, isEatingFlag: true, name: '', description: '', userId: FirebaseService().currentUser!.uid));
+          router.push(RouterUtils.getNewEatingHabitPath(), extra: EatingHabit(from: DateTime.now(), to: null, isEatingFlag: true, name: '', description: '', userId: FirebaseService().currentUser!.uid));
         },
         child: const Icon(Icons.add),
       ),
@@ -168,23 +168,21 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
           final habit = filteredHabits[index];
           return Card(
             elevation: 0,
-            child: InkWell(
-              onTap: () {
-                router.push(RouterUtils.getEatingHabitDetailPath(), extra: habit);
-              },
-              child: ListTile(
-                  title: Text(habit.name),
-                  subtitle: Text(
-                    '${t.from} ${DateUtil.returnDateInStringFormat(habit.from)}',
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      EatingIcon(isEatingFlag: habit.isEatingFlag),
-                      ActiveIcon(isActiveFlag: DateUtil.isTodayBetweenTwoDates(habit.from, habit.to))
-                    ],
-                  )
-              ),
+            child: ListTile(
+                onTap: () {
+                    router.push(RouterUtils.getEatingHabitDetailPath(), extra: habit);
+                },
+                title: Text(habit.name),
+                subtitle: Text(
+                  '${t.from} ${DateUtil.returnDateInStringFormat(habit.from)}',
+                ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    EatingIcon(isEatingFlag: habit.isEatingFlag),
+                    ActiveIcon(isActiveFlag: DateUtil.isTodayBetweenTwoDates(habit.from, habit.to))
+                  ],
+                )
             ),
           );
         },

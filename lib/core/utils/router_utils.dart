@@ -1,5 +1,3 @@
-import '../../app/router.dart';
-
 class RouterUtils {
 
   static final String HOME = '/home';

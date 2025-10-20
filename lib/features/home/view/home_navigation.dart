@@ -43,11 +43,11 @@ class _HomeNavigationState extends ConsumerState<HomeNavigation> {
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: t.home),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
             label: t.kid_mode_button,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             label: t.settings,
           ),
         ],

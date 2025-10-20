@@ -27,19 +27,19 @@ class _HomePageState extends ConsumerState<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               buildCard(
                 t.eating_habits,
                   "Description duis aute irure dolor in reprehenderit in voluptsafweffffffffffffffffffate velit.",
                   RouterUtils.getEatingHabitsPath() // route
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               buildCard(
                 t.good_habits,
                 "Description duis aute irure dolor in reprehenderit in voluptate velit.",
                 'TODO',
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               buildCard(
                 t.bad_habits,
                 "Description duis aute irure dolor in reprehenderit in voluptate velit.",
