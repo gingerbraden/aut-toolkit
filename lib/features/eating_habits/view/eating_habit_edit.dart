@@ -94,14 +94,17 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
   }
 
   Widget _nameTextField() {
-    return TextFormField(
-      controller: _nameController,
-      decoration: InputDecoration(
-        labelText: t.name,
-        border: OutlineInputBorder(),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+      child: TextFormField(
+        controller: _nameController,
+        decoration: InputDecoration(
+          labelText: t.name,
+          border: OutlineInputBorder(),
+        ),
+        validator: (value) =>
+        value == null || value.isEmpty ? t.please_enter_name : null,
       ),
-      validator: (value) =>
-      value == null || value.isEmpty ? t.please_enter_name : null,
     );
   }
 
