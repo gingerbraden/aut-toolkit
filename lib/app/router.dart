@@ -44,7 +44,7 @@ final GoRouter router = GoRouter(
                   path: RouterUtils.EATING_HABIT_EDIT,
                   builder: (context, state) {
                     final habit = state.extra as EatingHabit;
-                    return EatingHabitEdit(habit: habit);
+                    return EatingHabitEdit(habit: habit, isNew: false,);
                   },
                 )
               ]
@@ -53,7 +53,7 @@ final GoRouter router = GoRouter(
               path: RouterUtils.EATING_HABIT_EDIT,
               builder: (context, state) {
                 final habit = state.extra as EatingHabit;
-                return EatingHabitEdit(habit: habit);
+                return EatingHabitEdit(habit: habit, isNew: true,);
               },
             )
           ],

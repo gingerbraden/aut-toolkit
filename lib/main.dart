@@ -1,6 +1,3 @@
-import 'package:aut_toolkit/shared/provider/locale_change_notifier.dart';
-import 'package:aut_toolkit/shared/provider/theme_mode_notifier.dart';
-import 'package:aut_toolkit/shared/services/objectbox.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -8,6 +5,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app/router.dart';
+import 'core/provider/locale_change_notifier.dart';
+import 'core/provider/theme_mode_notifier.dart';
+import 'core/services/objectbox.dart';
 import 'i18n/strings.g.dart';
 
 late final ObjectBox objectbox;
@@ -44,12 +44,12 @@ class MyApp extends ConsumerWidget {
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
         useMaterial3: true,
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.orange, brightness: Brightness.dark),
+            seedColor: Colors.lightBlue, brightness: Brightness.dark),
         useMaterial3: true,
       ),
       themeMode: themeMode,

@@ -39,6 +39,20 @@
   "search": "Vyhľadať",
   "no_entries": "Žiadne záznamy",
   "from": "Od",
-  "to": "Do"
+  "to": "Do",
+  "notes": "Poznámky",
+  "really_delete_object": "Naozaj si prajete vymazať ",
+  "not_set": "Nenastavené",
+  "edit": "Upraviť",
+  "name": "Názov",
+  "please_enter_name": "Prosím zadajte názov",
+  "save": "Uložiť",
+  "ascending": "Vzostupne",
+  "descending": "Zostupne",
+  "sort_by": "Zoradiť podľa",
+  "date": "Dátum",
+  "filters_and_sorting": "Filtre a triedenie",
+  "filters": "Filtre",
+  "sort": "Zoradenie podľa"
 
 }

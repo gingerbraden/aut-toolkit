@@ -9,6 +9,7 @@ extension UserEntityMapper on EatingHabitEntity {
     isEatingFlag: isEatingFlag,
     name: name,
     description: description,
+    userId: userId,
   );
 }
 
@@ -20,5 +21,6 @@ extension UserModelMapper on EatingHabit {
     isEatingFlag: isEatingFlag,
     name: name,
     description: description,
+    userId: userId,
   );
 }

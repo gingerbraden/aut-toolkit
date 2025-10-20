@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../shared/services/firebase_service.dart';
+import '../../../core/services/firebase_service.dart';
+
 
 class AuthentificationNotifier extends Notifier<User?> {
   final FirebaseService _firebaseService = FirebaseService();

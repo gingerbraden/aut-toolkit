@@ -39,5 +39,19 @@
   "search": "Search",
   "no_entries": "No entries",
   "from": "From",
-  "to": "To"
+  "to": "To",
+  "notes": "Notes",
+  "really_delete_object": "Do you really wish to delete ",
+  "not_set": "Not set",
+  "edit": "Edit",
+  "name": "Name",
+  "please_enter_name": "Please enter a name",
+  "save": "Save",
+  "ascending": "Ascending",
+  "descending": "Descending",
+  "sort_by": "Sort by",
+  "date": "Date",
+  "filters_and_sorting": "Filters and sorting",
+  "filters": "Filters",
+  "sort": "Sort by"
 }

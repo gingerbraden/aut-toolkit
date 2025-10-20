@@ -5,6 +5,7 @@ class EatingHabit {
   bool isEatingFlag;
   String name;
   String description;
+  String userId;
 
   EatingHabit({
     this.id = 0,
@@ -13,5 +14,6 @@ class EatingHabit {
     required this.isEatingFlag,
     required this.name,
     required this.description,
+    required this.userId
   });
 }

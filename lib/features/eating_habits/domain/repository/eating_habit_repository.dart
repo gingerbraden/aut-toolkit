@@ -2,6 +2,6 @@ import 'package:aut_toolkit/features/eating_habits/domain/model/eating_habit.dar
 
 abstract class EatingHabitRepository {
   List<EatingHabit> getAllHabits();
-
   void saveHabit(EatingHabit eatingHabit);
+  void deleteHabit(EatingHabit eatingHabit);
 }

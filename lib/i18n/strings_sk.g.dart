@@ -7,25 +7,20 @@
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
-
 import 'strings.g.dart';
 
 // Path: <root>
 class TranslationsSk implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsSk({Map<String,
-      Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<
-      AppLocale,
-      Translations>? meta})
-      : assert(overrides ==
-      null, 'Set "translation_overrides: true" in order to enable this feature.'),
-        $meta = meta ?? TranslationMetadata(
-          locale: AppLocale.sk,
-          overrides: overrides ?? {},
-          cardinalResolver: cardinalResolver,
-          ordinalResolver: ordinalResolver,
-        ) {
+	TranslationsSk({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = meta ?? TranslationMetadata(
+		    locale: AppLocale.sk,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ) {
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -33,20 +28,16 @@ class TranslationsSk implements Translations {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-  @override dynamic operator [](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final TranslationsSk _root = this; // ignore: unused_field
 
-  @override
-  TranslationsSk $copyWith(
-      {TranslationMetadata<AppLocale, Translations>? meta}) =>
-      TranslationsSk(meta: meta ?? this.$meta);
+	@override 
+	TranslationsSk $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsSk(meta: meta ?? this.$meta);
 
 	// Translations
 	@override String get good_day => 'Dobrý deň';
-
-  @override String get sign_in =>
-      'Prihláste sa, aby ste mohli používať AutToolkit';
+	@override String get sign_in => 'Prihláste sa, aby ste mohli používať AutToolkit';
 	@override String get sign_in_google => 'Prihlásiť sa pomocou Google';
 	@override String get sign_in_mail => 'Prihlásiť sa pomocou e-mailu';
 	@override String get password => 'Heslo';
@@ -57,9 +48,7 @@ class TranslationsSk implements Translations {
 	@override String get no_sign_in_details => 'Chýbajuci e-mail alebo heslo';
 	@override String get passwords_dont_match => 'Heslá sa nezhodujú';
 	@override String get invalid_mail => 'Neplatná e-mailová adresa';
-
-  @override String get invalid_password =>
-      'Heslo musí obsahovať aspoň 6 znakov';
+	@override String get invalid_password => 'Heslo musí obsahovať aspoň 6 znakov';
 	@override String get invalid_email_password => 'Nesprávny e-mail alebo heslo';
 	@override String get sign_in_button => 'Registrovať sa';
 	@override String get cancel => 'Zrušiť';
@@ -76,30 +65,32 @@ class TranslationsSk implements Translations {
 	@override String get yes => 'Áno';
 	@override String get no => 'Nie';
 	@override String get change_app_language => 'Zmeniť jazyk aplikácie';
-
-  @override String get dark_mode_toggle => 'Tmavý režim';
-
-  @override String get good_habits => 'Návyky';
-
-  @override String get bad_habits => 'Nevhodné správanie';
-
-  @override String get eating_habits => 'Jedálniček';
-
-  @override String get is_eating => 'Je';
-
-  @override String get is_not_eating => 'Neje';
-
-  @override String get active => 'Aktívne';
-
-  @override String get inactive => 'Neaktívne';
-
-  @override String get search => 'Vyhľadať';
-
-  @override String get no_entries => 'Žiadne záznamy';
-
-  @override String get from => 'Od';
-
-  @override String get to => 'Do';
+	@override String get dark_mode_toggle => 'Tmavý režim';
+	@override String get good_habits => 'Návyky';
+	@override String get bad_habits => 'Nevhodné správanie';
+	@override String get eating_habits => 'Jedálniček';
+	@override String get is_eating => 'Je';
+	@override String get is_not_eating => 'Neje';
+	@override String get active => 'Aktívne';
+	@override String get inactive => 'Neaktívne';
+	@override String get search => 'Vyhľadať';
+	@override String get no_entries => 'Žiadne záznamy';
+	@override String get from => 'Od';
+	@override String get to => 'Do';
+	@override String get notes => 'Poznámky';
+	@override String get really_delete_object => 'Naozaj si prajete vymazať ';
+	@override String get not_set => 'Nenastavené';
+	@override String get edit => 'Upraviť';
+	@override String get name => 'Názov';
+	@override String get please_enter_name => 'Prosím zadajte názov';
+	@override String get save => 'Uložiť';
+	@override String get ascending => 'Vzostupne';
+	@override String get descending => 'Zostupne';
+	@override String get sort_by => 'Zoradiť podľa';
+	@override String get date => 'Dátum';
+	@override String get filters_and_sorting => 'Filtre a triedenie';
+	@override String get filters => 'Filtre';
+	@override String get sort => 'Zoradenie podľa';
 }
 
 /// Flat map(s) containing all translations.
@@ -107,90 +98,62 @@ class TranslationsSk implements Translations {
 extension on TranslationsSk {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-      case 'good_day':
-        return 'Dobrý deň';
-      case 'sign_in':
-        return 'Prihláste sa, aby ste mohli používať AutToolkit';
-      case 'sign_in_google':
-        return 'Prihlásiť sa pomocou Google';
-      case 'sign_in_mail':
-        return 'Prihlásiť sa pomocou e-mailu';
-      case 'password':
-        return 'Heslo';
-      case 'password_again':
-        return 'Potvrďte heslo';
-      case 'no_account':
-        return 'Nemáte ešte účet?';
-      case 'create_account':
-        return 'Vytvoriť účet';
-      case 'log_in_button':
-        return 'Prihlásiť sa';
-      case 'no_sign_in_details':
-        return 'Chýbajuci e-mail alebo heslo';
-      case 'passwords_dont_match':
-        return 'Heslá sa nezhodujú';
-      case 'invalid_mail':
-        return 'Neplatná e-mailová adresa';
-      case 'invalid_password':
-        return 'Heslo musí obsahovať aspoň 6 znakov';
-      case 'invalid_email_password':
-        return 'Nesprávny e-mail alebo heslo';
-      case 'sign_in_button':
-        return 'Registrovať sa';
-      case 'cancel':
-        return 'Zrušiť';
-      case 'home':
-        return 'Domov';
-      case 'settings':
-        return 'Nastavenia';
-      case 'kid_mode_button':
-        return 'Mód aplikácie dieťaťa';
-      case 'signed_in_as':
-        return 'Prihlásený ako: ';
-      case 'log_out':
-        return 'Odhlásiť sa';
-      case 'app_language':
-        return 'Jazyk aplikácie';
-      case 'change':
-        return 'Zmeniť';
-      case 'email':
-        return 'E-mail';
-      case 'enter_details':
-        return 'Zadajte údaje';
-      case 'really_log_out':
-        return 'Naozaj sa chcete odhlásiť?';
-      case 'yes':
-        return 'Áno';
-      case 'no':
-        return 'Nie';
-      case 'change_app_language':
-        return 'Zmeniť jazyk aplikácie';
-      case 'dark_mode_toggle':
-        return 'Tmavý režim';
-      case 'good_habits':
-        return 'Návyky';
-      case 'bad_habits':
-        return 'Nevhodné správanie';
-      case 'eating_habits':
-        return 'Jedálniček';
-      case 'is_eating':
-        return 'Je';
-      case 'is_not_eating':
-        return 'Neje';
-      case 'active':
-        return 'Aktívne';
-      case 'inactive':
-        return 'Neaktívne';
-      case 'search':
-        return 'Vyhľadať';
-      case 'no_entries':
-        return 'Žiadne záznamy';
-      case 'from':
-        return 'Od';
-      case 'to':
-        return 'Do';
-      default:
-        return null;
+			case 'good_day': return 'Dobrý deň';
+			case 'sign_in': return 'Prihláste sa, aby ste mohli používať AutToolkit';
+			case 'sign_in_google': return 'Prihlásiť sa pomocou Google';
+			case 'sign_in_mail': return 'Prihlásiť sa pomocou e-mailu';
+			case 'password': return 'Heslo';
+			case 'password_again': return 'Potvrďte heslo';
+			case 'no_account': return 'Nemáte ešte účet?';
+			case 'create_account': return 'Vytvoriť účet';
+			case 'log_in_button': return 'Prihlásiť sa';
+			case 'no_sign_in_details': return 'Chýbajuci e-mail alebo heslo';
+			case 'passwords_dont_match': return 'Heslá sa nezhodujú';
+			case 'invalid_mail': return 'Neplatná e-mailová adresa';
+			case 'invalid_password': return 'Heslo musí obsahovať aspoň 6 znakov';
+			case 'invalid_email_password': return 'Nesprávny e-mail alebo heslo';
+			case 'sign_in_button': return 'Registrovať sa';
+			case 'cancel': return 'Zrušiť';
+			case 'home': return 'Domov';
+			case 'settings': return 'Nastavenia';
+			case 'kid_mode_button': return 'Mód aplikácie dieťaťa';
+			case 'signed_in_as': return 'Prihlásený ako: ';
+			case 'log_out': return 'Odhlásiť sa';
+			case 'app_language': return 'Jazyk aplikácie';
+			case 'change': return 'Zmeniť';
+			case 'email': return 'E-mail';
+			case 'enter_details': return 'Zadajte údaje';
+			case 'really_log_out': return 'Naozaj sa chcete odhlásiť?';
+			case 'yes': return 'Áno';
+			case 'no': return 'Nie';
+			case 'change_app_language': return 'Zmeniť jazyk aplikácie';
+			case 'dark_mode_toggle': return 'Tmavý režim';
+			case 'good_habits': return 'Návyky';
+			case 'bad_habits': return 'Nevhodné správanie';
+			case 'eating_habits': return 'Jedálniček';
+			case 'is_eating': return 'Je';
+			case 'is_not_eating': return 'Neje';
+			case 'active': return 'Aktívne';
+			case 'inactive': return 'Neaktívne';
+			case 'search': return 'Vyhľadať';
+			case 'no_entries': return 'Žiadne záznamy';
+			case 'from': return 'Od';
+			case 'to': return 'Do';
+			case 'notes': return 'Poznámky';
+			case 'really_delete_object': return 'Naozaj si prajete vymazať ';
+			case 'not_set': return 'Nenastavené';
+			case 'edit': return 'Upraviť';
+			case 'name': return 'Názov';
+			case 'please_enter_name': return 'Prosím zadajte názov';
+			case 'save': return 'Uložiť';
+			case 'ascending': return 'Vzostupne';
+			case 'descending': return 'Zostupne';
+			case 'sort_by': return 'Zoradiť podľa';
+			case 'date': return 'Dátum';
+			case 'filters_and_sorting': return 'Filtre a triedenie';
+			case 'filters': return 'Filtre';
+			case 'sort': return 'Zoradenie podľa';
+			default: return null;
 		}
 	}
 }

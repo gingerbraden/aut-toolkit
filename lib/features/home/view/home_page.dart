@@ -1,7 +1,9 @@
 import 'package:aut_toolkit/app/router.dart';
+import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/constants/app_constants.dart';
 import '../../../i18n/strings.g.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -20,7 +22,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+        padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +31,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               buildCard(
                 t.eating_habits,
                   "Description duis aute irure dolor in reprehenderit in voluptsafweffffffffffffffffffate velit.",
-                  '/home/eating-habits' // route
+                  RouterUtils.getEatingHabitsPath() // route
               ),
               SizedBox(height: 8),
               buildCard(

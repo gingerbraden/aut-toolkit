@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:1777307641083598478",
-      "lastPropertyId": "6:4393786231541083778",
+      "lastPropertyId": "7:4128286833958398028",
       "name": "EatingHabitEntity",
       "properties": [
         {
@@ -37,6 +37,11 @@
         {
           "id": "6:4393786231541083778",
           "name": "description",
+          "type": 9
+        },
+        {
+          "id": "7:4128286833958398028",
+          "name": "userId",
           "type": 9
         }
       ],

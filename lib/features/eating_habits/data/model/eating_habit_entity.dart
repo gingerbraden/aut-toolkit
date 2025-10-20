@@ -12,6 +12,7 @@ class EatingHabitEntity {
   bool isEatingFlag;
   String name;
   String description;
+  String userId;
 
   EatingHabitEntity({
     this.id = 0,
@@ -19,7 +20,8 @@ class EatingHabitEntity {
     required this.to,
     required this.isEatingFlag,
     required this.name,
-    required this.description
+    required this.description,
+    required this.userId
   });
 
 }

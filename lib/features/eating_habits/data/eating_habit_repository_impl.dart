@@ -17,4 +17,9 @@ class EatingHabitRepositoryImpl implements EatingHabitRepository {
   void saveHabit(EatingHabit eatingHabit) {
     _localSource.put(eatingHabit.toEntity());
   }
+
+  @override
+  void deleteHabit(EatingHabit eatingHabit) {
+    _localSource.remove(eatingHabit.id!);
+  }
 }

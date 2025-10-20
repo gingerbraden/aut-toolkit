@@ -1,9 +1,9 @@
 import 'package:aut_toolkit/features/home/view/home_page.dart';
 import 'package:aut_toolkit/features/settings/view/settings_page.dart';
-import 'package:aut_toolkit/shared/provider/locale_change_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/provider/locale_change_notifier.dart';
 import '../../../i18n/strings.g.dart';
 
 class HomeNavigation extends ConsumerStatefulWidget {

@@ -13,25 +13,18 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	///
 	/// Usage:
 	/// final t = Translations.of(context);
-  static Translations of(BuildContext context) =>
-      InheritedLocaleData
-          .of<AppLocale, Translations>(context)
-          .translations;
+	static Translations of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context).translations;
 
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-  Translations({Map<String,
-      Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<
-      AppLocale,
-      Translations>? meta})
-      : assert(overrides ==
-      null, 'Set "translation_overrides: true" in order to enable this feature.'),
-        $meta = meta ?? TranslationMetadata(
-          locale: AppLocale.en,
-          overrides: overrides ?? {},
-          cardinalResolver: cardinalResolver,
-          ordinalResolver: ordinalResolver,
-        ) {
+	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = meta ?? TranslationMetadata(
+		    locale: AppLocale.en,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ) {
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -39,13 +32,11 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-  dynamic operator [](String key) => $meta.getTranslation(key);
+	dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final Translations _root = this; // ignore: unused_field
 
-  Translations $copyWith(
-      {TranslationMetadata<AppLocale, Translations>? meta}) =>
-      Translations(meta: meta ?? this.$meta);
+	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
 
@@ -136,41 +127,83 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Change app language'
 	String get change_app_language => 'Change app language';
 
-  /// en: 'Dark mode'
-  String get dark_mode_toggle => 'Dark mode';
+	/// en: 'Dark mode'
+	String get dark_mode_toggle => 'Dark mode';
 
-  /// en: 'Habits'
-  String get good_habits => 'Habits';
+	/// en: 'Habits'
+	String get good_habits => 'Habits';
 
-  /// en: 'Bad habits'
-  String get bad_habits => 'Bad habits';
+	/// en: 'Bad habits'
+	String get bad_habits => 'Bad habits';
 
-  /// en: 'Eating habits'
-  String get eating_habits => 'Eating habits';
+	/// en: 'Eating habits'
+	String get eating_habits => 'Eating habits';
 
-  /// en: 'Eats'
-  String get is_eating => 'Eats';
+	/// en: 'Eats'
+	String get is_eating => 'Eats';
 
-  /// en: 'Does not eat'
-  String get is_not_eating => 'Does not eat';
+	/// en: 'Does not eat'
+	String get is_not_eating => 'Does not eat';
 
-  /// en: 'Active'
-  String get active => 'Active';
+	/// en: 'Active'
+	String get active => 'Active';
 
-  /// en: 'Inactive'
-  String get inactive => 'Inactive';
+	/// en: 'Inactive'
+	String get inactive => 'Inactive';
 
-  /// en: 'Search'
-  String get search => 'Search';
+	/// en: 'Search'
+	String get search => 'Search';
 
-  /// en: 'No entries'
-  String get no_entries => 'No entries';
+	/// en: 'No entries'
+	String get no_entries => 'No entries';
 
-  /// en: 'From'
-  String get from => 'From';
+	/// en: 'From'
+	String get from => 'From';
 
-  /// en: 'To'
-  String get to => 'To';
+	/// en: 'To'
+	String get to => 'To';
+
+	/// en: 'Notes'
+	String get notes => 'Notes';
+
+	/// en: 'Do you really wish to delete '
+	String get really_delete_object => 'Do you really wish to delete ';
+
+	/// en: 'Not set'
+	String get not_set => 'Not set';
+
+	/// en: 'Edit'
+	String get edit => 'Edit';
+
+	/// en: 'Name'
+	String get name => 'Name';
+
+	/// en: 'Please enter a name'
+	String get please_enter_name => 'Please enter a name';
+
+	/// en: 'Save'
+	String get save => 'Save';
+
+	/// en: 'Ascending'
+	String get ascending => 'Ascending';
+
+	/// en: 'Descending'
+	String get descending => 'Descending';
+
+	/// en: 'Sort by'
+	String get sort_by => 'Sort by';
+
+	/// en: 'Date'
+	String get date => 'Date';
+
+	/// en: 'Filters and sorting'
+	String get filters_and_sorting => 'Filters and sorting';
+
+	/// en: 'Filters'
+	String get filters => 'Filters';
+
+	/// en: 'Sort by'
+	String get sort => 'Sort by';
 }
 
 /// Flat map(s) containing all translations.
@@ -178,90 +211,62 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-      case 'good_day':
-        return 'Hello!';
-      case 'sign_in':
-        return 'Please sign in to use AutToolkit';
-      case 'sign_in_google':
-        return 'Sign in with Google';
-      case 'sign_in_mail':
-        return 'Sign in with Email';
-      case 'password':
-        return 'Password';
-      case 'password_again':
-        return 'Confirm password';
-      case 'no_account':
-        return 'No account yet?';
-      case 'create_account':
-        return 'Create account';
-      case 'log_in_button':
-        return 'Log in';
-      case 'no_sign_in_details':
-        return 'Missing e-mail or password';
-      case 'passwords_dont_match':
-        return 'Passwords don\'t match';
-      case 'invalid_mail':
-        return 'Invalid e-mail address';
-      case 'invalid_password':
-        return 'Password must contain at elast 6 characters';
-      case 'invalid_email_password':
-        return 'Incorrect e-mail or password';
-      case 'sign_in_button':
-        return 'Sign in';
-      case 'cancel':
-        return 'Cancel';
-      case 'home':
-        return 'Home';
-      case 'settings':
-        return 'Settings';
-      case 'kid_mode_button':
-        return 'Child app mode';
-      case 'signed_in_as':
-        return 'Signed in as: ';
-      case 'log_out':
-        return 'Log out';
-      case 'app_language':
-        return 'App language';
-      case 'change':
-        return 'Change';
-      case 'email':
-        return 'E-mail';
-      case 'enter_details':
-        return 'Enter details';
-      case 'really_log_out':
-        return 'Do you really want to log out?';
-      case 'yes':
-        return 'Yes';
-      case 'no':
-        return 'No';
-      case 'change_app_language':
-        return 'Change app language';
-      case 'dark_mode_toggle':
-        return 'Dark mode';
-      case 'good_habits':
-        return 'Habits';
-      case 'bad_habits':
-        return 'Bad habits';
-      case 'eating_habits':
-        return 'Eating habits';
-      case 'is_eating':
-        return 'Eats';
-      case 'is_not_eating':
-        return 'Does not eat';
-      case 'active':
-        return 'Active';
-      case 'inactive':
-        return 'Inactive';
-      case 'search':
-        return 'Search';
-      case 'no_entries':
-        return 'No entries';
-      case 'from':
-        return 'From';
-      case 'to':
-        return 'To';
-      default:
-        return null;
+			case 'good_day': return 'Hello!';
+			case 'sign_in': return 'Please sign in to use AutToolkit';
+			case 'sign_in_google': return 'Sign in with Google';
+			case 'sign_in_mail': return 'Sign in with Email';
+			case 'password': return 'Password';
+			case 'password_again': return 'Confirm password';
+			case 'no_account': return 'No account yet?';
+			case 'create_account': return 'Create account';
+			case 'log_in_button': return 'Log in';
+			case 'no_sign_in_details': return 'Missing e-mail or password';
+			case 'passwords_dont_match': return 'Passwords don\'t match';
+			case 'invalid_mail': return 'Invalid e-mail address';
+			case 'invalid_password': return 'Password must contain at elast 6 characters';
+			case 'invalid_email_password': return 'Incorrect e-mail or password';
+			case 'sign_in_button': return 'Sign in';
+			case 'cancel': return 'Cancel';
+			case 'home': return 'Home';
+			case 'settings': return 'Settings';
+			case 'kid_mode_button': return 'Child app mode';
+			case 'signed_in_as': return 'Signed in as: ';
+			case 'log_out': return 'Log out';
+			case 'app_language': return 'App language';
+			case 'change': return 'Change';
+			case 'email': return 'E-mail';
+			case 'enter_details': return 'Enter details';
+			case 'really_log_out': return 'Do you really want to log out?';
+			case 'yes': return 'Yes';
+			case 'no': return 'No';
+			case 'change_app_language': return 'Change app language';
+			case 'dark_mode_toggle': return 'Dark mode';
+			case 'good_habits': return 'Habits';
+			case 'bad_habits': return 'Bad habits';
+			case 'eating_habits': return 'Eating habits';
+			case 'is_eating': return 'Eats';
+			case 'is_not_eating': return 'Does not eat';
+			case 'active': return 'Active';
+			case 'inactive': return 'Inactive';
+			case 'search': return 'Search';
+			case 'no_entries': return 'No entries';
+			case 'from': return 'From';
+			case 'to': return 'To';
+			case 'notes': return 'Notes';
+			case 'really_delete_object': return 'Do you really wish to delete ';
+			case 'not_set': return 'Not set';
+			case 'edit': return 'Edit';
+			case 'name': return 'Name';
+			case 'please_enter_name': return 'Please enter a name';
+			case 'save': return 'Save';
+			case 'ascending': return 'Ascending';
+			case 'descending': return 'Descending';
+			case 'sort_by': return 'Sort by';
+			case 'date': return 'Date';
+			case 'filters_and_sorting': return 'Filters and sorting';
+			case 'filters': return 'Filters';
+			case 'sort': return 'Sort by';
+			default: return null;
 		}
 	}
 }

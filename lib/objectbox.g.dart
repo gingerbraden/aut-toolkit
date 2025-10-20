@@ -22,7 +22,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(1, 1777307641083598478),
     name: 'EatingHabitEntity',
-    lastPropertyId: const obx_int.IdUid(6, 4393786231541083778),
+    lastPropertyId: const obx_int.IdUid(7, 4128286833958398028),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -58,6 +58,12 @@ final _entities = <obx_int.ModelEntity>[
       obx_int.ModelProperty(
         id: const obx_int.IdUid(6, 4393786231541083778),
         name: 'description',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 4128286833958398028),
+        name: 'userId',
         type: 9,
         flags: 0,
       ),
@@ -130,13 +136,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (EatingHabitEntity object, fb.Builder fbb) {
         final nameOffset = fbb.writeString(object.name);
         final descriptionOffset = fbb.writeString(object.description);
-        fbb.startTable(7);
+        final userIdOffset = fbb.writeString(object.userId);
+        fbb.startTable(8);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.from.millisecondsSinceEpoch);
         fbb.addInt64(2, object.to?.millisecondsSinceEpoch);
         fbb.addBool(3, object.isEatingFlag);
         fbb.addOffset(4, nameOffset);
         fbb.addOffset(5, descriptionOffset);
+        fbb.addOffset(6, userIdOffset);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -172,6 +180,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final descriptionParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 14, '');
+        final userIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 16, '');
         final object = EatingHabitEntity(
           id: idParam,
           from: fromParam,
@@ -179,6 +190,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           isEatingFlag: isEatingFlagParam,
           name: nameParam,
           description: descriptionParam,
+          userId: userIdParam,
         );
 
         return object;
@@ -219,5 +231,10 @@ class EatingHabitEntity_ {
   /// See [EatingHabitEntity.description].
   static final description = obx.QueryStringProperty<EatingHabitEntity>(
     _entities[0].properties[5],
+  );
+
+  /// See [EatingHabitEntity.userId].
+  static final userId = obx.QueryStringProperty<EatingHabitEntity>(
+    _entities[0].properties[6],
   );
 }
