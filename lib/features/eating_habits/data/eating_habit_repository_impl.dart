@@ -14,7 +14,7 @@ class EatingHabitRepositoryImpl implements EatingHabitRepository {
   }
 
   @override
-  void saveUser(EatingHabit eatingHabit) {
+  void saveHabit(EatingHabit eatingHabit) {
     _localSource.put(eatingHabit.toEntity());
   }
 }
