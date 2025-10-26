@@ -14,6 +14,6 @@ class EatingHabit {
     required this.isEatingFlag,
     required this.name,
     required this.description,
-    required this.userId
+    required this.userId,
   });
 }
