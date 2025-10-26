@@ -271,7 +271,7 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Cancel'),
+                  child: Text(t.cancel),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -280,7 +280,7 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
                       'sort': tempSort,
                     });
                   },
-                  child: const Text('Apply'),
+                  child: Text(t.save),
                 ),
               ],
             );
@@ -307,44 +307,47 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
       bool matchesFilter = true;
 
       if (_selectedFilters.isNotEmpty) {
-        matchesFilter = false;
+        if (_selectedFilters.contains(AppConstants.IS_EATING) &&
+            habit.isEatingFlag != true) {
+          matchesFilter = false;
+        }
 
-        if (_selectedFilters.contains(AppConstants.IS_EATING) && habit.isEatingFlag == true) {
-          matchesFilter = true;
-        } else if (_selectedFilters.contains(AppConstants.IS_NOT_EATING) && habit.isEatingFlag == false) {
-          matchesFilter = true;
-        } else if (_selectedFilters.contains(AppConstants.IS_ACTIVE) &&
-            (habit.to == null || habit.to!.isAfter(DateTime.now()))) {
-          matchesFilter = true;
-        } else if (_selectedFilters.contains(AppConstants.IS_NOT_ACTIVE) &&
-            (habit.to != null && habit.to!.isBefore(DateTime.now()))) {
-          matchesFilter = true;
+        if (_selectedFilters.contains(AppConstants.IS_NOT_EATING) &&
+            habit.isEatingFlag != false) {
+          matchesFilter = false;
+        }
+
+        if (_selectedFilters.contains(AppConstants.IS_ACTIVE) &&
+            !(habit.to == null || habit.to!.isAfter(DateTime.now()))) {
+          matchesFilter = false;
+        }
+
+        if (_selectedFilters.contains(AppConstants.IS_NOT_ACTIVE) &&
+            !(habit.to != null && habit.to!.isBefore(DateTime.now()))) {
+          matchesFilter = false;
         }
       }
 
       return matchesSearch && matchesFilter;
     }).toList();
 
+
     // Sort
     switch (_selectedSort) {
       case AppConstants.NAME_ASC:
-        filtered.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase())); // A → Z
+        filtered.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
         break;
       case AppConstants.NAME_DESC:
-        filtered.sort((a, b) => b.name.toLowerCase().compareTo(a.name.toLowerCase())); // Z → A
-        break;
-      case AppConstants.DATE_DESC:
-        filtered.sort((a, b) {
-          final dateA = a.to ?? DateTime(1970);
-          final dateB = b.to ?? DateTime(1970);
-          return dateA.compareTo(dateB); // Oldest first
-        });
+        filtered.sort((a, b) => b.name.toLowerCase().compareTo(a.name.toLowerCase()));
         break;
       case AppConstants.DATE_ASC:
         filtered.sort((a, b) {
-          final dateA = a.to ?? DateTime(1970);
-          final dateB = b.to ?? DateTime(1970);
-          return dateB.compareTo(dateA); // Newest first
+          return a.from.compareTo(b.from);
+        });
+        break;
+      case AppConstants.DATE_DESC:
+        filtered.sort((a, b) {
+          return b.from.compareTo(a.from);
         });
         break;
     }
