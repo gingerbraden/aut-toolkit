@@ -91,6 +91,38 @@ class TranslationsSk implements Translations {
 	@override String get filters_and_sorting => 'Filtre a triedenie';
 	@override String get filters => 'Filtre';
 	@override String get sort => 'Zoradenie podľa';
+	@override String get challenging_behaviour => 'Nevhodné správanie';
+	@override String get occuring => 'Nastáva';
+	@override String get not_occuring => 'Nenastáva';
+	@override String get location => 'Miesto';
+	@override String get please_enter_location => 'Prosím zadajte miesto';
+	@override String get duration => 'Trvanie';
+	@override String get please_enter_duration => 'Prosím zadajte trvanie';
+	@override String get invalid_value => 'Neplatná hodnota';
+	@override String get one_minute => 'Minúta';
+	@override String get few_minutes => 'Minúty';
+	@override String get many_minutes => 'Minút';
+	@override String get circumstances => 'Okolnosti';
+	@override String get people_present => 'Prítomné osoby';
+	@override String get outcome => 'Výsledok';
+	@override String get reflection => 'Reflexia';
+	@override String get add_new_entry => 'Pridať záznam';
+	@override String get create => 'Vytvoriť';
+	@override String get after_typing_enter_submit => 'Po napísaní stlačte "Enter" pre uloženie';
+	@override String minute({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sk'))(n,
+		one: 'Minúta',
+		few: 'Minúty',
+		many: 'Minút',
+		other: 'Minút',
+	);
+	@override String get mon => 'Po';
+	@override String get tue => 'Ut';
+	@override String get wed => 'St';
+	@override String get thu => 'Št';
+	@override String get fri => 'Pi';
+	@override String get sat => 'So';
+	@override String get sun => 'Ne';
+	@override String get entry => 'Záznam';
 }
 
 /// Flat map(s) containing all translations.
@@ -153,6 +185,38 @@ extension on TranslationsSk {
 			case 'filters_and_sorting': return 'Filtre a triedenie';
 			case 'filters': return 'Filtre';
 			case 'sort': return 'Zoradenie podľa';
+			case 'challenging_behaviour': return 'Nevhodné správanie';
+			case 'occuring': return 'Nastáva';
+			case 'not_occuring': return 'Nenastáva';
+			case 'location': return 'Miesto';
+			case 'please_enter_location': return 'Prosím zadajte miesto';
+			case 'duration': return 'Trvanie';
+			case 'please_enter_duration': return 'Prosím zadajte trvanie';
+			case 'invalid_value': return 'Neplatná hodnota';
+			case 'one_minute': return 'Minúta';
+			case 'few_minutes': return 'Minúty';
+			case 'many_minutes': return 'Minút';
+			case 'circumstances': return 'Okolnosti';
+			case 'people_present': return 'Prítomné osoby';
+			case 'outcome': return 'Výsledok';
+			case 'reflection': return 'Reflexia';
+			case 'add_new_entry': return 'Pridať záznam';
+			case 'create': return 'Vytvoriť';
+			case 'after_typing_enter_submit': return 'Po napísaní stlačte "Enter" pre uloženie';
+			case 'minute': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sk'))(n,
+				one: 'Minúta',
+				few: 'Minúty',
+				many: 'Minút',
+				other: 'Minút',
+			);
+			case 'mon': return 'Po';
+			case 'tue': return 'Ut';
+			case 'wed': return 'St';
+			case 'thu': return 'Št';
+			case 'fri': return 'Pi';
+			case 'sat': return 'So';
+			case 'sun': return 'Ne';
+			case 'entry': return 'Záznam';
 			default: return null;
 		}
 	}

@@ -31,11 +31,8 @@ class ChallengingBehaviourRepositoryImpl implements ChallengingBehaviourReposito
 
   @override
   void addDe(
-      ChallengingBehaviour cb, ChallengingBehaviourDiaryEntry cbed) {
-    if (cb.id == null) {
-      throw Exception('Cannot add a diary entry to an unsaved behaviour.');
-    }
-    _localSource.addDiaryEntry(cb.id!, cbed.toEntity());
+      int cbId, ChallengingBehaviourDiaryEntry cbed) {
+    _localSource.addDiaryEntry(cbId, cbed.toEntity());
   }
 
   @override
@@ -46,9 +43,8 @@ class ChallengingBehaviourRepositoryImpl implements ChallengingBehaviourReposito
   }
 
   @override
-  List<ChallengingBehaviourDiaryEntry> getAllDe(ChallengingBehaviour cb) {
-    if (cb.id == null) return [];
-    final entries = _localSource.getDiaryEntries(behaviourId: cb.id!);
+  List<ChallengingBehaviourDiaryEntry> getAllDe(int cbId) {
+    final entries = _localSource.getDiaryEntries(behaviourId: cbId);
     return entries.map((e) => e.toModel()).toList();
   }
 

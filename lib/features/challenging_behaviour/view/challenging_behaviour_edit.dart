@@ -1,46 +1,50 @@
 import 'package:aut_toolkit/app/router.dart';
-import 'package:aut_toolkit/core/widgets/eating_icon.dart';
+import 'package:aut_toolkit/core/utils/date_util.dart';
 import 'package:aut_toolkit/core/widgets/sized_box_divider.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/provider/challenging_behaviour_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:aut_toolkit/core/utils/date_util.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/widgets/occuring_icon.dart';
 import '../../../i18n/strings.g.dart';
-import '../domain/model/eating_habit.dart';
-import '../provider/eating_habits_notifier.dart';
 
-enum EatingStatus { eating, notEating }
+enum Occuring { ocurring, notOccuring }
 
-class EatingHabitEdit extends ConsumerStatefulWidget {
-  final EatingHabit habit;
+class ChallengingBehaviourEdit extends ConsumerStatefulWidget {
+  final ChallengingBehaviour cb;
   final bool isNew;
 
-  const EatingHabitEdit({super.key, required this.habit, required this.isNew});
+  const ChallengingBehaviourEdit({
+    super.key,
+    required this.cb,
+    required this.isNew,
+  });
 
   @override
-  ConsumerState<EatingHabitEdit> createState() => _EditEatingHabitScreenState();
+  ConsumerState<ChallengingBehaviourEdit> createState() =>
+      _ChallengingBehaviourEditScreenState();
 }
 
-class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
+class _ChallengingBehaviourEditScreenState
+    extends ConsumerState<ChallengingBehaviourEdit> {
   final _formKey = GlobalKey<FormState>();
 
   late TextEditingController _nameController;
   late TextEditingController _descriptionController;
-  late EatingStatus _eatingStatus;
+  late Occuring _occuring;
   late DateTime _fromDate;
-  late DateTime? _toDate;
 
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: widget.habit.name);
-    _descriptionController =
-        TextEditingController(text: widget.habit.description);
-    _eatingStatus =
-    widget.habit.isEatingFlag ? EatingStatus.eating : EatingStatus.notEating;
-    _fromDate = widget.habit.from;
-    _toDate = widget.habit.to;
+    _nameController = TextEditingController(text: widget.cb.name);
+    _descriptionController = TextEditingController(
+      text: widget.cb.generalDescription,
+    );
+    _occuring = widget.cb.occuring ? Occuring.ocurring : Occuring.notOccuring;
+    _fromDate = widget.cb.from;
   }
 
   @override
@@ -54,9 +58,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:Text(widget.isNew
-            ? t.create
-            : '${t.edit} ${widget.habit.name}'),
+        title: Text('${t.edit} ${widget.cb.name}'),
         centerTitle: true,
         forceMaterialTransparency: true,
         actions: [
@@ -65,9 +67,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
               _saveChanges();
             },
             icon: const Icon(Icons.check),
-            label: Text(
-              t.save,
-            ),
+            label: Text(t.save),
           ),
         ],
       ),
@@ -84,10 +84,10 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
                     _nameTextField(),
                     _dateFields(),
                     const Divider(),
-                    _isEatingRadioButtons(),
+                    _isOccuringRadioButtons(),
                     const Divider(),
                     SizedBoxDivider(),
-                    _descriptionTextField()
+                    _descriptionTextField(),
                   ],
                 ),
               ),
@@ -108,14 +108,14 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
           border: OutlineInputBorder(),
         ),
         validator: (value) =>
-        value == null || value.isEmpty ? t.please_enter_name : null,
+            value == null || value.isEmpty ? t.please_enter_name : null,
       ),
     );
   }
 
   Widget _dateFields() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0,8,0,0),
+      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
       child: Row(
         children: [
           Expanded(
@@ -127,69 +127,51 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
                   SizedBoxDivider(),
                   Text(t.from),
                   SizedBoxDivider(),
-                  Text(DateUtil.returnDateInStringFormat(_fromDate))
+                  Text(DateUtil.returnDateInStringFormat(_fromDate)),
                 ],
               ),
               onTap: () => _pickDate(isFrom: true),
             ),
           ),
           SizedBoxDivider(),
-          Expanded(
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              title: Row(
-                children: [
-                  Icon(Icons.date_range),
-                  SizedBoxDivider(),
-                  Text(t.to, style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodyLarge),
-                  SizedBoxDivider(),
-                  Text(_toDate != null
-                      ? DateUtil.returnDateInStringFormat(_toDate)
-                      : t.not_set)
-                ],
-              ),
-              onTap: () => _pickDate(isFrom: false),
-            ),
-          ),
         ],
       ),
     );
   }
 
-  Widget _isEatingRadioButtons() {
-    return RadioGroup<EatingStatus>(
-      groupValue: _eatingStatus,
-      onChanged: (EatingStatus? value) {
+  Widget _isOccuringRadioButtons() {
+    return RadioGroup<Occuring>(
+      groupValue: _occuring,
+      onChanged: (Occuring? value) {
         setState(() {
-          _eatingStatus = value!;
+          _occuring = value!;
         });
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           RadioListTile(
-            value: EatingStatus.eating,
+            value: Occuring.ocurring,
             contentPadding: EdgeInsets.zero,
             title: Row(
-            children: [
-              EatingIcon(isEatingFlag: true),
-              SizedBoxDivider(),
-              Text(t.is_eating),
-            ],
-          ),),
+              children: [
+                OccuringIcon(isOccuringFlag: true),
+                SizedBoxDivider(),
+                Text(t.occuring),
+              ],
+            ),
+          ),
           RadioListTile(
-            value: EatingStatus.notEating,
+            value: Occuring.notOccuring,
             contentPadding: EdgeInsets.zero,
             title: Row(
-            children: [
-              EatingIcon(isEatingFlag: false),
-              SizedBoxDivider(),
-              Text(t.is_not_eating),
-            ],
-          ),)
+              children: [
+                OccuringIcon(isOccuringFlag: false),
+                SizedBoxDivider(),
+                Text(t.not_occuring),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -197,7 +179,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
 
   Widget _descriptionTextField() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0,8,0,0),
+      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
       child: TextFormField(
         controller: _descriptionController,
         decoration: InputDecoration(
@@ -211,43 +193,37 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
   }
 
   Future<void> _pickDate({required bool isFrom}) async {
-    final initialDate = isFrom ? _fromDate : _toDate;
     final newDate = await showDatePicker(
       context: context,
-      initialDate: initialDate,
+      initialDate: _fromDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
     );
     if (newDate == null) return;
 
     setState(() {
-      if (isFrom) {
-        _fromDate = newDate;
-      } else {
-        _toDate = newDate;
-      }
+      _fromDate = newDate;
     });
   }
 
   void _saveChanges() {
     if (_formKey.currentState?.validate() ?? false) {
-      final updatedHabit = EatingHabit(
-          name: _nameController.text.trim(),
-          description: _descriptionController.text.trim(),
-          isEatingFlag: _eatingStatus == EatingStatus.eating,
-          from: _fromDate,
-          to: _toDate,
-          id: widget.habit.id,
-          userId: widget.habit.userId
+      final updatedCb = ChallengingBehaviour(
+        id: widget.cb.id!,
+        name: _nameController.text.trim(),
+        from: _fromDate,
+        generalDescription: _descriptionController.text.trim(),
+        diaryEntries: [],
+        occuring: _occuring == Occuring.ocurring,
+        userId: widget.cb.userId,
       );
-      ref.read(eatingHabitsProvider.notifier).addHabit(updatedHabit);
-      setState(() {
-      });
+
+      ref.read(challengingBehavioursProvider.notifier).addBehaviour(updatedCb);
+      setState(() {});
       router.pop();
       if (!widget.isNew) {
-        router.pop();
+        router.pop(true);
       }
     }
   }
-
 }

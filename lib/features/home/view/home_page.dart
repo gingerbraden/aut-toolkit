@@ -35,15 +35,9 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
               const SizedBox(height: 8),
               buildCard(
-                t.good_habits,
+                t.challenging_behaviour,
                 "Description duis aute irure dolor in reprehenderit in voluptate velit.",
-                'TODO',
-              ),
-              const SizedBox(height: 8),
-              buildCard(
-                t.bad_habits,
-                "Description duis aute irure dolor in reprehenderit in voluptate velit.",
-                'TODO',
+                RouterUtils.getChallengingBehavioursPath(),
               ),
             ],
           ),

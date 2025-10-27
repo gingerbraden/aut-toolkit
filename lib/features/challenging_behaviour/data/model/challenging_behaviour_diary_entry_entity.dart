@@ -1,5 +1,5 @@
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_entity.dart';
-import 'package:aut_toolkit/objectbox.g.dart';
+import 'package:objectbox/objectbox.dart';
 
 @Entity()
 class ChallengingBehaviourDiaryEntryEntity {
@@ -19,7 +19,7 @@ class ChallengingBehaviourDiaryEntryEntity {
   int duration;
 
   // what happened before
-  List<String> circumstances;
+  String circumstances;
 
   // who was there
   List<String> people;

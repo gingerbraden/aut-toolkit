@@ -14,6 +14,8 @@ import 'package:objectbox/internal.dart'
 import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
+import 'features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_entity.dart';
+import 'features/challenging_behaviour/data/model/challenging_behaviour_entity.dart';
 import 'features/eating_habits/data/model/eating_habit_entity.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
@@ -71,6 +73,124 @@ final _entities = <obx_int.ModelEntity>[
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[],
   ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(2, 139465113525671056),
+    name: 'ChallengingBehaviourDiaryEntryEntity',
+    lastPropertyId: const obx_int.IdUid(9, 8473330541405588167),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 3276799885575513242),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 1996232934584247842),
+        name: 'challengingBehaviourId',
+        type: 11,
+        flags: 520,
+        indexId: const obx_int.IdUid(1, 7265063553320486894),
+        relationTarget: 'ChallengingBehaviourEntity',
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 3810550962242010286),
+        name: 'location',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 4327789277245649275),
+        name: 'date',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 2257877021023419224),
+        name: 'duration',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 5067823526267149243),
+        name: 'circumstances',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 6317075041900276104),
+        name: 'people',
+        type: 30,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 9114528613422825857),
+        name: 'outcome',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 8473330541405588167),
+        name: 'reflection',
+        type: 9,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(3, 6112168635049409585),
+    name: 'ChallengingBehaviourEntity',
+    lastPropertyId: const obx_int.IdUid(6, 938737596790947008),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 5353683167311258387),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 69716348719230726),
+        name: 'name',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 1233996314118088075),
+        name: 'from',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 591679213236383350),
+        name: 'generalDescription',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 6645588857862198462),
+        name: 'occuring',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 938737596790947008),
+        name: 'userId',
+        type: 9,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[
+      obx_int.ModelBacklink(
+        name: 'diaryEntries',
+        srcEntity: 'ChallengingBehaviourDiaryEntryEntity',
+        srcField: '',
+      ),
+    ],
+  ),
 ];
 
 /// Shortcut for [obx.Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -111,8 +231,8 @@ Future<obx.Store> openStore({
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(1, 1777307641083598478),
-    lastIndexId: const obx_int.IdUid(0, 0),
+    lastEntityId: const obx_int.IdUid(3, 6112168635049409585),
+    lastIndexId: const obx_int.IdUid(1, 7265063553320486894),
     lastRelationId: const obx_int.IdUid(0, 0),
     lastSequenceId: const obx_int.IdUid(0, 0),
     retiredEntityUids: const [],
@@ -196,6 +316,174 @@ obx_int.ModelDefinition getObjectBoxModel() {
         return object;
       },
     ),
+    ChallengingBehaviourDiaryEntryEntity:
+        obx_int.EntityDefinition<ChallengingBehaviourDiaryEntryEntity>(
+          model: _entities[1],
+          toOneRelations: (ChallengingBehaviourDiaryEntryEntity object) => [
+            object.challengingBehaviour,
+          ],
+          toManyRelations: (ChallengingBehaviourDiaryEntryEntity object) => {},
+          getId: (ChallengingBehaviourDiaryEntryEntity object) => object.id,
+          setId: (ChallengingBehaviourDiaryEntryEntity object, int id) {
+            object.id = id;
+          },
+          objectToFB:
+              (ChallengingBehaviourDiaryEntryEntity object, fb.Builder fbb) {
+                final locationOffset = fbb.writeString(object.location);
+                final circumstancesOffset = fbb.writeString(
+                  object.circumstances,
+                );
+                final peopleOffset = fbb.writeList(
+                  object.people.map(fbb.writeString).toList(growable: false),
+                );
+                final outcomeOffset = fbb.writeString(object.outcome);
+                final reflectionOffset = fbb.writeString(object.reflection);
+                fbb.startTable(10);
+                fbb.addInt64(0, object.id ?? 0);
+                fbb.addInt64(1, object.challengingBehaviour.targetId);
+                fbb.addOffset(2, locationOffset);
+                fbb.addInt64(3, object.date.millisecondsSinceEpoch);
+                fbb.addInt64(4, object.duration);
+                fbb.addOffset(5, circumstancesOffset);
+                fbb.addOffset(6, peopleOffset);
+                fbb.addOffset(7, outcomeOffset);
+                fbb.addOffset(8, reflectionOffset);
+                fbb.finish(fbb.endTable());
+                return object.id ?? 0;
+              },
+          objectFromFB: (obx.Store store, ByteData fbData) {
+            final buffer = fb.BufferContext(fbData);
+            final rootOffset = buffer.derefObject(0);
+            final idParam = const fb.Int64Reader().vTableGetNullable(
+              buffer,
+              rootOffset,
+              4,
+            );
+            final locationParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGet(buffer, rootOffset, 8, '');
+            final dateParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0),
+            );
+            final durationParam = const fb.Int64Reader().vTableGet(
+              buffer,
+              rootOffset,
+              12,
+              0,
+            );
+            final circumstancesParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGet(buffer, rootOffset, 14, '');
+            final peopleParam = const fb.ListReader<String>(
+              fb.StringReader(asciiOptimization: true),
+              lazy: false,
+            ).vTableGet(buffer, rootOffset, 16, []);
+            final outcomeParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGet(buffer, rootOffset, 18, '');
+            final reflectionParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGet(buffer, rootOffset, 20, '');
+            final object = ChallengingBehaviourDiaryEntryEntity(
+              id: idParam,
+              location: locationParam,
+              date: dateParam,
+              duration: durationParam,
+              circumstances: circumstancesParam,
+              people: peopleParam,
+              outcome: outcomeParam,
+              reflection: reflectionParam,
+            );
+            object.challengingBehaviour.targetId = const fb.Int64Reader()
+                .vTableGet(buffer, rootOffset, 6, 0);
+            object.challengingBehaviour.attach(store);
+            return object;
+          },
+        ),
+    ChallengingBehaviourEntity:
+        obx_int.EntityDefinition<ChallengingBehaviourEntity>(
+          model: _entities[2],
+          toOneRelations: (ChallengingBehaviourEntity object) => [],
+          toManyRelations: (ChallengingBehaviourEntity object) => {
+            obx_int.RelInfo<ChallengingBehaviourDiaryEntryEntity>.toOneBacklink(
+              2,
+              object.id!,
+              (ChallengingBehaviourDiaryEntryEntity srcObject) =>
+                  srcObject.challengingBehaviour,
+            ): object.diaryEntries,
+          },
+          getId: (ChallengingBehaviourEntity object) => object.id,
+          setId: (ChallengingBehaviourEntity object, int id) {
+            object.id = id;
+          },
+          objectToFB: (ChallengingBehaviourEntity object, fb.Builder fbb) {
+            final nameOffset = fbb.writeString(object.name);
+            final generalDescriptionOffset = fbb.writeString(
+              object.generalDescription,
+            );
+            final userIdOffset = fbb.writeString(object.userId);
+            fbb.startTable(7);
+            fbb.addInt64(0, object.id ?? 0);
+            fbb.addOffset(1, nameOffset);
+            fbb.addInt64(2, object.from.millisecondsSinceEpoch);
+            fbb.addOffset(3, generalDescriptionOffset);
+            fbb.addBool(4, object.occuring);
+            fbb.addOffset(5, userIdOffset);
+            fbb.finish(fbb.endTable());
+            return object.id ?? 0;
+          },
+          objectFromFB: (obx.Store store, ByteData fbData) {
+            final buffer = fb.BufferContext(fbData);
+            final rootOffset = buffer.derefObject(0);
+            final idParam = const fb.Int64Reader().vTableGetNullable(
+              buffer,
+              rootOffset,
+              4,
+            );
+            final nameParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGet(buffer, rootOffset, 6, '');
+            final fromParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0),
+            );
+            final generalDescriptionParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGet(buffer, rootOffset, 10, '');
+            final diaryEntriesParam =
+                obx.ToMany<ChallengingBehaviourDiaryEntryEntity>();
+            final occuringParam = const fb.BoolReader().vTableGet(
+              buffer,
+              rootOffset,
+              12,
+              false,
+            );
+            final userIdParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGet(buffer, rootOffset, 14, '');
+            final object = ChallengingBehaviourEntity(
+              id: idParam,
+              name: nameParam,
+              from: fromParam,
+              generalDescription: generalDescriptionParam,
+              diaryEntries: diaryEntriesParam,
+              occuring: occuringParam,
+              userId: userIdParam,
+            );
+            obx_int.InternalToManyAccess.setRelInfo<ChallengingBehaviourEntity>(
+              object.diaryEntries,
+              store,
+              obx_int.RelInfo<
+                ChallengingBehaviourDiaryEntryEntity
+              >.toOneBacklink(
+                2,
+                object.id!,
+                (ChallengingBehaviourDiaryEntryEntity srcObject) =>
+                    srcObject.challengingBehaviour,
+              ),
+            );
+            return object;
+          },
+        ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -237,4 +525,103 @@ class EatingHabitEntity_ {
   static final userId = obx.QueryStringProperty<EatingHabitEntity>(
     _entities[0].properties[6],
   );
+}
+
+/// [ChallengingBehaviourDiaryEntryEntity] entity fields to define ObjectBox queries.
+class ChallengingBehaviourDiaryEntryEntity_ {
+  /// See [ChallengingBehaviourDiaryEntryEntity.id].
+  static final id =
+      obx.QueryIntegerProperty<ChallengingBehaviourDiaryEntryEntity>(
+        _entities[1].properties[0],
+      );
+
+  /// See [ChallengingBehaviourDiaryEntryEntity.challengingBehaviour].
+  static final challengingBehaviour =
+      obx.QueryRelationToOne<
+        ChallengingBehaviourDiaryEntryEntity,
+        ChallengingBehaviourEntity
+      >(_entities[1].properties[1]);
+
+  /// See [ChallengingBehaviourDiaryEntryEntity.location].
+  static final location =
+      obx.QueryStringProperty<ChallengingBehaviourDiaryEntryEntity>(
+        _entities[1].properties[2],
+      );
+
+  /// See [ChallengingBehaviourDiaryEntryEntity.date].
+  static final date =
+      obx.QueryDateProperty<ChallengingBehaviourDiaryEntryEntity>(
+        _entities[1].properties[3],
+      );
+
+  /// See [ChallengingBehaviourDiaryEntryEntity.duration].
+  static final duration =
+      obx.QueryIntegerProperty<ChallengingBehaviourDiaryEntryEntity>(
+        _entities[1].properties[4],
+      );
+
+  /// See [ChallengingBehaviourDiaryEntryEntity.circumstances].
+  static final circumstances =
+      obx.QueryStringProperty<ChallengingBehaviourDiaryEntryEntity>(
+        _entities[1].properties[5],
+      );
+
+  /// See [ChallengingBehaviourDiaryEntryEntity.people].
+  static final people =
+      obx.QueryStringVectorProperty<ChallengingBehaviourDiaryEntryEntity>(
+        _entities[1].properties[6],
+      );
+
+  /// See [ChallengingBehaviourDiaryEntryEntity.outcome].
+  static final outcome =
+      obx.QueryStringProperty<ChallengingBehaviourDiaryEntryEntity>(
+        _entities[1].properties[7],
+      );
+
+  /// See [ChallengingBehaviourDiaryEntryEntity.reflection].
+  static final reflection =
+      obx.QueryStringProperty<ChallengingBehaviourDiaryEntryEntity>(
+        _entities[1].properties[8],
+      );
+}
+
+/// [ChallengingBehaviourEntity] entity fields to define ObjectBox queries.
+class ChallengingBehaviourEntity_ {
+  /// See [ChallengingBehaviourEntity.id].
+  static final id = obx.QueryIntegerProperty<ChallengingBehaviourEntity>(
+    _entities[2].properties[0],
+  );
+
+  /// See [ChallengingBehaviourEntity.name].
+  static final name = obx.QueryStringProperty<ChallengingBehaviourEntity>(
+    _entities[2].properties[1],
+  );
+
+  /// See [ChallengingBehaviourEntity.from].
+  static final from = obx.QueryDateProperty<ChallengingBehaviourEntity>(
+    _entities[2].properties[2],
+  );
+
+  /// See [ChallengingBehaviourEntity.generalDescription].
+  static final generalDescription =
+      obx.QueryStringProperty<ChallengingBehaviourEntity>(
+        _entities[2].properties[3],
+      );
+
+  /// See [ChallengingBehaviourEntity.occuring].
+  static final occuring = obx.QueryBooleanProperty<ChallengingBehaviourEntity>(
+    _entities[2].properties[4],
+  );
+
+  /// See [ChallengingBehaviourEntity.userId].
+  static final userId = obx.QueryStringProperty<ChallengingBehaviourEntity>(
+    _entities[2].properties[5],
+  );
+
+  /// see [ChallengingBehaviourEntity.diaryEntries]
+  static final diaryEntries =
+      obx.QueryBacklinkToMany<
+        ChallengingBehaviourDiaryEntryEntity,
+        ChallengingBehaviourEntity
+      >(ChallengingBehaviourDiaryEntryEntity_.challengingBehaviour);
 }

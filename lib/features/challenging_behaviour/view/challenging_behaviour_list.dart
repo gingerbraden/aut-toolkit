@@ -1,30 +1,29 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/constants/app_constants.dart';
 import 'package:aut_toolkit/core/services/firebase_service.dart';
-import 'package:aut_toolkit/core/widgets/active_icon.dart';
-import 'package:aut_toolkit/core/widgets/eating_icon.dart';
+import 'package:aut_toolkit/core/utils/router_utils.dart';
+import 'package:aut_toolkit/core/widgets/occuring_icon.dart';
 import 'package:aut_toolkit/core/widgets/sized_box_divider.dart';
-import 'package:aut_toolkit/features/eating_habits/domain/model/eating_habit.dart';
-import 'package:aut_toolkit/features/eating_habits/provider/eating_habits_notifier.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/provider/challenging_behaviour_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/utils/date_util.dart';
-import '../../../core/utils/router_utils.dart';
 import '../../../i18n/strings.g.dart';
 
-class EatingHabitsList extends ConsumerStatefulWidget {
-  const EatingHabitsList({super.key});
+class ChallengingBehaviourList extends ConsumerStatefulWidget {
+  const ChallengingBehaviourList({super.key});
 
   @override
-  ConsumerState<EatingHabitsList> createState() => _EatingHabitsListState();
+  ConsumerState<ChallengingBehaviourList> createState() =>
+      _ChallengingBehaviourListState();
 }
 
-class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
+class _ChallengingBehaviourListState
+    extends ConsumerState<ChallengingBehaviourList> {
   final TextEditingController _searchController = TextEditingController();
   final List<String> _filters = [
-    AppConstants.IS_EATING,
-    AppConstants.IS_NOT_EATING,
     AppConstants.IS_ACTIVE,
     AppConstants.IS_NOT_ACTIVE,
   ];
@@ -40,7 +39,7 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
 
   @override
   Widget build(BuildContext context) {
-    final habits = ref.watch(eatingHabitsProvider);
+    final habits = ref.watch(challengingBehavioursProvider);
     final filteredHabits = _checkFiltersAndSort(habits);
 
     return Scaffold(
@@ -51,7 +50,7 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
             router.pop();
           },
         ),
-        title: Text(t.eating_habits),
+        title: Text(t.challenging_behaviour),
         forceMaterialTransparency: true,
       ),
       body: Padding(
@@ -68,15 +67,15 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
             ),
             const SizedBoxDivider(),
             _selectedFiltersShow(),
-            const SizedBox(height: 4,),
-            _listOfHabits(filteredHabits)
+            const SizedBox(height: 4),
+            _listOfHabits(filteredHabits),
           ],
         ),
       ),
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          router.push(RouterUtils.getNewEatingHabitPath(), extra: EatingHabit(from: DateTime.now(), to: null, isEatingFlag: true, name: '', description: '', userId: FirebaseService().currentUser!.uid));
+          router.push(RouterUtils.getNewChallengingBehaviourPath(), extra: ChallengingBehaviour(name: "", from: DateTime.now(), generalDescription: "", diaryEntries: [], occuring: true, userId: FirebaseService().currentUser!.uid));
         },
         child: const Icon(Icons.add),
       ),
@@ -92,19 +91,20 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
           prefixIcon: const Icon(Icons.search),
           suffixIcon: _searchController.text.isNotEmpty
               ? IconButton(
-            icon: const Icon(Icons.clear),
-            onPressed: () {
-              setState(() {
-                _searchController.clear();
-                _searchQuery = '';
-              });
-            },
-          )
+                  icon: const Icon(Icons.clear),
+                  onPressed: () {
+                    setState(() {
+                      _searchController.clear();
+                      _searchQuery = '';
+                    });
+                  },
+                )
               : null,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 0,
+            horizontal: 12,
           ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 12),
         ),
         onChanged: (value) {
           setState(() {
@@ -158,35 +158,32 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
     );
   }
 
-  Widget _listOfHabits(List<EatingHabit> filteredHabits) {
+  Widget _listOfHabits(List<ChallengingBehaviour> filteredCb) {
     return Expanded(
-      child: filteredHabits.isEmpty
+      child: filteredCb.isEmpty
           ? Center(child: Text(t.no_entries))
           : ListView.builder(
-        itemCount: filteredHabits.length,
-        itemBuilder: (context, index) {
-          final habit = filteredHabits[index];
-          return Card(
-            elevation: 0,
-            child: ListTile(
-                onTap: () {
-                    router.push(RouterUtils.getEatingHabitDetailPath(), extra: habit);
-                },
-                title: Text(habit.name),
-                subtitle: Text(
-                  '${t.from} ${DateUtil.returnDateInStringFormat(habit.from)}',
-                ),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    EatingIcon(isEatingFlag: habit.isEatingFlag),
-                    ActiveIcon(isActiveFlag: DateUtil.isTodayBetweenTwoDates(habit.from, habit.to))
-                  ],
-                )
+              itemCount: filteredCb.length,
+              itemBuilder: (context, index) {
+                final cb = filteredCb[index];
+                return Card(
+                  elevation: 0,
+                  child: ListTile(
+                    onTap: () {
+                      router.push(RouterUtils.getChallengingBehaviourDetailPath(), extra: cb);
+                    },
+                    title: Text(cb.name),
+                    subtitle: Text(
+                      '${t.from} ${DateUtil.returnDateInStringFormat(cb.from)}',
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [OccuringIcon(isOccuringFlag: cb.occuring)],
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 
@@ -214,7 +211,10 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
                   children: [
                     Row(
                       children: [
-                        Text(t.sort_by, style: Theme.of(context).textTheme.titleMedium,),
+                        Text(
+                          t.sort_by,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                         const SizedBoxDivider(),
                         DropdownButton<String>(
                           value: tempSort,
@@ -226,10 +226,14 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
                             }
                           },
                           items: combinedSortOptions
-                              .map((sortOption) => DropdownMenuItem(
-                            value: sortOption,
-                            child: Text(AppConstants.getLabel(sortOption)),
-                          ))
+                              .map(
+                                (sortOption) => DropdownMenuItem(
+                                  value: sortOption,
+                                  child: Text(
+                                    AppConstants.getLabel(sortOption),
+                                  ),
+                                ),
+                              )
                               .toList(),
                         ),
                       ],
@@ -240,7 +244,9 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
                       child: Wrap(
                         spacing: 8,
                         children: _filters.map((filter) {
-                          final isSelected = tempSelectedFilters.contains(filter);
+                          final isSelected = tempSelectedFilters.contains(
+                            filter,
+                          );
                           return FilterChip(
                             label: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -264,7 +270,6 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
                         }).toList(),
                       ),
                     ),
-
                   ],
                 ),
               ),
@@ -297,33 +302,25 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
     }
   }
 
-  List<EatingHabit> _checkFiltersAndSort(List<EatingHabit> habits) {
-
+  List<ChallengingBehaviour> _checkFiltersAndSort(
+    List<ChallengingBehaviour> cbs,
+  ) {
     // Filter
-    List<EatingHabit> filtered = habits.where((habit) {
-      final matchesSearch =
-      habit.name.toLowerCase().contains(_searchQuery.toLowerCase());
+    List<ChallengingBehaviour> filtered = cbs.where((cb) {
+      final matchesSearch = cb.name.toLowerCase().contains(
+        _searchQuery.toLowerCase(),
+      );
 
       bool matchesFilter = true;
 
       if (_selectedFilters.isNotEmpty) {
-        if (_selectedFilters.contains(AppConstants.IS_EATING) &&
-            habit.isEatingFlag != true) {
-          matchesFilter = false;
-        }
-
-        if (_selectedFilters.contains(AppConstants.IS_NOT_EATING) &&
-            habit.isEatingFlag != false) {
-          matchesFilter = false;
-        }
-
         if (_selectedFilters.contains(AppConstants.IS_ACTIVE) &&
-            !(habit.from.isAfter(DateTime.now()))) {
+            !(cb.from.isAfter(DateTime.now()))) {
           matchesFilter = false;
         }
 
         if (_selectedFilters.contains(AppConstants.IS_NOT_ACTIVE) &&
-            !(habit.from.isBefore(DateTime.now()))) {
+            !(cb.from.isBefore(DateTime.now()))) {
           matchesFilter = false;
         }
       }
@@ -331,14 +328,17 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
       return matchesSearch && matchesFilter;
     }).toList();
 
-
     // Sort
     switch (_selectedSort) {
       case AppConstants.NAME_ASC:
-        filtered.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+        filtered.sort(
+          (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+        );
         break;
       case AppConstants.NAME_DESC:
-        filtered.sort((a, b) => b.name.toLowerCase().compareTo(a.name.toLowerCase()));
+        filtered.sort(
+          (a, b) => b.name.toLowerCase().compareTo(a.name.toLowerCase()),
+        );
         break;
       case AppConstants.DATE_ASC:
         filtered.sort((a, b) {
@@ -356,17 +356,12 @@ class _EatingHabitsListState extends ConsumerState<EatingHabitsList> {
   }
 
   Widget _getIcon(String code) {
-    switch(code) {
-      case AppConstants.IS_EATING:
-        return EatingIcon(isEatingFlag: true);
-      case AppConstants.IS_NOT_EATING:
-        return EatingIcon(isEatingFlag: false);
+    switch (code) {
       case AppConstants.IS_ACTIVE:
-        return ActiveIcon(isActiveFlag: true);
+        return OccuringIcon(isOccuringFlag: true);
       case AppConstants.IS_NOT_ACTIVE:
-        return ActiveIcon(isActiveFlag: false);
+        return OccuringIcon(isOccuringFlag: false);
     }
     return SizedBoxDivider();
   }
-
 }

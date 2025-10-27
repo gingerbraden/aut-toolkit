@@ -1,5 +1,5 @@
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_entity.dart';
-import 'package:aut_toolkit/objectbox.g.dart';
+import 'package:objectbox/objectbox.dart';
 
 @Entity()
 class ChallengingBehaviourEntity {
@@ -22,12 +22,15 @@ class ChallengingBehaviourEntity {
   // still occuring?
   bool occuring;
 
+  String userId;
+
   ChallengingBehaviourEntity({
     this.id = 0,
     required this.name,
     required this.from,
     required this.generalDescription,
     required this.diaryEntries,
-    required this.occuring
+    required this.occuring,
+    required this.userId
   });
 }

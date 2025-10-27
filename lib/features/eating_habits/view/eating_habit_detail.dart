@@ -126,7 +126,6 @@ class _EatingHabitDetailState extends ConsumerState<EatingHabitDetail> {
     return [
       Row(
         children: [
-          // --- From group ---
           Row(
             children: [
               Icon(Icons.date_range),
@@ -143,9 +142,8 @@ class _EatingHabitDetailState extends ConsumerState<EatingHabitDetail> {
             ],
           ),
 
-          const Spacer(flex: 1), // pushes next group toward center a bit
+          const Spacer(flex: 1),
 
-          // --- To group ---
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -163,7 +161,7 @@ class _EatingHabitDetailState extends ConsumerState<EatingHabitDetail> {
             ],
           ),
 
-          const Spacer(flex: 1), // optional: keeps right padding consistent
+          const Spacer(flex: 1),
         ],
       ),
     ];

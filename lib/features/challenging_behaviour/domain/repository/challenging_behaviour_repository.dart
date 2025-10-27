@@ -6,7 +6,7 @@ abstract class ChallengingBehaviourRepository {
   void saveCb(ChallengingBehaviour cb);
   void deleteCb(ChallengingBehaviour cb);
 
-  void addDe(ChallengingBehaviour cb, ChallengingBehaviourDiaryEntry cbed);
+  void addDe(int cbId, ChallengingBehaviourDiaryEntry cbed);
   void deleteDe(ChallengingBehaviourDiaryEntry cbed);
-  void getAllDe(ChallengingBehaviour cb);
+  List<ChallengingBehaviourDiaryEntry> getAllDe(int cbId);
 }

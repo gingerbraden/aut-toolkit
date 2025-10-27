@@ -11,7 +11,7 @@ class ChallengingBehaviourDiaryEntry {
   int duration;
 
   // what happened before
-  List<String> circumstances;
+  String circumstances;
 
   // who was there
   List<String> people;

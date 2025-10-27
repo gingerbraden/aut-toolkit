@@ -14,6 +14,16 @@ late final ObjectBox objectbox;
 
 Future main() async {
   await dotenv.load(fileName: ".env");
+  LocaleSettings.setPluralResolver(language: 'sk', locale: AppLocale.sk, cardinalResolver: (n, {zero, one, two, few, many, other}) {
+      if (n == 0)
+        return zero ?? other!;
+      if (n == 1)
+        return one ?? other!;
+      if (n > 1 && n < 5)
+        return few ?? other!;
+      return other!;
+    },
+  );
   LocaleSettings.setLocale(AppLocale.sk);
   WidgetsFlutterBinding.ensureInitialized();
   objectbox = await ObjectBox.create();

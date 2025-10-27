@@ -204,6 +204,91 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Sort by'
 	String get sort => 'Sort by';
+
+	/// en: 'Challenging behaviour'
+	String get challenging_behaviour => 'Challenging behaviour';
+
+	/// en: 'Occuring'
+	String get occuring => 'Occuring';
+
+	/// en: 'Not occuring'
+	String get not_occuring => 'Not occuring';
+
+	/// en: 'Location'
+	String get location => 'Location';
+
+	/// en: 'Please enter a location'
+	String get please_enter_location => 'Please enter a location';
+
+	/// en: 'Trvanie'
+	String get duration => 'Trvanie';
+
+	/// en: 'Please enter duration'
+	String get please_enter_duration => 'Please enter duration';
+
+	/// en: 'Invalid value'
+	String get invalid_value => 'Invalid value';
+
+	/// en: 'Minute'
+	String get one_minute => 'Minute';
+
+	/// en: 'Minutes'
+	String get few_minutes => 'Minutes';
+
+	/// en: 'Minutes'
+	String get many_minutes => 'Minutes';
+
+	/// en: 'Circumstances'
+	String get circumstances => 'Circumstances';
+
+	/// en: 'People present'
+	String get people_present => 'People present';
+
+	/// en: 'Outcome'
+	String get outcome => 'Outcome';
+
+	/// en: 'Reflection'
+	String get reflection => 'Reflection';
+
+	/// en: 'Add new entry'
+	String get add_new_entry => 'Add new entry';
+
+	/// en: 'Create'
+	String get create => 'Create';
+
+	/// en: 'After typing press "Enter" to save'
+	String get after_typing_enter_submit => 'After typing press "Enter" to save';
+
+	/// en: '(zero) {Minutes} (one) {Minute} (other) {Minutes}'
+	String minute({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		zero: 'Minutes',
+		one: 'Minute',
+		other: 'Minutes',
+	);
+
+	/// en: 'Mon'
+	String get mon => 'Mon';
+
+	/// en: 'Tue'
+	String get tue => 'Tue';
+
+	/// en: 'Wed'
+	String get wed => 'Wed';
+
+	/// en: 'Thu'
+	String get thu => 'Thu';
+
+	/// en: 'Fri'
+	String get fri => 'Fri';
+
+	/// en: 'Sat'
+	String get sat => 'Sat';
+
+	/// en: 'Sun'
+	String get sun => 'Sun';
+
+	/// en: 'Entry'
+	String get entry => 'Entry';
 }
 
 /// Flat map(s) containing all translations.
@@ -266,6 +351,37 @@ extension on Translations {
 			case 'filters_and_sorting': return 'Filters and sorting';
 			case 'filters': return 'Filters';
 			case 'sort': return 'Sort by';
+			case 'challenging_behaviour': return 'Challenging behaviour';
+			case 'occuring': return 'Occuring';
+			case 'not_occuring': return 'Not occuring';
+			case 'location': return 'Location';
+			case 'please_enter_location': return 'Please enter a location';
+			case 'duration': return 'Trvanie';
+			case 'please_enter_duration': return 'Please enter duration';
+			case 'invalid_value': return 'Invalid value';
+			case 'one_minute': return 'Minute';
+			case 'few_minutes': return 'Minutes';
+			case 'many_minutes': return 'Minutes';
+			case 'circumstances': return 'Circumstances';
+			case 'people_present': return 'People present';
+			case 'outcome': return 'Outcome';
+			case 'reflection': return 'Reflection';
+			case 'add_new_entry': return 'Add new entry';
+			case 'create': return 'Create';
+			case 'after_typing_enter_submit': return 'After typing press "Enter" to save';
+			case 'minute': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				zero: 'Minutes',
+				one: 'Minute',
+				other: 'Minutes',
+			);
+			case 'mon': return 'Mon';
+			case 'tue': return 'Tue';
+			case 'wed': return 'Wed';
+			case 'thu': return 'Thu';
+			case 'fri': return 'Fri';
+			case 'sat': return 'Sat';
+			case 'sun': return 'Sun';
+			case 'entry': return 'Entry';
 			default: return null;
 		}
 	}

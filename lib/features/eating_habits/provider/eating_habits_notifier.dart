@@ -10,30 +10,25 @@ import 'package:flutter_riverpod/legacy.dart';
 import '../../../core/services/objectbox.dart';
 import '../../../main.dart';
 
-/// Provides the global ObjectBox instance initialized in main()
 final objectBoxProvider = Provider<ObjectBox>((ref) {
-  return objectbox; // uses the global variable from main.dart
+  return objectbox;
 });
 
-/// Provides the EatingHabitEntity box
 final eatingHabitBoxProvider = Provider<Box<EatingHabitEntity>>((ref) {
   final obx = ref.watch(objectBoxProvider);
   return obx.eatingHabitEntityBox;
 });
 
-// ✅ 2. Provide the local source
 final eatingHabitLocalSourceProvider = Provider<EatingHabitLocalSource>((ref) {
   final box = ref.watch(eatingHabitBoxProvider);
   return EatingHabitLocalSource(box);
 });
 
-// ✅ 3. Provide the repository (domain-level interface)
 final eatingHabitRepositoryProvider = Provider<EatingHabitRepository>((ref) {
   final localSource = ref.watch(eatingHabitLocalSourceProvider);
   return EatingHabitRepositoryImpl(localSource);
 });
 
-// ✅ 4. StateNotifier for managing habits in the UI
 final eatingHabitsProvider =
     StateNotifierProvider<EatingHabitsNotifier, List<EatingHabit>>((ref) {
       final repo = ref.watch(eatingHabitRepositoryProvider);
