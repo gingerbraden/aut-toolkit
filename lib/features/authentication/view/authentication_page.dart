@@ -191,6 +191,9 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
           actions: [
             TextButton(
               onPressed: () {
+                signInPasswordController.clear();
+                signInPasswordRepeatController.clear();
+                signInEmailController.clear();
                 Navigator.of(context).pop();
               },
               child: Text(t.cancel),
@@ -208,7 +211,7 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
   }
 
   void _signIn() {
-    if ((loginPasswordController.text
+    if ((signInPasswordController.text
         .trim()
         .isEmpty ||
         signInPasswordRepeatController.text
@@ -221,7 +224,7 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
         context,
         t.no_sign_in_details,
       );
-    } else if (loginPasswordController.text.trim() !=
+    } else if (signInPasswordController.text.trim() !=
         signInPasswordRepeatController.text.trim()) {
       ScaffoldMessengerUtils().showSnackBar(
         context,
@@ -232,7 +235,7 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
         context,
         t.invalid_mail,
       );
-    } else if (loginPasswordController.text
+    } else if (signInPasswordController.text
         .trim()
         .length < 6) {
       ScaffoldMessengerUtils().showSnackBar(
@@ -244,7 +247,7 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
           .read(authentificationNotifierProvider.notifier)
           .signUp(
         signInEmailController.text.trim(),
-        loginPasswordController.text.trim(),
+        signInPasswordController.text.trim(),
       );
       Navigator.of(context).pop();
     }
