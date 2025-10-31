@@ -17,7 +17,6 @@ class _HomeNavigationState extends ConsumerState<HomeNavigation> {
   bool isLoading = false;
   int _selectedIndex = 0;
 
-  // Example pages for each tab
   final List<Widget> _pages = [
     const HomePage(),
     const Center(),

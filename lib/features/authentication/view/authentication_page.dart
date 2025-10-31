@@ -29,7 +29,6 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
           _languagePopup()
         ],
       ),
-      // appBar: AppBar(title: const Text('Firebase Auth Service')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16),

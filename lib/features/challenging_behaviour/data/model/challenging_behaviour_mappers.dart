@@ -30,7 +30,6 @@ extension ChallengingBehaviourEntityMapper on ChallengingBehaviour {
       userId: userId
     );
 
-    // Link diary entries if any exist
     if (diaryEntries.isNotEmpty) {
       entity.diaryEntries.addAll(
         diaryEntries.map((e) => e.toEntity()).toList(),

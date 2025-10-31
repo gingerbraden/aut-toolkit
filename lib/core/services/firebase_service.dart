@@ -1,13 +1,10 @@
-// shared/services/firebase_service.dart
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Get current user
   User? get currentUser => _auth.currentUser;
 
-  // Sign up
   Future<String?> signUp({
     required String email,
     required String password,
@@ -17,7 +14,7 @@ class FirebaseService {
         email: email,
         password: password,
       );
-      return null; // Success
+      return null;
     } on FirebaseAuthException catch (e) {
       return e.message;
     } catch (e) {
@@ -25,7 +22,6 @@ class FirebaseService {
     }
   }
 
-  // Sign in
   Future<User?> signIn({
     required String email,
     required String password,
@@ -33,13 +29,12 @@ class FirebaseService {
     try {
       final result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      return result.user; // Success
+      return result.user;
     } catch (e) {
       return null;
     }
   }
 
-  // Sign out
   Future<void> signOut() async {
     await _auth.signOut();
   }

@@ -24,7 +24,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       appBar: AppBar(title: Text(t.settings), elevation: 0),
       body: ListView(
         children: [
-          // User section
           ListTile(
             leading: const Icon(Icons.account_circle_outlined),
             title: Text(
@@ -35,10 +34,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           ),
 
           const Divider(),
-          // Log out button
           LogOutTile(),
           const Divider(),
-          // Language setting
           AppLanguageTile(),
           const Divider(),
           ThemeModeTile(),

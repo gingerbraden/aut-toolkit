@@ -9,7 +9,6 @@ class AuthentificationNotifier extends Notifier<User?> {
 
   @override
   User? build() {
-    // Initialize with current user
     return _firebaseService.currentUser;
   }
 
@@ -19,7 +18,6 @@ class AuthentificationNotifier extends Notifier<User?> {
       password: password,
     );
     if (error == null) {
-      // Update state
       state = _firebaseService.currentUser;
     }
     return error;

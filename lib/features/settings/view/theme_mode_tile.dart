@@ -25,7 +25,7 @@ class _ThemeModeTileState extends ConsumerState<ThemeModeTile> {
         onChanged: (bool value) {
           final newTheme = value
               ? ThemeMode.dark
-              : ThemeMode.light; // correct logic
+              : ThemeMode.light;
           ref.read(themeModeNotifierProvider.notifier).changeTheme(newTheme);
         },
       ),

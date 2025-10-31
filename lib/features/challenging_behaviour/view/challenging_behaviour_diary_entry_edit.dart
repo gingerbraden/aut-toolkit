@@ -154,7 +154,7 @@ class _ChallengingBehaviourDiaryEntryEditState
           children: [
             const Icon(Icons.date_range),
             SizedBoxDivider(),
-            Text(DateUtil.returnDateInStringFormatWithTime(_date)), // show both date & time
+            Text(DateUtil.returnDateInStringFormatWithTime(_date)),
           ],
         ),
         onTap: _pickDateTime,
@@ -163,7 +163,6 @@ class _ChallengingBehaviourDiaryEntryEditState
   }
 
   Future<void> _pickDateTime() async {
-    // Pick date first
     final pickedDate = await showDatePicker(
       context: context,
       initialDate: _date,
@@ -172,14 +171,12 @@ class _ChallengingBehaviourDiaryEntryEditState
     );
     if (pickedDate == null) return;
 
-    // Then pick time
     final pickedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(_date),
     );
     if (pickedTime == null) return;
 
-    // Combine date and time into a DateTime object
     setState(() {
       _date = DateTime(
         pickedDate.year,
@@ -190,8 +187,6 @@ class _ChallengingBehaviourDiaryEntryEditState
       );
     });
   }
-
-
 
   Widget _durationField() {
     return Padding(
@@ -236,7 +231,6 @@ class _ChallengingBehaviourDiaryEntryEditState
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 8),
-        // Chips row
         Wrap(
           spacing: 6,
           runSpacing: 4,
@@ -250,7 +244,6 @@ class _ChallengingBehaviourDiaryEntryEditState
               .toList(),
         ),
         const SizedBox(height: 8),
-        // TextField for adding new chips
         TextField(
           controller: _peopleController,
           decoration: InputDecoration(
@@ -312,7 +305,7 @@ class _ChallengingBehaviourDiaryEntryEditState
 
     ref
         .read(challengingBehavioursProvider.notifier)
-        .addDiaryEntry(widget.cbId, entry); // you’ll need to implement this
+        .addDiaryEntry(widget.cbId, entry);
     router.pop();
     if (!widget.isNew) router.pop();
   }
