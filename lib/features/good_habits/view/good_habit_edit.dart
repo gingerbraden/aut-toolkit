@@ -1,6 +1,5 @@
 import 'package:aut_toolkit/core/widgets/icon/occuring_icon.dart';
 import 'package:aut_toolkit/features/good_habits/provider/good_habits_notifier.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
