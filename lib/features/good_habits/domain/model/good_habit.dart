@@ -10,6 +10,6 @@ class GoodHabit extends GeneralHabit {
     required super.userId,
     required super.name,
     required super.description,
-    required this.isOcuringFlag
+    required this.isOcuringFlag, required super.selectedPersonId
   });
 }

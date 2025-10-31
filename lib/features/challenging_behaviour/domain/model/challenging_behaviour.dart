@@ -13,5 +13,6 @@ class ChallengingBehaviour extends GeneralHabit {
     required this.diaryEntries,
     required this.occuring,
     required super.userId,
+    required super.selectedPersonId,
   });
 }

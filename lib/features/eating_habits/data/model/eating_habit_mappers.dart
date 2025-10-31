@@ -10,6 +10,7 @@ extension UserEntityMapper on EatingHabitEntity {
     name: name,
     description: description,
     userId: userId,
+    selectedPersonId: selectedPersonId,
   );
 }
 
@@ -22,5 +23,6 @@ extension UserModelMapper on EatingHabit {
     name: name,
     description: description,
     userId: userId,
+    selectedPersonId: selectedPersonId,
   );
 }

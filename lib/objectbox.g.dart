@@ -18,6 +18,7 @@ import 'features/challenging_behaviour/data/model/challenging_behaviour_diary_en
 import 'features/challenging_behaviour/data/model/challenging_behaviour_entity.dart';
 import 'features/eating_habits/data/model/eating_habit_entity.dart';
 import 'features/good_habits/data/model/good_habit_entity.dart';
+import 'features/selected_person/data/model/selected_person_entity.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -91,7 +92,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(4, 6231389929878358286),
     name: 'ChallengingBehaviourEntity',
-    lastPropertyId: const obx_int.IdUid(6, 3653867454443783666),
+    lastPropertyId: const obx_int.IdUid(7, 3086927186571094073),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -130,6 +131,12 @@ final _entities = <obx_int.ModelEntity>[
         type: 9,
         flags: 0,
       ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 3086927186571094073),
+        name: 'selectedPersonId',
+        type: 6,
+        flags: 0,
+      ),
     ],
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[
@@ -143,7 +150,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(5, 1812295606420934787),
     name: 'EatingHabitEntity',
-    lastPropertyId: const obx_int.IdUid(7, 2753014414256372943),
+    lastPropertyId: const obx_int.IdUid(8, 5857236163708609311),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -188,6 +195,12 @@ final _entities = <obx_int.ModelEntity>[
         type: 9,
         flags: 0,
       ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 5857236163708609311),
+        name: 'selectedPersonId',
+        type: 6,
+        flags: 0,
+      ),
     ],
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[],
@@ -195,7 +208,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(6, 4139673972050310461),
     name: 'GoodHabitEntity',
-    lastPropertyId: const obx_int.IdUid(6, 6350548586302974283),
+    lastPropertyId: const obx_int.IdUid(7, 3174147389341847264),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -232,6 +245,46 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(6, 6350548586302974283),
         name: 'isOccuringFlag',
         type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 3174147389341847264),
+        name: 'selectedPersonId',
+        type: 6,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(7, 6805867481002173015),
+    name: 'SelectedPersonEntity',
+    lastPropertyId: const obx_int.IdUid(4, 4538225831951454339),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 5608958196129389297),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 2353551128508159732),
+        name: 'isSelected',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 2836334951276873748),
+        name: 'userId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 4538225831951454339),
+        name: 'name',
+        type: 9,
         flags: 0,
       ),
     ],
@@ -278,7 +331,7 @@ Future<obx.Store> openStore({
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(6, 4139673972050310461),
+    lastEntityId: const obx_int.IdUid(7, 6805867481002173015),
     lastIndexId: const obx_int.IdUid(1, 7265063553320486894),
     lastRelationId: const obx_int.IdUid(0, 0),
     lastSequenceId: const obx_int.IdUid(0, 0),
@@ -413,13 +466,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
               object.generalDescription,
             );
             final userIdOffset = fbb.writeString(object.userId);
-            fbb.startTable(7);
+            fbb.startTable(8);
             fbb.addInt64(0, object.id ?? 0);
             fbb.addBool(1, object.occuring);
             fbb.addOffset(2, nameOffset);
             fbb.addInt64(3, object.from.millisecondsSinceEpoch);
             fbb.addOffset(4, generalDescriptionOffset);
             fbb.addOffset(5, userIdOffset);
+            fbb.addInt64(6, object.selectedPersonId);
             fbb.finish(fbb.endTable());
             return object.id ?? 0;
           },
@@ -451,6 +505,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
             final userIdParam = const fb.StringReader(
               asciiOptimization: true,
             ).vTableGet(buffer, rootOffset, 14, '');
+            final selectedPersonIdParam = const fb.Int64Reader().vTableGet(
+              buffer,
+              rootOffset,
+              16,
+              0,
+            );
             final object = ChallengingBehaviourEntity(
               id: idParam,
               name: nameParam,
@@ -459,6 +519,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
               diaryEntries: diaryEntriesParam,
               occuring: occuringParam,
               userId: userIdParam,
+              selectedPersonId: selectedPersonIdParam,
             );
             obx_int.InternalToManyAccess.setRelInfo<ChallengingBehaviourEntity>(
               object.diaryEntries,
@@ -487,7 +548,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final nameOffset = fbb.writeString(object.name);
         final descriptionOffset = fbb.writeString(object.description);
         final userIdOffset = fbb.writeString(object.userId);
-        fbb.startTable(8);
+        fbb.startTable(9);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.to?.millisecondsSinceEpoch);
         fbb.addBool(2, object.isEatingFlag);
@@ -495,6 +556,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         fbb.addOffset(4, nameOffset);
         fbb.addOffset(5, descriptionOffset);
         fbb.addOffset(6, userIdOffset);
+        fbb.addInt64(7, object.selectedPersonId);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -533,6 +595,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final userIdParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 16, '');
+        final selectedPersonIdParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          18,
+          0,
+        );
         final object = EatingHabitEntity(
           id: idParam,
           from: fromParam,
@@ -541,6 +609,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           name: nameParam,
           description: descriptionParam,
           userId: userIdParam,
+          selectedPersonId: selectedPersonIdParam,
         );
 
         return object;
@@ -558,13 +627,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final userIdOffset = fbb.writeString(object.userId);
         final nameOffset = fbb.writeString(object.name);
         final descriptionOffset = fbb.writeString(object.description);
-        fbb.startTable(7);
+        fbb.startTable(8);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.from.millisecondsSinceEpoch);
         fbb.addOffset(2, userIdOffset);
         fbb.addOffset(3, nameOffset);
         fbb.addOffset(4, descriptionOffset);
         fbb.addBool(5, object.isOccuringFlag);
+        fbb.addInt64(6, object.selectedPersonId);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -595,6 +665,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
           14,
           false,
         );
+        final selectedPersonIdParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          16,
+          0,
+        );
         final object = GoodHabitEntity(
           id: idParam,
           from: fromParam,
@@ -602,6 +678,57 @@ obx_int.ModelDefinition getObjectBoxModel() {
           name: nameParam,
           description: descriptionParam,
           isOccuringFlag: isOccuringFlagParam,
+          selectedPersonId: selectedPersonIdParam,
+        );
+
+        return object;
+      },
+    ),
+    SelectedPersonEntity: obx_int.EntityDefinition<SelectedPersonEntity>(
+      model: _entities[4],
+      toOneRelations: (SelectedPersonEntity object) => [],
+      toManyRelations: (SelectedPersonEntity object) => {},
+      getId: (SelectedPersonEntity object) => object.id,
+      setId: (SelectedPersonEntity object, int id) {
+        object.id = id;
+      },
+      objectToFB: (SelectedPersonEntity object, fb.Builder fbb) {
+        final userIdOffset = fbb.writeString(object.userId);
+        final nameOffset = fbb.writeString(object.name);
+        fbb.startTable(5);
+        fbb.addInt64(0, object.id);
+        fbb.addBool(1, object.isSelected);
+        fbb.addOffset(2, userIdOffset);
+        fbb.addOffset(3, nameOffset);
+        fbb.finish(fbb.endTable());
+        return object.id;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
+        final userIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 8, '');
+        final nameParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 10, '');
+        final isSelectedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          6,
+          false,
+        );
+        final object = SelectedPersonEntity(
+          id: idParam,
+          userId: userIdParam,
+          name: nameParam,
+          isSelected: isSelectedParam,
         );
 
         return object;
@@ -703,6 +830,12 @@ class ChallengingBehaviourEntity_ {
     _entities[1].properties[5],
   );
 
+  /// See [ChallengingBehaviourEntity.selectedPersonId].
+  static final selectedPersonId =
+      obx.QueryIntegerProperty<ChallengingBehaviourEntity>(
+        _entities[1].properties[6],
+      );
+
   /// see [ChallengingBehaviourEntity.diaryEntries]
   static final diaryEntries =
       obx.QueryBacklinkToMany<
@@ -747,6 +880,11 @@ class EatingHabitEntity_ {
   static final userId = obx.QueryStringProperty<EatingHabitEntity>(
     _entities[2].properties[6],
   );
+
+  /// See [EatingHabitEntity.selectedPersonId].
+  static final selectedPersonId = obx.QueryIntegerProperty<EatingHabitEntity>(
+    _entities[2].properties[7],
+  );
 }
 
 /// [GoodHabitEntity] entity fields to define ObjectBox queries.
@@ -779,5 +917,33 @@ class GoodHabitEntity_ {
   /// See [GoodHabitEntity.isOccuringFlag].
   static final isOccuringFlag = obx.QueryBooleanProperty<GoodHabitEntity>(
     _entities[3].properties[5],
+  );
+
+  /// See [GoodHabitEntity.selectedPersonId].
+  static final selectedPersonId = obx.QueryIntegerProperty<GoodHabitEntity>(
+    _entities[3].properties[6],
+  );
+}
+
+/// [SelectedPersonEntity] entity fields to define ObjectBox queries.
+class SelectedPersonEntity_ {
+  /// See [SelectedPersonEntity.id].
+  static final id = obx.QueryIntegerProperty<SelectedPersonEntity>(
+    _entities[4].properties[0],
+  );
+
+  /// See [SelectedPersonEntity.isSelected].
+  static final isSelected = obx.QueryBooleanProperty<SelectedPersonEntity>(
+    _entities[4].properties[1],
+  );
+
+  /// See [SelectedPersonEntity.userId].
+  static final userId = obx.QueryStringProperty<SelectedPersonEntity>(
+    _entities[4].properties[2],
+  );
+
+  /// See [SelectedPersonEntity.name].
+  static final name = obx.QueryStringProperty<SelectedPersonEntity>(
+    _entities[4].properties[3],
   );
 }

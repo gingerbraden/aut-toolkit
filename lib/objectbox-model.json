@@ -62,7 +62,7 @@
     },
     {
       "id": "4:6231389929878358286",
-      "lastPropertyId": "6:3653867454443783666",
+      "lastPropertyId": "7:3086927186571094073",
       "name": "ChallengingBehaviourEntity",
       "properties": [
         {
@@ -95,13 +95,18 @@
           "id": "6:3653867454443783666",
           "name": "userId",
           "type": 9
+        },
+        {
+          "id": "7:3086927186571094073",
+          "name": "selectedPersonId",
+          "type": 6
         }
       ],
       "relations": []
     },
     {
       "id": "5:1812295606420934787",
-      "lastPropertyId": "7:2753014414256372943",
+      "lastPropertyId": "8:5857236163708609311",
       "name": "EatingHabitEntity",
       "properties": [
         {
@@ -139,13 +144,18 @@
           "id": "7:2753014414256372943",
           "name": "userId",
           "type": 9
+        },
+        {
+          "id": "8:5857236163708609311",
+          "name": "selectedPersonId",
+          "type": 6
         }
       ],
       "relations": []
     },
     {
       "id": "6:4139673972050310461",
-      "lastPropertyId": "6:6350548586302974283",
+      "lastPropertyId": "7:3174147389341847264",
       "name": "GoodHabitEntity",
       "properties": [
         {
@@ -178,12 +188,46 @@
           "id": "6:6350548586302974283",
           "name": "isOccuringFlag",
           "type": 1
+        },
+        {
+          "id": "7:3174147389341847264",
+          "name": "selectedPersonId",
+          "type": 6
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:6805867481002173015",
+      "lastPropertyId": "4:4538225831951454339",
+      "name": "SelectedPersonEntity",
+      "properties": [
+        {
+          "id": "1:5608958196129389297",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2353551128508159732",
+          "name": "isSelected",
+          "type": 1
+        },
+        {
+          "id": "3:2836334951276873748",
+          "name": "userId",
+          "type": 9
+        },
+        {
+          "id": "4:4538225831951454339",
+          "name": "name",
+          "type": 9
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "6:4139673972050310461",
+  "lastEntityId": "7:6805867481002173015",
   "lastIndexId": "1:7265063553320486894",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

@@ -298,6 +298,15 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Entry'
 	String get entry => 'Entry';
+
+	/// en: 'Close'
+	String get close => 'Close';
+
+	/// en: 'Managed people'
+	String get managed_people => 'Managed people';
+
+	/// en: 'Add a person'
+	String get add_managed_person => 'Add a person';
 }
 
 /// Flat map(s) containing all translations.
@@ -394,6 +403,9 @@ extension on Translations {
 			case 'sat': return 'Sat';
 			case 'sun': return 'Sun';
 			case 'entry': return 'Entry';
+			case 'close': return 'Close';
+			case 'managed_people': return 'Managed people';
+			case 'add_managed_person': return 'Add a person';
 			default: return null;
 		}
 	}

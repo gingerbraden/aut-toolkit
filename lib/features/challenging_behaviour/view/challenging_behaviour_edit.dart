@@ -1,5 +1,6 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/utils/date_util.dart';
+import 'package:aut_toolkit/features/selected_person/provider/selected_person_notifier.dart';
 import '../../../core/widgets/divider/sized_box_divider.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/provider/challenging_behaviour_notifier.dart';
@@ -218,6 +219,7 @@ class _ChallengingBehaviourEditScreenState
         diaryEntries: [],
         occuring: _occuring == Occuring.ocurring,
         userId: widget.cb.userId,
+        selectedPersonId: ref.watch(selectedPersonsProvider.notifier).getSelected().id!
       );
 
       ref.read(challengingBehavioursProvider.notifier).addBehaviour(updatedCb);

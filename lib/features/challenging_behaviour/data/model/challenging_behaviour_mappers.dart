@@ -13,7 +13,8 @@ extension ChallengingBehaviourMapper on ChallengingBehaviourEntity {
       description: generalDescription,
       occuring: occuring,
       diaryEntries: diaryEntries.map((e) => e.toModel()).toList(),
-      userId: userId
+      userId: userId,
+      selectedPersonId: selectedPersonId,
     );
   }
 }
@@ -27,7 +28,8 @@ extension ChallengingBehaviourEntityMapper on ChallengingBehaviour {
       generalDescription: description,
       occuring: occuring,
       diaryEntries: ToMany<ChallengingBehaviourDiaryEntryEntity>(),
-      userId: userId
+      userId: userId,
+      selectedPersonId: selectedPersonId
     );
 
     if (diaryEntries.isNotEmpty) {

@@ -4,6 +4,7 @@ class GeneralHabit {
   String userId;
   String name;
   String description;
+  int selectedPersonId;
 
   GeneralHabit({
     this.id = 0,
@@ -11,5 +12,6 @@ class GeneralHabit {
     required this.userId,
     required this.name,
     required this.description,
+    required this.selectedPersonId
   });
 }

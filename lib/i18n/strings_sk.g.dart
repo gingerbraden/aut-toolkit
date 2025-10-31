@@ -126,6 +126,9 @@ class TranslationsSk implements Translations {
 	@override String get sat => 'So';
 	@override String get sun => 'Ne';
 	@override String get entry => 'Záznam';
+	@override String get close => 'Zavrieť';
+	@override String get managed_people => 'Spravované osoby';
+	@override String get add_managed_person => 'Pridať osobu';
 }
 
 /// Flat map(s) containing all translations.
@@ -223,6 +226,9 @@ extension on TranslationsSk {
 			case 'sat': return 'So';
 			case 'sun': return 'Ne';
 			case 'entry': return 'Záznam';
+			case 'close': return 'Zavrieť';
+			case 'managed_people': return 'Spravované osoby';
+			case 'add_managed_person': return 'Pridať osobu';
 			default: return null;
 		}
 	}

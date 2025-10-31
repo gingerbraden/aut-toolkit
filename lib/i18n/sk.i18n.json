@@ -88,5 +88,8 @@
   "fri": "Pi",
   "sat": "So",
   "sun": "Ne",
-  "entry": "Záznam"
+  "entry": "Záznam",
+  "close": "Zavrieť",
+  "managed_people": "Spravované osoby",
+  "add_managed_person": "Pridať osobu"
 }

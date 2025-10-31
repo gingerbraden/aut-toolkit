@@ -8,6 +8,7 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/utils/date_util.dart';
 import '../../../core/widgets/divider/sized_box_divider.dart';
 import '../../../i18n/strings.g.dart';
+import '../../selected_person/provider/selected_person_notifier.dart';
 import '../domain/model/good_habit.dart';
 
 enum Occuring { ocurring, notOccuring }
@@ -210,7 +211,8 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
           isOcuringFlag: _occuring == Occuring.ocurring,
           from: _fromDate,
           id: widget.habit.id,
-          userId: widget.habit.userId
+          userId: widget.habit.userId,
+          selectedPersonId: ref.watch(selectedPersonsProvider.notifier).getSelected().id!
       );
       ref.read(goodHabitsProvider.notifier).addHabit(updatedHabit);
       setState(() {

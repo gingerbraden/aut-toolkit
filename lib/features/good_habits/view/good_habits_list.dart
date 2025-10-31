@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/widgets/icon/occuring_icon.dart';
+import '../../selected_person/provider/selected_person_notifier.dart';
 import '../domain/model/good_habit.dart';
 
 class GoodHabitsList extends ConsumerWidget {
@@ -21,7 +22,7 @@ class GoodHabitsList extends ConsumerWidget {
 
     return FilterableList<GoodHabit>(
       title: t.good_habits,
-      items: habits,
+      items: habits.where((h) => h.selectedPersonId==ref.watch(selectedPersonsProvider.notifier).getSelected().id!).toList(),
       searchKey: (habit) => habit.name,
       itemBuilder: (habit) => Card(
         margin: EdgeInsetsGeometry.directional(bottom: 8),
@@ -87,6 +88,7 @@ class GoodHabitsList extends ConsumerWidget {
               name: '',
               description: '',
               userId: FirebaseService().currentUser!.uid,
+              selectedPersonId: ref.watch(selectedPersonsProvider.notifier).getSelected().id!
             ),
           );
         },

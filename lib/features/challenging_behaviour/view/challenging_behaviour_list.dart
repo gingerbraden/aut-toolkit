@@ -11,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/utils/date_util.dart';
 import '../../../core/widgets/filterable_list.dart';
 import '../../../i18n/strings.g.dart';
+import '../../selected_person/provider/selected_person_notifier.dart';
 
 class ChallengingBehaviourList extends ConsumerWidget {
   const ChallengingBehaviourList({super.key});
@@ -59,7 +60,7 @@ class ChallengingBehaviourList extends ConsumerWidget {
 
     return FilterableList<ChallengingBehaviour>(
       title: t.challenging_behaviour,
-      items: habits,
+      items: habits.where((h) => h.selectedPersonId==ref.watch(selectedPersonsProvider.notifier).getSelected().id!).toList(),
       searchKey: (cb) => cb.name,
       itemBuilder: (cb) => Card(
         margin: EdgeInsetsGeometry.directional(bottom: 8),
@@ -89,6 +90,7 @@ class ChallengingBehaviourList extends ConsumerWidget {
               diaryEntries: [],
               occuring: true,
               userId: FirebaseService().currentUser!.uid,
+              selectedPersonId: ref.watch(selectedPersonsProvider.notifier).getSelected().id!
             ),
           );
         },

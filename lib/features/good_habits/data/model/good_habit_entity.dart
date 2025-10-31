@@ -10,6 +10,7 @@ class GoodHabitEntity {
   String name;
   String description;
   bool isOccuringFlag;
+  int selectedPersonId;
 
   GoodHabitEntity({
     this.id = 0,
@@ -17,7 +18,8 @@ class GoodHabitEntity {
     required this.userId,
     required this.name,
     required this.description,
-    required this.isOccuringFlag
+    required this.isOccuringFlag,
+    required this.selectedPersonId
   });
 
 }

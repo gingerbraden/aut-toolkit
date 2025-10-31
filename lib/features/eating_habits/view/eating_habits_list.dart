@@ -12,6 +12,7 @@ import 'package:aut_toolkit/features/eating_habits/provider/eating_habits_notifi
 import 'package:aut_toolkit/i18n/strings.g.dart';
 
 import '../../../core/widgets/icon/eating_icon.dart';
+import '../../selected_person/provider/selected_person_notifier.dart';
 
 class EatingHabitsList extends ConsumerWidget {
   const EatingHabitsList({super.key});
@@ -22,7 +23,7 @@ class EatingHabitsList extends ConsumerWidget {
 
     return FilterableList<EatingHabit>(
       title: t.eating_habits,
-      items: habits,
+      items: habits.where((h) => h.selectedPersonId==ref.watch(selectedPersonsProvider.notifier).getSelected().id!).toList(),
       searchKey: (habit) => habit.name,
       itemBuilder: (habit) => Card(
         margin: EdgeInsetsGeometry.directional(bottom: 8),
@@ -108,6 +109,7 @@ class EatingHabitsList extends ConsumerWidget {
               name: '',
               description: '',
               userId: FirebaseService().currentUser!.uid,
+              selectedPersonId: ref.watch(selectedPersonsProvider.notifier).getSelected().id!
             ),
           );
         },

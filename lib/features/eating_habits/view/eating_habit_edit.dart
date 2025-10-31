@@ -7,6 +7,7 @@ import 'package:aut_toolkit/core/utils/date_util.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/widgets/icon/eating_icon.dart';
 import '../../../i18n/strings.g.dart';
+import '../../selected_person/provider/selected_person_notifier.dart';
 import '../domain/model/eating_habit.dart';
 import '../provider/eating_habits_notifier.dart';
 
@@ -238,7 +239,8 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
           from: _fromDate,
           to: _toDate,
           id: widget.habit.id,
-          userId: widget.habit.userId
+          userId: widget.habit.userId,
+          selectedPersonId: ref.watch(selectedPersonsProvider.notifier).getSelected().id!
       );
       ref.read(eatingHabitsProvider.notifier).addHabit(updatedHabit);
       setState(() {

@@ -87,5 +87,8 @@
   "fri": "Fri",
   "sat": "Sat",
   "sun": "Sun",
-  "entry": "Entry"
+  "entry": "Entry",
+  "close": "Close",
+  "managed_people": "Managed people",
+  "add_managed_person": "Add a person"
 }

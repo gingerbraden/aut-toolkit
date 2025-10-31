@@ -19,6 +19,8 @@ class ChallengingBehaviourEntity {
 
   String userId;
 
+  int selectedPersonId;
+
   ChallengingBehaviourEntity({
     this.id = 0,
     required this.name,
@@ -26,6 +28,7 @@ class ChallengingBehaviourEntity {
     required this.generalDescription,
     required this.diaryEntries,
     required this.occuring,
-    required this.userId
+    required this.userId,
+    required this.selectedPersonId
   });
 }

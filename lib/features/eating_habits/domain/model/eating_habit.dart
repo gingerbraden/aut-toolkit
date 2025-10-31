@@ -12,5 +12,6 @@ class EatingHabit extends GeneralHabit {
     required this.isEatingFlag,
     required super.name,
     required super.description,
+    required super.selectedPersonId,
   });
 }
