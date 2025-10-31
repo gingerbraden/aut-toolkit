@@ -4,50 +4,6 @@
   "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
   "entities": [
     {
-      "id": "1:1777307641083598478",
-      "lastPropertyId": "7:4128286833958398028",
-      "name": "EatingHabitEntity",
-      "properties": [
-        {
-          "id": "1:7323305404545168403",
-          "name": "id",
-          "type": 6,
-          "flags": 1
-        },
-        {
-          "id": "2:1219579721037450855",
-          "name": "from",
-          "type": 10
-        },
-        {
-          "id": "3:593779817146309026",
-          "name": "to",
-          "type": 10
-        },
-        {
-          "id": "4:1176311604953178663",
-          "name": "isEatingFlag",
-          "type": 1
-        },
-        {
-          "id": "5:3518344782468400788",
-          "name": "name",
-          "type": 9
-        },
-        {
-          "id": "6:4393786231541083778",
-          "name": "description",
-          "type": 9
-        },
-        {
-          "id": "7:4128286833958398028",
-          "name": "userId",
-          "type": 9
-        }
-      ],
-      "relations": []
-    },
-    {
       "id": "2:139465113525671056",
       "lastPropertyId": "9:8473330541405588167",
       "name": "ChallengingBehaviourDiaryEntryEntity",
@@ -105,38 +61,82 @@
       "relations": []
     },
     {
-      "id": "3:6112168635049409585",
-      "lastPropertyId": "6:938737596790947008",
+      "id": "4:6231389929878358286",
+      "lastPropertyId": "6:3653867454443783666",
       "name": "ChallengingBehaviourEntity",
       "properties": [
         {
-          "id": "1:5353683167311258387",
+          "id": "1:957492046697605941",
           "name": "id",
           "type": 6,
           "flags": 1
         },
         {
-          "id": "2:69716348719230726",
-          "name": "name",
-          "type": 9
-        },
-        {
-          "id": "3:1233996314118088075",
-          "name": "from",
-          "type": 10
-        },
-        {
-          "id": "4:591679213236383350",
-          "name": "generalDescription",
-          "type": 9
-        },
-        {
-          "id": "5:6645588857862198462",
+          "id": "2:3447244676382177609",
           "name": "occuring",
           "type": 1
         },
         {
-          "id": "6:938737596790947008",
+          "id": "3:8814747557842586450",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "4:9102207563706588597",
+          "name": "from",
+          "type": 10
+        },
+        {
+          "id": "5:1746883064538615473",
+          "name": "generalDescription",
+          "type": 9
+        },
+        {
+          "id": "6:3653867454443783666",
+          "name": "userId",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:1812295606420934787",
+      "lastPropertyId": "7:2753014414256372943",
+      "name": "EatingHabitEntity",
+      "properties": [
+        {
+          "id": "1:6931242426439301705",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8423343766618127990",
+          "name": "to",
+          "type": 10
+        },
+        {
+          "id": "3:6790623775884093556",
+          "name": "isEatingFlag",
+          "type": 1
+        },
+        {
+          "id": "4:2624360315488368124",
+          "name": "from",
+          "type": 10
+        },
+        {
+          "id": "5:8315437001960652234",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "6:7309644610374706293",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "7:2753014414256372943",
           "name": "userId",
           "type": 9
         }
@@ -144,15 +144,33 @@
       "relations": []
     }
   ],
-  "lastEntityId": "3:6112168635049409585",
+  "lastEntityId": "5:1812295606420934787",
   "lastIndexId": "1:7265063553320486894",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "retiredEntityUids": [],
+  "retiredEntityUids": [
+    1777307641083598478,
+    6112168635049409585
+  ],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    591679213236383350,
+    7323305404545168403,
+    1219579721037450855,
+    593779817146309026,
+    1176311604953178663,
+    3518344782468400788,
+    4393786231541083778,
+    4128286833958398028,
+    5353683167311258387,
+    69716348719230726,
+    1233996314118088075,
+    6645588857862198462,
+    938737596790947008,
+    8520208140183450181
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

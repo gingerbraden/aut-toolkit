@@ -22,58 +22,6 @@ export 'package:objectbox/objectbox.dart'; // so that callers only have to impor
 
 final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
-    id: const obx_int.IdUid(1, 1777307641083598478),
-    name: 'EatingHabitEntity',
-    lastPropertyId: const obx_int.IdUid(7, 4128286833958398028),
-    flags: 0,
-    properties: <obx_int.ModelProperty>[
-      obx_int.ModelProperty(
-        id: const obx_int.IdUid(1, 7323305404545168403),
-        name: 'id',
-        type: 6,
-        flags: 1,
-      ),
-      obx_int.ModelProperty(
-        id: const obx_int.IdUid(2, 1219579721037450855),
-        name: 'from',
-        type: 10,
-        flags: 0,
-      ),
-      obx_int.ModelProperty(
-        id: const obx_int.IdUid(3, 593779817146309026),
-        name: 'to',
-        type: 10,
-        flags: 0,
-      ),
-      obx_int.ModelProperty(
-        id: const obx_int.IdUid(4, 1176311604953178663),
-        name: 'isEatingFlag',
-        type: 1,
-        flags: 0,
-      ),
-      obx_int.ModelProperty(
-        id: const obx_int.IdUid(5, 3518344782468400788),
-        name: 'name',
-        type: 9,
-        flags: 0,
-      ),
-      obx_int.ModelProperty(
-        id: const obx_int.IdUid(6, 4393786231541083778),
-        name: 'description',
-        type: 9,
-        flags: 0,
-      ),
-      obx_int.ModelProperty(
-        id: const obx_int.IdUid(7, 4128286833958398028),
-        name: 'userId',
-        type: 9,
-        flags: 0,
-      ),
-    ],
-    relations: <obx_int.ModelRelation>[],
-    backlinks: <obx_int.ModelBacklink>[],
-  ),
-  obx_int.ModelEntity(
     id: const obx_int.IdUid(2, 139465113525671056),
     name: 'ChallengingBehaviourDiaryEntryEntity',
     lastPropertyId: const obx_int.IdUid(9, 8473330541405588167),
@@ -140,43 +88,43 @@ final _entities = <obx_int.ModelEntity>[
     backlinks: <obx_int.ModelBacklink>[],
   ),
   obx_int.ModelEntity(
-    id: const obx_int.IdUid(3, 6112168635049409585),
+    id: const obx_int.IdUid(4, 6231389929878358286),
     name: 'ChallengingBehaviourEntity',
-    lastPropertyId: const obx_int.IdUid(6, 938737596790947008),
+    lastPropertyId: const obx_int.IdUid(6, 3653867454443783666),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(1, 5353683167311258387),
+        id: const obx_int.IdUid(1, 957492046697605941),
         name: 'id',
         type: 6,
         flags: 1,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(2, 69716348719230726),
-        name: 'name',
-        type: 9,
-        flags: 0,
-      ),
-      obx_int.ModelProperty(
-        id: const obx_int.IdUid(3, 1233996314118088075),
-        name: 'from',
-        type: 10,
-        flags: 0,
-      ),
-      obx_int.ModelProperty(
-        id: const obx_int.IdUid(4, 591679213236383350),
-        name: 'generalDescription',
-        type: 9,
-        flags: 0,
-      ),
-      obx_int.ModelProperty(
-        id: const obx_int.IdUid(5, 6645588857862198462),
+        id: const obx_int.IdUid(2, 3447244676382177609),
         name: 'occuring',
         type: 1,
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(6, 938737596790947008),
+        id: const obx_int.IdUid(3, 8814747557842586450),
+        name: 'name',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 9102207563706588597),
+        name: 'from',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 1746883064538615473),
+        name: 'generalDescription',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 3653867454443783666),
         name: 'userId',
         type: 9,
         flags: 0,
@@ -190,6 +138,58 @@ final _entities = <obx_int.ModelEntity>[
         srcField: '',
       ),
     ],
+  ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(5, 1812295606420934787),
+    name: 'EatingHabitEntity',
+    lastPropertyId: const obx_int.IdUid(7, 2753014414256372943),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 6931242426439301705),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 8423343766618127990),
+        name: 'to',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 6790623775884093556),
+        name: 'isEatingFlag',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 2624360315488368124),
+        name: 'from',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 8315437001960652234),
+        name: 'name',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 7309644610374706293),
+        name: 'description',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 2753014414256372943),
+        name: 'userId',
+        type: 9,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
   ),
 ];
 
@@ -231,13 +231,28 @@ Future<obx.Store> openStore({
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(3, 6112168635049409585),
+    lastEntityId: const obx_int.IdUid(5, 1812295606420934787),
     lastIndexId: const obx_int.IdUid(1, 7265063553320486894),
     lastRelationId: const obx_int.IdUid(0, 0),
     lastSequenceId: const obx_int.IdUid(0, 0),
-    retiredEntityUids: const [],
+    retiredEntityUids: const [1777307641083598478, 6112168635049409585],
     retiredIndexUids: const [],
-    retiredPropertyUids: const [],
+    retiredPropertyUids: const [
+      591679213236383350,
+      7323305404545168403,
+      1219579721037450855,
+      593779817146309026,
+      1176311604953178663,
+      3518344782468400788,
+      4393786231541083778,
+      4128286833958398028,
+      5353683167311258387,
+      69716348719230726,
+      1233996314118088075,
+      6645588857862198462,
+      938737596790947008,
+      8520208140183450181,
+    ],
     retiredRelationUids: const [],
     modelVersion: 5,
     modelVersionParserMinimum: 5,
@@ -245,80 +260,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
   );
 
   final bindings = <Type, obx_int.EntityDefinition>{
-    EatingHabitEntity: obx_int.EntityDefinition<EatingHabitEntity>(
-      model: _entities[0],
-      toOneRelations: (EatingHabitEntity object) => [],
-      toManyRelations: (EatingHabitEntity object) => {},
-      getId: (EatingHabitEntity object) => object.id,
-      setId: (EatingHabitEntity object, int id) {
-        object.id = id;
-      },
-      objectToFB: (EatingHabitEntity object, fb.Builder fbb) {
-        final nameOffset = fbb.writeString(object.name);
-        final descriptionOffset = fbb.writeString(object.description);
-        final userIdOffset = fbb.writeString(object.userId);
-        fbb.startTable(8);
-        fbb.addInt64(0, object.id);
-        fbb.addInt64(1, object.from.millisecondsSinceEpoch);
-        fbb.addInt64(2, object.to?.millisecondsSinceEpoch);
-        fbb.addBool(3, object.isEatingFlag);
-        fbb.addOffset(4, nameOffset);
-        fbb.addOffset(5, descriptionOffset);
-        fbb.addOffset(6, userIdOffset);
-        fbb.finish(fbb.endTable());
-        return object.id;
-      },
-      objectFromFB: (obx.Store store, ByteData fbData) {
-        final buffer = fb.BufferContext(fbData);
-        final rootOffset = buffer.derefObject(0);
-        final toValue = const fb.Int64Reader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          8,
-        );
-        final idParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          4,
-          0,
-        );
-        final fromParam = DateTime.fromMillisecondsSinceEpoch(
-          const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0),
-        );
-        final toParam = toValue == null
-            ? null
-            : DateTime.fromMillisecondsSinceEpoch(toValue);
-        final isEatingFlagParam = const fb.BoolReader().vTableGet(
-          buffer,
-          rootOffset,
-          10,
-          false,
-        );
-        final nameParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGet(buffer, rootOffset, 12, '');
-        final descriptionParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGet(buffer, rootOffset, 14, '');
-        final userIdParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGet(buffer, rootOffset, 16, '');
-        final object = EatingHabitEntity(
-          id: idParam,
-          from: fromParam,
-          to: toParam,
-          isEatingFlag: isEatingFlagParam,
-          name: nameParam,
-          description: descriptionParam,
-          userId: userIdParam,
-        );
-
-        return object;
-      },
-    ),
     ChallengingBehaviourDiaryEntryEntity:
         obx_int.EntityDefinition<ChallengingBehaviourDiaryEntryEntity>(
-          model: _entities[1],
+          model: _entities[0],
           toOneRelations: (ChallengingBehaviourDiaryEntryEntity object) => [
             object.challengingBehaviour,
           ],
@@ -402,7 +346,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         ),
     ChallengingBehaviourEntity:
         obx_int.EntityDefinition<ChallengingBehaviourEntity>(
-          model: _entities[2],
+          model: _entities[1],
           toOneRelations: (ChallengingBehaviourEntity object) => [],
           toManyRelations: (ChallengingBehaviourEntity object) => {
             obx_int.RelInfo<ChallengingBehaviourDiaryEntryEntity>.toOneBacklink(
@@ -424,10 +368,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
             final userIdOffset = fbb.writeString(object.userId);
             fbb.startTable(7);
             fbb.addInt64(0, object.id ?? 0);
-            fbb.addOffset(1, nameOffset);
-            fbb.addInt64(2, object.from.millisecondsSinceEpoch);
-            fbb.addOffset(3, generalDescriptionOffset);
-            fbb.addBool(4, object.occuring);
+            fbb.addBool(1, object.occuring);
+            fbb.addOffset(2, nameOffset);
+            fbb.addInt64(3, object.from.millisecondsSinceEpoch);
+            fbb.addOffset(4, generalDescriptionOffset);
             fbb.addOffset(5, userIdOffset);
             fbb.finish(fbb.endTable());
             return object.id ?? 0;
@@ -442,19 +386,19 @@ obx_int.ModelDefinition getObjectBoxModel() {
             );
             final nameParam = const fb.StringReader(
               asciiOptimization: true,
-            ).vTableGet(buffer, rootOffset, 6, '');
+            ).vTableGet(buffer, rootOffset, 8, '');
             final fromParam = DateTime.fromMillisecondsSinceEpoch(
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0),
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0),
             );
             final generalDescriptionParam = const fb.StringReader(
               asciiOptimization: true,
-            ).vTableGet(buffer, rootOffset, 10, '');
+            ).vTableGet(buffer, rootOffset, 12, '');
             final diaryEntriesParam =
                 obx.ToMany<ChallengingBehaviourDiaryEntryEntity>();
             final occuringParam = const fb.BoolReader().vTableGet(
               buffer,
               rootOffset,
-              12,
+              6,
               false,
             );
             final userIdParam = const fb.StringReader(
@@ -484,47 +428,80 @@ obx_int.ModelDefinition getObjectBoxModel() {
             return object;
           },
         ),
+    EatingHabitEntity: obx_int.EntityDefinition<EatingHabitEntity>(
+      model: _entities[2],
+      toOneRelations: (EatingHabitEntity object) => [],
+      toManyRelations: (EatingHabitEntity object) => {},
+      getId: (EatingHabitEntity object) => object.id,
+      setId: (EatingHabitEntity object, int id) {
+        object.id = id;
+      },
+      objectToFB: (EatingHabitEntity object, fb.Builder fbb) {
+        final nameOffset = fbb.writeString(object.name);
+        final descriptionOffset = fbb.writeString(object.description);
+        final userIdOffset = fbb.writeString(object.userId);
+        fbb.startTable(8);
+        fbb.addInt64(0, object.id);
+        fbb.addInt64(1, object.to?.millisecondsSinceEpoch);
+        fbb.addBool(2, object.isEatingFlag);
+        fbb.addInt64(3, object.from.millisecondsSinceEpoch);
+        fbb.addOffset(4, nameOffset);
+        fbb.addOffset(5, descriptionOffset);
+        fbb.addOffset(6, userIdOffset);
+        fbb.finish(fbb.endTable());
+        return object.id;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final toValue = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          6,
+        );
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
+        final fromParam = DateTime.fromMillisecondsSinceEpoch(
+          const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0),
+        );
+        final toParam = toValue == null
+            ? null
+            : DateTime.fromMillisecondsSinceEpoch(toValue);
+        final isEatingFlagParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          8,
+          false,
+        );
+        final nameParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 12, '');
+        final descriptionParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 14, '');
+        final userIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 16, '');
+        final object = EatingHabitEntity(
+          id: idParam,
+          from: fromParam,
+          to: toParam,
+          isEatingFlag: isEatingFlagParam,
+          name: nameParam,
+          description: descriptionParam,
+          userId: userIdParam,
+        );
+
+        return object;
+      },
+    ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
-}
-
-/// [EatingHabitEntity] entity fields to define ObjectBox queries.
-class EatingHabitEntity_ {
-  /// See [EatingHabitEntity.id].
-  static final id = obx.QueryIntegerProperty<EatingHabitEntity>(
-    _entities[0].properties[0],
-  );
-
-  /// See [EatingHabitEntity.from].
-  static final from = obx.QueryDateProperty<EatingHabitEntity>(
-    _entities[0].properties[1],
-  );
-
-  /// See [EatingHabitEntity.to].
-  static final to = obx.QueryDateProperty<EatingHabitEntity>(
-    _entities[0].properties[2],
-  );
-
-  /// See [EatingHabitEntity.isEatingFlag].
-  static final isEatingFlag = obx.QueryBooleanProperty<EatingHabitEntity>(
-    _entities[0].properties[3],
-  );
-
-  /// See [EatingHabitEntity.name].
-  static final name = obx.QueryStringProperty<EatingHabitEntity>(
-    _entities[0].properties[4],
-  );
-
-  /// See [EatingHabitEntity.description].
-  static final description = obx.QueryStringProperty<EatingHabitEntity>(
-    _entities[0].properties[5],
-  );
-
-  /// See [EatingHabitEntity.userId].
-  static final userId = obx.QueryStringProperty<EatingHabitEntity>(
-    _entities[0].properties[6],
-  );
 }
 
 /// [ChallengingBehaviourDiaryEntryEntity] entity fields to define ObjectBox queries.
@@ -532,7 +509,7 @@ class ChallengingBehaviourDiaryEntryEntity_ {
   /// See [ChallengingBehaviourDiaryEntryEntity.id].
   static final id =
       obx.QueryIntegerProperty<ChallengingBehaviourDiaryEntryEntity>(
-        _entities[1].properties[0],
+        _entities[0].properties[0],
       );
 
   /// See [ChallengingBehaviourDiaryEntryEntity.challengingBehaviour].
@@ -540,48 +517,48 @@ class ChallengingBehaviourDiaryEntryEntity_ {
       obx.QueryRelationToOne<
         ChallengingBehaviourDiaryEntryEntity,
         ChallengingBehaviourEntity
-      >(_entities[1].properties[1]);
+      >(_entities[0].properties[1]);
 
   /// See [ChallengingBehaviourDiaryEntryEntity.location].
   static final location =
       obx.QueryStringProperty<ChallengingBehaviourDiaryEntryEntity>(
-        _entities[1].properties[2],
+        _entities[0].properties[2],
       );
 
   /// See [ChallengingBehaviourDiaryEntryEntity.date].
   static final date =
       obx.QueryDateProperty<ChallengingBehaviourDiaryEntryEntity>(
-        _entities[1].properties[3],
+        _entities[0].properties[3],
       );
 
   /// See [ChallengingBehaviourDiaryEntryEntity.duration].
   static final duration =
       obx.QueryIntegerProperty<ChallengingBehaviourDiaryEntryEntity>(
-        _entities[1].properties[4],
+        _entities[0].properties[4],
       );
 
   /// See [ChallengingBehaviourDiaryEntryEntity.circumstances].
   static final circumstances =
       obx.QueryStringProperty<ChallengingBehaviourDiaryEntryEntity>(
-        _entities[1].properties[5],
+        _entities[0].properties[5],
       );
 
   /// See [ChallengingBehaviourDiaryEntryEntity.people].
   static final people =
       obx.QueryStringVectorProperty<ChallengingBehaviourDiaryEntryEntity>(
-        _entities[1].properties[6],
+        _entities[0].properties[6],
       );
 
   /// See [ChallengingBehaviourDiaryEntryEntity.outcome].
   static final outcome =
       obx.QueryStringProperty<ChallengingBehaviourDiaryEntryEntity>(
-        _entities[1].properties[7],
+        _entities[0].properties[7],
       );
 
   /// See [ChallengingBehaviourDiaryEntryEntity.reflection].
   static final reflection =
       obx.QueryStringProperty<ChallengingBehaviourDiaryEntryEntity>(
-        _entities[1].properties[8],
+        _entities[0].properties[8],
       );
 }
 
@@ -589,33 +566,33 @@ class ChallengingBehaviourDiaryEntryEntity_ {
 class ChallengingBehaviourEntity_ {
   /// See [ChallengingBehaviourEntity.id].
   static final id = obx.QueryIntegerProperty<ChallengingBehaviourEntity>(
-    _entities[2].properties[0],
+    _entities[1].properties[0],
+  );
+
+  /// See [ChallengingBehaviourEntity.occuring].
+  static final occuring = obx.QueryBooleanProperty<ChallengingBehaviourEntity>(
+    _entities[1].properties[1],
   );
 
   /// See [ChallengingBehaviourEntity.name].
   static final name = obx.QueryStringProperty<ChallengingBehaviourEntity>(
-    _entities[2].properties[1],
+    _entities[1].properties[2],
   );
 
   /// See [ChallengingBehaviourEntity.from].
   static final from = obx.QueryDateProperty<ChallengingBehaviourEntity>(
-    _entities[2].properties[2],
+    _entities[1].properties[3],
   );
 
   /// See [ChallengingBehaviourEntity.generalDescription].
   static final generalDescription =
       obx.QueryStringProperty<ChallengingBehaviourEntity>(
-        _entities[2].properties[3],
+        _entities[1].properties[4],
       );
-
-  /// See [ChallengingBehaviourEntity.occuring].
-  static final occuring = obx.QueryBooleanProperty<ChallengingBehaviourEntity>(
-    _entities[2].properties[4],
-  );
 
   /// See [ChallengingBehaviourEntity.userId].
   static final userId = obx.QueryStringProperty<ChallengingBehaviourEntity>(
-    _entities[2].properties[5],
+    _entities[1].properties[5],
   );
 
   /// see [ChallengingBehaviourEntity.diaryEntries]
@@ -624,4 +601,42 @@ class ChallengingBehaviourEntity_ {
         ChallengingBehaviourDiaryEntryEntity,
         ChallengingBehaviourEntity
       >(ChallengingBehaviourDiaryEntryEntity_.challengingBehaviour);
+}
+
+/// [EatingHabitEntity] entity fields to define ObjectBox queries.
+class EatingHabitEntity_ {
+  /// See [EatingHabitEntity.id].
+  static final id = obx.QueryIntegerProperty<EatingHabitEntity>(
+    _entities[2].properties[0],
+  );
+
+  /// See [EatingHabitEntity.to].
+  static final to = obx.QueryDateProperty<EatingHabitEntity>(
+    _entities[2].properties[1],
+  );
+
+  /// See [EatingHabitEntity.isEatingFlag].
+  static final isEatingFlag = obx.QueryBooleanProperty<EatingHabitEntity>(
+    _entities[2].properties[2],
+  );
+
+  /// See [EatingHabitEntity.from].
+  static final from = obx.QueryDateProperty<EatingHabitEntity>(
+    _entities[2].properties[3],
+  );
+
+  /// See [EatingHabitEntity.name].
+  static final name = obx.QueryStringProperty<EatingHabitEntity>(
+    _entities[2].properties[4],
+  );
+
+  /// See [EatingHabitEntity.description].
+  static final description = obx.QueryStringProperty<EatingHabitEntity>(
+    _entities[2].properties[5],
+  );
+
+  /// See [EatingHabitEntity.userId].
+  static final userId = obx.QueryStringProperty<EatingHabitEntity>(
+    _entities[2].properties[6],
+  );
 }

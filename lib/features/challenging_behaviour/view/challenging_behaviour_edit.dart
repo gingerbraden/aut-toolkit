@@ -41,7 +41,7 @@ class _ChallengingBehaviourEditScreenState
     super.initState();
     _nameController = TextEditingController(text: widget.cb.name);
     _descriptionController = TextEditingController(
-      text: widget.cb.generalDescription,
+      text: widget.cb.description,
     );
     _occuring = widget.cb.occuring ? Occuring.ocurring : Occuring.notOccuring;
     _fromDate = widget.cb.from;
@@ -212,7 +212,7 @@ class _ChallengingBehaviourEditScreenState
         id: widget.cb.id!,
         name: _nameController.text.trim(),
         from: _fromDate,
-        generalDescription: _descriptionController.text.trim(),
+        description: _descriptionController.text.trim(),
         diaryEntries: [],
         occuring: _occuring == Occuring.ocurring,
         userId: widget.cb.userId,

@@ -67,8 +67,10 @@ class TranslationsSk implements Translations {
 	@override String get change_app_language => 'Zmeniť jazyk aplikácie';
 	@override String get dark_mode_toggle => 'Tmavý režim';
 	@override String get good_habits => 'Návyky';
+	@override String get good_habits_desc => 'Deti s PAS často uprednostňujú prísne rutiny a predvídateľnosť, čo im pomáha cítiť sa bezpečne a pohodlne.';
 	@override String get bad_habits => 'Nevhodné správanie';
 	@override String get eating_habits => 'Jedálniček';
+	@override String get eating_habits_desc => 'Deti s PAS často jedia výberovo kvôli zmyslovej citlivosti. Pokojná rutina a známe jedlá podporujú lepšie stravovacie návyky.';
 	@override String get is_eating => 'Je';
 	@override String get is_not_eating => 'Neje';
 	@override String get active => 'Aktívne';
@@ -92,6 +94,7 @@ class TranslationsSk implements Translations {
 	@override String get filters => 'Filtre';
 	@override String get sort => 'Zoradenie podľa';
 	@override String get challenging_behaviour => 'Nevhodné správanie';
+	@override String get challenging_behaviour_desc => 'Deti s PAS môžu prejavovať náročné správanie, keď sú preťažené alebo nevedia vyjadriť svoje potreby. Pokojné reakcie a jasná rutina znižujú stres a zlepšujú správanie.';
 	@override String get occuring => 'Nastáva';
 	@override String get not_occuring => 'Nenastáva';
 	@override String get location => 'Miesto';
@@ -161,8 +164,10 @@ extension on TranslationsSk {
 			case 'change_app_language': return 'Zmeniť jazyk aplikácie';
 			case 'dark_mode_toggle': return 'Tmavý režim';
 			case 'good_habits': return 'Návyky';
+			case 'good_habits_desc': return 'Deti s PAS často uprednostňujú prísne rutiny a predvídateľnosť, čo im pomáha cítiť sa bezpečne a pohodlne.';
 			case 'bad_habits': return 'Nevhodné správanie';
 			case 'eating_habits': return 'Jedálniček';
+			case 'eating_habits_desc': return 'Deti s PAS často jedia výberovo kvôli zmyslovej citlivosti. Pokojná rutina a známe jedlá podporujú lepšie stravovacie návyky.';
 			case 'is_eating': return 'Je';
 			case 'is_not_eating': return 'Neje';
 			case 'active': return 'Aktívne';
@@ -186,6 +191,7 @@ extension on TranslationsSk {
 			case 'filters': return 'Filtre';
 			case 'sort': return 'Zoradenie podľa';
 			case 'challenging_behaviour': return 'Nevhodné správanie';
+			case 'challenging_behaviour_desc': return 'Deti s PAS môžu prejavovať náročné správanie, keď sú preťažené alebo nevedia vyjadriť svoje potreby. Pokojné reakcie a jasná rutina znižujú stres a zlepšujú správanie.';
 			case 'occuring': return 'Nastáva';
 			case 'not_occuring': return 'Nenastáva';
 			case 'location': return 'Miesto';

@@ -10,6 +10,9 @@ class RouterUtils {
   static final String CHALLENGING_BEHAVIOUR_EDIT = 'challenging-behaviour-edit';
   static final String CHALLENGING_BEHAVIOUR_DIARY_ENTRY_DETAIL = 'challenging-behaviour-diary-entry';
   static final String CHALLENGING_BEHAVIOUR_DIARY_ENTRY_EDIT = 'challenging-behaviour-diary-entry-edit';
+  static final String GOOD_HABITS = 'good-habits';
+  static final String GOOD_HABITS_DETAIL = 'good-habit-detail';
+  static final String GOOD_HABIT_EDIT = 'good-habit-edit';
 
 
 
@@ -26,5 +29,10 @@ class RouterUtils {
   static String getChallengingBehaviourDiaryEntryDetailPath() => getChallengingBehaviourDetailPath() + SLASH + CHALLENGING_BEHAVIOUR_DIARY_ENTRY_DETAIL;
   static String getNewChallengingBehaviourDiaryEntryPath() => getChallengingBehaviourDetailPath() + SLASH + CHALLENGING_BEHAVIOUR_DIARY_ENTRY_EDIT;
   static String getChallengingBehaviourDiaryEntryEditPath() => getChallengingBehaviourDiaryEntryDetailPath() + SLASH + CHALLENGING_BEHAVIOUR_DIARY_ENTRY_EDIT;
+
+  static String getGoodHabitsPath() => HOME + SLASH + GOOD_HABITS;
+  static String getGoodHabitDetailPath() => getGoodHabitsPath() + SLASH + GOOD_HABITS_DETAIL;
+  static String getGoodHabitDetailEditPath() => getGoodHabitDetailPath() + SLASH + GOOD_HABIT_EDIT;
+  static String getNewGoodHabitPath() => getGoodHabitsPath() + SLASH + GOOD_HABIT_EDIT;
 
 }

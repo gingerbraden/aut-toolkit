@@ -10,7 +10,7 @@ extension ChallengingBehaviourMapper on ChallengingBehaviourEntity {
       id: id,
       name: name,
       from: from,
-      generalDescription: generalDescription,
+      description: generalDescription,
       occuring: occuring,
       diaryEntries: diaryEntries.map((e) => e.toModel()).toList(),
       userId: userId
@@ -24,7 +24,7 @@ extension ChallengingBehaviourEntityMapper on ChallengingBehaviour {
       id: id,
       name: name,
       from: from,
-      generalDescription: generalDescription,
+      generalDescription: description,
       occuring: occuring,
       diaryEntries: ToMany<ChallengingBehaviourDiaryEntryEntity>(),
       userId: userId

@@ -68,7 +68,7 @@ class _ChallengingBehaviourDetailState
               ),
               const SizedBoxDivider(),
               Text(
-                cb.generalDescription,
+                cb.description,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const Divider(height: 32),

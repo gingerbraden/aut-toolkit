@@ -75,7 +75,7 @@ class _ChallengingBehaviourListState
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          router.push(RouterUtils.getNewChallengingBehaviourPath(), extra: ChallengingBehaviour(name: "", from: DateTime.now(), generalDescription: "", diaryEntries: [], occuring: true, userId: FirebaseService().currentUser!.uid));
+          router.push(RouterUtils.getNewChallengingBehaviourPath(), extra: ChallengingBehaviour(name: "", from: DateTime.now(), description: "", diaryEntries: [], occuring: true, userId: FirebaseService().currentUser!.uid));
         },
         child: const Icon(Icons.add),
       ),

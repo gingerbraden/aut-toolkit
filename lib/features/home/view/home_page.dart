@@ -30,14 +30,20 @@ class _HomePageState extends ConsumerState<HomePage> {
               const SizedBox(height: 8),
               buildCard(
                 t.eating_habits,
-                  "Description duis aute irure dolor in reprehenderit in voluptsafweffffffffffffffffffate velit.",
+                  t.eating_habits_desc,
                   RouterUtils.getEatingHabitsPath() // route
               ),
               const SizedBox(height: 8),
               buildCard(
                 t.challenging_behaviour,
-                "Description duis aute irure dolor in reprehenderit in voluptate velit.",
+                t.challenging_behaviour_desc,
                 RouterUtils.getChallengingBehavioursPath(),
+              ),
+              const SizedBox(height: 8),
+              buildCard(
+                t.good_habits,
+                t.good_habits_desc,
+                RouterUtils.getGoodHabitsPath(),
               ),
             ],
           ),
@@ -70,7 +76,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             style: Theme
                                 .of(context)
                                 .textTheme
-                                .titleLarge,
+                                .headlineMedium,
                             softWrap: true,
                           ),
                         ),
@@ -79,7 +85,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           color: Theme
                               .of(context)
                               .textTheme
-                              .titleLarge!
+                              .headlineMedium!
                               .color,
                         )
                       ],
@@ -90,7 +96,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       style: Theme
                           .of(context)
                           .textTheme
-                          .titleSmall,
+                          .bodyMedium,
                     ),
                   ],
                 ),

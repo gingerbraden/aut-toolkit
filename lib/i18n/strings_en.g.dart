@@ -133,11 +133,17 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Habits'
 	String get good_habits => 'Habits';
 
+	/// en: 'Autistic children often prefer strict routines and predictability, which helps them feel secure and comfortable.'
+	String get good_habits_desc => 'Autistic children often prefer strict routines and predictability, which helps them feel secure and comfortable.';
+
 	/// en: 'Bad habits'
 	String get bad_habits => 'Bad habits';
 
 	/// en: 'Eating habits'
 	String get eating_habits => 'Eating habits';
+
+	/// en: 'Autistic children often eat selectively due to sensory sensitivities. A calm routine and familiar foods can support better eating habits.'
+	String get eating_habits_desc => 'Autistic children often eat selectively due to sensory sensitivities. A calm routine and familiar foods can support better eating habits.';
 
 	/// en: 'Eats'
 	String get is_eating => 'Eats';
@@ -207,6 +213,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Challenging behaviour'
 	String get challenging_behaviour => 'Challenging behaviour';
+
+	/// en: 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs. Calm responses and clear routines can reduce stress and improve behavior.'
+	String get challenging_behaviour_desc => 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs. Calm responses and clear routines can reduce stress and improve behavior.';
 
 	/// en: 'Occuring'
 	String get occuring => 'Occuring';
@@ -327,8 +336,10 @@ extension on Translations {
 			case 'change_app_language': return 'Change app language';
 			case 'dark_mode_toggle': return 'Dark mode';
 			case 'good_habits': return 'Habits';
+			case 'good_habits_desc': return 'Autistic children often prefer strict routines and predictability, which helps them feel secure and comfortable.';
 			case 'bad_habits': return 'Bad habits';
 			case 'eating_habits': return 'Eating habits';
+			case 'eating_habits_desc': return 'Autistic children often eat selectively due to sensory sensitivities. A calm routine and familiar foods can support better eating habits.';
 			case 'is_eating': return 'Eats';
 			case 'is_not_eating': return 'Does not eat';
 			case 'active': return 'Active';
@@ -352,6 +363,7 @@ extension on Translations {
 			case 'filters': return 'Filters';
 			case 'sort': return 'Sort by';
 			case 'challenging_behaviour': return 'Challenging behaviour';
+			case 'challenging_behaviour_desc': return 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs. Calm responses and clear routines can reduce stress and improve behavior.';
 			case 'occuring': return 'Occuring';
 			case 'not_occuring': return 'Not occuring';
 			case 'location': return 'Location';

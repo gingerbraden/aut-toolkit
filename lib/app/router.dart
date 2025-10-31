@@ -10,6 +10,10 @@ import 'package:aut_toolkit/features/challenging_behaviour/view/challenging_beha
 import 'package:aut_toolkit/features/eating_habits/view/eating_habit_detail.dart';
 import 'package:aut_toolkit/features/eating_habits/view/eating_habit_edit.dart';
 import 'package:aut_toolkit/features/eating_habits/view/eating_habits_list.dart';
+import 'package:aut_toolkit/features/good_habits/domain/model/good_habit.dart';
+import 'package:aut_toolkit/features/good_habits/view/good_habit_detail.dart';
+import 'package:aut_toolkit/features/good_habits/view/good_habit_edit.dart';
+import 'package:aut_toolkit/features/good_habits/view/good_habits_list.dart';
 import 'package:aut_toolkit/features/home/view/home_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
@@ -117,6 +121,36 @@ final GoRouter router = GoRouter(
               builder: (conext, state) {
                 final cb = state.extra as ChallengingBehaviour;
                 return ChallengingBehaviourEdit(cb: cb, isNew: true);
+              },
+            ),
+          ],
+        ),
+// =============================================================================
+        GoRoute(
+          path: RouterUtils.GOOD_HABITS,
+          builder: (context, state) => GoodHabitsList(),
+          routes: [
+            GoRoute(
+              path: RouterUtils.GOOD_HABITS_DETAIL,
+              builder: (context, state) {
+                final habit = state.extra as GoodHabit;
+                return GoodHabitDetail(habit: habit);
+              },
+              routes: [
+                GoRoute(
+                  path: RouterUtils.GOOD_HABIT_EDIT,
+                  builder: (context, state) {
+                    final habit = state.extra as GoodHabit;
+                    return GoodHabitEdit(habit: habit, isNew: false);
+                  },
+                ),
+              ],
+            ),
+            GoRoute(
+              path: RouterUtils.GOOD_HABIT_EDIT,
+              builder: (context, state) {
+                final habit = state.extra as GoodHabit;
+                return GoodHabitEdit(habit: habit, isNew: true);
               },
             ),
           ],
