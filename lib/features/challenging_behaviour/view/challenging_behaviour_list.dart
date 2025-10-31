@@ -315,12 +315,12 @@ class _ChallengingBehaviourListState
 
       if (_selectedFilters.isNotEmpty) {
         if (_selectedFilters.contains(AppConstants.IS_ACTIVE) &&
-            !(cb.from.isAfter(DateTime.now()))) {
+            !(cb.occuring)) {
           matchesFilter = false;
         }
 
         if (_selectedFilters.contains(AppConstants.IS_NOT_ACTIVE) &&
-            !(cb.from.isBefore(DateTime.now()))) {
+            !(!cb.occuring)) {
           matchesFilter = false;
         }
       }
