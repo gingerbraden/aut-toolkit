@@ -17,6 +17,7 @@ import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 import 'features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_entity.dart';
 import 'features/challenging_behaviour/data/model/challenging_behaviour_entity.dart';
 import 'features/eating_habits/data/model/eating_habit_entity.dart';
+import 'features/good_habits/data/model/good_habit_entity.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -191,6 +192,52 @@ final _entities = <obx_int.ModelEntity>[
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[],
   ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(6, 4139673972050310461),
+    name: 'GoodHabitEntity',
+    lastPropertyId: const obx_int.IdUid(6, 6350548586302974283),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 6926905718660631014),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 5210479876626957908),
+        name: 'from',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 2843212185898592918),
+        name: 'userId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 1556262315733938184),
+        name: 'name',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 5234794128667873739),
+        name: 'description',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 6350548586302974283),
+        name: 'isOccuringFlag',
+        type: 1,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
 ];
 
 /// Shortcut for [obx.Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -231,7 +278,7 @@ Future<obx.Store> openStore({
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(5, 1812295606420934787),
+    lastEntityId: const obx_int.IdUid(6, 4139673972050310461),
     lastIndexId: const obx_int.IdUid(1, 7265063553320486894),
     lastRelationId: const obx_int.IdUid(0, 0),
     lastSequenceId: const obx_int.IdUid(0, 0),
@@ -499,6 +546,67 @@ obx_int.ModelDefinition getObjectBoxModel() {
         return object;
       },
     ),
+    GoodHabitEntity: obx_int.EntityDefinition<GoodHabitEntity>(
+      model: _entities[3],
+      toOneRelations: (GoodHabitEntity object) => [],
+      toManyRelations: (GoodHabitEntity object) => {},
+      getId: (GoodHabitEntity object) => object.id,
+      setId: (GoodHabitEntity object, int id) {
+        object.id = id;
+      },
+      objectToFB: (GoodHabitEntity object, fb.Builder fbb) {
+        final userIdOffset = fbb.writeString(object.userId);
+        final nameOffset = fbb.writeString(object.name);
+        final descriptionOffset = fbb.writeString(object.description);
+        fbb.startTable(7);
+        fbb.addInt64(0, object.id);
+        fbb.addInt64(1, object.from.millisecondsSinceEpoch);
+        fbb.addOffset(2, userIdOffset);
+        fbb.addOffset(3, nameOffset);
+        fbb.addOffset(4, descriptionOffset);
+        fbb.addBool(5, object.isOccuringFlag);
+        fbb.finish(fbb.endTable());
+        return object.id;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
+        final fromParam = DateTime.fromMillisecondsSinceEpoch(
+          const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0),
+        );
+        final userIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 8, '');
+        final nameParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 10, '');
+        final descriptionParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 12, '');
+        final isOccuringFlagParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          14,
+          false,
+        );
+        final object = GoodHabitEntity(
+          id: idParam,
+          from: fromParam,
+          userId: userIdParam,
+          name: nameParam,
+          description: descriptionParam,
+          isOccuringFlag: isOccuringFlagParam,
+        );
+
+        return object;
+      },
+    ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -638,5 +746,38 @@ class EatingHabitEntity_ {
   /// See [EatingHabitEntity.userId].
   static final userId = obx.QueryStringProperty<EatingHabitEntity>(
     _entities[2].properties[6],
+  );
+}
+
+/// [GoodHabitEntity] entity fields to define ObjectBox queries.
+class GoodHabitEntity_ {
+  /// See [GoodHabitEntity.id].
+  static final id = obx.QueryIntegerProperty<GoodHabitEntity>(
+    _entities[3].properties[0],
+  );
+
+  /// See [GoodHabitEntity.from].
+  static final from = obx.QueryDateProperty<GoodHabitEntity>(
+    _entities[3].properties[1],
+  );
+
+  /// See [GoodHabitEntity.userId].
+  static final userId = obx.QueryStringProperty<GoodHabitEntity>(
+    _entities[3].properties[2],
+  );
+
+  /// See [GoodHabitEntity.name].
+  static final name = obx.QueryStringProperty<GoodHabitEntity>(
+    _entities[3].properties[3],
+  );
+
+  /// See [GoodHabitEntity.description].
+  static final description = obx.QueryStringProperty<GoodHabitEntity>(
+    _entities[3].properties[4],
+  );
+
+  /// See [GoodHabitEntity.isOccuringFlag].
+  static final isOccuringFlag = obx.QueryBooleanProperty<GoodHabitEntity>(
+    _entities[3].properties[5],
   );
 }

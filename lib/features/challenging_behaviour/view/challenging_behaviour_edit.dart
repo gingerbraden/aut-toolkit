@@ -1,13 +1,13 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/utils/date_util.dart';
-import 'package:aut_toolkit/core/widgets/sized_box_divider.dart';
+import '../../../core/widgets/divider/sized_box_divider.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/provider/challenging_behaviour_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_constants.dart';
-import '../../../core/widgets/occuring_icon.dart';
+import '../../../core/widgets/icon/occuring_icon.dart';
 import '../../../i18n/strings.g.dart';
 
 enum Occuring { ocurring, notOccuring }
@@ -58,7 +58,9 @@ class _ChallengingBehaviourEditScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${t.edit} ${widget.cb.name}'),
+        title: Text(widget.isNew
+            ? t.create
+            : '${t.edit} ${widget.cb.name}'),
         centerTitle: true,
         forceMaterialTransparency: true,
         actions: [

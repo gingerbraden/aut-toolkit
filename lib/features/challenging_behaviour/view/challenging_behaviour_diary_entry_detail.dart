@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/utils/date_util.dart';
-import '../../../core/widgets/sized_box_divider.dart';
+import '../../../core/widgets/divider/sized_box_divider.dart';
 import '../../../i18n/strings.g.dart';
 import '../domain/model/challenging_behaviour_diary_entry.dart';
 

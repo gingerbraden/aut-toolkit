@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/utils/router_utils.dart';
-import '../../../core/widgets/eating_icon.dart';
-import '../../../core/widgets/sized_box_divider.dart';
+import '../../../core/widgets/icon/eating_icon.dart';
+import '../../../core/widgets/divider/sized_box_divider.dart';
 import '../../../i18n/strings.g.dart';
 import '../domain/model/eating_habit.dart';
 import '../provider/eating_habits_notifier.dart';

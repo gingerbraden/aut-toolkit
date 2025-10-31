@@ -142,9 +142,48 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "6:4139673972050310461",
+      "lastPropertyId": "6:6350548586302974283",
+      "name": "GoodHabitEntity",
+      "properties": [
+        {
+          "id": "1:6926905718660631014",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5210479876626957908",
+          "name": "from",
+          "type": 10
+        },
+        {
+          "id": "3:2843212185898592918",
+          "name": "userId",
+          "type": 9
+        },
+        {
+          "id": "4:1556262315733938184",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "5:5234794128667873739",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "6:6350548586302974283",
+          "name": "isOccuringFlag",
+          "type": 1
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "5:1812295606420934787",
+  "lastEntityId": "6:4139673972050310461",
   "lastIndexId": "1:7265063553320486894",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

@@ -1,6 +1,6 @@
 import 'package:aut_toolkit/app/router.dart';
-import 'package:aut_toolkit/core/widgets/divider_sized_box_divider.dart';
-import 'package:aut_toolkit/core/widgets/sized_box_divider.dart';
+import 'package:aut_toolkit/core/widgets/divider/divider_sized_box_divider.dart';
+import '../../../core/widgets/divider/sized_box_divider.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour_diary_entry.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/provider/challenging_behaviour_notifier.dart';
 import 'package:aut_toolkit/core/utils/date_util.dart';

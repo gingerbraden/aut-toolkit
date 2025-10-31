@@ -1,11 +1,11 @@
 import 'package:aut_toolkit/app/router.dart';
-import 'package:aut_toolkit/core/widgets/eating_icon.dart';
-import 'package:aut_toolkit/core/widgets/sized_box_divider.dart';
+import '../../../core/widgets/divider/sized_box_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aut_toolkit/core/utils/date_util.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/widgets/icon/eating_icon.dart';
 import '../../../i18n/strings.g.dart';
 import '../domain/model/eating_habit.dart';
 import '../provider/eating_habits_notifier.dart';

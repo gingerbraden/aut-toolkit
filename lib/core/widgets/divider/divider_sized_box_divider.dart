@@ -1,4 +1,4 @@
-import 'package:aut_toolkit/core/widgets/sized_box_divider.dart';
+import 'package:aut_toolkit/core/widgets/divider/sized_box_divider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

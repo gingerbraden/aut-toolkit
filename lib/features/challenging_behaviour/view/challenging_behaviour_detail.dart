@@ -1,6 +1,6 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/utils/date_util.dart';
-import 'package:aut_toolkit/core/widgets/occuring_icon.dart';
+import 'package:aut_toolkit/core/widgets/icon/occuring_icon.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour_diary_entry.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/provider/challenging_behaviour_notifier.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/utils/router_utils.dart';
-import '../../../core/widgets/sized_box_divider.dart';
+import '../../../core/widgets/divider/sized_box_divider.dart';
 import '../../../i18n/strings.g.dart';
 import '../data/model/challenging_behaviour_diary_entry_transport.dart';
 
