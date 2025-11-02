@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/router.dart';
 import 'core/provider/locale_change_notifier.dart';
@@ -13,8 +14,15 @@ import 'i18n/strings.g.dart';
 late final ObjectBox objectbox;
 
 Future main() async {
+  final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
   await dotenv.load(fileName: ".env");
-  LocaleSettings.setPluralResolver(language: 'sk', locale: AppLocale.sk, cardinalResolver: (n, {zero, one, two, few, many, other}) {
+  String? locale = await asyncPrefs.getString('locale');
+  String? theme = await asyncPrefs.getString('theme');
+
+  LocaleSettings.setPluralResolver(
+    language: 'sk',
+    locale: AppLocale.sk,
+    cardinalResolver: (n, {zero, one, two, few, many, other}) {
       if (n == 0) {
         return zero ?? other!;
       }
@@ -27,7 +35,8 @@ Future main() async {
       return other!;
     },
   );
-  LocaleSettings.setLocale(AppLocale.sk);
+  LocaleSettings.setLocaleRaw(locale ?? 'sk');
+  final initialThemeMode = _themeModeFromString(theme);
   WidgetsFlutterBinding.ensureInitialized();
   objectbox = await ObjectBox.create();
   await Firebase.initializeApp(
@@ -39,7 +48,29 @@ Future main() async {
     ),
   );
 
-  runApp(TranslationProvider(child: ProviderScope(child: const MyApp())));
+  runApp(
+    TranslationProvider(
+      child: ProviderScope(
+        overrides: [
+          themeModeNotifierProvider.overrideWith(
+            () => ThemeModeNotifier(initialThemeMode),
+          ),
+        ],
+        child: MyApp(),
+      ),
+    ),
+  );
+}
+
+ThemeMode _themeModeFromString(String? value) {
+  switch (value) {
+    case 'light':
+      return ThemeMode.light;
+    case 'dark':
+      return ThemeMode.dark;
+    default:
+      return ThemeMode.system;
+  }
 }
 
 class MyApp extends ConsumerWidget {
@@ -62,7 +93,9 @@ class MyApp extends ConsumerWidget {
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.lightGreen, brightness: Brightness.dark),
+          seedColor: Colors.lightGreen,
+          brightness: Brightness.dark,
+        ),
         useMaterial3: true,
       ),
       themeMode: themeMode,

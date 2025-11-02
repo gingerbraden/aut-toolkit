@@ -14,7 +14,7 @@ class ThemeModeTile extends ConsumerStatefulWidget {
 class _ThemeModeTileState extends ConsumerState<ThemeModeTile> {
   @override
   Widget build(BuildContext context) {
-    final themeMode = ref.watch(themeModeNotifierProvider); // watch provider
+    final themeMode = ref.watch(themeModeNotifierProvider);
     final isDark = themeMode == ThemeMode.dark;
 
     return ListTile(
