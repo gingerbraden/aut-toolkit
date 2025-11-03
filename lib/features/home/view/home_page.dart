@@ -43,7 +43,6 @@ class _HomePageState extends ConsumerState<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _selectedPersonArea(allPersons),
-              // Padding(padding: const EdgeInsets.all(8.0), child: Divider()),
               const SizedBox(height: 32),
               _buildCard(
                 t.eating_habits,
