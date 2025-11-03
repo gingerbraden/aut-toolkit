@@ -210,8 +210,9 @@ class _ChallengingBehaviourEditScreenState
     });
   }
 
-  void _saveChanges() {caffoldMessengerUtils().showSnackBar(context, t.change_saved);
-    iif (_formKey.currentState?.validate() ?? false) {
+  void _saveChanges() {
+    ScaffoldMessengerUtils().showSnackBar(context, t.change_saved);
+    if (_formKey.currentState?.validate() ?? false) {
       final updatedCb = ChallengingBehaviour(
         id: widget.cb.id!,
         name: _nameController.text.trim(),
