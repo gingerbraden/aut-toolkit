@@ -7,7 +7,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
-
 import 'strings.g.dart';
 
 // Path: <root>
@@ -136,8 +135,8 @@ class TranslationsSk implements Translations {
 	@override String get change_saved => 'Zmena uložená';
 	@override String get image_changed => 'Obrázok bol zmenený';
 	@override String get image_deleted => 'Obrázok bol odstránený';
-
 	@override String get entry_added => 'Záznam pridaný';
+	@override String get currently_managed_person => 'Práve spravovaná osoba:';
 }
 
 /// Flat map(s) containing all translations.
@@ -238,20 +237,14 @@ extension on TranslationsSk {
 			case 'close': return 'Zavrieť';
 			case 'managed_people': return 'Spravované osoby';
 			case 'add_managed_person': return 'Pridať osobu';
-			case 'load_image':
-				return 'Nahrať obrázok';
-			case 'change_image':
-				return 'Zmeniť obrázok';
-			case 'delete_image':
-				return 'Odstrániť obrázok';
-			case 'change_saved':
-				return 'Zmena uložená';
-			case 'image_changed':
-				return 'Obrázok bol zmenený';
-			case 'image_deleted':
-				return 'Obrázok bol odstránený';
-			case 'entry_added':
-				return 'Záznam pridaný';
+			case 'load_image': return 'Nahrať obrázok';
+			case 'change_image': return 'Zmeniť obrázok';
+			case 'delete_image': return 'Odstrániť obrázok';
+			case 'change_saved': return 'Zmena uložená';
+			case 'image_changed': return 'Obrázok bol zmenený';
+			case 'image_deleted': return 'Obrázok bol odstránený';
+			case 'entry_added': return 'Záznam pridaný';
+			case 'currently_managed_person': return 'Práve spravovaná osoba:';
 			default: return null;
 		}
 	}

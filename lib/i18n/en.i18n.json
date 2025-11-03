@@ -97,5 +97,6 @@
   "change_saved": "Change saved",
   "image_changed": "Image was changed",
   "image_deleted": "Image was deleted",
-  "entry_added": "Entry added"
+  "entry_added": "Entry added",
+  "currently_managed_person": "Currently managed person:"
 }

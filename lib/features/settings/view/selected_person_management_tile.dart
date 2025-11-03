@@ -10,10 +10,12 @@ class SelectedPersonManagementTile extends ConsumerStatefulWidget {
   const SelectedPersonManagementTile({super.key});
 
   @override
-  ConsumerState<SelectedPersonManagementTile> createState() => _SelectedPersonManagementTileState();
+  ConsumerState<SelectedPersonManagementTile> createState() =>
+      _SelectedPersonManagementTileState();
 }
 
-class _SelectedPersonManagementTileState extends ConsumerState<SelectedPersonManagementTile> {
+class _SelectedPersonManagementTileState
+    extends ConsumerState<SelectedPersonManagementTile> {
   @override
   Widget build(BuildContext context) {
     final allPersons = ref.watch(selectedPersonsProvider);
@@ -33,8 +35,7 @@ class _SelectedPersonManagementTileState extends ConsumerState<SelectedPersonMan
       context: context,
       builder: (context) {
         return AlertDialog(
-          shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           title: Text(t.managed_people),
           content: SizedBox(
             width: double.maxFinite,
@@ -48,36 +49,53 @@ class _SelectedPersonManagementTileState extends ConsumerState<SelectedPersonMan
                 return ListTile(
                   leading: const Icon(Icons.person),
                   title: Text(person.name),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () async {
-
-                      final confirm = await showDialog<bool>(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text("${t.really_delete_object}${person.name}?"),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(false),
-                              child: Text(t.cancel),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () async {
+                          await _showEditPersonDialog(context, person);
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete, color: Colors.red),
+                        onPressed: () async {
+                          final confirm = await showDialog<bool>(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text(
+                                  "${t.really_delete_object}${person.name}?"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(false),
+                                  child: Text(t.cancel),
+                                ),
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(true),
+                                  child: Text(
+                                    t.yes,
+                                    style:
+                                    const TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ],
                             ),
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(true),
-                              child: Text(t.yes, style: TextStyle(color: Colors.red)),
-                            ),
-                          ],
-                        ),
-                      );
+                          );
 
-                      if (confirm == true) {
-                        ref
-                            .read(selectedPersonsProvider.notifier)
-                            .delete(person);
-                        Navigator.of(context).pop();
-                        _showSelectedPeopleDialog(
-                            context, ref.read(selectedPersonsProvider));
-                      }
-                    },
+                          if (confirm == true) {
+                            ref
+                                .read(selectedPersonsProvider.notifier)
+                                .delete(person);
+                            Navigator.of(context).pop();
+                            _showSelectedPeopleDialog(context,
+                                ref.read(selectedPersonsProvider));
+                          }
+                        },
+                      ),
+                    ],
                   ),
                 );
               },
@@ -93,5 +111,44 @@ class _SelectedPersonManagementTileState extends ConsumerState<SelectedPersonMan
       },
     );
   }
-  
+
+  Future<void> _showEditPersonDialog(
+      BuildContext context, SelectedPerson person) async {
+    final controller = TextEditingController(text: person.name);
+
+    final newName = await showDialog<String>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("${t.edit} ${person.name}"),
+          content: TextField(
+            controller: controller,
+            decoration: InputDecoration(labelText: t.name),
+            autofocus: true,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(null),
+              child: Text(t.cancel),
+            ),
+            TextButton(
+              onPressed: () =>
+                  Navigator.of(context).pop(controller.text.trim()),
+              child: Text(t.save),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (newName != null && newName.isNotEmpty && newName != person.name) {
+      person.name = newName;
+      ref.read(selectedPersonsProvider.notifier).add(
+        person,
+      );
+
+      Navigator.of(context).pop();
+      _showSelectedPeopleDialog(context, ref.read(selectedPersonsProvider));
+    }
+  }
 }

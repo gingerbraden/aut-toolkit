@@ -21,7 +21,6 @@ class _HomePageState extends ConsumerState<HomePage> {
   void initState() {
     super.initState();
 
-    // Wait until the first frame to access ref safely
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final allPersons = ref.read(selectedPersonsProvider);
 
@@ -44,8 +43,8 @@ class _HomePageState extends ConsumerState<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _selectedPersonArea(allPersons),
-              Padding(padding: const EdgeInsets.all(8.0), child: Divider()),
-              const SizedBox(height: 8),
+              // Padding(padding: const EdgeInsets.all(8.0), child: Divider()),
+              const SizedBox(height: 32),
               _buildCard(
                 t.eating_habits,
                 t.eating_habits_desc,
@@ -156,37 +155,43 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget _selectedPersonArea(List<SelectedPerson> allPersons) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: DropdownButton<SelectedPerson>(
-              value: allPersons.isEmpty
-                  ? null
-                  : allPersons.firstWhere((sp) => sp.isSelected),
-              isExpanded: true,
-              underline: const SizedBox(),
-              items: allPersons.map((person) {
-                return DropdownMenuItem<SelectedPerson>(
-                  value: person,
-                  child: Text(
-                    person.name,
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                );
-              }).toList(),
-              onChanged: (person) {
-                if (person != null) {
-                  ref.read(selectedPersonsProvider.notifier).add(person);
-                }
-              },
-            ),
-          ),
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              _showCreatePersonDialog(false);
-            },
+          Text(t.currently_managed_person),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: DropdownButton<SelectedPerson>(
+                  value: allPersons.isEmpty
+                      ? null
+                      : allPersons.firstWhere((sp) => sp.isSelected),
+                  isExpanded: true,
+                  underline: const SizedBox.shrink(), // 🔥 removes underline completely
+                  items: allPersons.map((person) {
+                    return DropdownMenuItem<SelectedPerson>(
+                      value: person,
+                      child: Text(
+                        person.name,
+                        style: Theme.of(context).textTheme.headlineLarge,
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (person) {
+                    if (person != null) {
+                      ref.read(selectedPersonsProvider.notifier).add(person);
+                    }
+                  },
+                ),
+              ),
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  _showCreatePersonDialog(false);
+                },
+              ),
+            ],
           ),
         ],
       ),

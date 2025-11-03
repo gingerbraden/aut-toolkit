@@ -328,6 +328,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Entry added'
 	String get entry_added => 'Entry added';
+
+	/// en: 'Currently managed person:'
+	String get currently_managed_person => 'Currently managed person:';
 }
 
 /// Flat map(s) containing all translations.
@@ -427,20 +430,14 @@ extension on Translations {
 			case 'close': return 'Close';
 			case 'managed_people': return 'Managed people';
 			case 'add_managed_person': return 'Add a person';
-			case 'load_image':
-				return 'Add image';
-			case 'change_image':
-				return 'Change image';
-			case 'delete_image':
-				return 'Delete image';
-			case 'change_saved':
-				return 'Change saved';
-			case 'image_changed':
-				return 'Image was changed';
-			case 'image_deleted':
-				return 'Image was deleted';
-			case 'entry_added':
-				return 'Entry added';
+			case 'load_image': return 'Add image';
+			case 'change_image': return 'Change image';
+			case 'delete_image': return 'Delete image';
+			case 'change_saved': return 'Change saved';
+			case 'image_changed': return 'Image was changed';
+			case 'image_deleted': return 'Image was deleted';
+			case 'entry_added': return 'Entry added';
+			case 'currently_managed_person': return 'Currently managed person:';
 			default: return null;
 		}
 	}
