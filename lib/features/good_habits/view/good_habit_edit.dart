@@ -1,3 +1,4 @@
+import 'package:aut_toolkit/core/utils/scaffold_messenger_util.dart';
 import 'package:aut_toolkit/core/widgets/icon/occuring_icon.dart';
 import 'package:aut_toolkit/features/good_habits/provider/good_habits_notifier.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
   late TextEditingController _descriptionController;
   late Occuring _occuring;
   late DateTime _fromDate;
+  late DateTime? _toDate;
 
   @override
   void initState() {
@@ -40,6 +42,7 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
     _occuring =
     widget.habit.isOcuringFlag ? Occuring.ocurring : Occuring.notOccuring;
     _fromDate = widget.habit.from;
+    _toDate = widget.habit.to;
   }
 
   @override
@@ -114,7 +117,7 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
 
   Widget _dateFields() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0,8,0,0),
+      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
       child: Row(
         children: [
           Expanded(
@@ -130,6 +133,27 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
                 ],
               ),
               onTap: () => _pickDate(isFrom: true),
+            ),
+          ),
+          SizedBoxDivider(),
+          Expanded(
+            child: ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Row(
+                children: [
+                  Icon(Icons.date_range),
+                  SizedBoxDivider(),
+                  Text(t.to, style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyLarge),
+                  SizedBoxDivider(),
+                  Text(_toDate != null
+                      ? DateUtil.returnDateInStringFormat(_toDate)
+                      : t.not_set)
+                ],
+              ),
+              onTap: () => _pickDate(isFrom: false),
             ),
           ),
         ],
@@ -189,7 +213,7 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
   }
 
   Future<void> _pickDate({required bool isFrom}) async {
-    final initialDate = _fromDate;
+    final initialDate = isFrom ? _fromDate : _toDate;
     final newDate = await showDatePicker(
       context: context,
       initialDate: initialDate,
@@ -199,11 +223,16 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
     if (newDate == null) return;
 
     setState(() {
+      if (isFrom) {
         _fromDate = newDate;
+      } else {
+        _toDate = newDate;
+      }
     });
   }
 
   void _saveChanges() {
+    ScaffoldMessengerUtils().showSnackBar(context, t.change_saved);
     if (_formKey.currentState?.validate() ?? false) {
       final updatedHabit = GoodHabit(
           name: _nameController.text.trim(),
@@ -212,7 +241,11 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
           from: _fromDate,
           id: widget.habit.id,
           userId: widget.habit.userId,
-          selectedPersonId: ref.watch(selectedPersonsProvider.notifier).getSelected().id!
+          selectedPersonId: ref
+              .watch(selectedPersonsProvider.notifier)
+              .getSelected()
+              .id!,
+          to: null
       );
       ref.read(goodHabitsProvider.notifier).addHabit(updatedHabit);
       setState(() {

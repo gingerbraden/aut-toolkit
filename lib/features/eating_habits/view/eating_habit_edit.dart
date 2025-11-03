@@ -240,6 +240,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
   }
 
   void _saveChanges() {
+    ScaffoldMessengerUtils().showSnackBar(context, t.change_saved);
     if (_formKey.currentState?.validate() ?? false) {
       final updatedHabit = EatingHabit(
           name: _nameController.text.trim(),

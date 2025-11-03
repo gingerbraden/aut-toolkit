@@ -37,7 +37,7 @@ class GoodHabitsList extends ConsumerWidget {
             children: [OccuringIcon(isOccuringFlag: habit.isOcuringFlag)],
           ),
           onTap: () =>
-              router.push(RouterUtils.getEatingHabitDetailPath(), extra: habit),
+              router.push(RouterUtils.getGoodHabitDetailPath(), extra: habit),
         ),
       ),
       filters: [
@@ -84,6 +84,7 @@ class GoodHabitsList extends ConsumerWidget {
             RouterUtils.getNewGoodHabitPath(),
             extra: GoodHabit(
               from: DateTime.now(),
+                to: null,
               isOcuringFlag: true,
               name: '',
               description: '',

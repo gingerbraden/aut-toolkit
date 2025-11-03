@@ -325,6 +325,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Image was deleted'
 	String get image_deleted => 'Image was deleted';
+
+	/// en: 'Entry added'
+	String get entry_added => 'Entry added';
 }
 
 /// Flat map(s) containing all translations.
@@ -436,6 +439,8 @@ extension on Translations {
 				return 'Image was changed';
 			case 'image_deleted':
 				return 'Image was deleted';
+			case 'entry_added':
+				return 'Entry added';
 			default: return null;
 		}
 	}

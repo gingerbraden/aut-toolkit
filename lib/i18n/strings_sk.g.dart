@@ -130,18 +130,14 @@ class TranslationsSk implements Translations {
 	@override String get close => 'Zavrieť';
 	@override String get managed_people => 'Spravované osoby';
 	@override String get add_managed_person => 'Pridať osobu';
-
 	@override String get load_image => 'Nahrať obrázok';
-
 	@override String get change_image => 'Zmeniť obrázok';
-
 	@override String get delete_image => 'Odstrániť obrázok';
-
 	@override String get change_saved => 'Zmena uložená';
-
 	@override String get image_changed => 'Obrázok bol zmenený';
-
 	@override String get image_deleted => 'Obrázok bol odstránený';
+
+	@override String get entry_added => 'Záznam pridaný';
 }
 
 /// Flat map(s) containing all translations.
@@ -254,6 +250,8 @@ extension on TranslationsSk {
 				return 'Obrázok bol zmenený';
 			case 'image_deleted':
 				return 'Obrázok bol odstránený';
+			case 'entry_added':
+				return 'Záznam pridaný';
 			default: return null;
 		}
 	}

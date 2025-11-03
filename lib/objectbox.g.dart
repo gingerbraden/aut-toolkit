@@ -214,7 +214,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(6, 4139673972050310461),
     name: 'GoodHabitEntity',
-    lastPropertyId: const obx_int.IdUid(7, 3174147389341847264),
+    lastPropertyId: const obx_int.IdUid(8, 32978948303884726),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -257,6 +257,12 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(7, 3174147389341847264),
         name: 'selectedPersonId',
         type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 32978948303884726),
+        name: 'to',
+        type: 10,
         flags: 0,
       ),
     ],
@@ -641,7 +647,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final userIdOffset = fbb.writeString(object.userId);
         final nameOffset = fbb.writeString(object.name);
         final descriptionOffset = fbb.writeString(object.description);
-        fbb.startTable(8);
+        fbb.startTable(9);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.from.millisecondsSinceEpoch);
         fbb.addOffset(2, userIdOffset);
@@ -649,12 +655,18 @@ obx_int.ModelDefinition getObjectBoxModel() {
         fbb.addOffset(4, descriptionOffset);
         fbb.addBool(5, object.isOccuringFlag);
         fbb.addInt64(6, object.selectedPersonId);
+        fbb.addInt64(7, object.to?.millisecondsSinceEpoch);
         fbb.finish(fbb.endTable());
         return object.id;
       },
       objectFromFB: (obx.Store store, ByteData fbData) {
         final buffer = fb.BufferContext(fbData);
         final rootOffset = buffer.derefObject(0);
+        final toValue = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          18,
+        );
         final idParam = const fb.Int64Reader().vTableGet(
           buffer,
           rootOffset,
@@ -685,6 +697,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           16,
           0,
         );
+        final toParam = toValue == null
+            ? null
+            : DateTime.fromMillisecondsSinceEpoch(toValue);
         final object = GoodHabitEntity(
           id: idParam,
           from: fromParam,
@@ -693,6 +708,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           description: descriptionParam,
           isOccuringFlag: isOccuringFlagParam,
           selectedPersonId: selectedPersonIdParam,
+          to: toParam,
         );
 
         return object;
@@ -941,6 +957,11 @@ class GoodHabitEntity_ {
   /// See [GoodHabitEntity.selectedPersonId].
   static final selectedPersonId = obx.QueryIntegerProperty<GoodHabitEntity>(
     _entities[3].properties[6],
+  );
+
+  /// See [GoodHabitEntity.to].
+  static final to = obx.QueryDateProperty<GoodHabitEntity>(
+    _entities[3].properties[7],
   );
 }
 

@@ -10,6 +10,7 @@ extension UserEntityMapper on GoodHabitEntity {
     userId: userId,
     isOcuringFlag: isOccuringFlag,
     selectedPersonId: selectedPersonId,
+      to: to
   );
 }
 
@@ -22,5 +23,6 @@ extension UserModelMapper on GoodHabit {
     userId: userId,
     isOccuringFlag: isOcuringFlag,
     selectedPersonId: selectedPersonId,
+      to: to
   );
 }

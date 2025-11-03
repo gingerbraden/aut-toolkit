@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/scaffold_messenger_util.dart';
 import '../../../core/widgets/divider/sized_box_divider.dart';
 import '../../../i18n/strings.g.dart';
 
@@ -284,6 +285,7 @@ class _ChallengingBehaviourDiaryEntryEditState
   }
 
   void _saveChanges() {
+    ScaffoldMessengerUtils().showSnackBar(context, t.entry_added);
     if (!_formKey.currentState!.validate()) return;
 
     final entry = ChallengingBehaviourDiaryEntry(

@@ -160,7 +160,7 @@
     },
     {
       "id": "6:4139673972050310461",
-      "lastPropertyId": "7:3174147389341847264",
+      "lastPropertyId": "8:32978948303884726",
       "name": "GoodHabitEntity",
       "properties": [
         {
@@ -198,6 +198,11 @@
           "id": "7:3174147389341847264",
           "name": "selectedPersonId",
           "type": 6
+        },
+        {
+          "id": "8:32978948303884726",
+          "name": "to",
+          "type": 10
         }
       ],
       "relations": []
