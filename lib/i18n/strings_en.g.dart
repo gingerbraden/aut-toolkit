@@ -307,6 +307,24 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Add a person'
 	String get add_managed_person => 'Add a person';
+
+	/// en: 'Add image'
+	String get load_image => 'Add image';
+
+	/// en: 'Change image'
+	String get change_image => 'Change image';
+
+	/// en: 'Delete image'
+	String get delete_image => 'Delete image';
+
+	/// en: 'Change saved'
+	String get change_saved => 'Change saved';
+
+	/// en: 'Image was changed'
+	String get image_changed => 'Image was changed';
+
+	/// en: 'Image was deleted'
+	String get image_deleted => 'Image was deleted';
 }
 
 /// Flat map(s) containing all translations.
@@ -406,6 +424,18 @@ extension on Translations {
 			case 'close': return 'Close';
 			case 'managed_people': return 'Managed people';
 			case 'add_managed_person': return 'Add a person';
+			case 'load_image':
+				return 'Add image';
+			case 'change_image':
+				return 'Change image';
+			case 'delete_image':
+				return 'Delete image';
+			case 'change_saved':
+				return 'Change saved';
+			case 'image_changed':
+				return 'Image was changed';
+			case 'image_deleted':
+				return 'Image was deleted';
 			default: return null;
 		}
 	}

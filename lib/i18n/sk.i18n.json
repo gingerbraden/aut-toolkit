@@ -91,5 +91,11 @@
   "entry": "Záznam",
   "close": "Zavrieť",
   "managed_people": "Spravované osoby",
-  "add_managed_person": "Pridať osobu"
+  "add_managed_person": "Pridať osobu",
+  "load_image": "Nahrať obrázok",
+  "change_image": "Zmeniť obrázok",
+  "delete_image": "Odstrániť obrázok",
+  "change_saved": "Zmena uložená",
+  "image_changed": "Obrázok bol zmenený",
+  "image_deleted": "Obrázok bol odstránený"
 }

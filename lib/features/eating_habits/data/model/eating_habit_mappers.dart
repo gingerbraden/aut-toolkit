@@ -11,6 +11,7 @@ extension UserEntityMapper on EatingHabitEntity {
     description: description,
     userId: userId,
     selectedPersonId: selectedPersonId,
+      imageFilePath: imageFilePath
   );
 }
 
@@ -24,5 +25,6 @@ extension UserModelMapper on EatingHabit {
     description: description,
     userId: userId,
     selectedPersonId: selectedPersonId,
+      imageFilePath: imageFilePath
   );
 }

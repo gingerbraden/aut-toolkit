@@ -1,10 +1,12 @@
 import 'package:aut_toolkit/app/router.dart';
-import '../../../core/widgets/divider/sized_box_divider.dart';
+import 'package:aut_toolkit/core/utils/date_util.dart';
+import 'package:aut_toolkit/core/utils/image_util.dart';
+import 'package:aut_toolkit/core/utils/scaffold_messenger_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:aut_toolkit/core/utils/date_util.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/widgets/divider/sized_box_divider.dart';
 import '../../../core/widgets/icon/eating_icon.dart';
 import '../../../i18n/strings.g.dart';
 import '../../selected_person/provider/selected_person_notifier.dart';
@@ -31,6 +33,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
   late EatingStatus _eatingStatus;
   late DateTime _fromDate;
   late DateTime? _toDate;
+  late String? _image;
 
   @override
   void initState() {
@@ -42,6 +45,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
     widget.habit.isEatingFlag ? EatingStatus.eating : EatingStatus.notEating;
     _fromDate = widget.habit.from;
     _toDate = widget.habit.to;
+    _image = widget.habit.imageFilePath;
   }
 
   @override
@@ -55,7 +59,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:Text(widget.isNew
+        title: Text(widget.isNew
             ? t.create
             : '${t.edit} ${widget.habit.name}'),
         centerTitle: true,
@@ -88,7 +92,13 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
                     _isEatingRadioButtons(),
                     const Divider(),
                     SizedBoxDivider(),
-                    _descriptionTextField()
+                    _descriptionTextField(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: const Divider(),
+                    ),
+                    _imageButtons()
+
                   ],
                 ),
               ),
@@ -116,7 +126,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
 
   Widget _dateFields() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0,8,0,0),
+      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
       child: Row(
         children: [
           Expanded(
@@ -175,22 +185,22 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
             value: EatingStatus.eating,
             contentPadding: EdgeInsets.zero,
             title: Row(
-            children: [
-              EatingIcon(isEatingFlag: true),
-              SizedBoxDivider(),
-              Text(t.is_eating),
-            ],
-          ),),
+              children: [
+                EatingIcon(isEatingFlag: true),
+                SizedBoxDivider(),
+                Text(t.is_eating),
+              ],
+            ),),
           RadioListTile(
             value: EatingStatus.notEating,
             contentPadding: EdgeInsets.zero,
             title: Row(
-            children: [
-              EatingIcon(isEatingFlag: false),
-              SizedBoxDivider(),
-              Text(t.is_not_eating),
-            ],
-          ),)
+              children: [
+                EatingIcon(isEatingFlag: false),
+                SizedBoxDivider(),
+                Text(t.is_not_eating),
+              ],
+            ),)
         ],
       ),
     );
@@ -198,7 +208,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
 
   Widget _descriptionTextField() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0,8,0,0),
+      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
       child: TextFormField(
         controller: _descriptionController,
         decoration: InputDecoration(
@@ -206,7 +216,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
           labelText: t.notes,
           border: OutlineInputBorder(),
         ),
-        maxLines: 10,
+        maxLines: 7,
       ),
     );
   }
@@ -240,16 +250,66 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
           to: _toDate,
           id: widget.habit.id,
           userId: widget.habit.userId,
-          selectedPersonId: ref.watch(selectedPersonsProvider.notifier).getSelected().id!
+          selectedPersonId: ref
+              .watch(selectedPersonsProvider.notifier)
+              .getSelected()
+              .id!,
+          imageFilePath: _image
       );
       ref.read(eatingHabitsProvider.notifier).addHabit(updatedHabit);
-      setState(() {
-      });
+      setState(() {});
       router.pop();
       if (!widget.isNew) {
         router.pop();
       }
     }
+  }
+
+  _imageButtons() {
+    return _image == null
+        ? Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        ElevatedButton.icon(
+          onPressed: () async {
+            final imgPath = await ImageUtil.pickAndStoreImage();
+            setState(() {
+              _image = imgPath;
+            });
+            ScaffoldMessengerUtils().showSnackBar(context, t.image_changed);
+          },
+          icon: const Icon(Icons.add),
+          label: Text(t.load_image),
+        ),
+      ],
+    ) : Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        ElevatedButton.icon(
+          onPressed: () async {
+            final imgPath = await ImageUtil.pickAndStoreImage();
+            setState(() {
+              ImageUtil.deleteImage(_image!);
+              _image = imgPath;
+            });
+            ScaffoldMessengerUtils().showSnackBar(context, t.image_changed);
+          },
+          icon: const Icon(Icons.edit),
+          label: Text(t.change_image),
+        ), ElevatedButton.icon(
+          onPressed: () {
+            setState(() {
+              ImageUtil.deleteImage(_image!);
+              _image = null;
+            });
+            ScaffoldMessengerUtils().showSnackBar(context, t.image_deleted);
+          },
+          icon: const Icon(Icons.delete, color: Colors.redAccent,),
+          label: Text(
+            t.delete_image, style: TextStyle(color: Colors.redAccent),),
+        )
+      ],
+    );
   }
 
 }

@@ -3,6 +3,7 @@ import 'package:aut_toolkit/core/model/general_habit.dart';
 class EatingHabit extends GeneralHabit {
   DateTime? to;
   bool isEatingFlag;
+  String? imageFilePath;
 
   EatingHabit({
     super.id,
@@ -13,5 +14,8 @@ class EatingHabit extends GeneralHabit {
     required super.name,
     required super.description,
     required super.selectedPersonId,
+    required this.imageFilePath
   });
+
+
 }

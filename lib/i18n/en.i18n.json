@@ -90,5 +90,11 @@
   "entry": "Entry",
   "close": "Close",
   "managed_people": "Managed people",
-  "add_managed_person": "Add a person"
+  "add_managed_person": "Add a person",
+  "load_image": "Add image",
+  "change_image": "Change image",
+  "delete_image": "Delete image",
+  "change_saved": "Change saved",
+  "image_changed": "Image was changed",
+  "image_deleted": "Image was deleted"
 }

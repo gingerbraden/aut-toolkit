@@ -7,6 +7,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
+
 import 'strings.g.dart';
 
 // Path: <root>
@@ -129,6 +130,18 @@ class TranslationsSk implements Translations {
 	@override String get close => 'Zavrieť';
 	@override String get managed_people => 'Spravované osoby';
 	@override String get add_managed_person => 'Pridať osobu';
+
+	@override String get load_image => 'Nahrať obrázok';
+
+	@override String get change_image => 'Zmeniť obrázok';
+
+	@override String get delete_image => 'Odstrániť obrázok';
+
+	@override String get change_saved => 'Zmena uložená';
+
+	@override String get image_changed => 'Obrázok bol zmenený';
+
+	@override String get image_deleted => 'Obrázok bol odstránený';
 }
 
 /// Flat map(s) containing all translations.
@@ -229,6 +242,18 @@ extension on TranslationsSk {
 			case 'close': return 'Zavrieť';
 			case 'managed_people': return 'Spravované osoby';
 			case 'add_managed_person': return 'Pridať osobu';
+			case 'load_image':
+				return 'Nahrať obrázok';
+			case 'change_image':
+				return 'Zmeniť obrázok';
+			case 'delete_image':
+				return 'Odstrániť obrázok';
+			case 'change_saved':
+				return 'Zmena uložená';
+			case 'image_changed':
+				return 'Obrázok bol zmenený';
+			case 'image_deleted':
+				return 'Obrázok bol odstránený';
 			default: return null;
 		}
 	}

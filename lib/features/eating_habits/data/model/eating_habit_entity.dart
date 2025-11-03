@@ -14,6 +14,7 @@ class EatingHabitEntity {
   String description;
   String userId;
   int selectedPersonId;
+  String? imageFilePath;
 
   EatingHabitEntity({
     this.id = 0,
@@ -23,7 +24,8 @@ class EatingHabitEntity {
     required this.name,
     required this.description,
     required this.userId,
-    required this.selectedPersonId
+    required this.selectedPersonId,
+    required this.imageFilePath
   });
 
 }

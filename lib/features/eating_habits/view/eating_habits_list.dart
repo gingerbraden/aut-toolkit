@@ -1,15 +1,15 @@
-import 'package:aut_toolkit/core/widgets/icon/occuring_icon.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/constants/app_constants.dart';
 import 'package:aut_toolkit/core/services/firebase_service.dart';
 import 'package:aut_toolkit/core/utils/date_util.dart';
 import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:aut_toolkit/core/widgets/filterable_list.dart';
+import 'package:aut_toolkit/core/widgets/icon/occuring_icon.dart';
 import 'package:aut_toolkit/features/eating_habits/domain/model/eating_habit.dart';
 import 'package:aut_toolkit/features/eating_habits/provider/eating_habits_notifier.dart';
 import 'package:aut_toolkit/i18n/strings.g.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/widgets/icon/eating_icon.dart';
 import '../../selected_person/provider/selected_person_notifier.dart';
@@ -109,7 +109,11 @@ class EatingHabitsList extends ConsumerWidget {
               name: '',
               description: '',
               userId: FirebaseService().currentUser!.uid,
-              selectedPersonId: ref.watch(selectedPersonsProvider.notifier).getSelected().id!
+                selectedPersonId: ref
+                    .watch(selectedPersonsProvider.notifier)
+                    .getSelected()
+                    .id!,
+                imageFilePath: null
             ),
           );
         },

@@ -150,7 +150,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(5, 1812295606420934787),
     name: 'EatingHabitEntity',
-    lastPropertyId: const obx_int.IdUid(8, 5857236163708609311),
+    lastPropertyId: const obx_int.IdUid(9, 8780796419473162185),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -199,6 +199,12 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(8, 5857236163708609311),
         name: 'selectedPersonId',
         type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 8780796419473162185),
+        name: 'imageFilePath',
+        type: 9,
         flags: 0,
       ),
     ],
@@ -548,7 +554,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final nameOffset = fbb.writeString(object.name);
         final descriptionOffset = fbb.writeString(object.description);
         final userIdOffset = fbb.writeString(object.userId);
-        fbb.startTable(9);
+        final imageFilePathOffset = object.imageFilePath == null
+            ? null
+            : fbb.writeString(object.imageFilePath!);
+        fbb.startTable(10);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.to?.millisecondsSinceEpoch);
         fbb.addBool(2, object.isEatingFlag);
@@ -557,6 +566,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         fbb.addOffset(5, descriptionOffset);
         fbb.addOffset(6, userIdOffset);
         fbb.addInt64(7, object.selectedPersonId);
+        fbb.addOffset(8, imageFilePathOffset);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -601,6 +611,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           18,
           0,
         );
+        final imageFilePathParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 20);
         final object = EatingHabitEntity(
           id: idParam,
           from: fromParam,
@@ -610,6 +623,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           description: descriptionParam,
           userId: userIdParam,
           selectedPersonId: selectedPersonIdParam,
+          imageFilePath: imageFilePathParam,
         );
 
         return object;
@@ -884,6 +898,11 @@ class EatingHabitEntity_ {
   /// See [EatingHabitEntity.selectedPersonId].
   static final selectedPersonId = obx.QueryIntegerProperty<EatingHabitEntity>(
     _entities[2].properties[7],
+  );
+
+  /// See [EatingHabitEntity.imageFilePath].
+  static final imageFilePath = obx.QueryStringProperty<EatingHabitEntity>(
+    _entities[2].properties[8],
   );
 }
 

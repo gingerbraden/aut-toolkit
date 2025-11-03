@@ -1,3 +1,4 @@
+import 'package:aut_toolkit/core/utils/image_util.dart';
 import 'package:aut_toolkit/features/eating_habits/data/model/eating_habit_mappers.dart';
 import 'package:aut_toolkit/features/eating_habits/data/source/eating_habit_local_source.dart';
 import 'package:aut_toolkit/features/eating_habits/domain/model/eating_habit.dart';
@@ -20,6 +21,9 @@ class EatingHabitRepositoryImpl implements EatingHabitRepository {
 
   @override
   void deleteHabit(EatingHabit eatingHabit) {
+    if (eatingHabit.imageFilePath != null) {
+      ImageUtil.deleteImage(eatingHabit.imageFilePath!);
+    }
     _localSource.remove(eatingHabit.id!);
   }
 }
