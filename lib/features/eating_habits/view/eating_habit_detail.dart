@@ -1,5 +1,6 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/utils/date_util.dart';
+import 'package:aut_toolkit/core/widgets/description_detail.dart';
 import 'package:aut_toolkit/core/widgets/square_image_filled_width.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -50,17 +51,7 @@ class _EatingHabitDetailState extends ConsumerState<EatingHabitDetail> {
               const Divider(height: 32),
               ..._dates(),
               const Divider(height: 32),
-              Text(
-                t.notes,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-              ),
-              const SizedBoxDivider(),
-              Text(
-                widget.habit.description,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
+              DescriptionDetail(description: widget.habit.description),
               const Divider(height: 32),
               SquareImageFilledWidth(imageFilePath: widget.habit.imageFilePath)
             ],

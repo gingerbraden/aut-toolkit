@@ -1,12 +1,13 @@
 import 'package:aut_toolkit/app/router.dart';
+import 'package:aut_toolkit/core/utils/date_util.dart';
 import 'package:aut_toolkit/core/widgets/divider/divider_sized_box_divider.dart';
-import '../../../core/widgets/divider/sized_box_divider.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour_diary_entry.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/provider/challenging_behaviour_notifier.dart';
-import 'package:aut_toolkit/core/utils/date_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../core/constants/app_constants.dart';
+import '../../../core/widgets/divider/sized_box_divider.dart';
 import '../../../i18n/strings.g.dart';
 
 class ChallengingBehaviourDiaryEntryEdit extends ConsumerStatefulWidget {
@@ -106,14 +107,7 @@ class _ChallengingBehaviourDiaryEntryEditState
             children: [
               _locationTextField(),
               SizedBoxDivider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(flex: 1, child: _durationField()),
-                  Expanded(flex: 2, child: _dateField())
-                ],
-              ),
+              _durationDateFields(),
               DividerSizedBoxDivider(),
               _circumstancesField(),
               DividerSizedBoxDivider(),
@@ -308,5 +302,16 @@ class _ChallengingBehaviourDiaryEntryEditState
         .addDiaryEntry(widget.cbId, entry);
     router.pop();
     if (!widget.isNew) router.pop();
+  }
+
+  Row _durationDateFields() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(flex: 1, child: _durationField()),
+        Expanded(flex: 2, child: _dateField())
+      ],
+    );
   }
 }

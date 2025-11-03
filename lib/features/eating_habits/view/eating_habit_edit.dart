@@ -98,7 +98,6 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
                       child: const Divider(),
                     ),
                     _imageButtons()
-
                   ],
                 ),
               ),

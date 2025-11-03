@@ -1,5 +1,6 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/utils/date_util.dart';
+import 'package:aut_toolkit/core/widgets/description_detail.dart';
 import 'package:aut_toolkit/core/widgets/icon/occuring_icon.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour_diary_entry.dart';
@@ -25,14 +26,13 @@ class ChallengingBehaviourDetail extends ConsumerStatefulWidget {
 
 class _ChallengingBehaviourDetailState
     extends ConsumerState<ChallengingBehaviourDetail> {
-
-
   @override
   Widget build(BuildContext context) {
-
-    final cb = ref.watch(challengingBehavioursProvider.select(
-          (state) => state.firstWhere((element) => element.id == widget.cbdef.id),
-    ));
+    final cb = ref.watch(
+      challengingBehavioursProvider.select(
+        (state) => state.firstWhere((element) => element.id == widget.cbdef.id),
+      ),
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -60,74 +60,18 @@ class _ChallengingBehaviourDetailState
               const Divider(height: 32),
               ..._dates(cb),
               const Divider(height: 32),
-              Text(
-                t.notes,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-              ),
-              const SizedBoxDivider(),
-              Text(
-                cb.description,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
+              DescriptionDetail(description: cb.description),
               const Divider(height: 32),
-              Center(
-                child: ElevatedButton.icon(
-                  onPressed: () => {
-                    _newDiaryEntry(cb)
-                },
-                  icon: const Icon(Icons.add),
-                  label: Text(t.add_new_entry),
-                ),
-              ),
+              _addEntryButton(cb),
               SizedBoxDivider(),
-              cb.diaryEntries.isEmpty
-                  ? Center(child: Text(t.no_entries))
-                  : ListView.builder(
-                      itemCount: cb.diaryEntries.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final de = cb.diaryEntries[index];
-                        return Card(
-                          elevation: 0,
-                          child: ListTile(
-                            onTap: () {
-                              router.push(
-                                RouterUtils.getChallengingBehaviourDiaryEntryDetailPath(),
-                                extra: ChallengingBehaviourDiaryEntryTransport(
-                                  cbId: cb.id!,
-                                  entry: de,
-                                  isNew: false,
-                                ),
-                              );
-                            },
-                            title: Text(
-                              '${DateUtil.getDayOfWeekString(de.date.weekday)} ${DateUtil.returnDateInStringFormatWithTime(de.date)}',
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  '${de.duration} ${t.minute(n: de.duration)}',
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+              _diaryEntries(cb),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          router.push(
-            RouterUtils.getChallengingBehaviourEditPath(),
-            extra: cb,
-          );
+          router.push(RouterUtils.getChallengingBehaviourEditPath(), extra: cb);
         },
         child: const Icon(Icons.edit),
       ),
@@ -159,10 +103,7 @@ class _ChallengingBehaviourDetailState
       builder: (context) => AlertDialog(
         title: Text("${t.really_delete_object}${cb.name}?"),
         actions: [
-          TextButton(
-            onPressed: () => router.pop(false),
-            child: Text(t.cancel),
-          ),
+          TextButton(onPressed: () => router.pop(false), child: Text(t.cancel)),
           TextButton(
             onPressed: () => router.pop(true),
             child: Text(t.yes, style: TextStyle(color: Colors.red)),
@@ -172,9 +113,7 @@ class _ChallengingBehaviourDetailState
     );
 
     if (confirm == true) {
-      ref
-          .read(challengingBehavioursProvider.notifier)
-          .deleteBehaviour(cb);
+      ref.read(challengingBehavioursProvider.notifier).deleteBehaviour(cb);
       router.pop();
     }
   }
@@ -223,5 +162,52 @@ class _ChallengingBehaviourDetailState
         ],
       ),
     ];
+  }
+
+  Widget _addEntryButton(ChallengingBehaviour cb) {
+    return Center(
+      child: ElevatedButton.icon(
+        onPressed: () => {_newDiaryEntry(cb)},
+        icon: const Icon(Icons.add),
+        label: Text(t.add_new_entry),
+      ),
+    );
+  }
+
+  Widget _diaryEntries(ChallengingBehaviour cb) {
+    return cb.diaryEntries.isEmpty
+        ? Center(child: Text(t.no_entries))
+        : ListView.builder(
+            itemCount: cb.diaryEntries.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              final de = cb.diaryEntries[index];
+              return Card(
+                elevation: 0,
+                child: ListTile(
+                  onTap: () {
+                    router.push(
+                      RouterUtils.getChallengingBehaviourDiaryEntryDetailPath(),
+                      extra: ChallengingBehaviourDiaryEntryTransport(
+                        cbId: cb.id!,
+                        entry: de,
+                        isNew: false,
+                      ),
+                    );
+                  },
+                  title: Text(
+                    '${DateUtil.getDayOfWeekString(de.date.weekday)} ${DateUtil.returnDateInStringFormatWithTime(de.date)}',
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('${de.duration} ${t.minute(n: de.duration)}'),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
   }
 }
