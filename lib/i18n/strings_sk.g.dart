@@ -137,6 +137,7 @@ class TranslationsSk implements Translations {
 	@override String get image_deleted => 'Obrázok bol odstránený';
 	@override String get entry_added => 'Záznam pridaný';
 	@override String get currently_managed_person => 'Práve spravovaná osoba:';
+	@override String get crop_image => 'Orezať obrázok';
 }
 
 /// Flat map(s) containing all translations.
@@ -245,6 +246,7 @@ extension on TranslationsSk {
 			case 'image_deleted': return 'Obrázok bol odstránený';
 			case 'entry_added': return 'Záznam pridaný';
 			case 'currently_managed_person': return 'Práve spravovaná osoba:';
+			case 'crop_image': return 'Orezať obrázok';
 			default: return null;
 		}
 	}

@@ -47,7 +47,6 @@ class _SelectedPersonManagementTileState
               itemBuilder: (context, index) {
                 final person = people[index];
                 return ListTile(
-                  leading: const Icon(Icons.person),
                   title: Text(person.name),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,

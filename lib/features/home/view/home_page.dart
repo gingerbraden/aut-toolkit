@@ -43,7 +43,10 @@ class _HomePageState extends ConsumerState<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _selectedPersonArea(allPersons),
-              const SizedBox(height: 32),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                child: Divider(),
+              ),
               _buildCard(
                 t.eating_habits,
                 t.eating_habits_desc,
@@ -152,43 +155,75 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   Widget _selectedPersonArea(List<SelectedPerson> allPersons) {
+    final selected = allPersons.isEmpty
+        ? null
+        : allPersons.firstWhere(
+            (sp) => sp.isSelected,
+            orElse: () => allPersons.first,
+          );
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(t.currently_managed_person),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: DropdownButton<SelectedPerson>(
-                  value: allPersons.isEmpty
-                      ? null
-                      : allPersons.firstWhere((sp) => sp.isSelected),
+                child: DropdownButtonFormField<SelectedPerson>(
+                  initialValue: selected,
                   isExpanded: true,
-                  underline: const SizedBox.shrink(), // 🔥 removes underline completely
-                  items: allPersons.map((person) {
-                    return DropdownMenuItem<SelectedPerson>(
-                      value: person,
-                      child: Text(
-                        person.name,
-                        style: Theme.of(context).textTheme.headlineLarge,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Theme.of(context).colorScheme.surfaceContainer,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(99),
+                      borderSide: BorderSide.none,
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 4,
+                    ),
+                  ),
+                  dropdownColor: Theme.of(context).colorScheme.surface,
+                  items: [
+                    ...allPersons.map((person) {
+                      return DropdownMenuItem<SelectedPerson>(
+                        value: person,
+                        child: Text(
+                          person.name,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      );
+                    }).toList(),
+                    DropdownMenuItem<SelectedPerson>(
+                      value: null,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.add,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            t.add_managed_person,
+                            style: Theme.of(context).textTheme.titleMedium
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          ),
+                        ],
                       ),
-                    );
-                  }).toList(),
+                    ),
+                  ],
                   onChanged: (person) {
-                    if (person != null) {
+                    if (person == null) {
+                      _showCreatePersonDialog(false);
+                    } else {
                       ref.read(selectedPersonsProvider.notifier).add(person);
                     }
                   },
                 ),
-              ),
-              IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () {
-                  _showCreatePersonDialog(false);
-                },
               ),
             ],
           ),

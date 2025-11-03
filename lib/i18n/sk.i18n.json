@@ -99,5 +99,6 @@
   "image_changed": "Obrázok bol zmenený",
   "image_deleted": "Obrázok bol odstránený",
   "entry_added": "Záznam pridaný",
-  "currently_managed_person": "Práve spravovaná osoba:"
+  "currently_managed_person": "Práve spravovaná osoba:",
+  "crop_image": "Orezať obrázok"
 }

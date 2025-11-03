@@ -331,6 +331,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Currently managed person:'
 	String get currently_managed_person => 'Currently managed person:';
+
+	/// en: 'Crop image'
+	String get crop_image => 'Crop image';
 }
 
 /// Flat map(s) containing all translations.
@@ -438,6 +441,7 @@ extension on Translations {
 			case 'image_deleted': return 'Image was deleted';
 			case 'entry_added': return 'Entry added';
 			case 'currently_managed_person': return 'Currently managed person:';
+			case 'crop_image': return 'Crop image';
 			default: return null;
 		}
 	}

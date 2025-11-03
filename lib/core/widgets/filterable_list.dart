@@ -118,10 +118,17 @@ class _FilterableListState<T> extends State<FilterableList<T>> {
   Widget _searchField() => TextField(
     controller: _searchController,
     onChanged: (v) => setState(() => _searchQuery = v),
-    decoration: const InputDecoration(
-      prefixIcon: Icon(Icons.search),
-      hintText: 'Search...',
-      border: OutlineInputBorder(),
+    style: const TextStyle(fontSize: 16),
+    decoration: InputDecoration(
+      prefixIcon: const Icon(Icons.search),
+      hintText: t.search,
+      filled: true,
+      fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(99),
+        borderSide: BorderSide.none,
+      ),
+      contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
     ),
   );
 

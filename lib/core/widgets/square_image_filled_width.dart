@@ -18,7 +18,7 @@ class SquareImageFilledWidth extends StatelessWidget {
 
     final file = File(path);
     if (!file.existsSync()) {
-      return const Text("⚠️ Image not found");
+      return const Text("");
     }
 
     final screenWidth =

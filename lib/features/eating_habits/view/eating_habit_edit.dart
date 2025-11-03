@@ -265,14 +265,14 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
     }
   }
 
-  _imageButtons() {
+  Row _imageButtons() {
     return _image == null
         ? Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ElevatedButton.icon(
           onPressed: () async {
-            final imgPath = await ImageUtil.pickAndStoreImage();
+            final imgPath = await ImageUtil.pickAndStoreImage(Theme.of(context).colorScheme.surface, Theme.of(context).textTheme.headlineLarge!.color!);
             setState(() {
               _image = imgPath;
             });
@@ -287,7 +287,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
       children: [
         ElevatedButton.icon(
           onPressed: () async {
-            final imgPath = await ImageUtil.pickAndStoreImage();
+            final imgPath = await ImageUtil.pickAndStoreImage(Theme.of(context).colorScheme.surface, Theme.of(context).textTheme.headlineLarge!.color!);
             setState(() {
               ImageUtil.deleteImage(_image!);
               _image = imgPath;
