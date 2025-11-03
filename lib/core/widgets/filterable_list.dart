@@ -86,7 +86,7 @@ class _FilterableListState<T> extends State<FilterableList<T>> {
             ),
             _selectedFiltersChips(),
             Padding(
-              padding: _selectedFilters.isEmpty ? EdgeInsets.symmetric(vertical: 8) : EdgeInsets.symmetric(vertical: 0),
+              padding: _selectedFilters.isEmpty ? EdgeInsets.symmetric(vertical: 8, horizontal: 8) : EdgeInsets.symmetric(vertical: 0, horizontal: 8),
               child: Divider(),
             ),
             Expanded(

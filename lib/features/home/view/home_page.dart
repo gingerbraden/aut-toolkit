@@ -44,7 +44,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             children: [
               _selectedPersonArea(allPersons),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                padding: EdgeInsets.only(top: 8, bottom: 4, left: 10, right: 10),
                 child: Divider(),
               ),
               _buildCard(
