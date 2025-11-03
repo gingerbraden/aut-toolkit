@@ -1,13 +1,14 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/utils/date_util.dart';
-import 'package:aut_toolkit/features/selected_person/provider/selected_person_notifier.dart';
-import '../../../core/widgets/divider/sized_box_divider.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/provider/challenging_behaviour_notifier.dart';
+import 'package:aut_toolkit/features/selected_person/provider/selected_person_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/scaffold_messenger_util.dart';
+import '../../../core/widgets/divider/sized_box_divider.dart';
 import '../../../core/widgets/icon/occuring_icon.dart';
 import '../../../i18n/strings.g.dart';
 
@@ -209,8 +210,8 @@ class _ChallengingBehaviourEditScreenState
     });
   }
 
-  void _saveChanges() {
-    if (_formKey.currentState?.validate() ?? false) {
+  void _saveChanges() {caffoldMessengerUtils().showSnackBar(context, t.change_saved);
+    iif (_formKey.currentState?.validate() ?? false) {
       final updatedCb = ChallengingBehaviour(
         id: widget.cb.id!,
         name: _nameController.text.trim(),
