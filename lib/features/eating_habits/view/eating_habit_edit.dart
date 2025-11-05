@@ -289,10 +289,12 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
           onPressed: () async {
             final imgPath = await ImageUtil.pickAndStoreImage(Theme.of(context).colorScheme.surface, Theme.of(context).textTheme.headlineLarge!.color!);
             setState(() {
-              ImageUtil.deleteImage(_image!);
-              _image = imgPath;
+              if (imgPath != null) {
+                ImageUtil.deleteImage(_image!);
+                _image = imgPath;
+                ScaffoldMessengerUtils().showSnackBar(context, t.image_changed);
+              }
             });
-            ScaffoldMessengerUtils().showSnackBar(context, t.image_changed);
           },
           icon: const Icon(Icons.edit),
           label: Text(t.change_image),
