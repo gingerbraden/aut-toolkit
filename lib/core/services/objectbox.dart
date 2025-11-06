@@ -1,3 +1,4 @@
+import 'package:aut_toolkit/features/card_management/data/model/card_entity.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_entity.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_entity.dart';
 import 'package:aut_toolkit/features/eating_habits/data/model/eating_habit_entity.dart';
@@ -14,7 +15,7 @@ class ObjectBox {
   late final Box<ChallengingBehaviourDiaryEntryEntity> challengingBehaviourDiaryEntryBox;
   late final Box<GoodHabitEntity> goodHabitBox;
   late final Box<SelectedPersonEntity> selectedPersonBox;
-
+  late final Box<CardEntity> cardBox;
 
   ObjectBox._create(this.store) {
     eatingHabitEntityBox = Box<EatingHabitEntity>(store);
@@ -22,6 +23,7 @@ class ObjectBox {
     challengingBehaviourDiaryEntryBox = Box<ChallengingBehaviourDiaryEntryEntity>(store);
     goodHabitBox = Box<GoodHabitEntity>(store);
     selectedPersonBox = Box<SelectedPersonEntity>(store);
+    cardBox = Box<CardEntity>(store);
 
   }
 

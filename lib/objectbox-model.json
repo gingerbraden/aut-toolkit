@@ -235,9 +235,43 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "8:8990935288411066217",
+      "lastPropertyId": "5:4317918244815278053",
+      "name": "CardEntity",
+      "properties": [
+        {
+          "id": "1:4563356993705894073",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:25719061704574666",
+          "name": "arasaacId",
+          "type": 6
+        },
+        {
+          "id": "3:6097620739564343198",
+          "name": "userId",
+          "type": 9
+        },
+        {
+          "id": "4:2821425816074388931",
+          "name": "localImgPath",
+          "type": 9
+        },
+        {
+          "id": "5:4317918244815278053",
+          "name": "namesJson",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "7:6805867481002173015",
+  "lastEntityId": "8:8990935288411066217",
   "lastIndexId": "1:7265063553320486894",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

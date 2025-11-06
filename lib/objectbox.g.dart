@@ -14,6 +14,7 @@ import 'package:objectbox/internal.dart'
 import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
+import 'features/card_management/data/model/card_entity.dart';
 import 'features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_entity.dart';
 import 'features/challenging_behaviour/data/model/challenging_behaviour_entity.dart';
 import 'features/eating_habits/data/model/eating_habit_entity.dart';
@@ -303,6 +304,46 @@ final _entities = <obx_int.ModelEntity>[
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[],
   ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(8, 8990935288411066217),
+    name: 'CardEntity',
+    lastPropertyId: const obx_int.IdUid(5, 4317918244815278053),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 4563356993705894073),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 25719061704574666),
+        name: 'arasaacId',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 6097620739564343198),
+        name: 'userId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 2821425816074388931),
+        name: 'localImgPath',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 4317918244815278053),
+        name: 'namesJson',
+        type: 9,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
 ];
 
 /// Shortcut for [obx.Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -343,7 +384,7 @@ Future<obx.Store> openStore({
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(7, 6805867481002173015),
+    lastEntityId: const obx_int.IdUid(8, 8990935288411066217),
     lastIndexId: const obx_int.IdUid(1, 7265063553320486894),
     lastRelationId: const obx_int.IdUid(0, 0),
     lastSequenceId: const obx_int.IdUid(0, 0),
@@ -764,6 +805,61 @@ obx_int.ModelDefinition getObjectBoxModel() {
         return object;
       },
     ),
+    CardEntity: obx_int.EntityDefinition<CardEntity>(
+      model: _entities[5],
+      toOneRelations: (CardEntity object) => [],
+      toManyRelations: (CardEntity object) => {},
+      getId: (CardEntity object) => object.id,
+      setId: (CardEntity object, int id) {
+        object.id = id;
+      },
+      objectToFB: (CardEntity object, fb.Builder fbb) {
+        final userIdOffset = fbb.writeString(object.userId);
+        final localImgPathOffset = fbb.writeString(object.localImgPath);
+        final namesJsonOffset = fbb.writeString(object.namesJson);
+        fbb.startTable(6);
+        fbb.addInt64(0, object.id);
+        fbb.addInt64(1, object.arasaacId);
+        fbb.addOffset(2, userIdOffset);
+        fbb.addOffset(3, localImgPathOffset);
+        fbb.addOffset(4, namesJsonOffset);
+        fbb.finish(fbb.endTable());
+        return object.id;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
+        final arasaacIdParam = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          6,
+        );
+        final userIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 8, '');
+        final localImgPathParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 10, '');
+        final namesJsonParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 12, '');
+        final object = CardEntity(
+          id: idParam,
+          arasaacId: arasaacIdParam,
+          userId: userIdParam,
+          localImgPath: localImgPathParam,
+          namesJson: namesJsonParam,
+        );
+
+        return object;
+      },
+    ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -985,5 +1081,33 @@ class SelectedPersonEntity_ {
   /// See [SelectedPersonEntity.name].
   static final name = obx.QueryStringProperty<SelectedPersonEntity>(
     _entities[4].properties[3],
+  );
+}
+
+/// [CardEntity] entity fields to define ObjectBox queries.
+class CardEntity_ {
+  /// See [CardEntity.id].
+  static final id = obx.QueryIntegerProperty<CardEntity>(
+    _entities[5].properties[0],
+  );
+
+  /// See [CardEntity.arasaacId].
+  static final arasaacId = obx.QueryIntegerProperty<CardEntity>(
+    _entities[5].properties[1],
+  );
+
+  /// See [CardEntity.userId].
+  static final userId = obx.QueryStringProperty<CardEntity>(
+    _entities[5].properties[2],
+  );
+
+  /// See [CardEntity.localImgPath].
+  static final localImgPath = obx.QueryStringProperty<CardEntity>(
+    _entities[5].properties[3],
+  );
+
+  /// See [CardEntity.namesJson].
+  static final namesJson = obx.QueryStringProperty<CardEntity>(
+    _entities[5].properties[4],
   );
 }
