@@ -2,7 +2,7 @@ import 'package:aut_toolkit/features/selected_person/data/model/selected_person_
 
 import '../../domain/model/selected_person.dart';
 
-extension UserEntityMapper on SelectedPersonEntity {
+extension SelectedPersonEntityMapper on SelectedPersonEntity {
   SelectedPerson toModel() => SelectedPerson(
     id: id,
     name: name,
@@ -11,7 +11,7 @@ extension UserEntityMapper on SelectedPersonEntity {
   );
 }
 
-extension UserModelMapper on SelectedPerson {
+extension SelectedPersonMapper on SelectedPerson {
   SelectedPersonEntity toEntity() => SelectedPersonEntity(
     id: id ?? 0,
     name: name,

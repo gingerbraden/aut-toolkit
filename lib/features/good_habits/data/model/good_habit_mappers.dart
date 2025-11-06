@@ -1,7 +1,7 @@
 import 'package:aut_toolkit/features/good_habits/data/model/good_habit_entity.dart';
 import 'package:aut_toolkit/features/good_habits/domain/model/good_habit.dart';
 
-extension UserEntityMapper on GoodHabitEntity {
+extension GoodHabitEntityMapper on GoodHabitEntity {
   GoodHabit toModel() => GoodHabit(
     id: id,
     from: from,
@@ -14,7 +14,7 @@ extension UserEntityMapper on GoodHabitEntity {
   );
 }
 
-extension UserModelMapper on GoodHabit {
+extension GoodHabitMapper on GoodHabit {
   GoodHabitEntity toEntity() => GoodHabitEntity(
     id: id ?? 0,
     from: from,

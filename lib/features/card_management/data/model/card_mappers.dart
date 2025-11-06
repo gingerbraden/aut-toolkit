@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:aut_toolkit/features/card_management/data/model/card_entity.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/card.dart';
 
-extension UserEntityMapper on CardEntity {
+extension CardEntityMapper on CardEntity {
   Card toModel() => Card(
     id: id,
     arasaacId: arasaacId,
@@ -13,7 +13,7 @@ extension UserEntityMapper on CardEntity {
   );
 }
 
-extension UserModelMapper on Card {
+extension CardMapper on Card {
   CardEntity toEntity() => CardEntity(
     id: id ?? 0,
     arasaacId: arasaacId,

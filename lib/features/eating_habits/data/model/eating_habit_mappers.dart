@@ -1,7 +1,7 @@
 import 'package:aut_toolkit/features/eating_habits/data/model/eating_habit_entity.dart';
 import 'package:aut_toolkit/features/eating_habits/domain/model/eating_habit.dart';
 
-extension UserEntityMapper on EatingHabitEntity {
+extension EatingHabitEntityMapper on EatingHabitEntity {
   EatingHabit toModel() => EatingHabit(
     id: id,
     from: from,
@@ -15,7 +15,7 @@ extension UserEntityMapper on EatingHabitEntity {
   );
 }
 
-extension UserModelMapper on EatingHabit {
+extension EatingHabitMapper on EatingHabit {
   EatingHabitEntity toEntity() => EatingHabitEntity(
     id: id ?? 0,
     from: from,
