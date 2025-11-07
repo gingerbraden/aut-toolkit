@@ -108,5 +108,7 @@
   "arasaac_icons": "ARASAAC Ikony",
   "create_card": "Vytvoriť kartičku",
   "create_card_decision": "Aký si želáte použiť zdroj obrázku?",
-  "from_gallery": "Galéria"
+  "from_gallery": "Galéria",
+  "no_icons_found": "Neboli nájdené žiadne ikony pre daný vyhľadávací výraz.",
+  "use_this_image": "Použiť túto ikonu?"
 }

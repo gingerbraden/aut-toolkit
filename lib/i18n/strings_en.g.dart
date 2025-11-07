@@ -358,6 +358,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Gallery'
 	String get from_gallery => 'Gallery';
+
+	/// en: 'No icons found for given search query.'
+	String get no_icons_found => 'No icons found for given search query.';
+
+	/// en: 'Use this icon?'
+	String get use_this_image => 'Use this icon?';
 }
 
 /// Flat map(s) containing all translations.
@@ -474,6 +480,8 @@ extension on Translations {
 			case 'create_card': return 'Create cards';
 			case 'create_card_decision': return 'What source would like to use for the icon?';
 			case 'from_gallery': return 'Gallery';
+			case 'no_icons_found': return 'No icons found for given search query.';
+			case 'use_this_image': return 'Use this icon?';
 			default: return null;
 		}
 	}

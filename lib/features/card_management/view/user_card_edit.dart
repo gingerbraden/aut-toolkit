@@ -1,0 +1,187 @@
+import 'package:aut_toolkit/core/utils/router_utils.dart';
+import 'package:aut_toolkit/core/widgets/square_image_filled_width.dart';
+import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
+import 'package:aut_toolkit/features/card_management/provider/card_notifier.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:aut_toolkit/core/utils/image_util.dart';
+import 'package:aut_toolkit/core/utils/scaffold_messenger_util.dart';
+import 'package:aut_toolkit/app/router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../core/constants/app_constants.dart';
+import '../../../core/widgets/divider/sized_box_divider.dart';
+import '../../../i18n/strings.g.dart';
+
+class UserCardEdit extends ConsumerStatefulWidget {
+  const UserCardEdit({super.key, required this.isNew, required this.card});
+  final bool isNew;
+  final UserCard card;
+
+  @override
+  ConsumerState<UserCardEdit> createState() => _UserCardCreateState();
+}
+
+class _UserCardCreateState extends ConsumerState<UserCardEdit> {
+  final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
+  final _formKey = GlobalKey<FormState>();
+  late TextEditingController _nameController;
+  String? _imagePath;
+  String? _arasaacId;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _pickImage() async {
+    final choice = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(t.create_card_decision),
+        actions: [
+          OutlinedButton(
+            onPressed: () => Navigator.pop(context, 'gallery'),
+            child: Text(t.from_gallery),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, 'arasaac'),
+            child: Text(t.arasaac_icons),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, null),
+            child: Text(t.cancel),
+          ),
+        ],
+      ),
+    );
+
+    if (choice == null) return;
+
+    String? imgPath;
+
+    if (choice == 'gallery') {
+      imgPath = await ImageUtil.pickAndStoreImage(
+        Theme.of(context).colorScheme.surface,
+        Theme.of(context).textTheme.headlineLarge!.color!,
+      );
+    } else if (choice == 'arasaac') {
+      await router.push(RouterUtils.getCardsARASAACPath());
+      String? path = await asyncPrefs.getString('imgPath');
+      imgPath = await ImageUtil.saveImageFromUrl(path ?? "");
+      _arasaacId = imgPath?.split("/").last.split("_").first;
+    }
+
+    print(imgPath);
+    if (imgPath != null) {
+      setState(() {
+        _imagePath = imgPath;
+      });
+    }
+  }
+
+
+  void _deleteImage() {
+    if (_imagePath != null) {
+      ImageUtil.deleteImage(_imagePath!);
+      setState(() {
+        _imagePath = null;
+      });
+      ScaffoldMessengerUtils().showSnackBar(context, t.image_deleted);
+    }
+  }
+
+  void _saveUserCard() {
+    if (_formKey.currentState?.validate() ?? false) {
+      final updatedHabit = UserCard(
+          id: widget.card.id,
+        arasaacId: _arasaacId != null ? int.parse(_arasaacId!) : null,
+        userId: widget.card.userId,
+        names: {
+          LocaleSettings.currentLocale.languageCode: _nameController.text
+        },
+        localImgPath:_imagePath!,
+
+
+
+      );
+      ref.read(cardsProvider.notifier).addCard(updatedHabit);
+      ScaffoldMessengerUtils().showSnackBar(context, t.change_saved);
+      router.pop();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.isNew
+            ? t.create
+            : '${t.edit} ${widget.card.names[LocaleSettings.currentLocale.languageCode]}'),
+        centerTitle: true,
+        actions: [
+          TextButton.icon(
+            onPressed: _saveUserCard,
+            icon: const Icon(Icons.check),
+            label: Text(t.save),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              _nameField(),
+              const SizedBoxDivider(),
+              _imageButtons(),
+              const SizedBoxDivider(),
+              SquareImageFilledWidth(imageFilePath: _imagePath ?? ""),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _nameField() {
+    return TextFormField(
+      controller: _nameController,
+      decoration: InputDecoration(
+        labelText: t.name,
+        border: const OutlineInputBorder(),
+      ),
+      validator: (value) =>
+      value == null || value.isEmpty ? t.please_enter_name : null,
+    );
+  }
+
+
+  Widget _imageButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        ElevatedButton.icon(
+          onPressed: _pickImage,
+          icon: const Icon(Icons.add_a_photo),
+          label: Text(_imagePath == null ? t.load_image : t.change_image),
+        ),
+        ElevatedButton.icon(
+          onPressed: _deleteImage,
+          icon: const Icon(Icons.delete, color: Colors.redAccent),
+          label: Text(
+            t.delete_image,
+            style: const TextStyle(color: Colors.redAccent),
+          ),
+        ),
+      ],
+    );
+  }
+}

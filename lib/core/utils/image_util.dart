@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -42,6 +43,32 @@ class ImageUtil {
 
     return compressedFile.path;
   }
+
+  static Future<String?> saveImageFromUrl(String imageUrl) async {
+    if (imageUrl.isEmpty) return null;
+    try {
+      final dio = Dio();
+
+      final appDir = await getApplicationDocumentsDirectory();
+      final fileName = imageUrl.split("/").last;
+      final filePath = path.join(appDir.path, fileName);
+
+      await dio.download(
+        imageUrl,
+        filePath,
+        options: Options(responseType: ResponseType.bytes),
+      );
+
+      final file = File(filePath);
+      if (!await file.exists()) return null;
+
+      return file.path;
+    } catch (e) {
+      print('Error saving image from URL: $e');
+      return null;
+    }
+  }
+
 
   static void deleteImage(String path) {
     final file = File(path);

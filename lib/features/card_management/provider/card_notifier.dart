@@ -46,12 +46,12 @@ class CardsNotifier extends StateNotifier<List<UserCard>> {
     state = _repo.getAllCards();
   }
 
-  void addHabit(UserCard card) {
+  void addCard(UserCard card) {
     _repo.saveCard(card);
     loadCards();
   }
 
-  void deleteHabit(UserCard card) {
+  void deleteCard(UserCard card) {
     _repo.deleteCard(card);
     loadCards();
   }

@@ -1,6 +1,13 @@
-import 'package:aut_toolkit/core/constants/app_constants.dart';
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:aut_toolkit/core/constants/app_constants.dart';
+import 'package:aut_toolkit/core/utils/scaffold_messenger_util.dart';
+import 'package:aut_toolkit/core/utils/string_util.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../app/router.dart';
 import '../../../core/model/Pictogram.dart';
 import '../../../core/repository/arasaac_repository.dart';
 import '../../../i18n/strings.g.dart';
@@ -15,22 +22,44 @@ class ARASAACCardsSearch extends StatefulWidget {
 class _ARASAACCardsSearchState extends State<ARASAACCardsSearch> {
   final ARASAACRepository _repo = ARASAACRepository();
   final TextEditingController _searchController = TextEditingController();
+  final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
 
   Future<List<Pictogram>>? _futurePictograms;
   String _lastQuery = '';
 
+  Map<String, List<String>> _translations = {};
+
+  Future<void> _loadTranslations() async {
+    final jsonString = await rootBundle.loadString('res/sk-en.json');
+    final Map<String, dynamic> jsonMap = json.decode(jsonString);
+    setState(() {
+      _translations = jsonMap.map((key, value) => MapEntry(StringUtils().removeDiacritics(key), List<String>.from(value)));
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _translations.clear();
+    _loadTranslations();
+  }
+
   void _performSearch() {
-    final query = _searchController.text.trim();
-    if (query.isEmpty || query == _lastQuery) return;
+    final query = StringUtils().removeDiacritics(_searchController.text.trim());
+    if (query.isEmpty || query == _lastQuery || !_translations.keys.contains(query)) {
+      ScaffoldMessengerUtils().showSnackBar(context, t.no_icons_found);
+      return;
+    };
     setState(() {
       _lastQuery = query;
-      _futurePictograms = _repo.searchPictograms(query);
+      _futurePictograms = _repo.searchPictograms(_translations[query]!.join(" "));
     });
   }
 
   @override
   void dispose() {
     _searchController.dispose();
+    _translations.clear();
     super.dispose();
   }
 
@@ -97,7 +126,12 @@ class _ARASAACCardsSearchState extends State<ARASAACCardsSearch> {
       color: Colors.transparent,
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        onTap: () => print("Tapped pictogram: ${pictogram.id}"),
+        onTap: () async {
+          final bool? confirmed = await _showConfirmDialog(pictogram);
+          if (confirmed == true) {
+            Navigator.pop(context, url); // Return the pictogram URL (or pictogram.id if you prefer)
+          }
+        },
         child: Ink(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
@@ -112,7 +146,6 @@ class _ARASAACCardsSearchState extends State<ARASAACCardsSearch> {
                 fit: BoxFit.contain,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;
-
                   return Container(
                     color: Theme.of(context).colorScheme.surfaceContainerHighest,
                     child: const Center(
@@ -130,6 +163,43 @@ class _ARASAACCardsSearchState extends State<ARASAACCardsSearch> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Future<bool?> _showConfirmDialog(Pictogram pictogram) async {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(t.use_this_image),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 16),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.network(
+                _repo.getPictogramUrl(pictogram.id),
+                height: 100,
+                width: 100,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(t.no),
+          ),
+          FilledButton(
+            onPressed: () => {
+              asyncPrefs.setString('imgPath', _repo.getPictogramUrl(pictogram.id)),
+              router.pop(true)
+            },
+            child: Text(t.yes),
+          ),
+        ],
       ),
     );
   }
@@ -154,7 +224,7 @@ class _ARASAACCardsSearchState extends State<ARASAACCardsSearch> {
               const double minItemWidth = 140;
               final int crossAxisCount = (constraints.maxWidth / minItemWidth)
                   .floor()
-                  .clamp(2, 8);
+                  .clamp(3, 8);
 
               return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

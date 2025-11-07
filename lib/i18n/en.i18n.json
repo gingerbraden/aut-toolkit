@@ -107,5 +107,7 @@
   "arasaac_icons": "ARASAAC Icons",
   "create_card": "Create cards",
   "create_card_decision": "What source would like to use for the icon?",
-  "from_gallery": "Gallery"
+  "from_gallery": "Gallery",
+  "no_icons_found": "No icons found for given search query.",
+  "use_this_image": "Use this icon?"
 }

@@ -146,6 +146,8 @@ class TranslationsSk implements Translations {
 	@override String get create_card => 'Vytvoriť kartičku';
 	@override String get create_card_decision => 'Aký si želáte použiť zdroj obrázku?';
 	@override String get from_gallery => 'Galéria';
+	@override String get no_icons_found => 'Neboli nájdené žiadne ikony pre daný vyhľadávací výraz.';
+	@override String get use_this_image => 'Použiť túto ikonu?';
 }
 
 /// Flat map(s) containing all translations.
@@ -263,6 +265,8 @@ extension on TranslationsSk {
 			case 'create_card': return 'Vytvoriť kartičku';
 			case 'create_card_decision': return 'Aký si želáte použiť zdroj obrázku?';
 			case 'from_gallery': return 'Galéria';
+			case 'no_icons_found': return 'Neboli nájdené žiadne ikony pre daný vyhľadávací výraz.';
+			case 'use_this_image': return 'Použiť túto ikonu?';
 			default: return null;
 		}
 	}

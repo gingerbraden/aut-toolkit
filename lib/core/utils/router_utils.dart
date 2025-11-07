@@ -14,6 +14,7 @@ class RouterUtils {
   static final String GOOD_HABITS_DETAIL = 'good-habit-detail';
   static final String GOOD_HABIT_EDIT = 'good-habit-edit';
   static final String CARDS = 'cards';
+  static final String NEW_CARD = 'new-card';
   static final String CARD_ADD_ARASAAC = 'card-add-arasaac';
 
 
@@ -38,5 +39,6 @@ class RouterUtils {
   static String getNewGoodHabitPath() => getGoodHabitsPath() + SLASH + GOOD_HABIT_EDIT;
 
   static String getCardsPath() => HOME + SLASH + CARDS;
-  static String getCardsAddARASAACPath() => getCardsPath() + SLASH + CARD_ADD_ARASAAC;
+  static String getNewCardPath() => getCardsPath() + SLASH + NEW_CARD;
+  static String getCardsARASAACPath() => getNewCardPath() + SLASH + CARD_ADD_ARASAAC;
 }
