@@ -76,7 +76,7 @@ class _ChallengingBehaviourEditScreenState
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
         child: Column(
           children: [
             Expanded(

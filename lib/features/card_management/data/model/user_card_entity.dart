@@ -1,7 +1,7 @@
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
-class CardEntity {
+class UserCardEntity {
   @Id()
   int id = 0;
   int? arasaacId;
@@ -9,7 +9,7 @@ class CardEntity {
   String localImgPath;
   String namesJson;
 
-  CardEntity({
+  UserCardEntity({
     this.id = 0,
     this.arasaacId = 0,
     required this.userId,

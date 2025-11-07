@@ -1,6 +1,7 @@
 import '../Pictogram.dart';
 import '../dto/keyword_dto.dart';
 import '../dto/pictogram_dto.dart';
+import '../keyword.dart';
 
 extension PictogramDTOMapper on PictogramDTO {
   Pictogram toDomain() => Pictogram(

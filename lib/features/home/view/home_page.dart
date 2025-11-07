@@ -35,16 +35,21 @@ class _HomePageState extends ConsumerState<HomePage> {
     final allPersons = ref.watch(selectedPersonsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(t.home), elevation: 0),
+      appBar: AppBar(title: Text(t.home), elevation: 0, forceMaterialTransparency: true,),
       body: Padding(
-        padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _selectedPersonArea(allPersons),
               Padding(
-                padding: EdgeInsets.only(top: 8, bottom: 4, left: 10, right: 10),
+                padding: EdgeInsets.only(
+                  top: 8,
+                  bottom: 4,
+                  left: 10,
+                  right: 10,
+                ),
                 child: Divider(),
               ),
               _buildCard(
@@ -62,6 +67,26 @@ class _HomePageState extends ConsumerState<HomePage> {
               _buildCard(
                 t.good_habits,
                 t.good_habits_desc,
+                RouterUtils.getGoodHabitsPath(),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 8,
+                  bottom: 4,
+                  left: 10,
+                  right: 10,
+                ),
+                child: Divider(),
+              ),
+              _buildCard(
+                t.cards,
+                t.cards_desc,
+                RouterUtils.getCardsPath(),
+              ),
+              const SizedBox(height: 8),
+              _buildCard(
+                t.visual_sequence_boards,
+                t.visual_sequence_boards_desc,
                 RouterUtils.getGoodHabitsPath(),
               ),
             ],

@@ -1,5 +1,7 @@
 import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:aut_toolkit/features/authentication/view/authentication_page.dart';
+import 'package:aut_toolkit/features/card_management/view/arasaac_cards_search.dart';
+import 'package:aut_toolkit/features/card_management/view/user_cards_list.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_transport.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/view/challenging_behaviour_detail.dart';
@@ -152,6 +154,17 @@ final GoRouter router = GoRouter(
                 final habit = state.extra as GoodHabit;
                 return GoodHabitEdit(habit: habit, isNew: true);
               },
+            ),
+          ],
+        ),
+// =============================================================================
+        GoRoute(
+          path: RouterUtils.CARDS,
+          builder: (context, state) => UserCardsList(),
+          routes: [
+            GoRoute(
+              path: RouterUtils.CARD_ADD_ARASAAC,
+              builder: (context, state) => ARASAACCardsSearch()
             ),
           ],
         ),

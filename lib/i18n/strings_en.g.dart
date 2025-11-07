@@ -133,8 +133,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Habits'
 	String get good_habits => 'Habits';
 
-	/// en: 'Autistic children often prefer strict routines and predictability, which helps them feel secure and comfortable.'
-	String get good_habits_desc => 'Autistic children often prefer strict routines and predictability, which helps them feel secure and comfortable.';
+	/// en: 'Autistic children often prefer strict routines and predictability.'
+	String get good_habits_desc => 'Autistic children often prefer strict routines and predictability.';
 
 	/// en: 'Bad habits'
 	String get bad_habits => 'Bad habits';
@@ -142,8 +142,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Eating habits'
 	String get eating_habits => 'Eating habits';
 
-	/// en: 'Autistic children often eat selectively due to sensory sensitivities. A calm routine and familiar foods can support better eating habits.'
-	String get eating_habits_desc => 'Autistic children often eat selectively due to sensory sensitivities. A calm routine and familiar foods can support better eating habits.';
+	/// en: 'Autistic children often eat selectively due to sensory sensitivities.'
+	String get eating_habits_desc => 'Autistic children often eat selectively due to sensory sensitivities.';
 
 	/// en: 'Eats'
 	String get is_eating => 'Eats';
@@ -214,8 +214,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Challenging behaviour'
 	String get challenging_behaviour => 'Challenging behaviour';
 
-	/// en: 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs. Calm responses and clear routines can reduce stress and improve behavior.'
-	String get challenging_behaviour_desc => 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs. Calm responses and clear routines can reduce stress and improve behavior.';
+	/// en: 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs.'
+	String get challenging_behaviour_desc => 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs.';
 
 	/// en: 'Occuring'
 	String get occuring => 'Occuring';
@@ -334,6 +334,30 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Crop image'
 	String get crop_image => 'Crop image';
+
+	/// en: 'Cards'
+	String get cards => 'Cards';
+
+	/// en: 'Cards are used in the AAC board, and can be used inside processural diagrams.'
+	String get cards_desc => 'Cards are used in the AAC board, and can be used inside processural diagrams.';
+
+	/// en: 'Visual sequence boards'
+	String get visual_sequence_boards => 'Visual sequence boards';
+
+	/// en: 'Visual sequence boards management'
+	String get visual_sequence_boards_desc => 'Visual sequence boards management';
+
+	/// en: 'ARASAAC Icons'
+	String get arasaac_icons => 'ARASAAC Icons';
+
+	/// en: 'Create cards'
+	String get create_card => 'Create cards';
+
+	/// en: 'What source would like to use for the icon?'
+	String get create_card_decision => 'What source would like to use for the icon?';
+
+	/// en: 'Gallery'
+	String get from_gallery => 'Gallery';
 }
 
 /// Flat map(s) containing all translations.
@@ -372,10 +396,10 @@ extension on Translations {
 			case 'change_app_language': return 'Change app language';
 			case 'dark_mode_toggle': return 'Dark mode';
 			case 'good_habits': return 'Habits';
-			case 'good_habits_desc': return 'Autistic children often prefer strict routines and predictability, which helps them feel secure and comfortable.';
+			case 'good_habits_desc': return 'Autistic children often prefer strict routines and predictability.';
 			case 'bad_habits': return 'Bad habits';
 			case 'eating_habits': return 'Eating habits';
-			case 'eating_habits_desc': return 'Autistic children often eat selectively due to sensory sensitivities. A calm routine and familiar foods can support better eating habits.';
+			case 'eating_habits_desc': return 'Autistic children often eat selectively due to sensory sensitivities.';
 			case 'is_eating': return 'Eats';
 			case 'is_not_eating': return 'Does not eat';
 			case 'active': return 'Active';
@@ -399,7 +423,7 @@ extension on Translations {
 			case 'filters': return 'Filters';
 			case 'sort': return 'Sort by';
 			case 'challenging_behaviour': return 'Challenging behaviour';
-			case 'challenging_behaviour_desc': return 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs. Calm responses and clear routines can reduce stress and improve behavior.';
+			case 'challenging_behaviour_desc': return 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs.';
 			case 'occuring': return 'Occuring';
 			case 'not_occuring': return 'Not occuring';
 			case 'location': return 'Location';
@@ -442,6 +466,14 @@ extension on Translations {
 			case 'entry_added': return 'Entry added';
 			case 'currently_managed_person': return 'Currently managed person:';
 			case 'crop_image': return 'Crop image';
+			case 'cards': return 'Cards';
+			case 'cards_desc': return 'Cards are used in the AAC board, and can be used inside processural diagrams.';
+			case 'visual_sequence_boards': return 'Visual sequence boards';
+			case 'visual_sequence_boards_desc': return 'Visual sequence boards management';
+			case 'arasaac_icons': return 'ARASAAC Icons';
+			case 'create_card': return 'Create cards';
+			case 'create_card_decision': return 'What source would like to use for the icon?';
+			case 'from_gallery': return 'Gallery';
 			default: return null;
 		}
 	}

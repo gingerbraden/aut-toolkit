@@ -1,4 +1,4 @@
-class Card {
+class UserCard {
   int? id;
   int? arasaacId;
   String userId;
@@ -6,7 +6,7 @@ class Card {
   Map<String, String> names;
 
 
-  Card({
+  UserCard({
     this.id = 0,
     this.arasaacId = 0,
     required this.userId,

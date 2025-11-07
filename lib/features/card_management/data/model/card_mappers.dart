@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:aut_toolkit/features/card_management/data/model/card_entity.dart';
-import 'package:aut_toolkit/features/card_management/domain/model/card.dart';
+import 'package:aut_toolkit/features/card_management/data/model/user_card_entity.dart';
+import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
 
-extension CardEntityMapper on CardEntity {
-  Card toModel() => Card(
+extension UserCardEntityMapper on UserCardEntity {
+  UserCard toModel() => UserCard(
     id: id,
     arasaacId: arasaacId,
     userId: userId,
@@ -13,8 +13,8 @@ extension CardEntityMapper on CardEntity {
   );
 }
 
-extension CardMapper on Card {
-  CardEntity toEntity() => CardEntity(
+extension UserCardMapper on UserCard {
+  UserCardEntity toEntity() => UserCardEntity(
     id: id ?? 0,
     arasaacId: arasaacId,
     userId: userId,

@@ -5,16 +5,16 @@ import 'package:flutter_riverpod/legacy.dart';
 import '../../../core/services/objectbox.dart';
 import '../../../main.dart';
 import '../data/card_repository_impl.dart';
-import '../data/model/card_entity.dart';
+import '../data/model/user_card_entity.dart';
 import '../data/source/card_local_source.dart';
-import '../domain/model/card.dart';
+import '../domain/model/user_card.dart';
 import '../domain/repository/card_repository.dart';
 
 final objectBoxProvider = Provider<ObjectBox>((ref) {
   return objectbox;
 });
 
-final cardBoxProvider = Provider<Box<CardEntity>>((ref) {
+final cardBoxProvider = Provider<Box<UserCardEntity>>((ref) {
   final obx = ref.watch(objectBoxProvider);
   return obx.cardBox;
 });
@@ -30,12 +30,12 @@ final cardRepositoryProvider = Provider<CardRepository>((ref) {
 });
 
 final cardsProvider =
-    StateNotifierProvider<CardsNotifier, List<Card>>((ref) {
+    StateNotifierProvider<CardsNotifier, List<UserCard>>((ref) {
       final repo = ref.watch(cardRepositoryProvider);
       return CardsNotifier(repo);
     });
 
-class CardsNotifier extends StateNotifier<List<Card>> {
+class CardsNotifier extends StateNotifier<List<UserCard>> {
   final CardRepository _repo;
 
   CardsNotifier(this._repo) : super([]) {
@@ -46,12 +46,12 @@ class CardsNotifier extends StateNotifier<List<Card>> {
     state = _repo.getAllCards();
   }
 
-  void addHabit(Card card) {
+  void addHabit(UserCard card) {
     _repo.saveCard(card);
     loadCards();
   }
 
-  void deleteHabit(Card card) {
+  void deleteHabit(UserCard card) {
     _repo.deleteCard(card);
     loadCards();
   }

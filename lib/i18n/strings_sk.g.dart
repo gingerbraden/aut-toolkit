@@ -67,10 +67,10 @@ class TranslationsSk implements Translations {
 	@override String get change_app_language => 'Zmeniť jazyk aplikácie';
 	@override String get dark_mode_toggle => 'Tmavý režim';
 	@override String get good_habits => 'Návyky';
-	@override String get good_habits_desc => 'Deti s PAS často uprednostňujú prísne rutiny a predvídateľnosť, čo im pomáha cítiť sa bezpečne a pohodlne.';
+	@override String get good_habits_desc => 'Deti s PAS často uprednostňujú prísne rutiny a predvídateľnosť.';
 	@override String get bad_habits => 'Nevhodné správanie';
 	@override String get eating_habits => 'Jedálniček';
-	@override String get eating_habits_desc => 'Deti s PAS často jedia výberovo kvôli zmyslovej citlivosti. Pokojná rutina a známe jedlá podporujú lepšie stravovacie návyky.';
+	@override String get eating_habits_desc => 'Deti s PAS často jedia výberovo kvôli zmyslovej citlivosti.';
 	@override String get is_eating => 'Je';
 	@override String get is_not_eating => 'Neje';
 	@override String get active => 'Aktívne';
@@ -94,7 +94,7 @@ class TranslationsSk implements Translations {
 	@override String get filters => 'Filtre';
 	@override String get sort => 'Zoradenie podľa';
 	@override String get challenging_behaviour => 'Nevhodné správanie';
-	@override String get challenging_behaviour_desc => 'Deti s PAS môžu prejavovať náročné správanie, keď sú preťažené alebo nevedia vyjadriť svoje potreby. Pokojné reakcie a jasná rutina znižujú stres a zlepšujú správanie.';
+	@override String get challenging_behaviour_desc => 'Deti s PAS môžu prejavovať náročné správanie, keď sú preťažené alebo nevedia vyjadriť svoje potreby.';
 	@override String get occuring => 'Nastáva';
 	@override String get not_occuring => 'Nenastáva';
 	@override String get location => 'Miesto';
@@ -138,6 +138,14 @@ class TranslationsSk implements Translations {
 	@override String get entry_added => 'Záznam pridaný';
 	@override String get currently_managed_person => 'Práve spravovaná osoba:';
 	@override String get crop_image => 'Orezať obrázok';
+	@override String get cards => 'Kartičky';
+	@override String get cards_desc => 'Kartičky sú používané v AAC klávesnici a môžu byť použité pri tvorbe procesurálnych diagramov';
+	@override String get visual_sequence_boards => 'Procesurálne diagramy';
+	@override String get visual_sequence_boards_desc => 'Správa procesurálnych diagramov';
+	@override String get arasaac_icons => 'ARASAAC Ikony';
+	@override String get create_card => 'Vytvoriť kartičku';
+	@override String get create_card_decision => 'Aký si želáte použiť zdroj obrázku?';
+	@override String get from_gallery => 'Galéria';
 }
 
 /// Flat map(s) containing all translations.
@@ -176,10 +184,10 @@ extension on TranslationsSk {
 			case 'change_app_language': return 'Zmeniť jazyk aplikácie';
 			case 'dark_mode_toggle': return 'Tmavý režim';
 			case 'good_habits': return 'Návyky';
-			case 'good_habits_desc': return 'Deti s PAS často uprednostňujú prísne rutiny a predvídateľnosť, čo im pomáha cítiť sa bezpečne a pohodlne.';
+			case 'good_habits_desc': return 'Deti s PAS často uprednostňujú prísne rutiny a predvídateľnosť.';
 			case 'bad_habits': return 'Nevhodné správanie';
 			case 'eating_habits': return 'Jedálniček';
-			case 'eating_habits_desc': return 'Deti s PAS často jedia výberovo kvôli zmyslovej citlivosti. Pokojná rutina a známe jedlá podporujú lepšie stravovacie návyky.';
+			case 'eating_habits_desc': return 'Deti s PAS často jedia výberovo kvôli zmyslovej citlivosti.';
 			case 'is_eating': return 'Je';
 			case 'is_not_eating': return 'Neje';
 			case 'active': return 'Aktívne';
@@ -203,7 +211,7 @@ extension on TranslationsSk {
 			case 'filters': return 'Filtre';
 			case 'sort': return 'Zoradenie podľa';
 			case 'challenging_behaviour': return 'Nevhodné správanie';
-			case 'challenging_behaviour_desc': return 'Deti s PAS môžu prejavovať náročné správanie, keď sú preťažené alebo nevedia vyjadriť svoje potreby. Pokojné reakcie a jasná rutina znižujú stres a zlepšujú správanie.';
+			case 'challenging_behaviour_desc': return 'Deti s PAS môžu prejavovať náročné správanie, keď sú preťažené alebo nevedia vyjadriť svoje potreby.';
 			case 'occuring': return 'Nastáva';
 			case 'not_occuring': return 'Nenastáva';
 			case 'location': return 'Miesto';
@@ -247,6 +255,14 @@ extension on TranslationsSk {
 			case 'entry_added': return 'Záznam pridaný';
 			case 'currently_managed_person': return 'Práve spravovaná osoba:';
 			case 'crop_image': return 'Orezať obrázok';
+			case 'cards': return 'Kartičky';
+			case 'cards_desc': return 'Kartičky sú používané v AAC klávesnici a môžu byť použité pri tvorbe procesurálnych diagramov';
+			case 'visual_sequence_boards': return 'Procesurálne diagramy';
+			case 'visual_sequence_boards_desc': return 'Správa procesurálnych diagramov';
+			case 'arasaac_icons': return 'ARASAAC Ikony';
+			case 'create_card': return 'Vytvoriť kartičku';
+			case 'create_card_decision': return 'Aký si želáte použiť zdroj obrázku?';
+			case 'from_gallery': return 'Galéria';
 			default: return null;
 		}
 	}

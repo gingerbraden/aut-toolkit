@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../i18n/strings.g.dart';
+import '../constants/app_constants.dart';
 
 class FilterOption<T> {
   final String code;
@@ -74,7 +75,7 @@ class _FilterableListState<T> extends State<FilterableList<T>> {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
         child: Column(
           children: [
             Row(

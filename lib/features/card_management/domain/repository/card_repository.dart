@@ -1,7 +1,7 @@
-import 'package:aut_toolkit/features/card_management/domain/model/card.dart';
+import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
 
 abstract class CardRepository {
-  List<Card> getAllCards();
-  void saveCard(Card card);
-  void deleteCard(Card card);
+  List<UserCard> getAllCards();
+  void saveCard(UserCard card);
+  void deleteCard(UserCard card);
 }

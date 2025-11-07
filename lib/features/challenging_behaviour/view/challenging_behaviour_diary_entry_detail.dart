@@ -44,7 +44,7 @@ class _ChallengingBehaviourDiaryEntryDetailState
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -1,15 +1,15 @@
 import 'package:objectbox/objectbox.dart';
 
-import '../model/card_entity.dart';
+import '../model/user_card_entity.dart';
 
 class CardLocalSource {
-  final Box<CardEntity> cardBox;
+  final Box<UserCardEntity> cardBox;
 
   CardLocalSource(this.cardBox);
 
-  List<CardEntity> getAll() => cardBox.getAll();
+  List<UserCardEntity> getAll() => cardBox.getAll();
 
-  int put(CardEntity entity) => cardBox.put(entity);
+  int put(UserCardEntity entity) => cardBox.put(entity);
 
   void remove(int id) => cardBox.remove(id);
 }

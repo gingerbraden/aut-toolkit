@@ -5,6 +5,7 @@ import 'package:aut_toolkit/features/authentication/provider/authentication_noti
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/constants/app_constants.dart';
 import '../../../i18n/strings.g.dart';
 
 class AuthenticationPage extends ConsumerStatefulWidget {
@@ -31,7 +32,7 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
           child: SingleChildScrollView(
             child: Column(
               children: [
