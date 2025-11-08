@@ -80,15 +80,17 @@ class _EatingHabitDetailState extends ConsumerState<EatingHabitDetail> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("${t.really_delete_object}${widget.habit.name}?"),
+        title: Text("${t.delete} ${widget.habit.name}?"),
+        content: Text(t.cant_undo_action),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
             child: Text(t.cancel),
           ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(t.yes, style: TextStyle(color: Colors.red)),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.redAccent),
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(t.delete),
           ),
         ],
       ),

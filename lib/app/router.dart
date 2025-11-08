@@ -2,6 +2,7 @@ import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:aut_toolkit/features/authentication/view/authentication_page.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
 import 'package:aut_toolkit/features/card_management/view/arasaac_cards_search.dart';
+import 'package:aut_toolkit/features/card_management/view/user_card_detail.dart';
 import 'package:aut_toolkit/features/card_management/view/user_card_edit.dart';
 import 'package:aut_toolkit/features/card_management/view/user_cards_list.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_transport.dart';
@@ -164,6 +165,28 @@ final GoRouter router = GoRouter(
           path: RouterUtils.CARDS,
           builder: (context, state) => UserCardsList(),
           routes: [
+            GoRoute(
+                path: RouterUtils.CARD_DETAIL,
+                builder: (context, state) {
+                  final card = state.extra as UserCard;
+                  return UserCardDetail(card: card);
+                },
+                routes: [
+                  GoRoute(
+                      path: RouterUtils.NEW_CARD,
+                      builder: (context, state) {
+                        final card = state.extra as UserCard;
+                        return UserCardEdit(isNew: false, card: card);
+                      },
+                      routes: [
+                        GoRoute(
+                            path: RouterUtils.CARD_ADD_ARASAAC,
+                            builder: (context, state) => ARASAACCardsSearch()
+                        ),
+                      ]
+                  ),
+                ]
+            ),
             GoRoute(
               path: RouterUtils.NEW_CARD,
                 builder: (context, state) {

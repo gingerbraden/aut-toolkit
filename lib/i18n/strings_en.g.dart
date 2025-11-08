@@ -367,6 +367,18 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Detail'
 	String get detail => 'Detail';
+
+	/// en: 'Delete'
+	String get delete => 'Delete';
+
+	/// en: 'This action cannot be undone.'
+	String get cant_undo_action => 'This action cannot be undone.';
+
+	/// en: 'An error occured'
+	String get error_occured => 'An error occured';
+
+	/// en: 'No image was set.'
+	String get no_image_set => 'No image was set.';
 }
 
 /// Flat map(s) containing all translations.
@@ -486,6 +498,10 @@ extension on Translations {
 			case 'no_icons_found': return 'No icons found for given search query.';
 			case 'use_this_image': return 'Use this icon?';
 			case 'detail': return 'Detail';
+			case 'delete': return 'Delete';
+			case 'cant_undo_action': return 'This action cannot be undone.';
+			case 'error_occured': return 'An error occured';
+			case 'no_image_set': return 'No image was set.';
 			default: return null;
 		}
 	}

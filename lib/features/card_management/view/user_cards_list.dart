@@ -63,7 +63,7 @@ class _UserCardsListState extends ConsumerState<UserCardsList> {
           )),
         ),
       ),
-      onTap: (item) => print('Tapped: ${item.names[LocaleSettings.currentLocale.languageCode]!}'),
+      onTap: (item) => router.push(RouterUtils.getCardDetailPath(), extra: item),
       floatingActionButton: FloatingActionButton(
         onPressed: ()  {
             router.push(RouterUtils.getNewCardPath(), extra: UserCard(userId: FirebaseAuth.instance.currentUser!.uid, localImgPath: "", names: <String, String>{}));

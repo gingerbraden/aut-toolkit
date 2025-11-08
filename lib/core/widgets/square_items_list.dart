@@ -47,13 +47,13 @@ class _GridListState<T> extends State<SquareItemsList<T>> {
                 builder: (context, constraints) {
                   const double minItemWidth = 160;
                   final int crossAxisCount =
-                  (constraints.maxWidth / minItemWidth).floor().clamp(2, 8);
+                  (constraints.maxWidth / minItemWidth).floor().clamp(3, 8);
 
                   return GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: crossAxisCount,
-                      mainAxisSpacing: 8,
-                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 4,
+                      crossAxisSpacing: 4,
                       childAspectRatio: 0.8,
                     ),
                     itemCount: filteredItems.length,

@@ -23,7 +23,7 @@ class SquareImageFilledWidth extends StatelessWidget {
 
     final screenWidth =
         MediaQuery.of(context).size.width -
-        (AppConstants.BASE_APP_UI_PADDING * 2);
+        (AppConstants.BASE_APP_UI_PADDING * 4);
     return Container(
       width: screenWidth,
       height: screenWidth,
@@ -36,7 +36,7 @@ class SquareImageFilledWidth extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       child: Image.file(
         file,
-        fit: BoxFit.cover,
+        fit: BoxFit.fill,
         errorBuilder: (context, error, stackTrace) {
           return Container(
             color: Colors.grey.shade200,

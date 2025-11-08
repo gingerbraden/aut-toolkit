@@ -110,5 +110,9 @@
   "from_gallery": "Gallery",
   "no_icons_found": "No icons found for given search query.",
   "use_this_image": "Use this icon?",
-  "detail": "Detail"
+  "detail": "Detail",
+  "delete" : "Delete",
+  "cant_undo_action": "This action cannot be undone.",
+  "error_occured": "An error occured",
+  "no_image_set": "No image was set."
 }

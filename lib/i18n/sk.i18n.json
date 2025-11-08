@@ -111,5 +111,9 @@
   "from_gallery": "Galéria",
   "no_icons_found": "Neboli nájdené žiadne ikony pre daný vyhľadávací výraz.",
   "use_this_image": "Použiť túto ikonu?",
-  "detail": "Detail"
+  "detail": "Detail",
+  "delete" : "Odstrániť",
+  "cant_undo_action": "Túto akciu nemožno vrátiť späť.",
+  "error_occured": "Nastala chyba",
+  "no_image_set": "Nebol nastavený žiadny obrázok"
 }

@@ -149,6 +149,10 @@ class TranslationsSk implements Translations {
 	@override String get no_icons_found => 'Neboli nájdené žiadne ikony pre daný vyhľadávací výraz.';
 	@override String get use_this_image => 'Použiť túto ikonu?';
 	@override String get detail => 'Detail';
+	@override String get delete => 'Odstrániť';
+	@override String get cant_undo_action => 'Túto akciu nemožno vrátiť späť.';
+	@override String get error_occured => 'Nastala chyba';
+	@override String get no_image_set => 'Nebol nastavený žiadny obrázok';
 }
 
 /// Flat map(s) containing all translations.
@@ -269,6 +273,10 @@ extension on TranslationsSk {
 			case 'no_icons_found': return 'Neboli nájdené žiadne ikony pre daný vyhľadávací výraz.';
 			case 'use_this_image': return 'Použiť túto ikonu?';
 			case 'detail': return 'Detail';
+			case 'delete': return 'Odstrániť';
+			case 'cant_undo_action': return 'Túto akciu nemožno vrátiť späť.';
+			case 'error_occured': return 'Nastala chyba';
+			case 'no_image_set': return 'Nebol nastavený žiadny obrázok';
 			default: return null;
 		}
 	}

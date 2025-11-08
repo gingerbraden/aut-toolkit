@@ -1,19 +1,21 @@
+import 'package:aut_toolkit/app/router.dart';
+import 'package:aut_toolkit/core/utils/image_util.dart';
 import 'package:aut_toolkit/core/utils/router_utils.dart';
+import 'package:aut_toolkit/core/utils/scaffold_messenger_util.dart';
 import 'package:aut_toolkit/core/widgets/square_image_filled_width.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
 import 'package:aut_toolkit/features/card_management/provider/card_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:aut_toolkit/core/utils/image_util.dart';
-import 'package:aut_toolkit/core/utils/scaffold_messenger_util.dart';
-import 'package:aut_toolkit/app/router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../core/constants/app_constants.dart';
 import '../../../core/widgets/divider/sized_box_divider.dart';
 import '../../../i18n/strings.g.dart';
 
 class UserCardEdit extends ConsumerStatefulWidget {
   const UserCardEdit({super.key, required this.isNew, required this.card});
+
   final bool isNew;
   final UserCard card;
 
@@ -27,11 +29,15 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
   late TextEditingController _nameController;
   String? _imagePath;
   String? _arasaacId;
+  bool _isLoadingImage = false;
 
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController();
+    _nameController = TextEditingController(
+      text: widget.card.names[LocaleSettings.currentLocale.languageCode] ?? '',
+    );
+    _imagePath = widget.card.localImgPath;
   }
 
   @override
@@ -45,9 +51,11 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text(widget.isNew
-            ? t.create
-            : '${t.edit} ${widget.card.names[LocaleSettings.currentLocale.languageCode]}'),
+        title: Text(
+          widget.isNew
+              ? t.create
+              : '${t.edit} ${widget.card.names[LocaleSettings.currentLocale.languageCode]}',
+        ),
         centerTitle: true,
         actions: [
           TextButton.icon(
@@ -59,7 +67,11 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(left: AppConstants.BASE_APP_UI_PADDING, right: AppConstants.BASE_APP_UI_PADDING, bottom: AppConstants.BASE_APP_UI_PADDING),
+          padding: EdgeInsets.only(
+            left: AppConstants.BASE_APP_UI_PADDING,
+            right: AppConstants.BASE_APP_UI_PADDING,
+            bottom: AppConstants.BASE_APP_UI_PADDING,
+          ),
           child: Card(
             child: Padding(
               padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
@@ -69,11 +81,9 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
                   children: [
                     _nameField(),
                     const SizedBoxDivider(),
-                    const SizedBoxDivider(),
                     _addImageButton(),
-                    const SizedBoxDivider(),
-                    SquareImageFilledWidth(imageFilePath: _imagePath ?? ""),
-                    ..._deleteImageButton()
+                    _buildImageArea(),
+                    ..._deleteImageButton(),
                   ],
                 ),
               ),
@@ -92,42 +102,60 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
         border: const OutlineInputBorder(),
       ),
       validator: (value) =>
-      value == null || value.isEmpty ? t.please_enter_name : null,
+          value == null || value.isEmpty ? t.please_enter_name : null,
     );
   }
 
-
   Widget _addImageButton() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton.icon(
-          onPressed: _pickImage,
-          icon: const Icon(Icons.add_a_photo),
-          label: Text(_imagePath == null ? t.load_image : t.change_image),
-        ),
-      ],
+    return Padding(
+      padding: EdgeInsets.only(bottom: _imagePath != null ? 12.0 : 0, top: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ElevatedButton.icon(
+            onPressed: _isLoadingImage ? null : _pickImage,
+            icon: const Icon(Icons.add_a_photo),
+            label: Text(_imagePath == null ? t.load_image : t.change_image),
+          ),
+        ],
+      ),
     );
+  }
+
+  Widget _buildImageArea() {
+    if (_isLoadingImage) {
+      return const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (_imagePath != null && _imagePath!.isNotEmpty) {
+      return SquareImageFilledWidth(imageFilePath: _imagePath!);
+    }
+    return Container();
   }
 
   List<Widget> _deleteImageButton() {
-    if (_imagePath != null) {
+    if (_imagePath != null && _imagePath!.isNotEmpty) {
       return [
         const SizedBoxDivider(),
-        const SizedBoxDivider(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton.icon(
-              onPressed: _deleteImage,
-              icon: const Icon(Icons.delete, color: Colors.redAccent),
-              label: Text(
-                t.delete_image,
-                style: const TextStyle(color: Colors.redAccent),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton.icon(
+                onPressed: _deleteImage,
+                icon: const Icon(Icons.delete, color: Colors.redAccent),
+                label: Text(
+                  t.delete_image,
+                  style: const TextStyle(color: Colors.redAccent),
+                ),
               ),
-            ),
-          ],
-        )
+            ],
+          ),
+        ),
       ];
     }
     return [Container()];
@@ -157,30 +185,39 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
 
     if (choice == null) return;
 
+    setState(() => _isLoadingImage = true);
     String? imgPath;
 
-    if (choice == 'gallery') {
-      imgPath = await ImageUtil.pickAndStoreImage(
-        Theme.of(context).colorScheme.surface,
-        Theme.of(context).textTheme.headlineLarge!.color!,
-      );
-    } else if (choice == 'arasaac') {
-      await router.push(RouterUtils.getCardsARASAACPath());
-      String? path = await asyncPrefs.getString('imgPath');
-      imgPath = await ImageUtil.saveImageFromUrl(path ?? "");
-      _arasaacId = imgPath?.split("/").last.split("_").first;
-    }
+    try {
+      if (choice == 'gallery') {
+        imgPath = await ImageUtil.pickAndStoreImage(
+          Theme.of(context).colorScheme.surface,
+          Theme.of(context).textTheme.headlineLarge!.color!,
+        );
+      } else if (choice == 'arasaac') {
+        await router.push(RouterUtils.getCardsARASAACPath());
+        String? path = await asyncPrefs.getString('imgPath');
+        if (path!.isNotEmpty) {
+          imgPath = await ImageUtil.saveImageFromUrl(path);
+          _arasaacId = imgPath?.split("/").last.split("_").first;
+          asyncPrefs.setString('imgPath', "");
+        }
+      }
 
-    if (imgPath != null) {
-      setState(() {
+      if (imgPath != null) {
         if (_imagePath != null) {
           ImageUtil.deleteImage(_imagePath!);
         }
-        _imagePath = imgPath;
-      });
+        setState(() {
+          _imagePath = imgPath;
+        });
+      }
+    } catch (e) {
+      ScaffoldMessengerUtils().showSnackBar(context, t.error_occured);
+    } finally {
+      setState(() => _isLoadingImage = false);
     }
   }
-
 
   void _deleteImage() {
     if (_imagePath != null) {
@@ -194,18 +231,24 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
 
   void _saveUserCard() {
     if (_formKey.currentState?.validate() ?? false) {
-      final updatedHabit = UserCard(
-        id: widget.card.id,
-        arasaacId: _arasaacId != null ? int.parse(_arasaacId!) : null,
-        userId: widget.card.userId,
-        names: {
-          LocaleSettings.currentLocale.languageCode: _nameController.text
-        },
-        localImgPath:_imagePath!,
-      );
-      ref.read(cardsProvider.notifier).addCard(updatedHabit);
-      ScaffoldMessengerUtils().showSnackBar(context, t.change_saved);
-      router.pop();
+      if (_imagePath != null && _imagePath!.isNotEmpty) {
+        final updatedCard = UserCard(
+          id: widget.card.id,
+          arasaacId: _arasaacId != null ? int.parse(_arasaacId!) : null,
+          userId: widget.card.userId,
+          names: {
+            LocaleSettings.currentLocale.languageCode: _nameController.text,
+          },
+          localImgPath: _imagePath ?? '',
+        );
+
+        ref.read(cardsProvider.notifier).addCard(updatedCard);
+        ScaffoldMessengerUtils().showSnackBar(context, t.change_saved);
+        router.pop();
+        if (!widget.isNew) router.pop();
+      } else {
+        ScaffoldMessengerUtils().showSnackBar(context, t.no_image_set);
+      }
     }
   }
 }

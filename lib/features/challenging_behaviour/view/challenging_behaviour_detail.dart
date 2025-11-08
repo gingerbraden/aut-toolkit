@@ -110,12 +110,14 @@ class _ChallengingBehaviourDetailState
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("${t.really_delete_object}${cb.name}?"),
+        title: Text("${t.delete} ${cb.name}?"),
+        content: Text(t.cant_undo_action),
         actions: [
           TextButton(onPressed: () => router.pop(false), child: Text(t.cancel)),
-          TextButton(
-            onPressed: () => router.pop(true),
-            child: Text(t.yes, style: TextStyle(color: Colors.red)),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.redAccent),
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(t.delete),
           ),
         ],
       ),
