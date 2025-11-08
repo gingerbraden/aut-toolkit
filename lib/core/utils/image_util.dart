@@ -36,7 +36,7 @@ class ImageUtil {
     final compressedFile = await FlutterImageCompress.compressAndGetFile(
       croppedFile.path,
       savedPath,
-      quality: 80,
+      quality: 50,
     );
 
     if (compressedFile == null) return null;
