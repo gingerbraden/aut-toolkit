@@ -45,21 +45,26 @@ class _ChallengingBehaviourDiaryEntryDetailState
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ..._basicStringDetail(t.location, widget.entry.location),
-            const Divider(height: 32),
-            ..._basicStringDetail(t.duration, widget.entry.duration.toString()),
-            const Divider(height: 32),
-            ..._basicStringDetail(t.circumstances, widget.entry.circumstances),
-            const Divider(height: 32),
-            ..._peoplePresent(),
-            const Divider(height: 32),
-            ..._basicStringDetail(t.outcome, widget.entry.outcome),
-            const Divider(height: 32),
-            ..._basicStringDetail(t.reflection, widget.entry.reflection),
-          ],
+        child: Card(
+          child: Padding(
+            padding:  EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ..._basicStringDetail(t.location, widget.entry.location),
+                const Divider(height: 32),
+                ..._basicStringDetail(t.duration, widget.entry.duration.toString()),
+                const Divider(height: 32),
+                ..._basicStringDetail(t.circumstances, widget.entry.circumstances),
+                const Divider(height: 32),
+                ..._peoplePresent(),
+                const Divider(height: 32),
+                ..._basicStringDetail(t.outcome, widget.entry.outcome),
+                const Divider(height: 32),
+                ..._basicStringDetail(t.reflection, widget.entry.reflection),
+              ],
+            ),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

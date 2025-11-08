@@ -229,8 +229,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Please enter a location'
 	String get please_enter_location => 'Please enter a location';
 
-	/// en: 'Trvanie'
-	String get duration => 'Trvanie';
+	/// en: 'Duration'
+	String get duration => 'Duration';
 
 	/// en: 'Please enter duration'
 	String get please_enter_duration => 'Please enter duration';
@@ -364,6 +364,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Use this icon?'
 	String get use_this_image => 'Use this icon?';
+
+	/// en: 'Detail'
+	String get detail => 'Detail';
 }
 
 /// Flat map(s) containing all translations.
@@ -434,7 +437,7 @@ extension on Translations {
 			case 'not_occuring': return 'Not occuring';
 			case 'location': return 'Location';
 			case 'please_enter_location': return 'Please enter a location';
-			case 'duration': return 'Trvanie';
+			case 'duration': return 'Duration';
 			case 'please_enter_duration': return 'Please enter duration';
 			case 'invalid_value': return 'Invalid value';
 			case 'one_minute': return 'Minute';
@@ -482,6 +485,7 @@ extension on Translations {
 			case 'from_gallery': return 'Gallery';
 			case 'no_icons_found': return 'No icons found for given search query.';
 			case 'use_this_image': return 'Use this icon?';
+			case 'detail': return 'Detail';
 			default: return null;
 		}
 	}

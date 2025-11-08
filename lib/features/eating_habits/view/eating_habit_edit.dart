@@ -76,33 +76,37 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
           ),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
-        child: Column(
-          children: [
-            Expanded(
-              child: Form(
-                key: _formKey,
-                child: ListView(
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    _nameTextField(),
-                    _dateFields(),
-                    const Divider(),
-                    _isEatingRadioButtons(),
-                    const Divider(),
-                    SizedBoxDivider(),
-                    _descriptionTextField(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: const Divider(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(left: AppConstants.BASE_APP_UI_PADDING, right: AppConstants.BASE_APP_UI_PADDING, bottom: AppConstants.BASE_APP_UI_PADDING),
+          child: Card(
+            child: Padding(
+              padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+              child: Column(
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        _nameTextField(),
+                        _dateFields(),
+                        const Divider(),
+                        _isEatingRadioButtons(),
+                        const Divider(),
+                        SizedBoxDivider(),
+                        _descriptionTextField(),
+                        SizedBoxDivider(),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: _imageButtons(),
+                        )
+                      ],
                     ),
-                    _imageButtons()
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -265,9 +269,9 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
     }
   }
 
-  Row _imageButtons() {
+  Column _imageButtons() {
     return _image == null
-        ? Row(
+        ? Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ElevatedButton.icon(
@@ -282,7 +286,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
           label: Text(t.load_image),
         ),
       ],
-    ) : Row(
+    ) : Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ElevatedButton.icon(

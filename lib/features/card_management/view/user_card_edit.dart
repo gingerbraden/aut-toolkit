@@ -59,7 +59,7 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+          padding: EdgeInsets.only(left: AppConstants.BASE_APP_UI_PADDING, right: AppConstants.BASE_APP_UI_PADDING, bottom: AppConstants.BASE_APP_UI_PADDING),
           child: Card(
             child: Padding(
               padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
@@ -68,6 +68,7 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
                 child: Column(
                   children: [
                     _nameField(),
+                    const SizedBoxDivider(),
                     const SizedBoxDivider(),
                     _addImageButton(),
                     const SizedBoxDivider(),

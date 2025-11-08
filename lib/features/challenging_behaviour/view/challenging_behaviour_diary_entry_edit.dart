@@ -100,24 +100,31 @@ class _ChallengingBehaviourDiaryEntryEditState
           ),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              _locationTextField(),
-              SizedBoxDivider(),
-              _durationDateFields(),
-              DividerSizedBoxDivider(),
-              _circumstancesField(),
-              DividerSizedBoxDivider(),
-              _peopleField(),
-              DividerSizedBoxDivider(),
-              _outcomeField(),
-              DividerSizedBoxDivider(),
-              _reflectionField(),
-            ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(left: AppConstants.BASE_APP_UI_PADDING, right: AppConstants.BASE_APP_UI_PADDING, bottom: AppConstants.BASE_APP_UI_PADDING),
+          child: Card(
+            child: Padding(
+              padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    _locationTextField(),
+                    SizedBoxDivider(),
+                    _durationDateFields(),
+                    DividerSizedBoxDivider(),
+                    _circumstancesField(),
+                    DividerSizedBoxDivider(),
+                    _peopleField(),
+                    DividerSizedBoxDivider(),
+                    _outcomeField(),
+                    DividerSizedBoxDivider(),
+                    _reflectionField(),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ),
@@ -125,17 +132,14 @@ class _ChallengingBehaviourDiaryEntryEditState
   }
 
   Widget _locationTextField() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: TextFormField(
-        controller: _locationController,
-        decoration: InputDecoration(
-          labelText: t.location,
-          border: OutlineInputBorder(),
-        ),
-        validator: (value) =>
-        value == null || value.isEmpty ? t.please_enter_location : null,
+    return TextFormField(
+      controller: _locationController,
+      decoration: InputDecoration(
+        labelText: t.location,
+        border: OutlineInputBorder(),
       ),
+      validator: (value) =>
+      value == null || value.isEmpty ? t.please_enter_location : null,
     );
   }
 
@@ -270,17 +274,14 @@ class _ChallengingBehaviourDiaryEntryEditState
   }
 
   Widget _reflectionField() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: TextFormField(
-        controller: _reflectionController,
-        decoration: InputDecoration(
-          alignLabelWithHint: true,
-          labelText: t.reflection,
-          border: OutlineInputBorder(),
-        ),
-        maxLines: 5,
+    return TextFormField(
+      controller: _reflectionController,
+      decoration: InputDecoration(
+        alignLabelWithHint: true,
+        labelText: t.reflection,
+        border: OutlineInputBorder(),
       ),
+      maxLines: 5,
     );
   }
 
@@ -311,8 +312,8 @@ class _ChallengingBehaviourDiaryEntryEditState
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(flex: 1, child: _durationField()),
-        Expanded(flex: 2, child: _dateField())
+        Expanded(flex: 3, child: _durationField()),
+        Expanded(flex: 4, child: _dateField())
       ],
     );
   }

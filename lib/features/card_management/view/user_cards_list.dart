@@ -30,35 +30,38 @@ class _UserCardsListState extends ConsumerState<UserCardsList> {
       searchKey: (item) => item.names[LocaleSettings.currentLocale.languageCode]!,
       itemBuilder: (item) => Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(16),
         ),
-        child: Center(child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.file(
-                    File(item.localImgPath),
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: Colors.grey.shade200,
-                        child: const Icon(Icons.broken_image, size: 60, color: Colors.grey),
-                      );
-                    },
+        child: Card(
+          elevation: 0,
+          child: Center(child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.file(
+                      File(item.localImgPath),
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors.grey.shade200,
+                          child: const Icon(Icons.broken_image, size: 60, color: Colors.grey),
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8),
-                child: Text(item.names[LocaleSettings.currentLocale.languageCode]!, style: Theme.of(context).textTheme.titleLarge,),
-              ),
-            ],
-          ),
-        )),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(item.names[LocaleSettings.currentLocale.languageCode]!, style: Theme.of(context).textTheme.titleLarge,),
+                ),
+              ],
+            ),
+          )),
+        ),
       ),
       onTap: (item) => print('Tapped: ${item.names[LocaleSettings.currentLocale.languageCode]!}'),
       floatingActionButton: FloatingActionButton(

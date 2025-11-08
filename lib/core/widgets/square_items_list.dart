@@ -52,9 +52,9 @@ class _GridListState<T> extends State<SquareItemsList<T>> {
                   return GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: crossAxisCount,
-                      mainAxisSpacing: 12,
-                      crossAxisSpacing: 12,
-                      childAspectRatio: 1,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                      childAspectRatio: 0.8,
                     ),
                     itemCount: filteredItems.length,
                     itemBuilder: (_, i) {

@@ -27,7 +27,7 @@ class _EatingHabitDetailState extends ConsumerState<EatingHabitDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.habit.name),
+        title: Text(t.detail),
         centerTitle: true,
         forceMaterialTransparency: true,
         actions: [
@@ -41,20 +41,26 @@ class _EatingHabitDetailState extends ConsumerState<EatingHabitDetail> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _habitName(),
-              const SizedBoxDivider(),
-              _eatingIcon(),
-              const Divider(height: 32),
-              ..._dates(),
-              const Divider(height: 32),
-              DescriptionDetail(description: widget.habit.description),
-              const Divider(height: 32),
-              SquareImageFilledWidth(imageFilePath: widget.habit.imageFilePath)
-            ],
+          padding: EdgeInsets.only(left: AppConstants.BASE_APP_UI_PADDING, right: AppConstants.BASE_APP_UI_PADDING, bottom: AppConstants.BASE_APP_UI_PADDING),
+          child: Card(
+            child: Padding(
+              padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _habitName(),
+                  const SizedBoxDivider(),
+                  _eatingIcon(),
+                  const Divider(height: 32),
+                  ..._dates(),
+                  const Divider(height: 32),
+                  DescriptionDetail(description: widget.habit.description),
+                  const Divider(height: 32),
+                  widget.habit.imageFilePath != null
+                      ? SquareImageFilledWidth(imageFilePath: widget.habit.imageFilePath) : Container()
+                ],
+              ),
+            ),
           ),
         ),
       ),

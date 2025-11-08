@@ -39,18 +39,23 @@ class _GoodHabitDetailState extends ConsumerState<GoodHabitDetail> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _habitName(),
-              const SizedBoxDivider(),
-              _occuringIcon(),
-              const Divider(height: 32),
-              ..._dates(),
-              const Divider(height: 32),
-              DescriptionDetail(description: widget.habit.description)
-            ],
+          padding: EdgeInsets.only(left: AppConstants.BASE_APP_UI_PADDING, right: AppConstants.BASE_APP_UI_PADDING, bottom: AppConstants.BASE_APP_UI_PADDING),
+          child: Card(
+            child: Padding(
+              padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _habitName(),
+                  const SizedBoxDivider(),
+                  _occuringIcon(),
+                  const Divider(height: 32),
+                  ..._dates(),
+                  const Divider(height: 32),
+                  DescriptionDetail(description: widget.habit.description)
+                ],
+              ),
+            ),
           ),
         ),
       ),

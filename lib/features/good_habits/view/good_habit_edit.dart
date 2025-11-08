@@ -73,28 +73,32 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
           ),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
-        child: Column(
-          children: [
-            Expanded(
-              child: Form(
-                key: _formKey,
-                child: ListView(
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    _nameTextField(),
-                    _dateFields(),
-                    const Divider(),
-                    _isOccuringRadioButtons(),
-                    const Divider(),
-                    SizedBoxDivider(),
-                    _descriptionTextField()
-                  ],
-                ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(left: AppConstants.BASE_APP_UI_PADDING, right: AppConstants.BASE_APP_UI_PADDING, bottom: AppConstants.BASE_APP_UI_PADDING),
+          child: Card(
+            child: Padding(
+              padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+              child: Column(
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        _nameTextField(),
+                        _dateFields(),
+                        const Divider(),
+                        _isOccuringRadioButtons(),
+                        const Divider(),
+                        SizedBoxDivider(),
+                        _descriptionTextField()
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

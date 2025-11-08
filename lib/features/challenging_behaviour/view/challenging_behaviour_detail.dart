@@ -36,7 +36,7 @@ class _ChallengingBehaviourDetailState
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(cb.name),
+        title: Text(t.detail),
         centerTitle: true,
         forceMaterialTransparency: true,
         actions: [
@@ -50,17 +50,26 @@ class _ChallengingBehaviourDetailState
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
+          padding: EdgeInsets.only(left: AppConstants.BASE_APP_UI_PADDING, right: AppConstants.BASE_APP_UI_PADDING, bottom: AppConstants.BASE_APP_UI_PADDING),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _habitName(cb),
-              const SizedBoxDivider(),
-              _occuringIcon(cb),
-              const Divider(height: 32),
-              ..._dates(cb),
-              const Divider(height: 32),
-              DescriptionDetail(description: cb.description),
+              Card(
+                child: Padding(
+                  padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _habitName(cb),
+                      const SizedBoxDivider(),
+                      _occuringIcon(cb),
+                      const Divider(height: 32),
+                      ..._dates(cb),
+                      const Divider(height: 32),
+                      DescriptionDetail(description: cb.description),
+                    ],
+                  ),
+                ),
+              ),
               const Divider(height: 32),
               _addEntryButton(cb),
               SizedBoxDivider(),

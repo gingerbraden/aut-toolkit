@@ -148,6 +148,7 @@ class TranslationsSk implements Translations {
 	@override String get from_gallery => 'Galéria';
 	@override String get no_icons_found => 'Neboli nájdené žiadne ikony pre daný vyhľadávací výraz.';
 	@override String get use_this_image => 'Použiť túto ikonu?';
+	@override String get detail => 'Detail';
 }
 
 /// Flat map(s) containing all translations.
@@ -267,6 +268,7 @@ extension on TranslationsSk {
 			case 'from_gallery': return 'Galéria';
 			case 'no_icons_found': return 'Neboli nájdené žiadne ikony pre daný vyhľadávací výraz.';
 			case 'use_this_image': return 'Použiť túto ikonu?';
+			case 'detail': return 'Detail';
 			default: return null;
 		}
 	}
