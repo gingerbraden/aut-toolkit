@@ -40,6 +40,98 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
     super.dispose();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        title: Text(widget.isNew
+            ? t.create
+            : '${t.edit} ${widget.card.names[LocaleSettings.currentLocale.languageCode]}'),
+        centerTitle: true,
+        actions: [
+          TextButton.icon(
+            onPressed: _saveUserCard,
+            icon: const Icon(Icons.check),
+            label: Text(t.save),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+          child: Card(
+            child: Padding(
+              padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    _nameField(),
+                    const SizedBoxDivider(),
+                    _addImageButton(),
+                    const SizedBoxDivider(),
+                    SquareImageFilledWidth(imageFilePath: _imagePath ?? ""),
+                    ..._deleteImageButton()
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _nameField() {
+    return TextFormField(
+      controller: _nameController,
+      decoration: InputDecoration(
+        labelText: t.name,
+        border: const OutlineInputBorder(),
+      ),
+      validator: (value) =>
+      value == null || value.isEmpty ? t.please_enter_name : null,
+    );
+  }
+
+
+  Widget _addImageButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        ElevatedButton.icon(
+          onPressed: _pickImage,
+          icon: const Icon(Icons.add_a_photo),
+          label: Text(_imagePath == null ? t.load_image : t.change_image),
+        ),
+      ],
+    );
+  }
+
+  List<Widget> _deleteImageButton() {
+    if (_imagePath != null) {
+      return [
+        const SizedBoxDivider(),
+        const SizedBoxDivider(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton.icon(
+              onPressed: _deleteImage,
+              icon: const Icon(Icons.delete, color: Colors.redAccent),
+              label: Text(
+                t.delete_image,
+                style: const TextStyle(color: Colors.redAccent),
+              ),
+            ),
+          ],
+        )
+      ];
+    }
+    return [Container()];
+  }
+
   Future<void> _pickImage() async {
     final choice = await showDialog<String>(
       context: context,
@@ -78,9 +170,11 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
       _arasaacId = imgPath?.split("/").last.split("_").first;
     }
 
-    print(imgPath);
     if (imgPath != null) {
       setState(() {
+        if (_imagePath != null) {
+          ImageUtil.deleteImage(_imagePath!);
+        }
         _imagePath = imgPath;
       });
     }
@@ -100,88 +194,17 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
   void _saveUserCard() {
     if (_formKey.currentState?.validate() ?? false) {
       final updatedHabit = UserCard(
-          id: widget.card.id,
+        id: widget.card.id,
         arasaacId: _arasaacId != null ? int.parse(_arasaacId!) : null,
         userId: widget.card.userId,
         names: {
           LocaleSettings.currentLocale.languageCode: _nameController.text
         },
         localImgPath:_imagePath!,
-
-
-
       );
       ref.read(cardsProvider.notifier).addCard(updatedHabit);
       ScaffoldMessengerUtils().showSnackBar(context, t.change_saved);
       router.pop();
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.isNew
-            ? t.create
-            : '${t.edit} ${widget.card.names[LocaleSettings.currentLocale.languageCode]}'),
-        centerTitle: true,
-        actions: [
-          TextButton.icon(
-            onPressed: _saveUserCard,
-            icon: const Icon(Icons.check),
-            label: Text(t.save),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              _nameField(),
-              const SizedBoxDivider(),
-              _imageButtons(),
-              const SizedBoxDivider(),
-              SquareImageFilledWidth(imageFilePath: _imagePath ?? ""),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _nameField() {
-    return TextFormField(
-      controller: _nameController,
-      decoration: InputDecoration(
-        labelText: t.name,
-        border: const OutlineInputBorder(),
-      ),
-      validator: (value) =>
-      value == null || value.isEmpty ? t.please_enter_name : null,
-    );
-  }
-
-
-  Widget _imageButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton.icon(
-          onPressed: _pickImage,
-          icon: const Icon(Icons.add_a_photo),
-          label: Text(_imagePath == null ? t.load_image : t.change_image),
-        ),
-        ElevatedButton.icon(
-          onPressed: _deleteImage,
-          icon: const Icon(Icons.delete, color: Colors.redAccent),
-          label: Text(
-            t.delete_image,
-            style: const TextStyle(color: Colors.redAccent),
-          ),
-        ),
-      ],
-    );
   }
 }
