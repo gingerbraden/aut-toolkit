@@ -30,24 +30,30 @@ class _UserCardsListState extends ConsumerState<UserCardsList> {
       searchKey: (item) => item.names[LocaleSettings.currentLocale.languageCode]!,
       itemBuilder: (item) => Container(
         decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Center(child: Column(
           children: [
-            ClipRRect( //TODO fix image showing
-              borderRadius: BorderRadius.circular(12),
-              child: Image.file(
-                File(item.localImgPath),
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: Colors.grey.shade200,
-                    child: const Icon(Icons.broken_image, size: 60, color: Colors.grey),
-                  );
-                },
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.file(
+                  File(item.localImgPath),
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey.shade200,
+                      child: const Icon(Icons.broken_image, size: 60, color: Colors.grey),
+                    );
+                  },
+                ),
               ),
             ),
-            Text(item.names[LocaleSettings.currentLocale.languageCode]!),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(item.names[LocaleSettings.currentLocale.languageCode]!, style: Theme.of(context).textTheme.titleLarge,),
+            ),
           ],
         )),
       ),

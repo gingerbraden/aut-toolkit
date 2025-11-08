@@ -147,17 +147,17 @@ class _FilterableListState<T> extends State<FilterableList<T>> {
 
         return StatefulBuilder(builder: (context, setState) {
           return AlertDialog(
-            titlePadding: const EdgeInsets.fromLTRB(24, 24, 16, 0), // smaller title padding
-            contentPadding: const EdgeInsets.fromLTRB(24, 8, 16, 8), // smaller internal padding
+            titlePadding: const EdgeInsets.fromLTRB(24, 24, 16, 0),
+            contentPadding: const EdgeInsets.fromLTRB(24, 8, 16, 8),
             title: Text(t.filters_and_sorting),
             content: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start, // align children to left
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DropdownButton<String>(
                     value: tempSort.code,
-                    isExpanded: true, // make dropdown take full width
+                    isExpanded: true,
                     items: widget.sorts
                         .map((sort) => DropdownMenuItem<String>(
                       value: sort.code,
