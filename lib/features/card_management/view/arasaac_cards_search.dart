@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:aut_toolkit/core/constants/app_constants.dart';
-import 'package:aut_toolkit/core/utils/scaffold_messenger_util.dart';
 import 'package:aut_toolkit/core/utils/string_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,7 +46,7 @@ class _ARASAACCardsSearchState extends State<ARASAACCardsSearch> {
   void _performSearch() {
     final query = StringUtils().removeDiacritics(_searchController.text.trim());
     if (query.isEmpty || query == _lastQuery || !_translations.keys.contains(query)) {
-      ScaffoldMessengerUtils().showSnackBar(context, t.no_icons_found);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.no_icons_found)));
       return;
     };
     setState(() {

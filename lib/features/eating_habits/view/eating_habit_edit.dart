@@ -1,7 +1,6 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/utils/date_util.dart';
 import 'package:aut_toolkit/core/utils/image_util.dart';
-import 'package:aut_toolkit/core/utils/scaffold_messenger_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -244,7 +243,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
   }
 
   void _saveChanges() {
-    ScaffoldMessengerUtils().showSnackBar(context, t.change_saved);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.change_saved)));
     if (_formKey.currentState?.validate() ?? false) {
       final updatedHabit = EatingHabit(
           name: _nameController.text.trim(),
@@ -280,7 +279,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
             setState(() {
               _image = imgPath;
             });
-            ScaffoldMessengerUtils().showSnackBar(context, t.image_changed);
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.image_changed)));
           },
           icon: const Icon(Icons.add),
           label: Text(t.load_image),
@@ -296,7 +295,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
               if (imgPath != null) {
                 ImageUtil.deleteImage(_image!);
                 _image = imgPath;
-                ScaffoldMessengerUtils().showSnackBar(context, t.image_changed);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.image_changed)));
               }
             });
           },
@@ -308,7 +307,7 @@ class _EditEatingHabitScreenState extends ConsumerState<EatingHabitEdit> {
               ImageUtil.deleteImage(_image!);
               _image = null;
             });
-            ScaffoldMessengerUtils().showSnackBar(context, t.image_deleted);
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.image_deleted)));
           },
           icon: const Icon(Icons.delete, color: Colors.redAccent,),
           label: Text(

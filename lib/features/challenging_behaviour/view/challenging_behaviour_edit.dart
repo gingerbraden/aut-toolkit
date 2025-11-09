@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_constants.dart';
-import '../../../core/utils/scaffold_messenger_util.dart';
 import '../../../core/widgets/divider/sized_box_divider.dart';
 import '../../../core/widgets/icon/occuring_icon.dart';
 import '../../../i18n/strings.g.dart';
@@ -215,7 +214,7 @@ class _ChallengingBehaviourEditScreenState
   }
 
   void _saveChanges() {
-    ScaffoldMessengerUtils().showSnackBar(context, t.change_saved);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.change_saved)));
     if (_formKey.currentState?.validate() ?? false) {
       final updatedCb = ChallengingBehaviour(
         id: widget.cb.id!,

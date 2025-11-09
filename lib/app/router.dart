@@ -1,5 +1,5 @@
 import 'package:aut_toolkit/core/utils/router_utils.dart';
-import 'package:aut_toolkit/features/authentication/view/authentication_page.dart';
+import 'package:aut_toolkit/features/authentication/view/authentication_view.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
 import 'package:aut_toolkit/features/card_management/view/arasaac_cards_search.dart';
 import 'package:aut_toolkit/features/card_management/view/user_card_detail.dart';

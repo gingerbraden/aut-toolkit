@@ -1,4 +1,3 @@
-import 'package:aut_toolkit/core/utils/scaffold_messenger_util.dart';
 import 'package:aut_toolkit/core/widgets/icon/occuring_icon.dart';
 import 'package:aut_toolkit/features/good_habits/provider/good_habits_notifier.dart';
 import 'package:flutter/material.dart';
@@ -236,7 +235,7 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
   }
 
   void _saveChanges() {
-    ScaffoldMessengerUtils().showSnackBar(context, t.change_saved);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.change_saved)));
     if (_formKey.currentState?.validate() ?? false) {
       final updatedHabit = GoodHabit(
           name: _nameController.text.trim(),

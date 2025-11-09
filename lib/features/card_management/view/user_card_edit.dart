@@ -1,7 +1,6 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/utils/image_util.dart';
 import 'package:aut_toolkit/core/utils/router_utils.dart';
-import 'package:aut_toolkit/core/utils/scaffold_messenger_util.dart';
 import 'package:aut_toolkit/core/widgets/square_image_filled_width.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
 import 'package:aut_toolkit/features/card_management/provider/card_notifier.dart';
@@ -213,7 +212,7 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
         });
       }
     } catch (e) {
-      ScaffoldMessengerUtils().showSnackBar(context, t.error_occured);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.error_occured)));
     } finally {
       setState(() => _isLoadingImage = false);
     }
@@ -225,7 +224,7 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
       setState(() {
         _imagePath = null;
       });
-      ScaffoldMessengerUtils().showSnackBar(context, t.image_deleted);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.image_deleted)));
     }
   }
 
@@ -243,11 +242,11 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
         );
 
         ref.read(cardsProvider.notifier).addCard(updatedCard);
-        ScaffoldMessengerUtils().showSnackBar(context, t.change_saved);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.change_saved)));
         router.pop();
         if (!widget.isNew) router.pop();
       } else {
-        ScaffoldMessengerUtils().showSnackBar(context, t.no_image_set);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.no_image_set)));
       }
     }
   }
