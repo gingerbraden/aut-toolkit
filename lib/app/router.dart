@@ -16,7 +16,7 @@ import 'package:aut_toolkit/features/home/view/home_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/authentication/view/authentication_page.dart';
+import '../features/authentication/ui/view/authentication_page.dart';
 import '../features/eating_habits/domain/model/eating_habit.dart';
 import '../features/eating_habits/ui/view/eating_habit_detail.dart';
 import '../features/eating_habits/ui/view/eating_habit_edit.dart';
