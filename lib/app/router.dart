@@ -15,15 +15,15 @@ import 'package:aut_toolkit/features/eating_habits/view/eating_habit_detail.dart
 import 'package:aut_toolkit/features/eating_habits/view/eating_habit_edit.dart';
 import 'package:aut_toolkit/features/eating_habits/view/eating_habits_list.dart';
 import 'package:aut_toolkit/features/good_habits/domain/model/good_habit.dart';
-import 'package:aut_toolkit/features/good_habits/view/good_habit_detail.dart';
-import 'package:aut_toolkit/features/good_habits/view/good_habit_edit.dart';
-import 'package:aut_toolkit/features/good_habits/view/good_habits_list.dart';
 import 'package:aut_toolkit/features/home/view/home_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/authentication/view/authentication_page.dart';
 import '../features/eating_habits/domain/model/eating_habit.dart';
+import '../features/good_habits/ui/view/good_habit_detail.dart';
+import '../features/good_habits/ui/view/good_habit_edit.dart';
+import '../features/good_habits/ui/view/good_habits_list.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
