@@ -1,5 +1,4 @@
 import 'package:aut_toolkit/app/router.dart';
-import 'package:aut_toolkit/core/utils/scaffold_messenger_util.dart';
 import 'package:aut_toolkit/core/utils/string_util.dart';
 import 'package:aut_toolkit/features/authentication/provider/authentication_notifier.dart';
 import 'package:flutter/material.dart';
@@ -152,10 +151,7 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
     if (result == null) {
       router.go('/home');
     } else {
-      ScaffoldMessengerUtils().showSnackBar(
-        context,
-        t.invalid_email_password,
-      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.invalid_email_password,)));
     }
   }
 
@@ -220,28 +216,16 @@ class _SignInPageState extends ConsumerState<AuthenticationPage> {
         signInEmailController.text
             .trim()
             .isEmpty) {
-      ScaffoldMessengerUtils().showSnackBar(
-        context,
-        t.no_sign_in_details,
-      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.no_sign_in_details)));
     } else if (signInPasswordController.text.trim() !=
         signInPasswordRepeatController.text.trim()) {
-      ScaffoldMessengerUtils().showSnackBar(
-        context,
-        t.passwords_dont_match,
-      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.passwords_dont_match,)));
     } else if (!StringUtils().isMailValid(signInEmailController.text.trim())) {
-      ScaffoldMessengerUtils().showSnackBar(
-        context,
-        t.invalid_mail,
-      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.invalid_mail)));
     } else if (signInPasswordController.text
         .trim()
         .length < 6) {
-      ScaffoldMessengerUtils().showSnackBar(
-        context,
-        t.invalid_password,
-      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.invalid_password)));
     } else {
       ref
           .read(authentificationNotifierProvider.notifier)
