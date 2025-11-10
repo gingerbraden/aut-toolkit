@@ -1,49 +1,52 @@
-import 'package:aut_toolkit/app/router.dart';
-import 'package:aut_toolkit/core/constants/app_constants.dart';
-import 'package:aut_toolkit/core/services/firebase_service.dart';
-import 'package:aut_toolkit/core/utils/date_util.dart';
-import 'package:aut_toolkit/core/utils/router_utils.dart';
-import 'package:aut_toolkit/core/widgets/filterable_list.dart';
-import 'package:aut_toolkit/core/widgets/icon/occuring_icon.dart';
-import 'package:aut_toolkit/features/eating_habits/domain/model/eating_habit.dart';
-import 'package:aut_toolkit/features/eating_habits/provider/eating_habits_notifier.dart';
-import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/widgets/icon/eating_icon.dart';
-import '../../selected_person/provider/selected_person_notifier.dart';
+import '../../../../app/router.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/services/firebase_service.dart';
+import '../../../../core/utils/date_util.dart';
+import '../../../../core/utils/router_utils.dart';
+import '../../../../core/widgets/filterable_list.dart';
+import '../../../../core/widgets/icon/eating_icon.dart';
+import '../../../../core/widgets/icon/occuring_icon.dart';
+import '../../../../i18n/strings.g.dart';
+import '../../../selected_person/provider/selected_person_notifier.dart';
+import '../../domain/model/eating_habit.dart';
+import '../viewmodel/eating_habits_list_viewmodel.dart';
 
 class EatingHabitsList extends ConsumerWidget {
   const EatingHabitsList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final habits = ref.watch(eatingHabitsProvider);
+    final habits = ref.watch(filteredEatingHabitsProvider);
 
     return FilterableList<EatingHabit>(
       title: t.eating_habits,
-      items: habits.where((h) => h.selectedPersonId==ref.watch(selectedPersonsProvider.notifier).getSelected().id!).toList(),
+      items: habits,
       searchKey: (habit) => habit.name,
       itemBuilder: (habit) => Card(
-        margin: EdgeInsetsGeometry.directional(bottom: 8),
+        margin: const EdgeInsets.only(bottom: 8),
         elevation: 0,
         child: ListTile(
           title: Text(habit.name),
-          subtitle: Text('${t.from} ${DateUtil.returnDateInStringFormat(habit.from)}'),
+          subtitle: Text(
+            '${t.from} ${DateUtil.returnDateInStringFormat(habit.from)}',
+          ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               EatingIcon(isEatingFlag: habit.isEatingFlag),
               OccuringIcon(
-                isOccuringFlag: DateUtil.isTodayBetweenTwoDates(habit.from, habit.to),
+                isOccuringFlag: DateUtil.isTodayBetweenTwoDates(
+                  habit.from,
+                  habit.to,
+                ),
               ),
             ],
           ),
-          onTap: () => router.push(
-            RouterUtils.getEatingHabitDetailPath(),
-            extra: habit,
-          ),
+          onTap: () =>
+              router.push(RouterUtils.getEatingHabitDetailPath(), extra: habit),
         ),
       ),
       filters: [
@@ -51,25 +54,25 @@ class EatingHabitsList extends ConsumerWidget {
           code: AppConstants.IS_EATING,
           label: AppConstants.getLabel(AppConstants.IS_EATING),
           predicate: (h) => h.isEatingFlag,
-          icon: EatingIcon(isEatingFlag: true),
+          icon: const EatingIcon(isEatingFlag: true),
         ),
         FilterOption(
           code: AppConstants.IS_NOT_EATING,
           label: AppConstants.getLabel(AppConstants.IS_NOT_EATING),
           predicate: (h) => !h.isEatingFlag,
-          icon: EatingIcon(isEatingFlag: false),
+          icon: const EatingIcon(isEatingFlag: false),
         ),
         FilterOption(
           code: AppConstants.IS_ACTIVE,
           label: AppConstants.getLabel(AppConstants.IS_ACTIVE),
           predicate: (h) => DateUtil.isTodayBetweenTwoDates(h.from, h.to),
-          icon: OccuringIcon(isOccuringFlag: true),
+          icon: const OccuringIcon(isOccuringFlag: true),
         ),
         FilterOption(
           code: AppConstants.IS_NOT_ACTIVE,
           label: AppConstants.getLabel(AppConstants.IS_NOT_ACTIVE),
           predicate: (h) => !DateUtil.isTodayBetweenTwoDates(h.from, h.to),
-          icon: OccuringIcon(isOccuringFlag: false),
+          icon: const OccuringIcon(isOccuringFlag: false),
         ),
       ],
       sorts: [
@@ -94,12 +97,14 @@ class EatingHabitsList extends ConsumerWidget {
           comparator: (a, b) => b.from.compareTo(a.from),
         ),
       ],
-      onTap: (habit) => router.push(
-        RouterUtils.getEatingHabitDetailPath(),
-        extra: habit,
-      ),
+      onTap: (habit) =>
+          router.push(RouterUtils.getEatingHabitDetailPath(), extra: habit),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          final selectedPersonId = ref
+              .watch(selectedPersonsProvider.notifier)
+              .getSelected()
+              .id!;
           router.push(
             RouterUtils.getNewEatingHabitPath(),
             extra: EatingHabit(
@@ -109,11 +114,8 @@ class EatingHabitsList extends ConsumerWidget {
               name: '',
               description: '',
               userId: FirebaseService().currentUser!.uid,
-                selectedPersonId: ref
-                    .watch(selectedPersonsProvider.notifier)
-                    .getSelected()
-                    .id!,
-                imageFilePath: null
+              selectedPersonId: selectedPersonId,
+              imageFilePath: null,
             ),
           );
         },
