@@ -1,0 +1,184 @@
+import 'package:aut_toolkit/core/constants/app_constants.dart';
+import 'package:aut_toolkit/core/utils/date_util.dart';
+import 'package:aut_toolkit/core/widgets/divider/sized_box_divider.dart';
+import 'package:aut_toolkit/core/widgets/icon/occuring_icon.dart';
+import 'package:aut_toolkit/i18n/strings.g.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../domain/model/challenging_behaviour.dart';
+import '../viewmodel/challenging_behaviour_edit_viewmodel.dart';
+
+class ChallengingBehaviourEdit extends ConsumerStatefulWidget {
+  final ChallengingBehaviour cb;
+  final bool isNew;
+
+  const ChallengingBehaviourEdit({
+    super.key,
+    required this.cb,
+    required this.isNew,
+  });
+
+  @override
+  ConsumerState<ChallengingBehaviourEdit> createState() =>
+      _ChallengingBehaviourEditScreenState();
+}
+
+class _ChallengingBehaviourEditScreenState
+    extends ConsumerState<ChallengingBehaviourEdit> {
+  final _formKey = GlobalKey<FormState>();
+  late TextEditingController _nameController;
+  late TextEditingController _descriptionController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: widget.cb.name);
+    _descriptionController = TextEditingController(text: widget.cb.description);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref
+          .read(challengingBehaviourEditViewModelProvider.notifier)
+          .init(
+            behaviour: widget.cb,
+            isNewBehaviour: widget.isNew,
+            ctx: context,
+          );
+    });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final state = ref.watch(challengingBehaviourEditViewModelProvider);
+    final viewModel = ref.read(
+      challengingBehaviourEditViewModelProvider.notifier,
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.isNew ? t.create : '${t.edit} ${widget.cb.name}'),
+        centerTitle: true,
+        forceMaterialTransparency: true,
+        actions: [
+          TextButton.icon(
+            onPressed: () => viewModel.saveChanges(
+              ref: ref,
+              formKey: _formKey,
+              nameController: _nameController,
+              descriptionController: _descriptionController,
+            ),
+            icon: const Icon(Icons.check),
+            label: Text(t.save),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: AppConstants.BASE_APP_UI_PADDING,
+            vertical: AppConstants.BASE_APP_UI_PADDING,
+          ),
+          child: Card(
+            child: Padding(
+              padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    _nameTextField(),
+                    _dateField(state, viewModel),
+                    const Divider(),
+                    _occuringRadioGroup(state, viewModel),
+                    const Divider(),
+                    SizedBoxDivider(),
+                    _descriptionTextField(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _nameTextField() => TextFormField(
+    controller: _nameController,
+    decoration: InputDecoration(
+      labelText: t.name,
+      border: const OutlineInputBorder(),
+    ),
+    validator: (value) =>
+        value == null || value.isEmpty ? t.please_enter_name : null,
+  );
+
+  Widget _dateField(
+    ChallengingBehaviourEditState state,
+    ChallengingBehaviourEditViewModel viewModel,
+  ) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      title: Row(
+        children: [
+          const Icon(Icons.date_range),
+          SizedBoxDivider(),
+          Text(t.from),
+          SizedBoxDivider(),
+          Text(DateUtil.returnDateInStringFormat(state.fromDate)),
+        ],
+      ),
+      onTap: viewModel.pickDate,
+    );
+  }
+
+  Widget _occuringRadioGroup(
+    ChallengingBehaviourEditState state,
+    ChallengingBehaviourEditViewModel viewModel,
+  ) {
+    return RadioGroup<Occuring>(
+      groupValue: state.occuring,
+      onChanged: (value) => viewModel.setOccuring(value!),
+      child: Column(
+        children: [
+          RadioListTile(
+            value: Occuring.ocurring,
+            title: Row(
+              children: [
+                const OccuringIcon(isOccuringFlag: true),
+                SizedBoxDivider(),
+                Text(t.occuring),
+              ],
+            ),
+          ),
+          RadioListTile(
+            value: Occuring.notOccuring,
+            title: Row(
+              children: [
+                const OccuringIcon(isOccuringFlag: false),
+                SizedBoxDivider(),
+                Text(t.not_occuring),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _descriptionTextField() => TextFormField(
+    controller: _descriptionController,
+    decoration: InputDecoration(
+      alignLabelWithHint: true,
+      labelText: t.notes,
+      border: const OutlineInputBorder(),
+    ),
+    maxLines: 10,
+  );
+}
