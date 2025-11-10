@@ -1,31 +1,31 @@
-import 'package:aut_toolkit/app/router.dart';
-import 'package:aut_toolkit/core/constants/app_constants.dart';
-import 'package:aut_toolkit/core/services/firebase_service.dart';
-import 'package:aut_toolkit/core/utils/date_util.dart';
-import 'package:aut_toolkit/core/utils/router_utils.dart';
-import 'package:aut_toolkit/core/widgets/filterable_list.dart';
-import 'package:aut_toolkit/features/good_habits/provider/good_habits_notifier.dart';
-import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/widgets/icon/occuring_icon.dart';
-import '../../selected_person/provider/selected_person_notifier.dart';
-import '../domain/model/good_habit.dart';
+import '../../../../app/router.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/services/firebase_service.dart';
+import '../../../../core/utils/date_util.dart';
+import '../../../../core/utils/router_utils.dart';
+import '../../../../core/widgets/filterable_list.dart';
+import '../../../../core/widgets/icon/occuring_icon.dart';
+import '../../../../i18n/strings.g.dart';
+import '../../../selected_person/provider/selected_person_notifier.dart';
+import '../../domain/model/good_habit.dart';
+import '../viewmodel/good_habits_list_viewmodel.dart';
 
 class GoodHabitsList extends ConsumerWidget {
   const GoodHabitsList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final habits = ref.watch(goodHabitsProvider);
+    final habits = ref.watch(filteredHabitsProvider);
 
     return FilterableList<GoodHabit>(
       title: t.good_habits,
-      items: habits.where((h) => h.selectedPersonId==ref.watch(selectedPersonsProvider.notifier).getSelected().id!).toList(),
+      items: habits,
       searchKey: (habit) => habit.name,
       itemBuilder: (habit) => Card(
-        margin: EdgeInsetsGeometry.directional(bottom: 8),
+        margin: const EdgeInsets.only(bottom: 8),
         elevation: 0,
         child: ListTile(
           title: Text(habit.name),
@@ -45,13 +45,13 @@ class GoodHabitsList extends ConsumerWidget {
           code: AppConstants.IS_ACTIVE,
           label: AppConstants.getLabel(AppConstants.IS_ACTIVE),
           predicate: (h) => h.isOcuringFlag,
-          icon: OccuringIcon(isOccuringFlag: true),
+          icon: const OccuringIcon(isOccuringFlag: true),
         ),
         FilterOption(
           code: AppConstants.IS_NOT_ACTIVE,
           label: AppConstants.getLabel(AppConstants.IS_NOT_ACTIVE),
           predicate: (h) => !h.isOcuringFlag,
-          icon: OccuringIcon(isOccuringFlag: false),
+          icon: const OccuringIcon(isOccuringFlag: false),
         ),
       ],
       sorts: [
@@ -76,20 +76,22 @@ class GoodHabitsList extends ConsumerWidget {
           comparator: (a, b) => b.from.compareTo(a.from),
         ),
       ],
-      onTap: (habit) =>
-          router.push(RouterUtils.getGoodHabitDetailPath(), extra: habit),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          final selectedPersonId = ref
+              .watch(selectedPersonsProvider.notifier)
+              .getSelected()
+              .id!;
           router.push(
             RouterUtils.getNewGoodHabitPath(),
             extra: GoodHabit(
               from: DateTime.now(),
-                to: null,
+              to: null,
               isOcuringFlag: true,
               name: '',
               description: '',
               userId: FirebaseService().currentUser!.uid,
-              selectedPersonId: ref.watch(selectedPersonsProvider.notifier).getSelected().id!
+              selectedPersonId: selectedPersonId,
             ),
           );
         },
