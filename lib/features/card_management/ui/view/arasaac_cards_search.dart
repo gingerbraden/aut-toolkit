@@ -80,8 +80,15 @@ class _ARASAACCardsSearchState extends ConsumerState<ARASAACCardsSearch> {
                 ),
               ],
             ),
-            const Divider(height: 16),
-            Expanded(
+            Padding(
+              padding: EdgeInsets.only(
+                top: 8,
+                bottom: 8,
+                left: 10,
+                right: 10,
+              ),
+              child: Divider(),
+            ), Expanded(
               child: FutureBuilder<List<Pictogram>>(
                 future: state.futurePictograms,
                 builder: (context, snapshot) {

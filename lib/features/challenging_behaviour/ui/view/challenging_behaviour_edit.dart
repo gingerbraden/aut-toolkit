@@ -60,7 +60,7 @@ class _ChallengingBehaviourEditScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.isNew ? t.create : '${t.edit} ${widget.cb.name}'),
+        title: Text(widget.isNew ? t.create : t.edit),
         centerTitle: true,
         forceMaterialTransparency: true,
         actions: [
@@ -94,7 +94,6 @@ class _ChallengingBehaviourEditScreenState
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: AppConstants.BASE_APP_UI_PADDING,
-            vertical: AppConstants.BASE_APP_UI_PADDING,
           ),
           child: Card(
             child: Padding(

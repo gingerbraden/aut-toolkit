@@ -48,7 +48,7 @@ class _UserCardEditState extends ConsumerState<UserCardEdit> {
         title: Text(
           widget.isNew
               ? t.create
-              : '${t.edit} ${widget.card.names[LocaleSettings.currentLocale.languageCode]}',
+              : t.edit,
         ),
         centerTitle: true,
         actions: [
@@ -61,7 +61,7 @@ class _UserCardEditState extends ConsumerState<UserCardEdit> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+          padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
           child: Card(
             child: Padding(
               padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),

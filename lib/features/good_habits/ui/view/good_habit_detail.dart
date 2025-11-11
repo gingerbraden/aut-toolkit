@@ -24,7 +24,7 @@ class GoodHabitDetail extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(viewModel.name),
+        title: Text(t.detail),
         centerTitle: true,
         forceMaterialTransparency: true,
         actions: [
@@ -35,7 +35,7 @@ class GoodHabitDetail extends ConsumerWidget {
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
         child: Card(
           child: Padding(
             padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),

@@ -25,7 +25,7 @@ class EatingHabitEdit extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isNew ? t.create : '${t.edit} ${habit.name}'),
+        title: Text(isNew ? t.create : t.edit),
         centerTitle: true,
         forceMaterialTransparency: true,
         actions: [
@@ -50,7 +50,7 @@ class EatingHabitEdit extends ConsumerWidget {
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
         child: Card(
           child: Padding(
             padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),

@@ -39,7 +39,15 @@ class _GridListState<T> extends State<SquareItemsList<T>> {
         child: Column(
           children: [
             _searchField(),
-            const SizedBox(height: 12),
+            Padding(
+              padding: EdgeInsets.only(
+                top: 8,
+                bottom: 4,
+                left: 10,
+                right: 10,
+              ),
+              child: Divider(),
+            ),
             Expanded(
               child: filteredItems.isEmpty
                   ? Center(child: Text(t.no_entries))

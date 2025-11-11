@@ -86,7 +86,7 @@ class _ChallengingBehaviourDiaryEntryEditState
         title: Text(
           widget.isNew
               ? t.create
-              : '${t.edit} ${DateUtil.returnDateInStringFormat(widget.entry.date)}',
+              : t.edit,
         ),
         centerTitle: true,
         forceMaterialTransparency: true,
@@ -114,7 +114,7 @@ class _ChallengingBehaviourDiaryEntryEditState
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
         child: Card(
           child: Padding(
             padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),

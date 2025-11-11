@@ -62,7 +62,7 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+          padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
           child: Card(
             child: Padding(
               padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
