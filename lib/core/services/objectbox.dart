@@ -4,6 +4,7 @@ import 'package:aut_toolkit/features/challenging_behaviour/data/model/challengin
 import 'package:aut_toolkit/features/eating_habits/data/model/eating_habit_entity.dart';
 import 'package:aut_toolkit/features/good_habits/data/model/good_habit_entity.dart';
 import 'package:aut_toolkit/features/selected_person/data/model/selected_person_entity.dart';
+import 'package:aut_toolkit/features/visual_supports/first_then_board/data/model/first_then_board_entity.dart';
 import 'package:aut_toolkit/objectbox.g.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -16,6 +17,7 @@ class ObjectBox {
   late final Box<GoodHabitEntity> goodHabitBox;
   late final Box<SelectedPersonEntity> selectedPersonBox;
   late final Box<UserCardEntity> cardBox;
+  late final Box<FirstThenBoardEntity> firstThenBoardBox;
 
   ObjectBox._create(this.store) {
     eatingHabitEntityBox = Box<EatingHabitEntity>(store);
@@ -24,6 +26,7 @@ class ObjectBox {
     goodHabitBox = Box<GoodHabitEntity>(store);
     selectedPersonBox = Box<SelectedPersonEntity>(store);
     cardBox = Box<UserCardEntity>(store);
+    firstThenBoardBox = Box<FirstThenBoardEntity>(store);
 
   }
 

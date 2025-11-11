@@ -269,10 +269,45 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "10:1199814977235704664",
+      "lastPropertyId": "4:3226230904224083014",
+      "name": "FirstThenBoardEntity",
+      "properties": [
+        {
+          "id": "1:8618796915687496532",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3596057190440106154",
+          "name": "userId",
+          "type": 9
+        },
+        {
+          "id": "3:7580350952719720507",
+          "name": "firstId",
+          "indexId": "2:9087415955429520808",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "UserCardEntity"
+        },
+        {
+          "id": "4:3226230904224083014",
+          "name": "thenId",
+          "indexId": "3:3602341172251329567",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "UserCardEntity"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "9:6961689238950263914",
-  "lastIndexId": "1:7265063553320486894",
+  "lastEntityId": "10:1199814977235704664",
+  "lastIndexId": "3:3602341172251329567",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
