@@ -11,38 +11,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../app/router.dart';
 
-class ARASAACCardsSearchState {
-  final ARASAACRepository repo;
-  final TextEditingController searchController;
-  final SharedPreferencesAsync asyncPrefs;
-  final Future<List<Pictogram>>? futurePictograms;
-  final Map<String, List<String>> translations;
-  final String lastQuery;
-
-  ARASAACCardsSearchState({
-    required this.repo,
-    required this.searchController,
-    required this.asyncPrefs,
-    this.futurePictograms,
-    this.translations = const {},
-    this.lastQuery = '',
-  });
-
-  ARASAACCardsSearchState copyWith({
-    Future<List<Pictogram>>? futurePictograms,
-    Map<String, List<String>>? translations,
-    String? lastQuery,
-  }) {
-    return ARASAACCardsSearchState(
-      repo: repo,
-      searchController: searchController,
-      asyncPrefs: asyncPrefs,
-      futurePictograms: futurePictograms ?? this.futurePictograms,
-      translations: translations ?? this.translations,
-      lastQuery: lastQuery ?? this.lastQuery,
+final arasaacCardsSearchViewModelProvider =
+    NotifierProvider<ARASAACCardsSearchViewModel, ARASAACCardsSearchState>(
+      ARASAACCardsSearchViewModel.new,
     );
-  }
-}
 
 class ARASAACCardsSearchViewModel extends Notifier<ARASAACCardsSearchState> {
   @override
@@ -153,7 +125,35 @@ class ARASAACCardsSearchViewModel extends Notifier<ARASAACCardsSearchState> {
   }
 }
 
-final arasaacCardsSearchViewModelProvider =
-    NotifierProvider<ARASAACCardsSearchViewModel, ARASAACCardsSearchState>(
-      ARASAACCardsSearchViewModel.new,
+class ARASAACCardsSearchState {
+  final ARASAACRepository repo;
+  final TextEditingController searchController;
+  final SharedPreferencesAsync asyncPrefs;
+  final Future<List<Pictogram>>? futurePictograms;
+  final Map<String, List<String>> translations;
+  final String lastQuery;
+
+  ARASAACCardsSearchState({
+    required this.repo,
+    required this.searchController,
+    required this.asyncPrefs,
+    this.futurePictograms,
+    this.translations = const {},
+    this.lastQuery = '',
+  });
+
+  ARASAACCardsSearchState copyWith({
+    Future<List<Pictogram>>? futurePictograms,
+    Map<String, List<String>>? translations,
+    String? lastQuery,
+  }) {
+    return ARASAACCardsSearchState(
+      repo: repo,
+      searchController: searchController,
+      asyncPrefs: asyncPrefs,
+      futurePictograms: futurePictograms ?? this.futurePictograms,
+      translations: translations ?? this.translations,
+      lastQuery: lastQuery ?? this.lastQuery,
     );
+  }
+}

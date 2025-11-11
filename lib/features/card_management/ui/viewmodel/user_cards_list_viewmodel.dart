@@ -3,14 +3,17 @@ import 'package:aut_toolkit/features/card_management/provider/card_notifier.dart
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final userCardsListViewModelProvider =
+    NotifierProvider<UserCardsListViewModel, List<UserCard>>(
+      UserCardsListViewModel.new,
+    );
+
 final filteredUserCardsProvider = Provider<List<UserCard>>((ref) {
   final allCards = ref.watch(cardsProvider);
   final currentUserId = FirebaseAuth.instance.currentUser?.uid;
   if (currentUserId == null) return [];
   return allCards.where((card) => card.userId == currentUserId).toList();
 });
-
-enum UserCardSort { nameAsc, nameDesc }
 
 class UserCardsListViewModel extends Notifier<List<UserCard>> {
   @override
@@ -42,7 +45,4 @@ class UserCardsListViewModel extends Notifier<List<UserCard>> {
   }
 }
 
-final userCardsListViewModelProvider =
-    NotifierProvider<UserCardsListViewModel, List<UserCard>>(
-      UserCardsListViewModel.new,
-    );
+enum UserCardSort { nameAsc, nameDesc }

@@ -1,57 +1,39 @@
-import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/provider/challenging_behaviour_notifier.dart';
 import 'package:aut_toolkit/features/selected_person/provider/selected_person_notifier.dart';
-import 'package:aut_toolkit/i18n/strings.g.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-enum Occuring { ocurring, notOccuring }
-
-class ChallengingBehaviourEditState {
-  final Occuring occuring;
-  final DateTime fromDate;
-
-  const ChallengingBehaviourEditState({
-    required this.occuring,
-    required this.fromDate,
-  });
-
-  ChallengingBehaviourEditState copyWith({
-    Occuring? occuring,
-    DateTime? fromDate,
-  }) {
-    return ChallengingBehaviourEditState(
-      occuring: occuring ?? this.occuring,
-      fromDate: fromDate ?? this.fromDate,
-    );
-  }
-}
+final challengingBehaviourEditViewModelProvider =
+    NotifierProvider<
+      ChallengingBehaviourEditViewModel,
+      ChallengingBehaviourEditState
+    >(ChallengingBehaviourEditViewModel.new);
 
 class ChallengingBehaviourEditViewModel
     extends Notifier<ChallengingBehaviourEditState> {
   late ChallengingBehaviour cb;
   late bool isNew;
-  late BuildContext context;
 
   @override
   ChallengingBehaviourEditState build() => ChallengingBehaviourEditState(
     occuring: Occuring.ocurring,
     fromDate: DateTime.now(),
+    name: "",
+    description: "",
   );
 
   void init({
     required ChallengingBehaviour behaviour,
     required bool isNewBehaviour,
-    required BuildContext ctx,
   }) {
     cb = behaviour;
     isNew = isNewBehaviour;
-    context = ctx;
 
     state = ChallengingBehaviourEditState(
       occuring: cb.occuring ? Occuring.ocurring : Occuring.notOccuring,
       fromDate: cb.from,
+      name: cb.name,
+      description: cb.description,
     );
   }
 
@@ -59,51 +41,78 @@ class ChallengingBehaviourEditViewModel
     state = state.copyWith(occuring: value);
   }
 
-  Future<void> pickDate() async {
-    final newDate = await showDatePicker(
-      context: context,
-      initialDate: state.fromDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-    );
-    if (newDate == null) return;
+  void setDate(DateTime newDate) {
     state = state.copyWith(fromDate: newDate);
   }
 
-  void saveChanges({
-    required WidgetRef ref,
-    required GlobalKey<FormState> formKey,
-    required TextEditingController nameController,
-    required TextEditingController descriptionController,
-  }) {
-    if (!(formKey.currentState?.validate() ?? false)) return;
+  void setName(String name) => state = state.copyWith(name: name);
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(t.change_saved), behavior: SnackBarBehavior.floating, showCloseIcon: true));
+  void setDescription(String desc) => state = state.copyWith(description: desc);
+
+  void saveChanges() {
+    final selectedPersonId = ref
+        .watch(selectedPersonsProvider.notifier)
+        .getSelected()
+        .id!;
 
     final updatedCb = ChallengingBehaviour(
       id: cb.id!,
-      name: nameController.text.trim(),
+      name: state.name,
       from: state.fromDate,
-      description: descriptionController.text.trim(),
-      diaryEntries: [],
+      description: state.description,
+      diaryEntries: cb.diaryEntries,
       occuring: state.occuring == Occuring.ocurring,
       userId: cb.userId,
-      selectedPersonId: ref
-          .watch(selectedPersonsProvider.notifier)
-          .getSelected()
-          .id!,
+      selectedPersonId: selectedPersonId,
     );
 
     ref.read(challengingBehavioursProvider.notifier).addBehaviour(updatedCb);
-    router.pop();
-    if (!isNew) router.pop(true);
+  }
+
+  ChallengingBehaviour createUpdatedBehaviour({
+    required String name,
+    required String description,
+    required int selectedPersonId,
+  }) {
+    return ChallengingBehaviour(
+      id: cb.id!,
+      name: name.trim(),
+      from: state.fromDate,
+      description: description.trim(),
+      diaryEntries: [],
+      occuring: state.occuring == Occuring.ocurring,
+      userId: cb.userId,
+      selectedPersonId: selectedPersonId,
+    );
   }
 }
 
-final challengingBehaviourEditViewModelProvider =
-    NotifierProvider<
-      ChallengingBehaviourEditViewModel,
-      ChallengingBehaviourEditState
-    >(ChallengingBehaviourEditViewModel.new);
+enum Occuring { ocurring, notOccuring }
+
+class ChallengingBehaviourEditState {
+  final Occuring occuring;
+  final DateTime fromDate;
+  final String name;
+  final String description;
+
+  const ChallengingBehaviourEditState({
+    required this.occuring,
+    required this.fromDate,
+    required this.name,
+    required this.description,
+  });
+
+  ChallengingBehaviourEditState copyWith({
+    Occuring? occuring,
+    DateTime? fromDate,
+    String? name,
+    String? description,
+  }) {
+    return ChallengingBehaviourEditState(
+      occuring: occuring ?? this.occuring,
+      fromDate: fromDate ?? this.fromDate,
+      name: name ?? this.name,
+      description: description ?? this.description,
+    );
+  }
+}

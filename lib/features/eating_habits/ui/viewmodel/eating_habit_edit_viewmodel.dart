@@ -4,15 +4,15 @@ import '../../../selected_person/provider/selected_person_notifier.dart';
 import '../../domain/model/eating_habit.dart';
 import '../../provider/eating_habits_notifier.dart';
 
-final eatingHabitFormProvider = NotifierProvider.autoDispose
-    .family<EatingHabitFormNotifier, EatingHabitFormState, EatingHabit>(
-      EatingHabitFormNotifier.new,
+final eatingHabitViewModelProvider = NotifierProvider.autoDispose
+    .family<EatingHabitEditViewModel, EatingHabitFormState, EatingHabit>(
+      EatingHabitEditViewModel.new,
     );
 
-class EatingHabitFormNotifier extends Notifier<EatingHabitFormState> {
+class EatingHabitEditViewModel extends Notifier<EatingHabitFormState> {
   final EatingHabit _habit;
 
-  EatingHabitFormNotifier(this._habit);
+  EatingHabitEditViewModel(this._habit);
 
   @override
   EatingHabitFormState build() {

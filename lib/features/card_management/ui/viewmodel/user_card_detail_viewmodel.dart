@@ -5,6 +5,11 @@ import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final userCardDetailViewModelProvider =
+    NotifierProvider<UserCardDetailViewModel, void>(
+      UserCardDetailViewModel.new,
+    );
+
 class UserCardDetailViewModel extends Notifier<void> {
   @override
   void build() {}
@@ -34,8 +39,3 @@ class UserCardDetailViewModel extends Notifier<void> {
     }
   }
 }
-
-final userCardDetailViewModelProvider =
-    NotifierProvider<UserCardDetailViewModel, void>(
-      UserCardDetailViewModel.new,
-    );

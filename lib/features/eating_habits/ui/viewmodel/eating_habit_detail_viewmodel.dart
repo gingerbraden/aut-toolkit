@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/model/eating_habit.dart';
 import '../../provider/eating_habits_notifier.dart';
 
-final eatingHabitDetailProvider = NotifierProvider.autoDispose
+final eatingHabitDetailViewModelProvider = NotifierProvider.autoDispose
     .family<EatingHabitDetailViewModel, EatingHabit, EatingHabit>(
       EatingHabitDetailViewModel.new,
     );

@@ -7,6 +7,7 @@ import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../app/router.dart';
 import '../viewmodel/challenging_behaviour_diary_entry_edit_viewmodel.dart';
 
 class ChallengingBehaviourDiaryEntryEdit extends ConsumerStatefulWidget {
@@ -56,12 +57,7 @@ class _ChallengingBehaviourDiaryEntryEditState
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
           .read(challengingBehaviourDiaryEntryEditViewModelProvider.notifier)
-          .init(
-            entry: widget.entry,
-            isNew: widget.isNew,
-            cbId: widget.cbId,
-            context: context,
-          );
+          .init(entry: widget.entry, isNew: widget.isNew, cbId: widget.cbId);
     });
   }
 
@@ -96,15 +92,22 @@ class _ChallengingBehaviourDiaryEntryEditState
         forceMaterialTransparency: true,
         actions: [
           TextButton.icon(
-            onPressed: () => viewModel.saveChanges(
-              ref: ref,
-              formKey: _formKey,
-              locationController: _locationController,
-              durationController: _durationController,
-              circumstancesController: _circumstancesController,
-              outcomeController: _outcomeController,
-              reflectionController: _reflectionController,
-            ),
+            onPressed: () {
+              final updatedEntry = ChallengingBehaviourDiaryEntry(
+                id: viewModel.entry.id,
+                location: _locationController.text.trim(),
+                date: state.date,
+                duration: int.parse(_durationController.text),
+                circumstances: _circumstancesController.text.trim(),
+                people: state.people,
+                outcome: _outcomeController.text.trim(),
+                reflection: _reflectionController.text.trim(),
+              );
+
+              viewModel.saveChanges(ref: ref, updatedEntry: updatedEntry);
+              router.pop();
+              if (!viewModel.isNew) router.pop();
+            },
             icon: const Icon(Icons.check),
             label: Text(t.save),
           ),
@@ -120,6 +123,7 @@ class _ChallengingBehaviourDiaryEntryEditState
               child: Column(
                 children: [
                   _locationTextField(),
+                  SizedBoxDivider(),
                   SizedBoxDivider(),
                   _durationDateFields(state, viewModel),
                   DividerSizedBoxDivider(),
@@ -175,7 +179,7 @@ class _ChallengingBehaviourDiaryEntryEditState
           Text(DateUtil.returnDateInStringFormatWithTime(state.date)),
         ],
       ),
-      onTap: viewModel.pickDateTime,
+      onTap: () => {_pickDateTime(context, viewModel, state)},
     );
   }
 
@@ -267,4 +271,34 @@ class _ChallengingBehaviourDiaryEntryEditState
     ),
     maxLines: 5,
   );
+
+  Future<void> _pickDateTime(
+    BuildContext context,
+    ChallengingBehaviourDiaryEntryEditViewModel viewModel,
+      ChallengingBehaviourDiaryEntryEditState state
+  ) async {
+    final pickedDate = await showDatePicker(
+      context: context,
+      initialDate: state.date,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate == null) return;
+
+    final pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(state.date),
+    );
+    if (pickedTime == null) return;
+
+    final newDate = DateTime(
+      pickedDate.year,
+      pickedDate.month,
+      pickedDate.day,
+      pickedTime.hour,
+      pickedTime.minute,
+    );
+
+    viewModel.updateDate(newDate);
+  }
 }

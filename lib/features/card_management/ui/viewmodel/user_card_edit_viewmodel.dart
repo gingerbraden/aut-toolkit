@@ -8,42 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum UserCardEditResult { none, saved, noImage, error, deleted }
-
-class UserCardEditState {
-  final GlobalKey<FormState> formKey;
-  final String name;
-  final String? imagePath;
-  final int? arasaacId;
-  final bool isLoadingImage;
-  final SharedPreferencesAsync asyncPrefs;
-
-  UserCardEditState({
-    required this.formKey,
-    required this.name,
-    this.imagePath,
-    this.arasaacId,
-    this.isLoadingImage = false,
-    required this.asyncPrefs,
-  });
-
-  UserCardEditState copyWith({
-    String? imagePath,
-    int? arasaacId,
-    bool? isLoadingImage,
-    String? name,
-  }) {
-    return UserCardEditState(
-      formKey: formKey,
-      name: name ?? this.name,
-      imagePath: imagePath ?? this.imagePath,
-      arasaacId: arasaacId ?? this.arasaacId,
-      isLoadingImage: isLoadingImage ?? this.isLoadingImage,
-      asyncPrefs: asyncPrefs,
-    );
-  }
-}
-
 final userCardEditViewModelProvider = NotifierProvider.autoDispose
     .family<UserCardEditViewModel, UserCardEditState, UserCard>(
       UserCardEditViewModel.new,
@@ -155,5 +119,41 @@ class UserCardEditViewModel extends Notifier<UserCardEditState> {
       }
     }
     return UserCardEditResult.none;
+  }
+}
+
+enum UserCardEditResult { none, saved, noImage, error, deleted }
+
+class UserCardEditState {
+  final GlobalKey<FormState> formKey;
+  final String name;
+  final String? imagePath;
+  final int? arasaacId;
+  final bool isLoadingImage;
+  final SharedPreferencesAsync asyncPrefs;
+
+  UserCardEditState({
+    required this.formKey,
+    required this.name,
+    this.imagePath,
+    this.arasaacId,
+    this.isLoadingImage = false,
+    required this.asyncPrefs,
+  });
+
+  UserCardEditState copyWith({
+    String? imagePath,
+    int? arasaacId,
+    bool? isLoadingImage,
+    String? name,
+  }) {
+    return UserCardEditState(
+      formKey: formKey,
+      name: name ?? this.name,
+      imagePath: imagePath ?? this.imagePath,
+      arasaacId: arasaacId ?? this.arasaacId,
+      isLoadingImage: isLoadingImage ?? this.isLoadingImage,
+      asyncPrefs: asyncPrefs,
+    );
   }
 }

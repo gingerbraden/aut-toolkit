@@ -6,6 +6,7 @@ import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../app/router.dart';
 import '../../domain/model/challenging_behaviour.dart';
 import '../viewmodel/challenging_behaviour_edit_viewmodel.dart';
 
@@ -39,11 +40,7 @@ class _ChallengingBehaviourEditScreenState
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
           .read(challengingBehaviourEditViewModelProvider.notifier)
-          .init(
-            behaviour: widget.cb,
-            isNewBehaviour: widget.isNew,
-            ctx: context,
-          );
+          .init(behaviour: widget.cb, isNewBehaviour: widget.isNew);
     });
   }
 
@@ -68,12 +65,26 @@ class _ChallengingBehaviourEditScreenState
         forceMaterialTransparency: true,
         actions: [
           TextButton.icon(
-            onPressed: () => viewModel.saveChanges(
-              ref: ref,
-              formKey: _formKey,
-              nameController: _nameController,
-              descriptionController: _descriptionController,
-            ),
+            onPressed: () {
+              if (!(_formKey.currentState?.validate() ?? false)) return;
+
+              viewModel.saveChanges();
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(t.change_saved),
+                  behavior: SnackBarBehavior.floating,
+                  showCloseIcon: true,
+                ),
+              );
+
+              router.pop();
+              if (!ref
+                  .read(challengingBehaviourEditViewModelProvider.notifier)
+                  .isNew) {
+                router.pop(true);
+              }
+            },
             icon: const Icon(Icons.check),
             label: Text(t.save),
           ),
@@ -111,6 +122,9 @@ class _ChallengingBehaviourEditScreenState
 
   Widget _nameTextField() => TextFormField(
     controller: _nameController,
+    onChanged: ref
+        .read(challengingBehaviourEditViewModelProvider.notifier)
+        .setName,
     decoration: InputDecoration(
       labelText: t.name,
       border: const OutlineInputBorder(),
@@ -134,7 +148,21 @@ class _ChallengingBehaviourEditScreenState
           Text(DateUtil.returnDateInStringFormat(state.fromDate)),
         ],
       ),
-      onTap: viewModel.pickDate,
+      onTap: () async {
+        final newDate = await showDatePicker(
+          context: context,
+          initialDate: ref
+              .read(challengingBehaviourEditViewModelProvider)
+              .fromDate,
+          firstDate: DateTime(2000),
+          lastDate: DateTime(2100),
+        );
+        if (newDate != null) {
+          ref
+              .read(challengingBehaviourEditViewModelProvider.notifier)
+              .setDate(newDate);
+        }
+      },
     );
   }
 
@@ -174,6 +202,9 @@ class _ChallengingBehaviourEditScreenState
 
   Widget _descriptionTextField() => TextFormField(
     controller: _descriptionController,
+    onChanged: ref
+        .read(challengingBehaviourEditViewModelProvider.notifier)
+        .setDescription,
     decoration: InputDecoration(
       alignLabelWithHint: true,
       labelText: t.notes,

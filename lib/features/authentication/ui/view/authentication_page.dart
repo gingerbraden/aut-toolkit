@@ -22,12 +22,27 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(authenticationViewModelProvider.notifier).init(context, ref);
   }
 
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.read(authenticationViewModelProvider.notifier);
+
+    ref.listen<AuthenticationState>(authenticationViewModelProvider, (previous, next) {
+      if (next.message != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(next.message!),
+            behavior: SnackBarBehavior.floating,
+            showCloseIcon: true,
+          ),
+        );
+        if (t.registration_succesful == next.message) {
+          Navigator.of(context).pop();
+        }
+        viewModel.clearMessage();
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(actions: [_languagePopup(viewModel)]),
@@ -103,7 +118,7 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
     const SizedBox(height: 25),
     Consumer(
       builder: (context, ref, _) {
-        final isLoading = ref.watch(authenticationViewModelProvider);
+        final isLoading = ref.watch(authenticationViewModelProvider).loading;
         return ElevatedButton(
           onPressed: isLoading
               ? null
@@ -139,7 +154,7 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
   ];
 
   void _showSignUpDialog(AuthenticationViewModel viewModel) {
-    final isLoading = ref.watch(authenticationViewModelProvider);
+    final isLoading = ref.watch(authenticationViewModelProvider).loading;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

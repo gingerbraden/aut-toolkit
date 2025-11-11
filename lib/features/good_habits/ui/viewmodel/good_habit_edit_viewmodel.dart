@@ -4,15 +4,15 @@ import '../../../selected_person/provider/selected_person_notifier.dart';
 import '../../domain/model/good_habit.dart';
 import '../../provider/good_habits_notifier.dart';
 
-final goodHabitFormProvider = NotifierProvider.autoDispose
-    .family<GoodHabitFormNotifier, GoodHabitFormState, GoodHabit>(
-      GoodHabitFormNotifier.new,
+final goodHabitViewModelProvider = NotifierProvider.autoDispose
+    .family<GoodHabitEditViewmodel, GoodHabitFormState, GoodHabit>(
+      GoodHabitEditViewmodel.new,
     );
 
-class GoodHabitFormNotifier extends Notifier<GoodHabitFormState> {
+class GoodHabitEditViewmodel extends Notifier<GoodHabitFormState> {
   final GoodHabit _habit;
 
-  GoodHabitFormNotifier(this._habit);
+  GoodHabitEditViewmodel(this._habit);
 
   @override
   GoodHabitFormState build() {

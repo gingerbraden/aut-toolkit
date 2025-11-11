@@ -379,6 +379,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'No image was set.'
 	String get no_image_set => 'No image was set.';
+
+	/// en: 'Registration was succesful. You can now log in.'
+	String get registration_succesful => 'Registration was succesful. You can now log in.';
 }
 
 /// Flat map(s) containing all translations.
@@ -502,6 +505,7 @@ extension on Translations {
 			case 'cant_undo_action': return 'This action cannot be undone.';
 			case 'error_occured': return 'An error occured';
 			case 'no_image_set': return 'No image was set.';
+			case 'registration_succesful': return 'Registration was succesful. You can now log in.';
 			default: return null;
 		}
 	}

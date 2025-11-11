@@ -20,7 +20,7 @@ class EatingHabitDetail extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.watch(eatingHabitDetailProvider(habit));
+    final viewModel = ref.watch(eatingHabitDetailViewModelProvider(habit));
 
     return Scaffold(
       appBar: AppBar(
@@ -153,7 +153,9 @@ class EatingHabitDetail extends ConsumerWidget {
     );
 
     if (confirm == true) {
-      ref.read(eatingHabitDetailProvider(viewModel).notifier).deleteHabit(ref);
+      ref
+          .read(eatingHabitDetailViewModelProvider(viewModel).notifier)
+          .deleteHabit(ref);
       router.pop();
     }
   }

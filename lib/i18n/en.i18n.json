@@ -114,5 +114,6 @@
   "delete" : "Delete",
   "cant_undo_action": "This action cannot be undone.",
   "error_occured": "An error occured",
-  "no_image_set": "No image was set."
+  "no_image_set": "No image was set.",
+  "registration_succesful": "Registration was succesful. You can now log in."
 }

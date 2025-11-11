@@ -115,5 +115,6 @@
   "delete" : "Odstrániť",
   "cant_undo_action": "Túto akciu nemožno vrátiť späť.",
   "error_occured": "Nastala chyba",
-  "no_image_set": "Nebol nastavený žiadny obrázok"
+  "no_image_set": "Nebol nastavený žiadny obrázok",
+  "registration_succesful": "Registrácia bola úspešná. Môžete sa prihlásiť."
 }

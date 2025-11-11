@@ -1,10 +1,17 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/utils/router_utils.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_transport.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour_diary_entry.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/provider/challenging_behaviour_notifier.dart';
 import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final challengingBehaviourDetailViewModelProvider =
+    NotifierProvider<ChallengingBehaviourDetailViewModel, void>(
+      ChallengingBehaviourDetailViewModel.new,
+    );
 
 class ChallengingBehaviourDetailViewModel extends Notifier<void> {
   late BuildContext context;
@@ -46,12 +53,19 @@ class ChallengingBehaviourDetailViewModel extends Notifier<void> {
   void newDiaryEntry(ChallengingBehaviour cb) {
     router.push(
       RouterUtils.getNewChallengingBehaviourDiaryEntryPath(),
-      extra: {'cbId': cb.id!, 'isNew': true, 'entry': null},
+      extra: ChallengingBehaviourDiaryEntryTransport(
+        cbId: cb.id!,
+        entry: ChallengingBehaviourDiaryEntry(
+          location: "",
+          date: DateTime.now(),
+          duration: 0,
+          circumstances: "",
+          people: [],
+          outcome: "",
+          reflection: "",
+        ),
+        isNew: true,
+      ),
     );
   }
 }
-
-final challengingBehaviourDetailViewModelProvider =
-    NotifierProvider<ChallengingBehaviourDetailViewModel, void>(
-      ChallengingBehaviourDetailViewModel.new,
-    );

@@ -32,9 +32,7 @@ class _ChallengingBehaviourDiaryEntryDetailState
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(challengingBehaviourDiaryEntryDetailViewModelProvider.notifier)
-          .init(context);
+      ref.read(challengingBehaviourDiaryEntryDetailViewModelProvider.notifier);
     });
   }
 
@@ -51,8 +49,33 @@ class _ChallengingBehaviourDiaryEntryDetailState
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),
-            onPressed: () =>
-                viewModel.deleteEntry(ref: ref, entry: widget.entry),
+            onPressed: () async {
+              final confirm = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text("${t.delete} ${t.entry}?"),
+                  content: Text(t.cant_undo_action),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: Text(t.cancel),
+                    ),
+                    FilledButton(
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Colors.redAccent,
+                      ),
+                      onPressed: () => Navigator.pop(context, true),
+                      child: Text(t.delete),
+                    ),
+                  ],
+                ),
+              );
+
+              if (confirm == true) {
+                viewModel.deleteEntry(ref: ref, entry: widget.entry);
+                router.pop();
+              }
+            },
           ),
         ],
       ),

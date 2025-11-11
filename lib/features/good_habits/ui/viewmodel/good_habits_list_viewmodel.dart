@@ -1,15 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../selected_person/provider/selected_person_notifier.dart';
 import '../../domain/model/good_habit.dart';
 import '../../provider/good_habits_notifier.dart';
 
-enum GoodHabitFilter { all, active, inactive }
-enum GoodHabitSort { nameAsc, nameDesc, dateAsc, dateDesc }
-
 final filteredHabitsProvider = Provider<List<GoodHabit>>((ref) {
   final habits = ref.watch(goodHabitsProvider);
-  final selectedPersonId =
-  ref.watch(selectedPersonsProvider.notifier).getSelected().id!;
+  final selectedPersonId = ref
+      .watch(selectedPersonsProvider.notifier)
+      .getSelected()
+      .id!;
   return habits.where((h) => h.selectedPersonId == selectedPersonId).toList();
 });
 
@@ -19,9 +19,13 @@ class GoodHabitsListViewModel extends Notifier<List<GoodHabit>> {
 
   void loadHabits(WidgetRef ref) {
     final habits = ref.watch(goodHabitsProvider);
-    final selectedPersonId =
-    ref.watch(selectedPersonsProvider.notifier).getSelected().id!;
-    state = habits.where((h) => h.selectedPersonId == selectedPersonId).toList();
+    final selectedPersonId = ref
+        .watch(selectedPersonsProvider.notifier)
+        .getSelected()
+        .id!;
+    state = habits
+        .where((h) => h.selectedPersonId == selectedPersonId)
+        .toList();
   }
 
   void applyFilter(GoodHabitFilter filter) {
@@ -33,7 +37,7 @@ class GoodHabitsListViewModel extends Notifier<List<GoodHabit>> {
         state = state.where((h) => !h.isOcuringFlag).toList();
         break;
       case GoodHabitFilter.all:
-      break;
+        break;
     }
   }
 
@@ -54,3 +58,7 @@ class GoodHabitsListViewModel extends Notifier<List<GoodHabit>> {
     }
   }
 }
+
+enum GoodHabitFilter { all, active, inactive }
+
+enum GoodHabitSort { nameAsc, nameDesc, dateAsc, dateDesc }

@@ -16,10 +16,6 @@ final filteredChallengingBehavioursProvider =
           .toList();
     });
 
-enum ChallengingBehaviourFilter { all, occuring, notOccuring }
-
-enum ChallengingBehaviourSort { nameAsc, nameDesc, dateAsc, dateDesc }
-
 class ChallengingBehaviourListViewModel
     extends Notifier<List<ChallengingBehaviour>> {
   @override
@@ -55,3 +51,7 @@ class ChallengingBehaviourListViewModel
     }
   }
 }
+
+enum ChallengingBehaviourFilter { all, occuring, notOccuring }
+
+enum ChallengingBehaviourSort { nameAsc, nameDesc, dateAsc, dateDesc }

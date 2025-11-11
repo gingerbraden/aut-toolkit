@@ -13,10 +13,6 @@ final filteredEatingHabitsProvider = Provider<List<EatingHabit>>((ref) {
   return habits.where((h) => h.selectedPersonId == selectedPersonId).toList();
 });
 
-enum EatingHabitFilter { all, eating, notEating, active, inactive }
-
-enum EatingHabitSort { nameAsc, nameDesc, dateAsc, dateDesc }
-
 class EatingHabitsListViewModel extends Notifier<List<EatingHabit>> {
   @override
   List<EatingHabit> build() => [];
@@ -71,3 +67,7 @@ class EatingHabitsListViewModel extends Notifier<List<EatingHabit>> {
     }
   }
 }
+
+enum EatingHabitFilter { all, eating, notEating, active, inactive }
+
+enum EatingHabitSort { nameAsc, nameDesc, dateAsc, dateDesc }

@@ -153,6 +153,7 @@ class TranslationsSk implements Translations {
 	@override String get cant_undo_action => 'Túto akciu nemožno vrátiť späť.';
 	@override String get error_occured => 'Nastala chyba';
 	@override String get no_image_set => 'Nebol nastavený žiadny obrázok';
+	@override String get registration_succesful => 'Registrácia bola úspešná. Môžete sa prihlásiť.';
 }
 
 /// Flat map(s) containing all translations.
@@ -277,6 +278,7 @@ extension on TranslationsSk {
 			case 'cant_undo_action': return 'Túto akciu nemožno vrátiť späť.';
 			case 'error_occured': return 'Nastala chyba';
 			case 'no_image_set': return 'Nebol nastavený žiadny obrázok';
+			case 'registration_succesful': return 'Registrácia bola úspešná. Môžete sa prihlásiť.';
 			default: return null;
 		}
 	}

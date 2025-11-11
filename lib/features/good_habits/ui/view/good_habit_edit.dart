@@ -28,7 +28,7 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
   @override
   void initState() {
     super.initState();
-    final formState = ref.read(goodHabitFormProvider(widget.habit));
+    final formState = ref.read(goodHabitViewModelProvider(widget.habit));
     _nameController = TextEditingController(text: formState.name);
     _descriptionController = TextEditingController(text: formState.description);
   }
@@ -42,8 +42,10 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
 
   @override
   Widget build(BuildContext context) {
-    final formState = ref.watch(goodHabitFormProvider(widget.habit));
-    final formNotifier = ref.read(goodHabitFormProvider(widget.habit).notifier);
+    final formState = ref.watch(goodHabitViewModelProvider(widget.habit));
+    final formviewModel = ref.read(
+      goodHabitViewModelProvider(widget.habit).notifier,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -77,12 +79,12 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
                       validator: (value) => value == null || value.isEmpty
                           ? t.please_enter_name
                           : null,
-                      onChanged: formNotifier.updateName,
+                      onChanged: formviewModel.updateName,
                     ),
                     const SizedBox(height: 8),
-                    _dateFields(formState, formNotifier),
+                    _dateFields(formState, formviewModel),
                     const Divider(),
-                    _isOccuringRadioButtons(formState, formNotifier),
+                    _isOccuringRadioButtons(formState, formviewModel),
                     const Divider(),
                     SizedBoxDivider(),
                     TextFormField(
@@ -93,7 +95,7 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
                         alignLabelWithHint: true,
                       ),
                       maxLines: 10,
-                      onChanged: formNotifier.updateDescription,
+                      onChanged: formviewModel.updateDescription,
                     ),
                   ],
                 ),
@@ -105,7 +107,10 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
     );
   }
 
-  Widget _dateFields(GoodHabitFormState state, GoodHabitFormNotifier notifier) {
+  Widget _dateFields(
+    GoodHabitFormState state,
+    GoodHabitEditViewmodel viewModel,
+  ) {
     return Row(
       children: [
         Expanded(
@@ -121,7 +126,7 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
               ],
             ),
             onTap: () =>
-                _pickDate(isFrom: true, notifier: notifier, state: state),
+                _pickDate(isFrom: true, viewModel: viewModel, state: state),
           ),
         ),
         SizedBoxDivider(),
@@ -142,7 +147,7 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
               ],
             ),
             onTap: () =>
-                _pickDate(isFrom: false, notifier: notifier, state: state),
+                _pickDate(isFrom: false, viewModel: viewModel, state: state),
           ),
         ),
       ],
@@ -151,12 +156,12 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
 
   Widget _isOccuringRadioButtons(
     GoodHabitFormState state,
-    GoodHabitFormNotifier notifier,
+    GoodHabitEditViewmodel viewModel,
   ) {
     return RadioGroup<Occuring>(
       groupValue: state.occuring,
       onChanged: (Occuring? value) {
-        notifier.updateOccuring(value!);
+        viewModel.updateOccuring(value!);
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -190,7 +195,7 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
 
   Future<void> _pickDate({
     required bool isFrom,
-    required GoodHabitFormNotifier notifier,
+    required GoodHabitEditViewmodel viewModel,
     required GoodHabitFormState state,
   }) async {
     final currentDate = isFrom
@@ -207,21 +212,27 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
     if (newDate == null) return;
 
     if (isFrom) {
-      notifier.updateFromDate(newDate);
+      viewModel.updateFromDate(newDate);
     } else {
-      notifier.updateToDate(newDate);
+      viewModel.updateToDate(newDate);
     }
   }
 
   void _saveChanges() {
     if (!(_formKey.currentState?.validate() ?? false)) return;
 
-    final formNotifier = ref.read(goodHabitFormProvider(widget.habit).notifier);
-    formNotifier.saveChanges();
+    final formviewModel = ref.read(
+      goodHabitViewModelProvider(widget.habit).notifier,
+    );
+    formviewModel.saveChanges();
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(t.change_saved), behavior: SnackBarBehavior.floating, showCloseIcon: true));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(t.change_saved),
+        behavior: SnackBarBehavior.floating,
+        showCloseIcon: true,
+      ),
+    );
     router.pop();
     if (!widget.isNew) router.pop();
   }

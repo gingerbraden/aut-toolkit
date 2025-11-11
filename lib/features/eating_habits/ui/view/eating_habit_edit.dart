@@ -10,7 +10,7 @@ import '../../../../core/widgets/icon/eating_icon.dart';
 import '../../../../core/widgets/square_image_filled_width.dart';
 import '../../../../i18n/strings.g.dart';
 import '../../domain/model/eating_habit.dart';
-import '../viewmodel/eating_habits_edit_viewmodel.dart';
+import '../viewmodel/eating_habit_edit_viewmodel.dart';
 
 class EatingHabitEdit extends ConsumerWidget {
   final EatingHabit habit;
@@ -20,8 +20,8 @@ class EatingHabitEdit extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(eatingHabitFormProvider(habit));
-    final notifier = ref.read(eatingHabitFormProvider(habit).notifier);
+    final state = ref.watch(eatingHabitViewModelProvider(habit));
+    final viewModel = ref.read(eatingHabitViewModelProvider(habit).notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,10 +32,14 @@ class EatingHabitEdit extends ConsumerWidget {
           TextButton.icon(
             onPressed: () {
               if (_validateForm(ref)) {
-                notifier.saveChanges(ref);
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(t.change_saved), behavior: SnackBarBehavior.floating, showCloseIcon: true));
+                viewModel.saveChanges(ref);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(t.change_saved),
+                    behavior: SnackBarBehavior.floating,
+                    showCloseIcon: true,
+                  ),
+                );
                 router.pop();
                 if (!isNew) router.pop();
               }
@@ -52,16 +56,16 @@ class EatingHabitEdit extends ConsumerWidget {
             padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
             child: Column(
               children: [
-                _nameTextField(state, notifier),
+                _nameTextField(state, viewModel),
                 const SizedBox(height: 8),
-                _dateFields(state, notifier, context),
+                _dateFields(state, viewModel, context),
                 const Divider(),
-                _isEatingRadioButtons(state, notifier),
+                _isEatingRadioButtons(state, viewModel),
                 const Divider(),
                 SizedBoxDivider(),
-                _descriptionTextField(state, notifier),
+                _descriptionTextField(state, viewModel),
                 SizedBoxDivider(),
-                _imageButtons(state, notifier, context),
+                _imageButtons(state, viewModel, context),
               ],
             ),
           ),
@@ -71,13 +75,13 @@ class EatingHabitEdit extends ConsumerWidget {
   }
 
   bool _validateForm(WidgetRef ref) {
-    final state = ref.read(eatingHabitFormProvider(habit));
+    final state = ref.read(eatingHabitViewModelProvider(habit));
     return state.name.isNotEmpty;
   }
 
   Widget _nameTextField(
     EatingHabitFormState state,
-    EatingHabitFormNotifier notifier,
+    EatingHabitEditViewModel viewModel,
   ) {
     return TextFormField(
       initialValue: state.name,
@@ -85,13 +89,13 @@ class EatingHabitEdit extends ConsumerWidget {
         labelText: t.name,
         border: const OutlineInputBorder(),
       ),
-      onChanged: notifier.updateName,
+      onChanged: viewModel.updateName,
     );
   }
 
   Widget _descriptionTextField(
     EatingHabitFormState state,
-    EatingHabitFormNotifier notifier,
+    EatingHabitEditViewModel viewModel,
   ) {
     return TextFormField(
       initialValue: state.description,
@@ -101,13 +105,13 @@ class EatingHabitEdit extends ConsumerWidget {
         border: const OutlineInputBorder(),
       ),
       maxLines: 7,
-      onChanged: notifier.updateDescription,
+      onChanged: viewModel.updateDescription,
     );
   }
 
   Widget _dateFields(
     EatingHabitFormState state,
-    EatingHabitFormNotifier notifier,
+    EatingHabitEditViewModel viewModel,
     BuildContext context,
   ) {
     return Row(
@@ -124,7 +128,7 @@ class EatingHabitEdit extends ConsumerWidget {
                 Text(DateUtil.returnDateInStringFormat(state.fromDate)),
               ],
             ),
-            onTap: () => _pickDate(context, true, notifier, state.fromDate),
+            onTap: () => _pickDate(context, true, viewModel, state.fromDate),
           ),
         ),
         SizedBoxDivider(),
@@ -144,7 +148,7 @@ class EatingHabitEdit extends ConsumerWidget {
                 ),
               ],
             ),
-            onTap: () => _pickDate(context, false, notifier, state.toDate),
+            onTap: () => _pickDate(context, false, viewModel, state.toDate),
           ),
         ),
       ],
@@ -154,7 +158,7 @@ class EatingHabitEdit extends ConsumerWidget {
   Future<void> _pickDate(
     BuildContext context,
     bool isFrom,
-    EatingHabitFormNotifier notifier,
+    EatingHabitEditViewModel viewModel,
     DateTime? initial,
   ) async {
     final newDate = await showDatePicker(
@@ -166,20 +170,20 @@ class EatingHabitEdit extends ConsumerWidget {
     if (newDate == null) return;
 
     if (isFrom) {
-      notifier.updateFromDate(newDate);
+      viewModel.updateFromDate(newDate);
     } else {
-      notifier.updateToDate(newDate);
+      viewModel.updateToDate(newDate);
     }
   }
 
   Widget _isEatingRadioButtons(
     EatingHabitFormState state,
-    EatingHabitFormNotifier notifier,
+    EatingHabitEditViewModel viewModel,
   ) {
     return RadioGroup<EatingStatus>(
       groupValue: state.status,
       onChanged: (EatingStatus? value) {
-        if (value != null) notifier.updateStatus(value);
+        if (value != null) viewModel.updateStatus(value);
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -213,7 +217,7 @@ class EatingHabitEdit extends ConsumerWidget {
 
   Widget _imageButtons(
     EatingHabitFormState state,
-    EatingHabitFormNotifier notifier,
+    EatingHabitEditViewModel viewModel,
     BuildContext context,
   ) {
     return AnimatedSwitcher(
@@ -221,7 +225,7 @@ class EatingHabitEdit extends ConsumerWidget {
       child: state.imagePath == null || state.imagePath!.isEmpty
           ? ElevatedButton.icon(
               key: const ValueKey('add_image'),
-              onPressed: () => _pickImage(context, notifier, state.imagePath),
+              onPressed: () => _pickImage(context, viewModel, state.imagePath),
               icon: const Icon(Icons.add_a_photo),
               label: Text(t.load_image),
             )
@@ -233,7 +237,7 @@ class EatingHabitEdit extends ConsumerWidget {
                   children: [
                     ElevatedButton.icon(
                       onPressed: () =>
-                          _pickImage(context, notifier, state.imagePath),
+                          _pickImage(context, viewModel, state.imagePath),
                       icon: const Icon(Icons.edit),
                       label: Text(t.change_image),
                     ),
@@ -250,9 +254,13 @@ class EatingHabitEdit extends ConsumerWidget {
                         if (state.imagePath != null &&
                             state.imagePath!.isNotEmpty) {
                           ImageUtil.deleteImage(state.imagePath!);
-                          notifier.updateImage('');
+                          viewModel.updateImage('');
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(t.image_deleted), behavior: SnackBarBehavior.floating, showCloseIcon: true),
+                            SnackBar(
+                              content: Text(t.image_deleted),
+                              behavior: SnackBarBehavior.floating,
+                              showCloseIcon: true,
+                            ),
                           );
                         }
                       },
@@ -271,7 +279,7 @@ class EatingHabitEdit extends ConsumerWidget {
 
   Future<void> _pickImage(
     BuildContext context,
-    EatingHabitFormNotifier notifier,
+    EatingHabitEditViewModel viewModel,
     String? oldPath,
   ) async {
     final imgPath = await ImageUtil.pickAndStoreImage(
@@ -283,7 +291,7 @@ class EatingHabitEdit extends ConsumerWidget {
       if (oldPath != null) {
         ImageUtil.deleteImage(oldPath);
       }
-      notifier.updateImage(imgPath);
+      viewModel.updateImage(imgPath);
     }
   }
 }
