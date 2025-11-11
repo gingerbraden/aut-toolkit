@@ -154,6 +154,11 @@ class TranslationsSk implements Translations {
 	@override String get error_occured => 'Nastala chyba';
 	@override String get no_image_set => 'Nebol nastavený žiadny obrázok';
 	@override String get registration_succesful => 'Registrácia bola úspešná. Môžete sa prihlásiť.';
+	@override String get visual_supports => 'Vizuálne pomôcky';
+	@override String get visual_schedules => 'Vizuálne rozvrhy';
+	@override String get first_then_boards => 'Najprv-Potom tabuľky';
+	@override String get first_then_boards_desc => 'Tabuľa „Najprv–Potom“ pomáha pochopiť a dokončiť úlohy tým, že zobrazuje, čo treba urobiť najprv a aká obľúbená činnosť nasleduje.';
+	@override String get visual_schedule_desc => 'Vizuálny rozvrh zobrazuje poradie denných aktivít alebo krokov v úlohe a pomáha pochopiť rutiny, znížiť úzkosť a podporiť samostatnosť.';
 }
 
 /// Flat map(s) containing all translations.
@@ -279,6 +284,11 @@ extension on TranslationsSk {
 			case 'error_occured': return 'Nastala chyba';
 			case 'no_image_set': return 'Nebol nastavený žiadny obrázok';
 			case 'registration_succesful': return 'Registrácia bola úspešná. Môžete sa prihlásiť.';
+			case 'visual_supports': return 'Vizuálne pomôcky';
+			case 'visual_schedules': return 'Vizuálne rozvrhy';
+			case 'first_then_boards': return 'Najprv-Potom tabuľky';
+			case 'first_then_boards_desc': return 'Tabuľa „Najprv–Potom“ pomáha pochopiť a dokončiť úlohy tým, že zobrazuje, čo treba urobiť najprv a aká obľúbená činnosť nasleduje.';
+			case 'visual_schedule_desc': return 'Vizuálny rozvrh zobrazuje poradie denných aktivít alebo krokov v úlohe a pomáha pochopiť rutiny, znížiť úzkosť a podporiť samostatnosť.';
 			default: return null;
 		}
 	}

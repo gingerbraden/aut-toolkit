@@ -116,5 +116,10 @@
   "cant_undo_action": "Túto akciu nemožno vrátiť späť.",
   "error_occured": "Nastala chyba",
   "no_image_set": "Nebol nastavený žiadny obrázok",
-  "registration_succesful": "Registrácia bola úspešná. Môžete sa prihlásiť."
+  "registration_succesful": "Registrácia bola úspešná. Môžete sa prihlásiť.",
+  "visual_supports": "Vizuálne pomôcky",
+  "visual_schedules": "Vizuálne rozvrhy",
+  "first_then_boards": "Najprv-Potom tabuľky",
+  "first_then_boards_desc": "Tabuľa „Najprv–Potom“ pomáha pochopiť a dokončiť úlohy tým, že zobrazuje, čo treba urobiť najprv a aká obľúbená činnosť nasleduje.",
+  "visual_schedule_desc": "Vizuálny rozvrh zobrazuje poradie denných aktivít alebo krokov v úlohe a pomáha pochopiť rutiny, znížiť úzkosť a podporiť samostatnosť."
 }

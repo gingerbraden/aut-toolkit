@@ -35,9 +35,15 @@ class _HomePageState extends ConsumerState<HomePage> {
     final allPersons = ref.watch(selectedPersonsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(t.home), elevation: 0, forceMaterialTransparency: true,),
+      appBar: AppBar(
+        title: Text(t.home),
+        elevation: 0,
+        forceMaterialTransparency: true,
+      ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppConstants.BASE_APP_UI_PADDING,
+        ),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,8 +51,8 @@ class _HomePageState extends ConsumerState<HomePage> {
               _selectedPersonArea(allPersons),
               Padding(
                 padding: EdgeInsets.only(
-                  top: 8,
-                  bottom: 4,
+                  top: 12,
+                  bottom: 8,
                   left: 10,
                   right: 10,
                 ),
@@ -72,22 +78,36 @@ class _HomePageState extends ConsumerState<HomePage> {
               Padding(
                 padding: EdgeInsets.only(
                   top: 8,
-                  bottom: 4,
+                  bottom: 8,
                   left: 10,
                   right: 10,
                 ),
                 child: Divider(),
               ),
-              _buildCard(
-                t.cards,
-                t.cards_desc,
-                RouterUtils.getCardsPath(),
-              ),
-              const SizedBox(height: 8),
-              _buildCard(
-                t.visual_sequence_boards,
-                t.visual_sequence_boards_desc,
-                RouterUtils.getGoodHabitsPath(),
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 125,
+                      child: _buildCard(
+                        t.visual_supports,
+                        "",
+                        RouterUtils.getVisualSupportsPagePath(),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: SizedBox(
+                      height: 125,
+                      child: _buildCard(
+                        t.cards,
+                        "",
+                        RouterUtils.getCardsPath(),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -148,6 +168,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: Text(
@@ -165,10 +186,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    Text(
-                      subtitle,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+                    if (subtitle.isNotEmpty)
+                      Text(
+                        subtitle,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                   ],
                 ),
               ),

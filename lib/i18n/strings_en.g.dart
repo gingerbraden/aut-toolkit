@@ -382,6 +382,21 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Registration was succesful. You can now log in.'
 	String get registration_succesful => 'Registration was succesful. You can now log in.';
+
+	/// en: 'Visual supports'
+	String get visual_supports => 'Visual supports';
+
+	/// en: 'Visual schedules'
+	String get visual_schedules => 'Visual schedules';
+
+	/// en: 'First–Then boards'
+	String get first_then_boards => 'First–Then boards';
+
+	/// en: 'A First–Then Board helps understand and complete tasks by showing what needs to be done first and what preferred activity will follow.'
+	String get first_then_boards_desc => 'A First–Then Board helps understand and complete tasks by showing what needs to be done first and what preferred activity will follow.';
+
+	/// en: 'A Visual Schedule shows the order of daily activities or steps within a task, helping understand routines, reduce anxiety, and become more independent.'
+	String get visual_schedule_desc => 'A Visual Schedule shows the order of daily activities or steps within a task, helping understand routines, reduce anxiety, and become more independent.';
 }
 
 /// Flat map(s) containing all translations.
@@ -506,6 +521,11 @@ extension on Translations {
 			case 'error_occured': return 'An error occured';
 			case 'no_image_set': return 'No image was set.';
 			case 'registration_succesful': return 'Registration was succesful. You can now log in.';
+			case 'visual_supports': return 'Visual supports';
+			case 'visual_schedules': return 'Visual schedules';
+			case 'first_then_boards': return 'First–Then boards';
+			case 'first_then_boards_desc': return 'A First–Then Board helps understand and complete tasks by showing what needs to be done first and what preferred activity will follow.';
+			case 'visual_schedule_desc': return 'A Visual Schedule shows the order of daily activities or steps within a task, helping understand routines, reduce anxiety, and become more independent.';
 			default: return null;
 		}
 	}

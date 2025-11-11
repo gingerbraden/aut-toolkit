@@ -115,5 +115,10 @@
   "cant_undo_action": "This action cannot be undone.",
   "error_occured": "An error occured",
   "no_image_set": "No image was set.",
-  "registration_succesful": "Registration was succesful. You can now log in."
+  "registration_succesful": "Registration was succesful. You can now log in.",
+  "visual_supports": "Visual supports",
+  "visual_schedules": "Visual schedules",
+  "first_then_boards": "First–Then boards",
+  "first_then_boards_desc": "A First–Then Board helps understand and complete tasks by showing what needs to be done first and what preferred activity will follow.",
+  "visual_schedule_desc": "A Visual Schedule shows the order of daily activities or steps within a task, helping understand routines, reduce anxiety, and become more independent."
 }

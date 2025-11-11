@@ -17,6 +17,7 @@ class RouterUtils {
   static final String NEW_CARD = 'new-card';
   static final String CARD_ADD_ARASAAC = 'card-add-arasaac';
   static final String CARD_DETAIL = 'card-detail';
+  static final String VISUAL_SUPPORTS = 'visual-supports';
 
 
 
@@ -45,4 +46,6 @@ class RouterUtils {
   static String getCardDetailPath() => getCardsPath() + SLASH + CARD_DETAIL;
   static String getEditCardPath() => getCardDetailPath() + SLASH + NEW_CARD;
   static String getEditCardARASAACPath() => getEditCardPath() + SLASH + CARD_ADD_ARASAAC;
+
+  static String getVisualSupportsPagePath() => HOME + SLASH + VISUAL_SUPPORTS;
 }

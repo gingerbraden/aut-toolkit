@@ -87,7 +87,7 @@ class _FilterableListState<T> extends State<FilterableList<T>> {
             ),
             _selectedFiltersChips(),
             Padding(
-              padding: _selectedFilters.isEmpty ? EdgeInsets.symmetric(vertical: 8, horizontal: 8) : EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+              padding: _selectedFilters.isEmpty ? EdgeInsets.symmetric(vertical: 12, horizontal: 12) : EdgeInsets.symmetric(vertical: 4, horizontal: 12),
               child: Divider(),
             ),
             Expanded(
@@ -243,7 +243,7 @@ class _FilterableListState<T> extends State<FilterableList<T>> {
     if (_selectedFilters.isEmpty) return const SizedBox.shrink();
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+      padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Wrap(

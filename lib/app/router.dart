@@ -13,6 +13,7 @@ import 'package:aut_toolkit/features/challenging_behaviour/ui/view/challenging_b
 import 'package:aut_toolkit/features/challenging_behaviour/ui/view/challenging_behaviour_list.dart';
 import 'package:aut_toolkit/features/good_habits/domain/model/good_habit.dart';
 import 'package:aut_toolkit/features/home/view/home_navigation.dart';
+import 'package:aut_toolkit/features/visual_supports/ui/view/visual_supports_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 
@@ -201,6 +202,11 @@ final GoRouter router = GoRouter(
               ]
             ),
           ],
+        ),
+        // =============================================================================
+        GoRoute(
+            path: RouterUtils.VISUAL_SUPPORTS,
+            builder: (context, state) => VisualSupportsPage()
         ),
       ],
     ),
