@@ -41,7 +41,8 @@ class _LogOutTileState extends ConsumerState<LogOutTile> {
             onPressed: () => Navigator.of(context).pop(false),
             child: Text(t.no),
           ),
-          TextButton(
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.redAccent),
             onPressed: () => Navigator.of(context).pop(true),
             child: Text(t.yes),
           ),

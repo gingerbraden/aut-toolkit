@@ -35,7 +35,7 @@ class EatingHabitEdit extends ConsumerWidget {
                 notifier.saveChanges(ref);
                 ScaffoldMessenger.of(
                   context,
-                ).showSnackBar(SnackBar(content: Text(t.change_saved)));
+                ).showSnackBar(SnackBar(content: Text(t.change_saved), behavior: SnackBarBehavior.floating, showCloseIcon: true));
                 router.pop();
                 if (!isNew) router.pop();
               }
@@ -252,7 +252,7 @@ class EatingHabitEdit extends ConsumerWidget {
                           ImageUtil.deleteImage(state.imagePath!);
                           notifier.updateImage('');
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(t.image_deleted)),
+                            SnackBar(content: Text(t.image_deleted), behavior: SnackBarBehavior.floating, showCloseIcon: true),
                           );
                         }
                       },

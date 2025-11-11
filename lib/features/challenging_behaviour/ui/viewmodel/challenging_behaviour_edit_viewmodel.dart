@@ -80,7 +80,7 @@ class ChallengingBehaviourEditViewModel
 
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(SnackBar(content: Text(t.change_saved)));
+    ).showSnackBar(SnackBar(content: Text(t.change_saved), behavior: SnackBarBehavior.floating, showCloseIcon: true));
 
     final updatedCb = ChallengingBehaviour(
       id: cb.id!,

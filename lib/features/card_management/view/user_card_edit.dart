@@ -212,7 +212,7 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
         });
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.error_occured)));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.error_occured), behavior: SnackBarBehavior.floating, showCloseIcon: true));
     } finally {
       setState(() => _isLoadingImage = false);
     }
@@ -224,7 +224,7 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
       setState(() {
         _imagePath = null;
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.image_deleted)));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.image_deleted), behavior: SnackBarBehavior.floating, showCloseIcon: true));
     }
   }
 
@@ -242,11 +242,11 @@ class _UserCardCreateState extends ConsumerState<UserCardEdit> {
         );
 
         ref.read(cardsProvider.notifier).addCard(updatedCard);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.change_saved)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.change_saved), behavior: SnackBarBehavior.floating, showCloseIcon: true));
         router.pop();
         if (!widget.isNew) router.pop();
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.no_image_set)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.no_image_set), behavior: SnackBarBehavior.floating, showCloseIcon: true));
       }
     }
   }

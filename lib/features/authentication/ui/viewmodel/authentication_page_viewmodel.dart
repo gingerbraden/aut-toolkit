@@ -74,7 +74,7 @@ class AuthenticationViewModel extends Notifier<bool> {
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(SnackBar(content: Text(message)));
+    ).showSnackBar(SnackBar(content: Text(message), behavior: SnackBarBehavior.floating, showCloseIcon: true));
   }
 
   @override

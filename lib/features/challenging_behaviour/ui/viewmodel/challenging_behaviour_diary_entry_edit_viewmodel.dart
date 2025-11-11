@@ -104,7 +104,7 @@ class ChallengingBehaviourDiaryEntryEditViewModel
 
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(SnackBar(content: Text(t.entry_added)));
+    ).showSnackBar(SnackBar(content: Text(t.entry_added), behavior: SnackBarBehavior.floating, showCloseIcon: true));
 
     final newEntry = ChallengingBehaviourDiaryEntry(
       id: entry.id,

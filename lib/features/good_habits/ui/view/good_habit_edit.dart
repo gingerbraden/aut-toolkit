@@ -221,7 +221,7 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
 
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(SnackBar(content: Text(t.change_saved)));
+    ).showSnackBar(SnackBar(content: Text(t.change_saved), behavior: SnackBarBehavior.floating, showCloseIcon: true));
     router.pop();
     if (!widget.isNew) router.pop();
   }

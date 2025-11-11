@@ -46,7 +46,7 @@ class _ARASAACCardsSearchState extends State<ARASAACCardsSearch> {
   void _performSearch() {
     final query = StringUtils().removeDiacritics(_searchController.text.trim());
     if (query.isEmpty || query == _lastQuery || !_translations.keys.contains(query)) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.no_icons_found)));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.no_icons_found), behavior: SnackBarBehavior.floating, showCloseIcon: true));
       return;
     };
     setState(() {
@@ -128,7 +128,7 @@ class _ARASAACCardsSearchState extends State<ARASAACCardsSearch> {
         onTap: () async {
           final bool? confirmed = await _showConfirmDialog(pictogram);
           if (confirmed == true) {
-            Navigator.pop(context, url); // Return the pictogram URL (or pictogram.id if you prefer)
+            Navigator.pop(context, url);
           }
         },
         child: Ink(
