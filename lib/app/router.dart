@@ -1,9 +1,9 @@
 import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
-import 'package:aut_toolkit/features/card_management/view/arasaac_cards_search.dart';
-import 'package:aut_toolkit/features/card_management/view/user_card_detail.dart';
-import 'package:aut_toolkit/features/card_management/view/user_card_edit.dart';
-import 'package:aut_toolkit/features/card_management/view/user_cards_list.dart';
+import 'package:aut_toolkit/features/card_management/ui/view/arasaac_cards_search.dart';
+import 'package:aut_toolkit/features/card_management/ui/view/user_card_detail.dart';
+import 'package:aut_toolkit/features/card_management/ui/view/user_card_edit.dart';
+import 'package:aut_toolkit/features/card_management/ui/view/user_cards_list.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_transport.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/ui/view/challenging_behaviour_detail.dart';

@@ -1,28 +1,23 @@
 import 'package:aut_toolkit/app/router.dart';
+import 'package:aut_toolkit/core/constants/app_constants.dart';
+import 'package:aut_toolkit/core/utils/router_utils.dart';
+import 'package:aut_toolkit/core/widgets/divider/sized_box_divider.dart';
 import 'package:aut_toolkit/core/widgets/square_image_filled_width.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
-import 'package:aut_toolkit/features/card_management/provider/card_notifier.dart';
+import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/constants/app_constants.dart';
-import '../../../core/utils/router_utils.dart';
-import '../../../core/widgets/divider/sized_box_divider.dart';
-import '../../../i18n/strings.g.dart';
+import '../viewmodel/user_card_detail_viewmodel.dart';
 
-class UserCardDetail extends ConsumerStatefulWidget {
+class UserCardDetail extends ConsumerWidget {
   const UserCardDetail({super.key, required this.card});
 
   final UserCard card;
 
   @override
-  ConsumerState<UserCardDetail> createState() => _UserCardDetailState();
-}
-
-class _UserCardDetailState extends ConsumerState<UserCardDetail> {
-  @override
-  Widget build(BuildContext context) {
-    final card = widget.card;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.read(userCardDetailViewModelProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +26,7 @@ class _UserCardDetailState extends ConsumerState<UserCardDetail> {
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),
-            onPressed: () => _confirmDelete(context),
+            onPressed: () => viewModel.confirmDelete(context, card),
           ),
         ],
       ),
@@ -63,30 +58,5 @@ class _UserCardDetailState extends ConsumerState<UserCardDetail> {
         ),
       ),
     );
-  }
-
-  Future<void> _confirmDelete(BuildContext context) async {
-    final confirm = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(t.really_delete_object),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(t.cancel),
-          ),
-          FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: Colors.redAccent),
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(t.yes),
-          ),
-        ],
-      ),
-    );
-
-    if (confirm == true) {
-      ref.read(cardsProvider.notifier).deleteCard(widget.card);
-      router.pop();
-    }
   }
 }
