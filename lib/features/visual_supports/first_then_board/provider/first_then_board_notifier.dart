@@ -54,12 +54,12 @@ class FirstThenBoardNotifier extends StateNotifier<List<FirstThenBoard>> {
     state = _repo.getAllBoardsForUserId(_userId);
   }
 
-  void addHabit(FirstThenBoard board) {
+  void addBoard(FirstThenBoard board) {
     _repo.saveBoard(board);
     loadBoards();
   }
 
-  void deleteHabit(FirstThenBoard board) {
+  void deleteBoard(FirstThenBoard board) {
     _repo.deleteBoard(board);
     loadBoards();
   }

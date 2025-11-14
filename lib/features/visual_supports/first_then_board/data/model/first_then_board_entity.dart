@@ -9,11 +9,13 @@ class FirstThenBoardEntity {
   String userId;
   ToOne<UserCardEntity> first;
   ToOne<UserCardEntity> then;
+  String name;
 
   FirstThenBoardEntity({
     this.id = 0,
     required this.userId,
     required this.first,
     required this.then,
+    required this.name,
   });
 }

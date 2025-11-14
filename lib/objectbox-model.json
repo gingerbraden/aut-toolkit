@@ -272,7 +272,7 @@
     },
     {
       "id": "10:1199814977235704664",
-      "lastPropertyId": "4:3226230904224083014",
+      "lastPropertyId": "5:6697845778278102898",
       "name": "FirstThenBoardEntity",
       "properties": [
         {
@@ -301,6 +301,11 @@
           "type": 11,
           "flags": 520,
           "relationTarget": "UserCardEntity"
+        },
+        {
+          "id": "5:6697845778278102898",
+          "name": "name",
+          "type": 9
         }
       ],
       "relations": []

@@ -159,6 +159,8 @@ class TranslationsSk implements Translations {
 	@override String get first_then_boards => 'Najprv-Potom tabuľky';
 	@override String get first_then_boards_desc => 'Tabuľa „Najprv–Potom“ pomáha pochopiť a dokončiť úlohy tým, že zobrazuje, čo treba urobiť najprv a aká obľúbená činnosť nasleduje.';
 	@override String get visual_schedule_desc => 'Vizuálny rozvrh zobrazuje poradie denných aktivít alebo krokov v úlohe a pomáha pochopiť rutiny, znížiť úzkosť a podporiť samostatnosť.';
+	@override String get first => 'Najprv';
+	@override String get then => 'Potom';
 }
 
 /// Flat map(s) containing all translations.
@@ -289,6 +291,8 @@ extension on TranslationsSk {
 			case 'first_then_boards': return 'Najprv-Potom tabuľky';
 			case 'first_then_boards_desc': return 'Tabuľa „Najprv–Potom“ pomáha pochopiť a dokončiť úlohy tým, že zobrazuje, čo treba urobiť najprv a aká obľúbená činnosť nasleduje.';
 			case 'visual_schedule_desc': return 'Vizuálny rozvrh zobrazuje poradie denných aktivít alebo krokov v úlohe a pomáha pochopiť rutiny, znížiť úzkosť a podporiť samostatnosť.';
+			case 'first': return 'Najprv';
+			case 'then': return 'Potom';
 			default: return null;
 		}
 	}

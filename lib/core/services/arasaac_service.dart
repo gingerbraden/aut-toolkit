@@ -47,6 +47,6 @@ class ARASAACService {
     if (skin != null) parts.add('skin-$skin');
 
     final filename = parts.isEmpty ? '$id' : '${id}_${parts.join('_')}';
-    return PICTOGRAM_IMAGE_PATH + '$id/${filename}_$size.png';
+    return '$PICTOGRAM_IMAGE_PATH$id/${filename}_$size.png';
   }
 }

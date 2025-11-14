@@ -14,6 +14,8 @@ class AppConstants {
   static const String IS_ACTIVE = 'IS_ACTIVE';
   static const String IS_NOT_ACTIVE = 'IS_NOT_ACTIVE';
 
+  static const String EMPTY_STRING = "";
+
   static String getLabel(String key) {
     switch(key) {
       case NAME_ASC: return '${t.name} (${t.ascending})';

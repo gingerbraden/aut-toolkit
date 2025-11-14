@@ -3,6 +3,7 @@ import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart
 import 'package:aut_toolkit/features/card_management/ui/view/arasaac_cards_search.dart';
 import 'package:aut_toolkit/features/card_management/ui/view/user_card_detail.dart';
 import 'package:aut_toolkit/features/card_management/ui/view/user_card_edit.dart';
+import 'package:aut_toolkit/features/card_management/ui/view/user_card_picker.dart';
 import 'package:aut_toolkit/features/card_management/ui/view/user_cards_list.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_transport.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
@@ -13,6 +14,9 @@ import 'package:aut_toolkit/features/challenging_behaviour/ui/view/challenging_b
 import 'package:aut_toolkit/features/challenging_behaviour/ui/view/challenging_behaviour_list.dart';
 import 'package:aut_toolkit/features/good_habits/domain/model/good_habit.dart';
 import 'package:aut_toolkit/features/home/view/home_navigation.dart';
+import 'package:aut_toolkit/features/visual_supports/first_then_board/domain/model/first_then_board.dart';
+import 'package:aut_toolkit/features/visual_supports/first_then_board/ui/view/first_then_board_edit.dart';
+import 'package:aut_toolkit/features/visual_supports/first_then_board/ui/view/first_then_board_list.dart';
 import 'package:aut_toolkit/features/visual_supports/ui/view/visual_supports_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
@@ -78,7 +82,7 @@ final GoRouter router = GoRouter(
             ),
           ],
         ),
-// =============================================================================
+        // =============================================================================
         GoRoute(
           path: RouterUtils.CHALLENGING_BEHAVIOURS,
           builder: (context, state) => ChallengingBehaviourList(),
@@ -100,25 +104,40 @@ final GoRouter router = GoRouter(
                 GoRoute(
                   path: RouterUtils.CHALLENGING_BEHAVIOUR_DIARY_ENTRY_EDIT,
                   builder: (context, state) {
-                    final cbdeTransport = state.extra as ChallengingBehaviourDiaryEntryTransport;
-                    return ChallengingBehaviourDiaryEntryEdit(cbId: cbdeTransport.cbId, isNew: cbdeTransport.isNew, entry: cbdeTransport.entry,);
+                    final cbdeTransport =
+                        state.extra as ChallengingBehaviourDiaryEntryTransport;
+                    return ChallengingBehaviourDiaryEntryEdit(
+                      cbId: cbdeTransport.cbId,
+                      isNew: cbdeTransport.isNew,
+                      entry: cbdeTransport.entry,
+                    );
                   },
                 ),
                 GoRoute(
                   path: RouterUtils.CHALLENGING_BEHAVIOUR_DIARY_ENTRY_DETAIL,
                   builder: (context, state) {
-                    final cbdeTransport = state.extra as ChallengingBehaviourDiaryEntryTransport;
-                    return ChallengingBehaviourDiaryEntryDetail(entry: cbdeTransport.entry, cbId: cbdeTransport.cbId);
+                    final cbdeTransport =
+                        state.extra as ChallengingBehaviourDiaryEntryTransport;
+                    return ChallengingBehaviourDiaryEntryDetail(
+                      entry: cbdeTransport.entry,
+                      cbId: cbdeTransport.cbId,
+                    );
                   },
                   routes: [
                     GoRoute(
                       path: RouterUtils.CHALLENGING_BEHAVIOUR_DIARY_ENTRY_EDIT,
                       builder: (context, state) {
-                        final cbdeTransport = state.extra as ChallengingBehaviourDiaryEntryTransport;
-                        return ChallengingBehaviourDiaryEntryEdit(cbId: cbdeTransport.cbId, isNew: cbdeTransport.isNew, entry: cbdeTransport.entry,);
+                        final cbdeTransport =
+                            state.extra
+                                as ChallengingBehaviourDiaryEntryTransport;
+                        return ChallengingBehaviourDiaryEntryEdit(
+                          cbId: cbdeTransport.cbId,
+                          isNew: cbdeTransport.isNew,
+                          entry: cbdeTransport.entry,
+                        );
                       },
                     ),
-                  ]
+                  ],
                 ),
               ],
             ),
@@ -131,7 +150,7 @@ final GoRouter router = GoRouter(
             ),
           ],
         ),
-// =============================================================================
+        // =============================================================================
         GoRoute(
           path: RouterUtils.GOOD_HABITS,
           builder: (context, state) => GoodHabitsList(),
@@ -161,52 +180,73 @@ final GoRouter router = GoRouter(
             ),
           ],
         ),
-// =============================================================================
+        // =============================================================================
         GoRoute(
           path: RouterUtils.CARDS,
           builder: (context, state) => UserCardsList(),
           routes: [
             GoRoute(
-                path: RouterUtils.CARD_DETAIL,
-                builder: (context, state) {
-                  final card = state.extra as UserCard;
-                  return UserCardDetail(card: card);
-                },
-                routes: [
-                  GoRoute(
-                      path: RouterUtils.NEW_CARD,
-                      builder: (context, state) {
-                        final card = state.extra as UserCard;
-                        return UserCardEdit(isNew: false, card: card);
-                      },
-                      routes: [
-                        GoRoute(
-                            path: RouterUtils.CARD_ADD_ARASAAC,
-                            builder: (context, state) => ARASAACCardsSearch()
-                        ),
-                      ]
-                  ),
-                ]
+              path: RouterUtils.CARD_DETAIL,
+              builder: (context, state) {
+                final card = state.extra as UserCard;
+                return UserCardDetail(card: card);
+              },
+              routes: [
+                GoRoute(
+                  path: RouterUtils.NEW_CARD,
+                  builder: (context, state) {
+                    final card = state.extra as UserCard;
+                    return UserCardEdit(isNew: false, card: card);
+                  },
+                  routes: [
+                    GoRoute(
+                      path: RouterUtils.CARD_ADD_ARASAAC,
+                      builder: (context, state) => ARASAACCardsSearch(),
+                    ),
+                  ],
+                ),
+              ],
             ),
             GoRoute(
               path: RouterUtils.NEW_CARD,
-                builder: (context, state) {
-                  final card = state.extra as UserCard;
-                  return UserCardEdit(isNew: true, card: card);
-                },
+              builder: (context, state) {
+                final card = state.extra as UserCard;
+                return UserCardEdit(isNew: true, card: card);
+              },
               routes: [
                 GoRoute(
                   path: RouterUtils.CARD_ADD_ARASAAC,
-                  builder: (context, state) => ARASAACCardsSearch()
+                  builder: (context, state) => ARASAACCardsSearch(),
                 ),
-              ]
+              ],
             ),
           ],
         ),
         // =============================================================================
         GoRoute(
-            path: RouterUtils.VISUAL_SUPPORTS,
-            builder: (context, state) => VisualSupportsPage()
+          path: RouterUtils.VISUAL_SUPPORTS,
+          builder: (context, state) => VisualSupportsPage(),
+          routes: [
+            GoRoute(
+              path: RouterUtils.FIRST_THEN_BOARDS,
+              builder: (context, state) => FirstThenBoardList(),
+              routes: [
+                GoRoute(
+                  path: RouterUtils.NEW_FIRST_THEN_BOARD,
+                  builder: (context, state) {
+                    final board = state.extra as FirstThenBoard;
+                    return FirstThenBoardEdit(board: board, isNew: true);
+                  },
+                  routes: [
+                    GoRoute(
+                      path: RouterUtils.USER_CARD_PICKER,
+                      builder: (context, state) => UserCardPicker(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     ),

@@ -348,7 +348,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(10, 1199814977235704664),
     name: 'FirstThenBoardEntity',
-    lastPropertyId: const obx_int.IdUid(4, 3226230904224083014),
+    lastPropertyId: const obx_int.IdUid(5, 6697845778278102898),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -378,6 +378,12 @@ final _entities = <obx_int.ModelEntity>[
         flags: 520,
         indexId: const obx_int.IdUid(3, 3602341172251329567),
         relationTarget: 'UserCardEntity',
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 6697845778278102898),
+        name: 'name',
+        type: 9,
+        flags: 0,
       ),
     ],
     relations: <obx_int.ModelRelation>[],
@@ -921,11 +927,13 @@ obx_int.ModelDefinition getObjectBoxModel() {
       },
       objectToFB: (FirstThenBoardEntity object, fb.Builder fbb) {
         final userIdOffset = fbb.writeString(object.userId);
-        fbb.startTable(5);
+        final nameOffset = fbb.writeString(object.name);
+        fbb.startTable(6);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, userIdOffset);
         fbb.addInt64(2, object.first.targetId);
         fbb.addInt64(3, object.then.targetId);
+        fbb.addOffset(4, nameOffset);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -947,11 +955,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final thenParam = obx.ToOne<UserCardEntity>(
           targetId: const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0),
         );
+        final nameParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 12, '');
         final object = FirstThenBoardEntity(
           id: idParam,
           userId: userIdParam,
           first: firstParam,
           then: thenParam,
+          name: nameParam,
         );
         object.first.attach(store);
         object.then.attach(store);
@@ -1233,4 +1245,9 @@ class FirstThenBoardEntity_ {
       obx.QueryRelationToOne<FirstThenBoardEntity, UserCardEntity>(
         _entities[6].properties[3],
       );
+
+  /// See [FirstThenBoardEntity.name].
+  static final name = obx.QueryStringProperty<FirstThenBoardEntity>(
+    _entities[6].properties[4],
+  );
 }

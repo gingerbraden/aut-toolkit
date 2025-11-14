@@ -1,5 +1,4 @@
 import 'package:aut_toolkit/core/widgets/divider/sized_box_divider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../app/router.dart';
@@ -40,7 +39,7 @@ class _VisualSupportsPageState extends State<VisualSupportsPage> {
               _buildCard(
                 t.first_then_boards,
                 t.first_then_boards_desc,
-                RouterUtils.getCardsPath(),
+                RouterUtils.getFirstThenBoardsPath(),
               ),
             ],
           ),

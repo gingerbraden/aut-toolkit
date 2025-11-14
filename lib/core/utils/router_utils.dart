@@ -18,9 +18,9 @@ class RouterUtils {
   static final String CARD_ADD_ARASAAC = 'card-add-arasaac';
   static final String CARD_DETAIL = 'card-detail';
   static final String VISUAL_SUPPORTS = 'visual-supports';
-
-
-
+  static final String FIRST_THEN_BOARDS = 'first-then-boards';
+  static final String NEW_FIRST_THEN_BOARD = 'new-first-then-board';
+  static final String USER_CARD_PICKER = 'user-card-picker';
 
   static String getEatingHabitsPath() => HOME + SLASH + EATING_HABITS;
   static String getEatingHabitDetailPath() => getEatingHabitsPath() + SLASH + EATING_HABIT_DETAIL;
@@ -48,4 +48,7 @@ class RouterUtils {
   static String getEditCardARASAACPath() => getEditCardPath() + SLASH + CARD_ADD_ARASAAC;
 
   static String getVisualSupportsPagePath() => HOME + SLASH + VISUAL_SUPPORTS;
+  static String getFirstThenBoardsPath() => getVisualSupportsPagePath() + SLASH + FIRST_THEN_BOARDS;
+  static String getNewFirstThenBoardPath() => getFirstThenBoardsPath() + SLASH + NEW_FIRST_THEN_BOARD;
+  static String getNewFirstThenBoardUserCardPickerPath() => getNewFirstThenBoardPath() + SLASH + USER_CARD_PICKER;
 }

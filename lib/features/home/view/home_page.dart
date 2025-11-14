@@ -242,7 +242,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       );
-                    }).toList(),
+                    }),
                     DropdownMenuItem<SelectedPerson>(
                       value: null,
                       child: Row(

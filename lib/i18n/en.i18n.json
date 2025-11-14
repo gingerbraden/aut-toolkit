@@ -120,5 +120,7 @@
   "visual_schedules": "Visual schedules",
   "first_then_boards": "First–Then boards",
   "first_then_boards_desc": "A First–Then Board helps understand and complete tasks by showing what needs to be done first and what preferred activity will follow.",
-  "visual_schedule_desc": "A Visual Schedule shows the order of daily activities or steps within a task, helping understand routines, reduce anxiety, and become more independent."
+  "visual_schedule_desc": "A Visual Schedule shows the order of daily activities or steps within a task, helping understand routines, reduce anxiety, and become more independent.",
+  "first": "First",
+  "then": "Then"
 }

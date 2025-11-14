@@ -397,6 +397,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'A Visual Schedule shows the order of daily activities or steps within a task, helping understand routines, reduce anxiety, and become more independent.'
 	String get visual_schedule_desc => 'A Visual Schedule shows the order of daily activities or steps within a task, helping understand routines, reduce anxiety, and become more independent.';
+
+	/// en: 'First'
+	String get first => 'First';
+
+	/// en: 'Then'
+	String get then => 'Then';
 }
 
 /// Flat map(s) containing all translations.
@@ -526,6 +532,8 @@ extension on Translations {
 			case 'first_then_boards': return 'First–Then boards';
 			case 'first_then_boards_desc': return 'A First–Then Board helps understand and complete tasks by showing what needs to be done first and what preferred activity will follow.';
 			case 'visual_schedule_desc': return 'A Visual Schedule shows the order of daily activities or steps within a task, helping understand routines, reduce anxiety, and become more independent.';
+			case 'first': return 'First';
+			case 'then': return 'Then';
 			default: return null;
 		}
 	}

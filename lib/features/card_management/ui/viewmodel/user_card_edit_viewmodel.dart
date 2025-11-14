@@ -107,7 +107,7 @@ class UserCardEditViewModel extends Notifier<UserCardEditState> {
       if (state.imagePath != null && state.imagePath!.isNotEmpty) {
         final updatedCard = UserCard(
           id: card.id,
-          arasaacId: state.arasaacId != null ? state.arasaacId! : null,
+          arasaacId: state.arasaacId,
           userId: card.userId,
           names: {LocaleSettings.currentLocale.languageCode: state.name},
           localImgPath: state.imagePath ?? '',
