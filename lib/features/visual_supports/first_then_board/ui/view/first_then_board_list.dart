@@ -104,40 +104,48 @@ class _FirstThenBoardListViewState extends ConsumerState<FirstThenBoardList> {
   }
 
   Widget _gridTile(FirstThenBoard board) {
-    return Card(
-      elevation: 0,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _image(board.first.localImgPath),
-              const SizedBox(width: 8),
-              const Icon(Icons.arrow_forward, size: 18),
-              const SizedBox(width: 8),
-              _image(board.then.localImgPath),
-            ],
-          ),
+    return InkWell(
+      onTap: () {
+        router.push(RouterUtils.getFirstThenBoardShowPath(), extra: board);
+      },
+      onLongPress: () {
+        router.push(RouterUtils.getNewFirstThenBoardPath(), extra: board);
+      },
+      child: Card(
+        elevation: 0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _image(board.first.localImgPath),
+                const SizedBox(width: 8),
+                const Icon(Icons.arrow_forward, size: 18),
+                const SizedBox(width: 8),
+                _image(board.then.localImgPath),
+              ],
+            ),
 
-          const SizedBox(height: 8),
+            const SizedBox(height: 8),
 
-          Flexible(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppConstants.BASE_APP_UI_PADDING,
-              ),
-              child: Text(
-                board.name,
-                style: const TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppConstants.BASE_APP_UI_PADDING,
+                ),
+                child: Text(
+                  board.name,
+                  style: const TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

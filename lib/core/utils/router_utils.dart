@@ -21,6 +21,7 @@ class RouterUtils {
   static final String FIRST_THEN_BOARDS = 'first-then-boards';
   static final String NEW_FIRST_THEN_BOARD = 'new-first-then-board';
   static final String USER_CARD_PICKER = 'user-card-picker';
+  static final String FIRST_THEN_BOARD_SHOW = 'first-then-board-show';
 
   static String getEatingHabitsPath() => HOME + SLASH + EATING_HABITS;
   static String getEatingHabitDetailPath() => getEatingHabitsPath() + SLASH + EATING_HABIT_DETAIL;
@@ -51,4 +52,5 @@ class RouterUtils {
   static String getFirstThenBoardsPath() => getVisualSupportsPagePath() + SLASH + FIRST_THEN_BOARDS;
   static String getNewFirstThenBoardPath() => getFirstThenBoardsPath() + SLASH + NEW_FIRST_THEN_BOARD;
   static String getNewFirstThenBoardUserCardPickerPath() => getNewFirstThenBoardPath() + SLASH + USER_CARD_PICKER;
+  static String getFirstThenBoardShowPath() => getFirstThenBoardsPath() + SLASH + FIRST_THEN_BOARD_SHOW;
 }

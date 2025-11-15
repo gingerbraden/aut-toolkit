@@ -92,6 +92,32 @@ class _FirstThenBoardEditState extends ConsumerState<FirstThenBoardEdit> {
                   ),
                   _imageTile(t.first, formState.first),
                   _imageTile(t.then, formState.then),
+                  if (!widget.isNew)
+                    Column(
+                      children: [
+                        Divider(),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                viewModel.deleteBoard();
+                                router.pop();
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.delete, color: Colors.redAccent,),
+                                  SizedBox(width: 8),
+                                  Text(t.delete, style: TextStyle(color: Colors.redAccent),),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                 ],
               ),
             ),

@@ -72,4 +72,8 @@ class FirstThenBoardEditViewModel
         .read(firstThenBoardProvider(_board.userId).notifier)
         .addBoard(updatedBoard);
   }
+
+  void deleteBoard() {
+    ref.read(firstThenBoardProvider(_board.userId).notifier).deleteBoard(_board);
+  }
 }

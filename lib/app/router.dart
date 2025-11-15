@@ -17,6 +17,7 @@ import 'package:aut_toolkit/features/home/view/home_navigation.dart';
 import 'package:aut_toolkit/features/visual_supports/first_then_board/domain/model/first_then_board.dart';
 import 'package:aut_toolkit/features/visual_supports/first_then_board/ui/view/first_then_board_edit.dart';
 import 'package:aut_toolkit/features/visual_supports/first_then_board/ui/view/first_then_board_list.dart';
+import 'package:aut_toolkit/features/visual_supports/first_then_board/ui/view/first_then_board_show.dart';
 import 'package:aut_toolkit/features/visual_supports/ui/view/visual_supports_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
@@ -235,7 +236,7 @@ final GoRouter router = GoRouter(
                   path: RouterUtils.NEW_FIRST_THEN_BOARD,
                   builder: (context, state) {
                     final board = state.extra as FirstThenBoard;
-                    return FirstThenBoardEdit(board: board, isNew: true);
+                    return FirstThenBoardEdit(board: board, isNew: board.name.isEmpty);
                   },
                   routes: [
                     GoRoute(
@@ -243,6 +244,13 @@ final GoRouter router = GoRouter(
                       builder: (context, state) => UserCardPicker(),
                     ),
                   ],
+                ),
+                GoRoute(
+                  path: RouterUtils.FIRST_THEN_BOARD_SHOW,
+                  builder: (context, state) {
+                    final board = state.extra as FirstThenBoard;
+                    return FirstThenBoardShow(board: board);
+                  },
                 ),
               ],
             ),
