@@ -57,22 +57,18 @@ class _FirstThenBoardShowState extends ConsumerState<FirstThenBoardShow> {
           children: [
             Text(text, style: const TextStyle(fontSize: 50, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
-            Expanded(child: _image(card.localImgPath, 0.225)),
+            Expanded(child: _image(card.localImgPath, 0.25)),
           ],
         );
       }
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text(board.name), forceMaterialTransparency: true,),
-      body: Padding(
-        padding: EdgeInsets.only(
-          left: AppConstants.BASE_APP_UI_PADDING,
-          right: AppConstants.BASE_APP_UI_PADDING,
-          bottom: AppConstants.BASE_APP_UI_PADDING,
-        ),
-        child: isPortrait
-            ? SingleChildScrollView(
+      appBar: isPortrait ? AppBar(title: Text(board.name), forceMaterialTransparency: true,) : null,
+      body: isPortrait
+          ? SingleChildScrollView(
+            child: Padding(
+              padding:  EdgeInsets.only(left: AppConstants.BASE_APP_UI_PADDING, right: AppConstants.BASE_APP_UI_PADDING, bottom: AppConstants.BASE_APP_UI_PADDING),
               child: Card(
                 child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -90,10 +86,13 @@ class _FirstThenBoardShowState extends ConsumerState<FirstThenBoardShow> {
                     ),
                   ),
               ),
-            )
-            : Card(
+            ),
+          )
+          : Padding(
+            padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING*2),
+            child: Card(
               child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
                   child: Row(
                     children: [
                       Expanded(child: buildCard(board.first, t.first)),
@@ -103,7 +102,7 @@ class _FirstThenBoardShowState extends ConsumerState<FirstThenBoardShow> {
                   ),
                 ),
             ),
-      ),
+          ),
     );
   }
 
@@ -118,7 +117,7 @@ class _FirstThenBoardShowState extends ConsumerState<FirstThenBoardShow> {
         child: Image.file(
           File(path),
           fit: BoxFit.cover,
-          errorBuilder: (_, _, __) => Container(
+          errorBuilder: (_, _, _) => Container(
             color: Colors.grey.shade300,
             child: const Icon(Icons.broken_image),
           ),

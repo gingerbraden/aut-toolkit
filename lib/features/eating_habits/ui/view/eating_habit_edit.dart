@@ -221,7 +221,7 @@ class EatingHabitEdit extends ConsumerWidget {
     BuildContext context,
   ) {
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 200),
       child: state.imagePath == null || state.imagePath!.isEmpty
           ? ElevatedButton.icon(
               key: const ValueKey('add_image'),
@@ -243,9 +243,6 @@ class EatingHabitEdit extends ConsumerWidget {
                     ),
                   ],
                 ),
-                SizedBoxDivider(),
-                SquareImageFilledWidth(imageFilePath: state.imagePath!),
-                SizedBoxDivider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -272,6 +269,9 @@ class EatingHabitEdit extends ConsumerWidget {
                     ),
                   ],
                 ),
+                SizedBoxDivider(),
+                SquareImageFilledWidth(imageFilePath: state.imagePath!),
+
               ],
             ),
     );
