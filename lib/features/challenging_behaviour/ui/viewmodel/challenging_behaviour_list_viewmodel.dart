@@ -7,12 +7,9 @@ import '../../provider/challenging_behaviour_notifier.dart';
 final filteredChallengingBehavioursProvider =
     Provider<List<ChallengingBehaviour>>((ref) {
       final behaviours = ref.watch(challengingBehavioursProvider);
-      final selectedPersonId = ref
-          .watch(selectedPersonsProvider.notifier)
-          .getSelected()
-          .id!;
+      final selectedPerson = ref.watch(selectedPersonProvider);
       return behaviours
-          .where((cb) => cb.selectedPersonId == selectedPersonId)
+          .where((cb) => cb.selectedPersonId == selectedPerson.id)
           .toList();
     });
 

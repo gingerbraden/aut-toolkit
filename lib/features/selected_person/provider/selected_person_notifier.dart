@@ -45,6 +45,11 @@ final selectedPersonsProvider =
       return SelectedPersonsNotifier(repo);
     });
 
+final selectedPersonProvider = Provider<SelectedPerson>((ref) {
+  final persons = ref.watch(selectedPersonsProvider);
+  return persons.firstWhere((p) => p.isSelected);
+});
+
 class SelectedPersonsNotifier extends StateNotifier<List<SelectedPerson>> {
   final SelectedPersonRepository _repo;
 

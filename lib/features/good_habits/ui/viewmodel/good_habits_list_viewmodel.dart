@@ -6,11 +6,8 @@ import '../../provider/good_habits_notifier.dart';
 
 final filteredHabitsProvider = Provider<List<GoodHabit>>((ref) {
   final habits = ref.watch(goodHabitsProvider);
-  final selectedPersonId = ref
-      .watch(selectedPersonsProvider.notifier)
-      .getSelected()
-      .id!;
-  return habits.where((h) => h.selectedPersonId == selectedPersonId).toList();
+  final selectedPerson = ref.watch(selectedPersonProvider);
+  return habits.where((h) => h.selectedPersonId == selectedPerson.id).toList();
 });
 
 class GoodHabitsListViewModel extends Notifier<List<GoodHabit>> {
