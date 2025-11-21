@@ -5,6 +5,7 @@ import 'package:aut_toolkit/features/eating_habits/data/model/eating_habit_entit
 import 'package:aut_toolkit/features/good_habits/data/model/good_habit_entity.dart';
 import 'package:aut_toolkit/features/selected_person/data/model/selected_person_entity.dart';
 import 'package:aut_toolkit/features/visual_supports/first_then_board/data/model/first_then_board_entity.dart';
+import 'package:aut_toolkit/features/visual_supports/visual_lists/data/model/visual_list_entity.dart';
 import 'package:aut_toolkit/objectbox.g.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -18,6 +19,7 @@ class ObjectBox {
   late final Box<SelectedPersonEntity> selectedPersonBox;
   late final Box<UserCardEntity> cardBox;
   late final Box<FirstThenBoardEntity> firstThenBoardBox;
+  late final Box<VisualListEntity> visualListBox;
 
   ObjectBox._create(this.store) {
     eatingHabitEntityBox = Box<EatingHabitEntity>(store);
@@ -27,7 +29,7 @@ class ObjectBox {
     selectedPersonBox = Box<SelectedPersonEntity>(store);
     cardBox = Box<UserCardEntity>(store);
     firstThenBoardBox = Box<FirstThenBoardEntity>(store);
-
+    visualListBox = Box<VisualListEntity>(store);
   }
 
   static Future<ObjectBox> create() async {

@@ -21,6 +21,7 @@ import 'features/eating_habits/data/model/eating_habit_entity.dart';
 import 'features/good_habits/data/model/good_habit_entity.dart';
 import 'features/selected_person/data/model/selected_person_entity.dart';
 import 'features/visual_supports/first_then_board/data/model/first_then_board_entity.dart';
+import 'features/visual_supports/visual_lists/data/model/visual_list_entity.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -389,6 +390,52 @@ final _entities = <obx_int.ModelEntity>[
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[],
   ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(11, 7067190488023369742),
+    name: 'VisualListEntity',
+    lastPropertyId: const obx_int.IdUid(5, 5735948704890917363),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 1089364678232753148),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 7996671573816971021),
+        name: 'userId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 4605483790459533064),
+        name: 'name',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 8145002004210313983),
+        name: 'isVisualSchedule',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 5735948704890917363),
+        name: 'isVisualDiagram',
+        type: 1,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[
+      obx_int.ModelRelation(
+        id: const obx_int.IdUid(1, 3447432801872670905),
+        name: 'steps',
+        targetId: const obx_int.IdUid(9, 6961689238950263914),
+      ),
+    ],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
 ];
 
 /// Shortcut for [obx.Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -429,9 +476,9 @@ Future<obx.Store> openStore({
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(10, 1199814977235704664),
+    lastEntityId: const obx_int.IdUid(11, 7067190488023369742),
     lastIndexId: const obx_int.IdUid(3, 3602341172251329567),
-    lastRelationId: const obx_int.IdUid(0, 0),
+    lastRelationId: const obx_int.IdUid(1, 3447432801872670905),
     lastSequenceId: const obx_int.IdUid(0, 0),
     retiredEntityUids: const [
       1777307641083598478,
@@ -970,6 +1017,72 @@ obx_int.ModelDefinition getObjectBoxModel() {
         return object;
       },
     ),
+    VisualListEntity: obx_int.EntityDefinition<VisualListEntity>(
+      model: _entities[7],
+      toOneRelations: (VisualListEntity object) => [],
+      toManyRelations: (VisualListEntity object) => {
+        obx_int.RelInfo<VisualListEntity>.toMany(1, object.id): object.steps,
+      },
+      getId: (VisualListEntity object) => object.id,
+      setId: (VisualListEntity object, int id) {
+        object.id = id;
+      },
+      objectToFB: (VisualListEntity object, fb.Builder fbb) {
+        final userIdOffset = fbb.writeString(object.userId);
+        final nameOffset = fbb.writeString(object.name);
+        fbb.startTable(6);
+        fbb.addInt64(0, object.id);
+        fbb.addOffset(1, userIdOffset);
+        fbb.addOffset(2, nameOffset);
+        fbb.addBool(3, object.isVisualSchedule);
+        fbb.addBool(4, object.isVisualDiagram);
+        fbb.finish(fbb.endTable());
+        return object.id;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
+        final userIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 6, '');
+        final stepsParam = obx.ToMany<UserCardEntity>();
+        final nameParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 8, '');
+        final isVisualScheduleParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          10,
+          false,
+        );
+        final isVisualDiagramParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          12,
+          false,
+        );
+        final object = VisualListEntity(
+          id: idParam,
+          userId: userIdParam,
+          steps: stepsParam,
+          name: nameParam,
+          isVisualSchedule: isVisualScheduleParam,
+          isVisualDiagram: isVisualDiagramParam,
+        );
+        obx_int.InternalToManyAccess.setRelInfo<VisualListEntity>(
+          object.steps,
+          store,
+          obx_int.RelInfo<VisualListEntity>.toMany(1, object.id),
+        );
+        return object;
+      },
+    ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -1250,4 +1363,38 @@ class FirstThenBoardEntity_ {
   static final name = obx.QueryStringProperty<FirstThenBoardEntity>(
     _entities[6].properties[4],
   );
+}
+
+/// [VisualListEntity] entity fields to define ObjectBox queries.
+class VisualListEntity_ {
+  /// See [VisualListEntity.id].
+  static final id = obx.QueryIntegerProperty<VisualListEntity>(
+    _entities[7].properties[0],
+  );
+
+  /// See [VisualListEntity.userId].
+  static final userId = obx.QueryStringProperty<VisualListEntity>(
+    _entities[7].properties[1],
+  );
+
+  /// See [VisualListEntity.name].
+  static final name = obx.QueryStringProperty<VisualListEntity>(
+    _entities[7].properties[2],
+  );
+
+  /// See [VisualListEntity.isVisualSchedule].
+  static final isVisualSchedule = obx.QueryBooleanProperty<VisualListEntity>(
+    _entities[7].properties[3],
+  );
+
+  /// See [VisualListEntity.isVisualDiagram].
+  static final isVisualDiagram = obx.QueryBooleanProperty<VisualListEntity>(
+    _entities[7].properties[4],
+  );
+
+  /// see [VisualListEntity.steps]
+  static final steps =
+      obx.QueryRelationToMany<VisualListEntity, UserCardEntity>(
+        _entities[7].relations[0],
+      );
 }

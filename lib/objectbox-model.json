@@ -309,11 +309,51 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "11:7067190488023369742",
+      "lastPropertyId": "5:5735948704890917363",
+      "name": "VisualListEntity",
+      "properties": [
+        {
+          "id": "1:1089364678232753148",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7996671573816971021",
+          "name": "userId",
+          "type": 9
+        },
+        {
+          "id": "3:4605483790459533064",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "4:8145002004210313983",
+          "name": "isVisualSchedule",
+          "type": 1
+        },
+        {
+          "id": "5:5735948704890917363",
+          "name": "isVisualDiagram",
+          "type": 1
+        }
+      ],
+      "relations": [
+        {
+          "id": "1:3447432801872670905",
+          "name": "steps",
+          "targetId": "9:6961689238950263914"
+        }
+      ]
     }
   ],
-  "lastEntityId": "10:1199814977235704664",
+  "lastEntityId": "11:7067190488023369742",
   "lastIndexId": "3:3602341172251329567",
-  "lastRelationId": "0:0",
+  "lastRelationId": "1:3447432801872670905",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
