@@ -156,11 +156,20 @@ class TranslationsSk implements Translations {
 	@override String get registration_succesful => 'Registrácia bola úspešná. Môžete sa prihlásiť.';
 	@override String get visual_supports => 'Vizuálne pomôcky';
 	@override String get visual_schedules => 'Vizuálne rozvrhy';
+	@override String get visual_diagrams => 'Vizuálne diagramy';
 	@override String get first_then_boards => 'Najprv-Potom tabuľky';
+	@override String get visual_diagram_desc => 'Vizuálny diagram predstavuje koncepty, procesy alebo vzťahy vo vizuálnom formáte, čo pomáha organizovať informácie a pochopiť súvislosti.';
 	@override String get first_then_boards_desc => 'Tabuľa „Najprv–Potom“ pomáha pochopiť a dokončiť úlohy tým, že zobrazuje, čo treba urobiť najprv a aká obľúbená činnosť nasleduje.';
 	@override String get visual_schedule_desc => 'Vizuálny rozvrh zobrazuje poradie denných aktivít alebo krokov v úlohe a pomáha pochopiť rutiny, znížiť úzkosť a podporiť samostatnosť.';
 	@override String get first => 'Najprv';
 	@override String get then => 'Potom';
+	@override String steps({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sk'))(n,
+		one: 'Krok',
+		few: 'Kroky',
+		many: 'Krokov',
+		other: 'Krokov',
+	);
+	@override String get add_step => 'Pridať krok';
 }
 
 /// Flat map(s) containing all translations.
@@ -288,11 +297,20 @@ extension on TranslationsSk {
 			case 'registration_succesful': return 'Registrácia bola úspešná. Môžete sa prihlásiť.';
 			case 'visual_supports': return 'Vizuálne pomôcky';
 			case 'visual_schedules': return 'Vizuálne rozvrhy';
+			case 'visual_diagrams': return 'Vizuálne diagramy';
 			case 'first_then_boards': return 'Najprv-Potom tabuľky';
+			case 'visual_diagram_desc': return 'Vizuálny diagram predstavuje koncepty, procesy alebo vzťahy vo vizuálnom formáte, čo pomáha organizovať informácie a pochopiť súvislosti.';
 			case 'first_then_boards_desc': return 'Tabuľa „Najprv–Potom“ pomáha pochopiť a dokončiť úlohy tým, že zobrazuje, čo treba urobiť najprv a aká obľúbená činnosť nasleduje.';
 			case 'visual_schedule_desc': return 'Vizuálny rozvrh zobrazuje poradie denných aktivít alebo krokov v úlohe a pomáha pochopiť rutiny, znížiť úzkosť a podporiť samostatnosť.';
 			case 'first': return 'Najprv';
 			case 'then': return 'Potom';
+			case 'steps': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sk'))(n,
+				one: 'Krok',
+				few: 'Kroky',
+				many: 'Krokov',
+				other: 'Krokov',
+			);
+			case 'add_step': return 'Pridať krok';
 			default: return null;
 		}
 	}

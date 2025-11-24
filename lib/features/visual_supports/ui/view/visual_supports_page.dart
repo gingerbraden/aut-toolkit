@@ -33,7 +33,13 @@ class _VisualSupportsPageState extends State<VisualSupportsPage> {
               _buildCard(
                 t.visual_schedules,
                 t.visual_schedule_desc,
-                RouterUtils.getCardsPath(),
+                RouterUtils.getVisualListsPath(),
+              ),
+              const SizedBoxDivider(),
+              _buildCard(
+                t.visual_diagrams,
+                t.visual_diagram_desc,
+                RouterUtils.getVisualListsPath(),
               ),
               const SizedBoxDivider(),
               _buildCard(
@@ -52,7 +58,13 @@ class _VisualSupportsPageState extends State<VisualSupportsPage> {
     return InkWell(
       borderRadius: BorderRadius.circular(16),
       onTap: () {
-        router.push(route);
+        if (title == t.visual_diagrams) {
+          router.push(route, extra: AppConstants.VISUAL_DIAGRAM);
+        } else if (title == t.visual_schedules) {
+          router.push(route, extra: AppConstants.VISUAL_SCHEDULE);
+        } else {
+          router.push(route);
+        }
       },
       child: Card(
         elevation: 0,

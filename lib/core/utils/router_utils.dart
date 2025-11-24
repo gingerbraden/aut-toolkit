@@ -22,6 +22,10 @@ class RouterUtils {
   static final String NEW_FIRST_THEN_BOARD = 'new-first-then-board';
   static final String USER_CARD_PICKER = 'user-card-picker';
   static final String FIRST_THEN_BOARD_SHOW = 'first-then-board-show';
+  static final String VISUAL_LISTS = 'visual_lists';
+  static final String NEW_VISUAL_LIST = 'new-visual-list';
+  static final String NEW_VISUAL_LIST_CARD_PICKER = 'new-visual-list-card-picker';
+  static final String VISUAL_LIST_DIAGRAM_SHOW = 'visual-list-diagram-show';
 
   static String getEatingHabitsPath() => HOME + SLASH + EATING_HABITS;
   static String getEatingHabitDetailPath() => getEatingHabitsPath() + SLASH + EATING_HABIT_DETAIL;
@@ -53,4 +57,9 @@ class RouterUtils {
   static String getNewFirstThenBoardPath() => getFirstThenBoardsPath() + SLASH + NEW_FIRST_THEN_BOARD;
   static String getNewFirstThenBoardUserCardPickerPath() => getNewFirstThenBoardPath() + SLASH + USER_CARD_PICKER;
   static String getFirstThenBoardShowPath() => getFirstThenBoardsPath() + SLASH + FIRST_THEN_BOARD_SHOW;
-}
+  static String getVisualListsPath() => getVisualSupportsPagePath() + SLASH + VISUAL_LISTS;
+  static String getNewVisualListPath() => getVisualListsPath() + SLASH + NEW_VISUAL_LIST;
+  static String getNewVisualListCardPickerPath() => getNewVisualListPath() + SLASH + NEW_VISUAL_LIST_CARD_PICKER;
+  static String getVisualListDiagramShowPath() => getVisualListsPath() + SLASH + VISUAL_LIST_DIAGRAM_SHOW;
+
+  }

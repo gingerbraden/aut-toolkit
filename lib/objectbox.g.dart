@@ -393,7 +393,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(11, 7067190488023369742),
     name: 'VisualListEntity',
-    lastPropertyId: const obx_int.IdUid(5, 5735948704890917363),
+    lastPropertyId: const obx_int.IdUid(6, 1529333965761639297),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -424,6 +424,12 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(5, 5735948704890917363),
         name: 'isVisualDiagram',
         type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 1529333965761639297),
+        name: 'stepsOrderJson',
+        type: 9,
         flags: 0,
       ),
     ],
@@ -1030,12 +1036,16 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (VisualListEntity object, fb.Builder fbb) {
         final userIdOffset = fbb.writeString(object.userId);
         final nameOffset = fbb.writeString(object.name);
-        fbb.startTable(6);
+        final stepsOrderJsonOffset = object.stepsOrderJson == null
+            ? null
+            : fbb.writeString(object.stepsOrderJson!);
+        fbb.startTable(7);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, userIdOffset);
         fbb.addOffset(2, nameOffset);
         fbb.addBool(3, object.isVisualSchedule);
         fbb.addBool(4, object.isVisualDiagram);
+        fbb.addOffset(5, stepsOrderJsonOffset);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -1051,7 +1061,6 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final userIdParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 6, '');
-        final stepsParam = obx.ToMany<UserCardEntity>();
         final nameParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 8, '');
@@ -1067,13 +1076,16 @@ obx_int.ModelDefinition getObjectBoxModel() {
           12,
           false,
         );
+        final stepsOrderJsonParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 14);
         final object = VisualListEntity(
           id: idParam,
           userId: userIdParam,
-          steps: stepsParam,
           name: nameParam,
           isVisualSchedule: isVisualScheduleParam,
           isVisualDiagram: isVisualDiagramParam,
+          stepsOrderJson: stepsOrderJsonParam,
         );
         obx_int.InternalToManyAccess.setRelInfo<VisualListEntity>(
           object.steps,
@@ -1390,6 +1402,11 @@ class VisualListEntity_ {
   /// See [VisualListEntity.isVisualDiagram].
   static final isVisualDiagram = obx.QueryBooleanProperty<VisualListEntity>(
     _entities[7].properties[4],
+  );
+
+  /// See [VisualListEntity.stepsOrderJson].
+  static final stepsOrderJson = obx.QueryStringProperty<VisualListEntity>(
+    _entities[7].properties[5],
   );
 
   /// see [VisualListEntity.steps]

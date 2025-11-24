@@ -119,10 +119,19 @@
   "registration_succesful": "Registrácia bola úspešná. Môžete sa prihlásiť.",
   "visual_supports": "Vizuálne pomôcky",
   "visual_schedules": "Vizuálne rozvrhy",
+  "visual_diagrams": "Vizuálne diagramy",
   "first_then_boards": "Najprv-Potom tabuľky",
+  "visual_diagram_desc": "Vizuálny diagram predstavuje koncepty, procesy alebo vzťahy vo vizuálnom formáte, čo pomáha organizovať informácie a pochopiť súvislosti.",
   "first_then_boards_desc": "Tabuľa „Najprv–Potom“ pomáha pochopiť a dokončiť úlohy tým, že zobrazuje, čo treba urobiť najprv a aká obľúbená činnosť nasleduje.",
   "visual_schedule_desc": "Vizuálny rozvrh zobrazuje poradie denných aktivít alebo krokov v úlohe a pomáha pochopiť rutiny, znížiť úzkosť a podporiť samostatnosť.",
   "first": "Najprv",
-  "then": "Potom"
+  "then": "Potom",
+  "steps": {
+    "one": "Krok",
+    "few": "Kroky",
+    "many": "Krokov",
+    "other": "Krokov"
+  },
+  "add_step": "Pridať krok"
 
 }

@@ -389,8 +389,14 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Visual schedules'
 	String get visual_schedules => 'Visual schedules';
 
+	/// en: 'Vizuálne diagramy'
+	String get visual_diagrams => 'Vizuálne diagramy';
+
 	/// en: 'First–Then boards'
 	String get first_then_boards => 'First–Then boards';
+
+	/// en: 'A Visual Diagram represents concepts, processes, or relationships in a visual format, helping to organize information and understand connections.'
+	String get visual_diagram_desc => 'A Visual Diagram represents concepts, processes, or relationships in a visual format, helping to organize information and understand connections.';
 
 	/// en: 'A First–Then Board helps understand and complete tasks by showing what needs to be done first and what preferred activity will follow.'
 	String get first_then_boards_desc => 'A First–Then Board helps understand and complete tasks by showing what needs to be done first and what preferred activity will follow.';
@@ -403,6 +409,17 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Then'
 	String get then => 'Then';
+
+	/// en: '(one) {Step} (few) {Steps} (many) {Steps} (other) {Steps}'
+	String steps({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: 'Step',
+		few: 'Steps',
+		many: 'Steps',
+		other: 'Steps',
+	);
+
+	/// en: 'Add step'
+	String get add_step => 'Add step';
 }
 
 /// Flat map(s) containing all translations.
@@ -529,11 +546,20 @@ extension on Translations {
 			case 'registration_succesful': return 'Registration was succesful. You can now log in.';
 			case 'visual_supports': return 'Visual supports';
 			case 'visual_schedules': return 'Visual schedules';
+			case 'visual_diagrams': return 'Vizuálne diagramy';
 			case 'first_then_boards': return 'First–Then boards';
+			case 'visual_diagram_desc': return 'A Visual Diagram represents concepts, processes, or relationships in a visual format, helping to organize information and understand connections.';
 			case 'first_then_boards_desc': return 'A First–Then Board helps understand and complete tasks by showing what needs to be done first and what preferred activity will follow.';
 			case 'visual_schedule_desc': return 'A Visual Schedule shows the order of daily activities or steps within a task, helping understand routines, reduce anxiety, and become more independent.';
 			case 'first': return 'First';
 			case 'then': return 'Then';
+			case 'steps': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				one: 'Step',
+				few: 'Steps',
+				many: 'Steps',
+				other: 'Steps',
+			);
+			case 'add_step': return 'Add step';
 			default: return null;
 		}
 	}

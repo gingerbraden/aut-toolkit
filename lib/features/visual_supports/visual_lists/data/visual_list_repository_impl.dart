@@ -25,12 +25,12 @@ class VisualListRepositoryImpl implements VisualListRepository {
   }
 
   @override
-  void delete(VisualList list) {
+  void save(VisualList list) {
     _localSource.put(list.toEntity());
   }
 
   @override
-  void save(VisualList list) {
+  void delete(VisualList list) {
     _localSource.remove(list.id!);
   }
 }

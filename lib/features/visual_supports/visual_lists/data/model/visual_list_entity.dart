@@ -7,17 +7,18 @@ class VisualListEntity {
   @Id()
   int id = 0;
   String userId;
-  ToMany<UserCardEntity> steps;
+  final steps = ToMany<UserCardEntity>();
   String name;
   bool isVisualSchedule;
   bool isVisualDiagram;
+  String? stepsOrderJson;
 
   VisualListEntity({
     this.id = 0,
     required this.userId,
-    required this.steps,
     required this.name,
     required this.isVisualSchedule,
-    required this.isVisualDiagram
+    required this.isVisualDiagram,
+    this.stepsOrderJson
   });
 }

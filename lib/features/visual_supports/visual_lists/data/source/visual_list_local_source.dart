@@ -30,7 +30,15 @@ class VisualListLocalSource {
     return l;
   }
 
-  int put(VisualListEntity entity) => visualListBox.put(entity);
+  int put(VisualListEntity entity) {
+    final oldEntity = visualListBox.get(entity.id);
+    if (oldEntity != null) {
+      oldEntity.steps.clear();
+      visualListBox.put(oldEntity);
+    }
+
+    return visualListBox.put(entity);
+  }
 
   void remove(int id) => visualListBox.remove(id);
 }

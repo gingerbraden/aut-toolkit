@@ -312,7 +312,7 @@
     },
     {
       "id": "11:7067190488023369742",
-      "lastPropertyId": "5:5735948704890917363",
+      "lastPropertyId": "6:1529333965761639297",
       "name": "VisualListEntity",
       "properties": [
         {
@@ -340,6 +340,11 @@
           "id": "5:5735948704890917363",
           "name": "isVisualDiagram",
           "type": 1
+        },
+        {
+          "id": "6:1529333965761639297",
+          "name": "stepsOrderJson",
+          "type": 9
         }
       ],
       "relations": [

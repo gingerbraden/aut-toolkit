@@ -63,8 +63,8 @@ class UserCardPicker extends ConsumerWidget {
         ),
       ),
       onTap: (item) {
-        onSelected(item); // send selection back via callback
-        router.pop(context); // just pop the page
+        onSelected(item);
+        router.pop(context);
       },
     );
   }

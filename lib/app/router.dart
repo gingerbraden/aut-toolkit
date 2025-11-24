@@ -1,3 +1,4 @@
+import 'package:aut_toolkit/core/constants/app_constants.dart';
 import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
 import 'package:aut_toolkit/features/card_management/ui/view/arasaac_cards_search.dart';
@@ -19,6 +20,10 @@ import 'package:aut_toolkit/features/visual_supports/first_then_board/ui/view/fi
 import 'package:aut_toolkit/features/visual_supports/first_then_board/ui/view/first_then_board_list.dart';
 import 'package:aut_toolkit/features/visual_supports/first_then_board/ui/view/first_then_board_show.dart';
 import 'package:aut_toolkit/features/visual_supports/ui/view/visual_supports_page.dart';
+import 'package:aut_toolkit/features/visual_supports/visual_lists/domain/model/visual_list.dart';
+import 'package:aut_toolkit/features/visual_supports/visual_lists/ui/view/visual_list_diagram_show.dart';
+import 'package:aut_toolkit/features/visual_supports/visual_lists/ui/view/visual_list_edit.dart';
+import 'package:aut_toolkit/features/visual_supports/visual_lists/ui/view/visual_list_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 
@@ -250,6 +255,35 @@ final GoRouter router = GoRouter(
                   builder: (context, state) {
                     final board = state.extra as FirstThenBoard;
                     return FirstThenBoardShow(board: board);
+                  },
+                ),
+              ],
+            ),
+            GoRoute(
+              path: RouterUtils.VISUAL_LISTS,
+              builder: (context, state) {
+                final isDiagram = state.extra != null ? state.extra as String : "";
+                return VisualListList(isDiagram: isDiagram == AppConstants.VISUAL_DIAGRAM);
+              },
+              routes: [
+                GoRoute(
+                  path: RouterUtils.NEW_VISUAL_LIST,
+                  builder: (context, state) {
+                    final list = state.extra as VisualList;
+                    return VisualListEdit(list: list, isNew: list.name.isEmpty);
+                  },
+                  routes: [
+                    GoRoute(
+                      path: RouterUtils.NEW_VISUAL_LIST_CARD_PICKER,
+                      builder: (context, state) => UserCardPicker(),
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  path: RouterUtils.VISUAL_LIST_DIAGRAM_SHOW,
+                  builder: (context, state) {
+                    final list = state.extra as VisualList;
+                    return VisualListDiagramShow(visualList: list);
                   },
                 ),
               ],

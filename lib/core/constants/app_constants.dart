@@ -30,4 +30,7 @@ class AppConstants {
     }
   }
 
+  static const String VISUAL_DIAGRAM = "VISUAL_DIAGRAM";
+  static const String VISUAL_SCHEDULE = "VISUAL_SCHEDULE";
+
 }
