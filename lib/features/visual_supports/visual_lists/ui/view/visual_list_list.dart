@@ -107,6 +107,11 @@ class _VisualListScreenState extends ConsumerState<VisualListList> {
               RouterUtils.getVisualListDiagramShowPath(),
               extra: list,
             );
+          } else {
+            router.push(
+              RouterUtils.getVisualListScheduleShowPath(),
+              extra: list,
+            );
           }
         },
         onLongPress: () {

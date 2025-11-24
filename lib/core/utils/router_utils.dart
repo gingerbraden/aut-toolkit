@@ -26,6 +26,7 @@ class RouterUtils {
   static final String NEW_VISUAL_LIST = 'new-visual-list';
   static final String NEW_VISUAL_LIST_CARD_PICKER = 'new-visual-list-card-picker';
   static final String VISUAL_LIST_DIAGRAM_SHOW = 'visual-list-diagram-show';
+  static final String VISUAL_LIST_SCHEDULE_SHOW = 'visual-list-schedule-show';
 
   static String getEatingHabitsPath() => HOME + SLASH + EATING_HABITS;
   static String getEatingHabitDetailPath() => getEatingHabitsPath() + SLASH + EATING_HABIT_DETAIL;
@@ -61,5 +62,6 @@ class RouterUtils {
   static String getNewVisualListPath() => getVisualListsPath() + SLASH + NEW_VISUAL_LIST;
   static String getNewVisualListCardPickerPath() => getNewVisualListPath() + SLASH + NEW_VISUAL_LIST_CARD_PICKER;
   static String getVisualListDiagramShowPath() => getVisualListsPath() + SLASH + VISUAL_LIST_DIAGRAM_SHOW;
+  static String getVisualListScheduleShowPath() => getVisualListsPath() + SLASH + VISUAL_LIST_SCHEDULE_SHOW;
 
   }

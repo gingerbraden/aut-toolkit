@@ -420,6 +420,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Add step'
 	String get add_step => 'Add step';
+
+	/// en: 'Done!'
+	String get done => 'Done!';
 }
 
 /// Flat map(s) containing all translations.
@@ -560,6 +563,7 @@ extension on Translations {
 				other: 'Steps',
 			);
 			case 'add_step': return 'Add step';
+			case 'done': return 'Done!';
 			default: return null;
 		}
 	}

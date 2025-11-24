@@ -24,6 +24,7 @@ import 'package:aut_toolkit/features/visual_supports/visual_lists/domain/model/v
 import 'package:aut_toolkit/features/visual_supports/visual_lists/ui/view/visual_list_diagram_show.dart';
 import 'package:aut_toolkit/features/visual_supports/visual_lists/ui/view/visual_list_edit.dart';
 import 'package:aut_toolkit/features/visual_supports/visual_lists/ui/view/visual_list_list.dart';
+import 'package:aut_toolkit/features/visual_supports/visual_lists/ui/view/visual_list_schedule_show.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 
@@ -284,6 +285,13 @@ final GoRouter router = GoRouter(
                   builder: (context, state) {
                     final list = state.extra as VisualList;
                     return VisualListDiagramShow(visualList: list);
+                  },
+                ),
+                GoRoute(
+                  path: RouterUtils.VISUAL_LIST_SCHEDULE_SHOW,
+                  builder: (context, state) {
+                    final list = state.extra as VisualList;
+                    return VisualListScheduleShow(visualList: list);
                   },
                 ),
               ],

@@ -54,14 +54,16 @@ class _VisualListDiagramShowState extends ConsumerState<VisualListDiagramShow> {
     Widget buildStep(UserCard card) {
       return Card(
         child: Padding(
-          padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+          padding: EdgeInsets.symmetric(
+            horizontal: AppConstants.BASE_APP_UI_PADDING,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 card.names[LocaleSettings.currentLocale.languageCode] ?? '',
                 style: const TextStyle(
-                  fontSize: 50,
+                  fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
@@ -76,7 +78,7 @@ class _VisualListDiagramShowState extends ConsumerState<VisualListDiagramShow> {
     }
 
     List<Widget> buildStepsWithArrows() {
-      List<Widget> children = [];
+      List<Widget> children = [SizedBox(width: 25)];
       for (int i = 0; i < steps.length; i++) {
         children.add(buildStep(steps[i]));
 
@@ -89,13 +91,16 @@ class _VisualListDiagramShowState extends ConsumerState<VisualListDiagramShow> {
           );
         }
       }
+      children.add(SizedBox(width: 25));
       return children;
     }
 
     return Scaffold(
       appBar: AppBar(title: Text(widget.visualList.name)),
       body: Padding(
-        padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+        padding: EdgeInsets.symmetric(
+          vertical: AppConstants.BASE_APP_UI_PADDING * 2,
+        ),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(

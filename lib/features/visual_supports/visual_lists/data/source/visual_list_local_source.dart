@@ -31,10 +31,12 @@ class VisualListLocalSource {
   }
 
   int put(VisualListEntity entity) {
-    final oldEntity = visualListBox.get(entity.id);
-    if (oldEntity != null) {
-      oldEntity.steps.clear();
-      visualListBox.put(oldEntity);
+    if (entity.id != 0) {
+      final oldEntity = visualListBox.get(entity.id);
+      if (oldEntity != null) {
+        oldEntity.steps.clear();
+        visualListBox.put(oldEntity);
+      }
     }
 
     return visualListBox.put(entity);

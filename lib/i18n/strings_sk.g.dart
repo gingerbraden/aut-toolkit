@@ -170,6 +170,7 @@ class TranslationsSk implements Translations {
 		other: 'Krokov',
 	);
 	@override String get add_step => 'Pridať krok';
+	@override String get done => 'Hotovo!';
 }
 
 /// Flat map(s) containing all translations.
@@ -311,6 +312,7 @@ extension on TranslationsSk {
 				other: 'Krokov',
 			);
 			case 'add_step': return 'Pridať krok';
+			case 'done': return 'Hotovo!';
 			default: return null;
 		}
 	}

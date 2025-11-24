@@ -130,5 +130,7 @@
     "few": "Steps",
     "many": "Steps",
     "other": "Steps"
-  },  "add_step": "Add step"
+  },
+  "add_step": "Add step",
+  "done": "Done!"
 }
