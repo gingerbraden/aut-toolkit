@@ -33,7 +33,7 @@ class _GridListState<T> extends State<SquareItemsList<T>> {
     final filteredItems = _applySearch();
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(title: Text(widget.title), forceMaterialTransparency: true,),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
         child: Column(

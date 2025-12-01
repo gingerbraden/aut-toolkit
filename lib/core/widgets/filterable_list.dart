@@ -73,7 +73,7 @@ class _FilterableListState<T> extends State<FilterableList<T>> {
     final filteredItems = _applyFiltersAndSort();
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(title: Text(widget.title), forceMaterialTransparency: true,),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
         child: Column(
@@ -92,7 +92,7 @@ class _FilterableListState<T> extends State<FilterableList<T>> {
             ),
             Expanded(
               child: filteredItems.isEmpty
-                  ? const Center(child: Text("No entries"))
+                  ? Center(child: Text(t.no_entries))
                   : ListView.builder(
                 itemCount: filteredItems.length,
                 itemBuilder: (_, i) {

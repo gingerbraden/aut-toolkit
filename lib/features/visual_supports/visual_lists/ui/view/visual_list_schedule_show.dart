@@ -59,7 +59,7 @@ class _VisualListScheduleShowState
           duration: const Duration(milliseconds: 300),
         );
 
-        Future.delayed(const Duration(milliseconds: 300), () {
+        Future.delayed(const Duration(milliseconds: 400), () {
           if (bottomScrollController.hasClients) {
             bottomScrollController.animateTo(
               bottomScrollController.position.maxScrollExtent,
@@ -99,7 +99,7 @@ class _VisualListScheduleShowState
     bool isMiddle, {
     Key? key,
     int? orderNumber,
-    double sizeScale = 0.7,
+    double sizeScale = 0.9,
   }) {
     final vm = ref.read(visualListScheduleProvider(widget.visualList).notifier);
     final displayOrder = orderNumber ?? vm.getOrderNumber(card);
@@ -205,7 +205,7 @@ class _VisualListScheduleShowState
                             middleCard!,
                             true,
                             key: ValueKey('middle-${middleCard.id}'),
-                            sizeScale: 1,
+                            sizeScale: 1.8,
                           )
                         : Center(
                             key: const ValueKey('done-text'),
