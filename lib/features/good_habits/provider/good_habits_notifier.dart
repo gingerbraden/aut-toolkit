@@ -4,10 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 import '../../../core/services/objectbox.dart';
+import '../../../core/services/sync_manager.dart';
 import '../../../main.dart';
 import '../data/good_habit_repository_impl.dart';
 import '../data/model/good_habit_entity.dart';
 import '../data/source/good_habit_local_source.dart';
+import '../data/source/good_habit_remote_source.dart';
 import '../domain/repository/good_habit_repository.dart';
 
 final objectBoxProvider = Provider<ObjectBox>((ref) {
@@ -19,6 +21,17 @@ final goodHabitBoxProvider = Provider<Box<GoodHabitEntity>>((ref) {
   return obx.goodHabitBox;
 });
 
+final goodHabitRemoteSourceProvider = Provider<GoodHabitRemoteSource>((ref) {
+  return GoodHabitRemoteSource();
+});
+
+final syncManagerProvider = Provider<SyncManager>((ref) {
+  final sm = SyncManager();
+  sm.start();
+  ref.onDispose(() => sm.dispose());
+  return sm;
+});
+
 final goodHabitLocalSourceProvider = Provider<GoodHabitLocalSource>((ref) {
   final box = ref.watch(goodHabitBoxProvider);
   return GoodHabitLocalSource(box);
@@ -26,7 +39,9 @@ final goodHabitLocalSourceProvider = Provider<GoodHabitLocalSource>((ref) {
 
 final goodHabitRepositoryProvider = Provider<GoodHabitRepository>((ref) {
   final localSource = ref.watch(goodHabitLocalSourceProvider);
-  return GoodHabitRepositoryImpl(localSource);
+  final remote = ref.watch(goodHabitRemoteSourceProvider);
+  final sync = ref.watch(syncManagerProvider);
+  return GoodHabitRepositoryImpl(localSource, remote, sync);
 });
 
 final goodHabitsProvider =

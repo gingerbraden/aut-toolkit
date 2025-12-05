@@ -1,3 +1,4 @@
+import 'package:aut_toolkit/core/model/sync_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../selected_person/provider/selected_person_notifier.dart';
@@ -23,6 +24,8 @@ class GoodHabitEditViewmodel extends Notifier<GoodHabitFormState> {
       occuring: h.isOcuringFlag ? Occuring.ocurring : Occuring.notOccuring,
       fromDate: h.from,
       toDate: h.to,
+      remoteId: h.remoteId,
+      pendingAction: h.pendingAction
     );
   }
 
@@ -61,6 +64,9 @@ class GoodHabitEditViewmodel extends Notifier<GoodHabitFormState> {
       isOcuringFlag: state.occuring == Occuring.ocurring,
       from: state.fromDate,
       to: state.toDate,
+      updatedAt: DateTime.now(),
+      remoteId: _habit.remoteId,
+      pendingAction: _habit.pendingAction
     );
 
     ref.read(goodHabitsProvider.notifier).addHabit(updatedHabit);
@@ -75,6 +81,8 @@ class GoodHabitFormState {
   final Occuring occuring;
   final DateTime fromDate;
   final DateTime? toDate;
+  final String? remoteId;
+  final PendingAction? pendingAction;
 
   GoodHabitFormState({
     required this.name,
@@ -82,6 +90,8 @@ class GoodHabitFormState {
     required this.occuring,
     required this.fromDate,
     this.toDate,
+    this.remoteId,
+    this.pendingAction
   });
 
   GoodHabitFormState copyWith({
@@ -90,6 +100,8 @@ class GoodHabitFormState {
     Occuring? occuring,
     DateTime? fromDate,
     DateTime? toDate,
+    String? remoteId,
+    PendingAction? pendingAction
   }) {
     return GoodHabitFormState(
       name: name ?? this.name,
@@ -97,6 +109,8 @@ class GoodHabitFormState {
       occuring: occuring ?? this.occuring,
       fromDate: fromDate ?? this.fromDate,
       toDate: toDate ?? this.toDate,
+      remoteId: remoteId ?? this.remoteId,
+      pendingAction: pendingAction ?? this.pendingAction
     );
   }
 }

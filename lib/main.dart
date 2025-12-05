@@ -10,6 +10,7 @@ import 'app/router.dart';
 import 'core/provider/locale_change_notifier.dart';
 import 'core/provider/theme_mode_notifier.dart';
 import 'core/services/objectbox.dart';
+import 'core/services/repo_service.dart';
 import 'i18n/strings.g.dart';
 
 late final ObjectBox objectbox;
@@ -48,6 +49,8 @@ Future main() async {
       projectId: dotenv.env['FIREBASE_PROJECT_ID'] ?? '',
     ),
   );
+
+  await RepoService().init();
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

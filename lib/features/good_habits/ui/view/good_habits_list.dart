@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -77,26 +78,38 @@ class GoodHabitsList extends ConsumerWidget {
         ),
       ],
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           final selectedPersonId = ref
               .watch(selectedPersonsProvider.notifier)
               .getSelected()
               .id!;
+
+          final docRef = FirebaseFirestore.instance
+              .collection('good_habits')
+              .doc();
+
+          final newHabit = GoodHabit(
+            remoteId: docRef.id,
+            from: DateTime.now(),
+            to: null,
+            isOcuringFlag: true,
+            name: '',
+            description: '',
+            userId: FirebaseService().currentUser!.uid,
+            selectedPersonId: selectedPersonId,
+            updatedAt: DateTime.now(),
+          );
+
           router.push(
             RouterUtils.getNewGoodHabitPath(),
-            extra: GoodHabit(
-              from: DateTime.now(),
-              to: null,
-              isOcuringFlag: true,
-              name: '',
-              description: '',
-              userId: FirebaseService().currentUser!.uid,
-              selectedPersonId: selectedPersonId,
-            ),
+            extra: newHabit,
           );
+
+          ref.read(filteredHabitsProvider).add(newHabit);
         },
         child: const Icon(Icons.add),
       ),
+
     );
   }
 }

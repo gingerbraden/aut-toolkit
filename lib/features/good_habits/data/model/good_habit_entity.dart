@@ -13,6 +13,12 @@ class GoodHabitEntity {
   int selectedPersonId;
   DateTime? to;
 
+  String? remoteId;
+  DateTime updatedAt;
+  bool isSynced;
+  int pendingAction;
+  bool isDeleted;
+
   GoodHabitEntity({
     this.id = 0,
     required this.from,
@@ -21,7 +27,12 @@ class GoodHabitEntity {
     required this.description,
     required this.isOccuringFlag,
     required this.selectedPersonId,
-    required this.to
+    required this.to,
+    this.remoteId,
+    required this.updatedAt,
+    this.isSynced = true,
+    this.isDeleted = false,
+    this.pendingAction = 0
   });
 
 }

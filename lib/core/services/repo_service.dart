@@ -1,0 +1,37 @@
+import 'package:aut_toolkit/core/services/sync_manager.dart';
+import 'package:aut_toolkit/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../features/good_habits/data/good_habit_repository_impl.dart';
+import '../../features/good_habits/data/source/good_habit_local_source.dart';
+import '../../features/good_habits/data/source/good_habit_remote_source.dart';
+
+class RepoService {
+  late final SyncManager syncManager;
+  late final GoodHabitRepositoryImpl goodHabitRepository;
+
+  static final RepoService _instance = RepoService._();
+
+  factory RepoService() => _instance;
+
+  RepoService._();
+
+  Future<void> init() async {
+    syncManager = SyncManager();
+    goodHabitRepository = GoodHabitRepositoryImpl(
+      GoodHabitLocalSource(objectbox.goodHabitBox),
+      GoodHabitRemoteSource(),
+      syncManager,
+    );
+
+    await _fetchAllRemoteData();
+    syncManager.start();
+  }
+
+  Future<void> _fetchAllRemoteData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    await goodHabitRepository.fetchRemote();
+  }
+}

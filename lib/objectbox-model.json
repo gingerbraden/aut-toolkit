@@ -160,7 +160,7 @@
     },
     {
       "id": "6:4139673972050310461",
-      "lastPropertyId": "8:32978948303884726",
+      "lastPropertyId": "13:2483097477496792416",
       "name": "GoodHabitEntity",
       "properties": [
         {
@@ -203,6 +203,31 @@
           "id": "8:32978948303884726",
           "name": "to",
           "type": 10
+        },
+        {
+          "id": "9:7398368198971547297",
+          "name": "remoteId",
+          "type": 9
+        },
+        {
+          "id": "10:3180266639006987475",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "11:1501606961408542208",
+          "name": "isSynced",
+          "type": 1
+        },
+        {
+          "id": "12:8929463395114452926",
+          "name": "pendingAction",
+          "type": 6
+        },
+        {
+          "id": "13:2483097477496792416",
+          "name": "isDeleted",
+          "type": 1
         }
       ],
       "relations": []

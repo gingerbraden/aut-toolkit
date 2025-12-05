@@ -217,7 +217,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(6, 4139673972050310461),
     name: 'GoodHabitEntity',
-    lastPropertyId: const obx_int.IdUid(8, 32978948303884726),
+    lastPropertyId: const obx_int.IdUid(13, 2483097477496792416),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -266,6 +266,36 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(8, 32978948303884726),
         name: 'to',
         type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 7398368198971547297),
+        name: 'remoteId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(10, 3180266639006987475),
+        name: 'updatedAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(11, 1501606961408542208),
+        name: 'isSynced',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(12, 8929463395114452926),
+        name: 'pendingAction',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(13, 2483097477496792416),
+        name: 'isDeleted',
+        type: 1,
         flags: 0,
       ),
     ],
@@ -795,7 +825,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final userIdOffset = fbb.writeString(object.userId);
         final nameOffset = fbb.writeString(object.name);
         final descriptionOffset = fbb.writeString(object.description);
-        fbb.startTable(9);
+        final remoteIdOffset = object.remoteId == null
+            ? null
+            : fbb.writeString(object.remoteId!);
+        fbb.startTable(14);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.from.millisecondsSinceEpoch);
         fbb.addOffset(2, userIdOffset);
@@ -804,6 +837,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
         fbb.addBool(5, object.isOccuringFlag);
         fbb.addInt64(6, object.selectedPersonId);
         fbb.addInt64(7, object.to?.millisecondsSinceEpoch);
+        fbb.addOffset(8, remoteIdOffset);
+        fbb.addInt64(9, object.updatedAt.millisecondsSinceEpoch);
+        fbb.addBool(10, object.isSynced);
+        fbb.addInt64(11, object.pendingAction);
+        fbb.addBool(12, object.isDeleted);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -848,6 +886,30 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final toParam = toValue == null
             ? null
             : DateTime.fromMillisecondsSinceEpoch(toValue);
+        final remoteIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 20);
+        final updatedAtParam = DateTime.fromMillisecondsSinceEpoch(
+          const fb.Int64Reader().vTableGet(buffer, rootOffset, 22, 0),
+        );
+        final isSyncedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          24,
+          false,
+        );
+        final isDeletedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          28,
+          false,
+        );
+        final pendingActionParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          26,
+          0,
+        );
         final object = GoodHabitEntity(
           id: idParam,
           from: fromParam,
@@ -857,6 +919,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
           isOccuringFlag: isOccuringFlagParam,
           selectedPersonId: selectedPersonIdParam,
           to: toParam,
+          remoteId: remoteIdParam,
+          updatedAt: updatedAtParam,
+          isSynced: isSyncedParam,
+          isDeleted: isDeletedParam,
+          pendingAction: pendingActionParam,
         );
 
         return object;
@@ -1293,6 +1360,31 @@ class GoodHabitEntity_ {
   /// See [GoodHabitEntity.to].
   static final to = obx.QueryDateProperty<GoodHabitEntity>(
     _entities[3].properties[7],
+  );
+
+  /// See [GoodHabitEntity.remoteId].
+  static final remoteId = obx.QueryStringProperty<GoodHabitEntity>(
+    _entities[3].properties[8],
+  );
+
+  /// See [GoodHabitEntity.updatedAt].
+  static final updatedAt = obx.QueryDateProperty<GoodHabitEntity>(
+    _entities[3].properties[9],
+  );
+
+  /// See [GoodHabitEntity.isSynced].
+  static final isSynced = obx.QueryBooleanProperty<GoodHabitEntity>(
+    _entities[3].properties[10],
+  );
+
+  /// See [GoodHabitEntity.pendingAction].
+  static final pendingAction = obx.QueryIntegerProperty<GoodHabitEntity>(
+    _entities[3].properties[11],
+  );
+
+  /// See [GoodHabitEntity.isDeleted].
+  static final isDeleted = obx.QueryBooleanProperty<GoodHabitEntity>(
+    _entities[3].properties[12],
   );
 }
 
