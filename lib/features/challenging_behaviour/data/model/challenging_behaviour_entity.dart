@@ -5,21 +5,20 @@ import 'package:objectbox/objectbox.dart';
 class ChallengingBehaviourEntity {
   @Id()
   int? id;
-
   String name;
-
   DateTime from;
-
   String generalDescription;
-
   @Backlink()
   ToMany<ChallengingBehaviourDiaryEntryEntity> diaryEntries;
-
   bool occuring;
-
   String userId;
-
   int selectedPersonId;
+
+  String? remoteId;
+  DateTime updatedAt;
+  bool isSynced;
+  int pendingAction;
+  bool isDeleted;
 
   ChallengingBehaviourEntity({
     this.id = 0,
@@ -29,6 +28,11 @@ class ChallengingBehaviourEntity {
     required this.diaryEntries,
     required this.occuring,
     required this.userId,
-    required this.selectedPersonId
+    required this.selectedPersonId,
+    this.remoteId,
+    required this.updatedAt,
+    this.isSynced = true,
+    this.isDeleted = false,
+    this.pendingAction = 0
   });
 }

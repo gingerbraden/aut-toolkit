@@ -1,5 +1,6 @@
 import 'package:aut_toolkit/features/challenging_behaviour/data/challenging_behaviour_repository_impl.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/source/challenging_behaviour_local_source.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/data/source/challenging_behaviour_remote_source.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour_diary_entry.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/repository/challenging_behaviour_repository.dart';
@@ -7,6 +8,7 @@ import 'package:aut_toolkit/objectbox.g.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
+import '../../../core/services/sync_manager.dart';
 import '../../eating_habits/provider/eating_habits_notifier.dart';
 import '../data/model/challenging_behaviour_diary_entry_entity.dart';
 import '../data/model/challenging_behaviour_entity.dart';
@@ -23,6 +25,17 @@ Provider<Box<ChallengingBehaviourDiaryEntryEntity>>((ref) {
   return obx.challengingBehaviourDiaryEntryBox;
 });
 
+final challengingBehaviourRemoteSourceProvider = Provider<ChallengingBehaviourRemoteSource>((ref) {
+  return ChallengingBehaviourRemoteSource();
+});
+
+final syncManagerProvider = Provider<SyncManager>((ref) {
+  final sm = SyncManager();
+  sm.start();
+  ref.onDispose(() => sm.dispose());
+  return sm;
+});
+
 final challengingBehaviourLocalSourceProvider =
 Provider<ChallengingBehaviourLocalSource>((ref) {
   final behaviourBox = ref.watch(challengingBehaviourBoxProvider);
@@ -33,7 +46,9 @@ Provider<ChallengingBehaviourLocalSource>((ref) {
 final challengingBehaviourRepositoryProvider =
 Provider<ChallengingBehaviourRepository>((ref) {
   final localSource = ref.watch(challengingBehaviourLocalSourceProvider);
-  return ChallengingBehaviourRepositoryImpl(localSource);
+  final remote = ref.watch(challengingBehaviourRemoteSourceProvider);
+  final sync = ref.watch(syncManagerProvider);
+  return ChallengingBehaviourRepositoryImpl(localSource, remote, sync);
 });
 
 final challengingBehavioursProvider =

@@ -2,6 +2,8 @@ import 'package:objectbox/objectbox.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_entity.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_entity.dart';
 
+import '../../../../objectbox.g.dart';
+
 class ChallengingBehaviourLocalSource {
   final Box<ChallengingBehaviourEntity> challengingBehaviourBox;
   final Box<ChallengingBehaviourDiaryEntryEntity> challengingBehaviourDiaryEntryBox;
@@ -59,5 +61,17 @@ class ChallengingBehaviourLocalSource {
   void deleteDiaryEntry(int id) {
     challengingBehaviourDiaryEntryBox.remove(id);
   }
+
+  List<ChallengingBehaviourEntity> getAllPending() {
+    final q = challengingBehaviourBox.query(
+      ChallengingBehaviourEntity_.pendingAction.notEquals(0),
+    ).build();
+    final result = q.find();
+    q.close();
+    return result;
+  }
+
+  ChallengingBehaviourEntity? getById(int id) => challengingBehaviourBox.get(id);
+
 
 }

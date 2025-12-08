@@ -39,8 +39,7 @@ class _ChallengingBehaviourEditScreenState
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
-          .read(challengingBehaviourEditViewModelProvider.notifier)
-          .init(behaviour: widget.cb, isNewBehaviour: widget.isNew);
+          .read(challengingBehaviourEditViewModelProvider(widget.cb).notifier);
     });
   }
 
@@ -53,9 +52,9 @@ class _ChallengingBehaviourEditScreenState
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(challengingBehaviourEditViewModelProvider);
+    final state = ref.watch(challengingBehaviourEditViewModelProvider(widget.cb));
     final viewModel = ref.read(
-      challengingBehaviourEditViewModelProvider.notifier,
+      challengingBehaviourEditViewModelProvider(widget.cb).notifier,
     );
 
     return Scaffold(
@@ -79,9 +78,7 @@ class _ChallengingBehaviourEditScreenState
               );
 
               router.pop();
-              if (!ref
-                  .read(challengingBehaviourEditViewModelProvider.notifier)
-                  .isNew) {
+              if (!widget.isNew) {
                 router.pop(true);
               }
             },
@@ -122,8 +119,8 @@ class _ChallengingBehaviourEditScreenState
   Widget _nameTextField() => TextFormField(
     controller: _nameController,
     onChanged: ref
-        .read(challengingBehaviourEditViewModelProvider.notifier)
-        .setName,
+        .read(challengingBehaviourEditViewModelProvider(widget.cb).notifier)
+        .updateName,
     decoration: InputDecoration(
       labelText: t.name,
       border: const OutlineInputBorder(),
@@ -151,15 +148,15 @@ class _ChallengingBehaviourEditScreenState
         final newDate = await showDatePicker(
           context: context,
           initialDate: ref
-              .read(challengingBehaviourEditViewModelProvider)
+              .read(challengingBehaviourEditViewModelProvider(widget.cb))
               .fromDate,
           firstDate: DateTime(2000),
           lastDate: DateTime(2100),
         );
         if (newDate != null) {
           ref
-              .read(challengingBehaviourEditViewModelProvider.notifier)
-              .setDate(newDate);
+              .read(challengingBehaviourEditViewModelProvider(widget.cb).notifier)
+              .updateDate(newDate);
         }
       },
     );
@@ -171,7 +168,7 @@ class _ChallengingBehaviourEditScreenState
   ) {
     return RadioGroup<Occuring>(
       groupValue: state.occuring,
-      onChanged: (value) => viewModel.setOccuring(value!),
+      onChanged: (value) => viewModel.updateOccuring(value!),
       child: Column(
         children: [
           RadioListTile(
@@ -202,8 +199,8 @@ class _ChallengingBehaviourEditScreenState
   Widget _descriptionTextField() => TextFormField(
     controller: _descriptionController,
     onChanged: ref
-        .read(challengingBehaviourEditViewModelProvider.notifier)
-        .setDescription,
+        .read(challengingBehaviourEditViewModelProvider(widget.cb).notifier)
+        .updateDescription,
     decoration: InputDecoration(
       alignLabelWithHint: true,
       labelText: t.notes,

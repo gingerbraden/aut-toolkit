@@ -62,7 +62,7 @@
     },
     {
       "id": "4:6231389929878358286",
-      "lastPropertyId": "7:3086927186571094073",
+      "lastPropertyId": "12:8991946706523787109",
       "name": "ChallengingBehaviourEntity",
       "properties": [
         {
@@ -100,6 +100,31 @@
           "id": "7:3086927186571094073",
           "name": "selectedPersonId",
           "type": 6
+        },
+        {
+          "id": "8:7266084622565627497",
+          "name": "remoteId",
+          "type": 9
+        },
+        {
+          "id": "9:8464017446173604607",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "10:2092839996886774045",
+          "name": "isSynced",
+          "type": 1
+        },
+        {
+          "id": "11:284106223907391829",
+          "name": "pendingAction",
+          "type": 6
+        },
+        {
+          "id": "12:8991946706523787109",
+          "name": "isDeleted",
+          "type": 1
         }
       ],
       "relations": []

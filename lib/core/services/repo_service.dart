@@ -1,4 +1,7 @@
 import 'package:aut_toolkit/core/services/sync_manager.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/data/challenging_behaviour_repository_impl.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/data/source/challenging_behaviour_local_source.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/data/source/challenging_behaviour_remote_source.dart';
 import 'package:aut_toolkit/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -9,6 +12,7 @@ import '../../features/good_habits/data/source/good_habit_remote_source.dart';
 class RepoService {
   late final SyncManager syncManager;
   late final GoodHabitRepositoryImpl goodHabitRepository;
+  late final ChallengingBehaviourRepositoryImpl challengingBehaviourRepository;
 
   static final RepoService _instance = RepoService._();
 
@@ -24,6 +28,15 @@ class RepoService {
       syncManager,
     );
 
+    challengingBehaviourRepository = ChallengingBehaviourRepositoryImpl(
+      ChallengingBehaviourLocalSource(
+        objectbox.challengingBehaviourBox,
+        objectbox.challengingBehaviourDiaryEntryBox,
+      ),
+      ChallengingBehaviourRemoteSource(),
+      syncManager,
+    );
+
     await _fetchAllRemoteData();
     syncManager.start();
   }
@@ -33,5 +46,6 @@ class RepoService {
     if (user == null) return;
 
     await goodHabitRepository.fetchRemote();
+    await challengingBehaviourRepository.fetchRemote();
   }
 }

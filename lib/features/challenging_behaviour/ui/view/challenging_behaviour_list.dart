@@ -6,6 +6,8 @@ import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:aut_toolkit/core/widgets/filterable_list.dart';
 import 'package:aut_toolkit/core/widgets/icon/occuring_icon.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/provider/challenging_behaviour_notifier.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -86,18 +88,27 @@ class ChallengingBehaviourList extends ConsumerWidget {
               .watch(selectedPersonsProvider.notifier)
               .getSelected();
 
+          final docRef = FirebaseFirestore.instance
+              .collection('challenging_behaviour')
+              .doc();
+
+          final newCb = ChallengingBehaviour(
+            remoteId: docRef.id,
+            name: "",
+            from: DateTime.now(),
+            description: "",
+            diaryEntries: [],
+            occuring: true,
+            userId: FirebaseService().currentUser!.uid,
+            selectedPersonId: selectedPerson.id!, updatedAt: DateTime.now(),
+          );
+
           router.push(
             RouterUtils.getNewChallengingBehaviourPath(),
-            extra: ChallengingBehaviour(
-              name: "",
-              from: DateTime.now(),
-              description: "",
-              diaryEntries: [],
-              occuring: true,
-              userId: FirebaseService().currentUser!.uid,
-              selectedPersonId: selectedPerson.id!,
-            ),
+            extra: newCb
           );
+
+          ref.read(challengingBehavioursProvider).add(newCb);
         },
         child: const Icon(Icons.add),
       ),

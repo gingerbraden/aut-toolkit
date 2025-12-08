@@ -95,7 +95,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(4, 6231389929878358286),
     name: 'ChallengingBehaviourEntity',
-    lastPropertyId: const obx_int.IdUid(7, 3086927186571094073),
+    lastPropertyId: const obx_int.IdUid(12, 8991946706523787109),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -138,6 +138,36 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(7, 3086927186571094073),
         name: 'selectedPersonId',
         type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 7266084622565627497),
+        name: 'remoteId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 8464017446173604607),
+        name: 'updatedAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(10, 2092839996886774045),
+        name: 'isSynced',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(11, 284106223907391829),
+        name: 'pendingAction',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(12, 8991946706523787109),
+        name: 'isDeleted',
+        type: 1,
         flags: 0,
       ),
     ],
@@ -656,7 +686,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
               object.generalDescription,
             );
             final userIdOffset = fbb.writeString(object.userId);
-            fbb.startTable(8);
+            final remoteIdOffset = object.remoteId == null
+                ? null
+                : fbb.writeString(object.remoteId!);
+            fbb.startTable(13);
             fbb.addInt64(0, object.id ?? 0);
             fbb.addBool(1, object.occuring);
             fbb.addOffset(2, nameOffset);
@@ -664,6 +697,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
             fbb.addOffset(4, generalDescriptionOffset);
             fbb.addOffset(5, userIdOffset);
             fbb.addInt64(6, object.selectedPersonId);
+            fbb.addOffset(7, remoteIdOffset);
+            fbb.addInt64(8, object.updatedAt.millisecondsSinceEpoch);
+            fbb.addBool(9, object.isSynced);
+            fbb.addInt64(10, object.pendingAction);
+            fbb.addBool(11, object.isDeleted);
             fbb.finish(fbb.endTable());
             return object.id ?? 0;
           },
@@ -701,6 +739,30 @@ obx_int.ModelDefinition getObjectBoxModel() {
               16,
               0,
             );
+            final remoteIdParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGetNullable(buffer, rootOffset, 18);
+            final updatedAtParam = DateTime.fromMillisecondsSinceEpoch(
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0),
+            );
+            final isSyncedParam = const fb.BoolReader().vTableGet(
+              buffer,
+              rootOffset,
+              22,
+              false,
+            );
+            final isDeletedParam = const fb.BoolReader().vTableGet(
+              buffer,
+              rootOffset,
+              26,
+              false,
+            );
+            final pendingActionParam = const fb.Int64Reader().vTableGet(
+              buffer,
+              rootOffset,
+              24,
+              0,
+            );
             final object = ChallengingBehaviourEntity(
               id: idParam,
               name: nameParam,
@@ -710,6 +772,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
               occuring: occuringParam,
               userId: userIdParam,
               selectedPersonId: selectedPersonIdParam,
+              remoteId: remoteIdParam,
+              updatedAt: updatedAtParam,
+              isSynced: isSyncedParam,
+              isDeleted: isDeletedParam,
+              pendingAction: pendingActionParam,
             );
             obx_int.InternalToManyAccess.setRelInfo<ChallengingBehaviourEntity>(
               object.diaryEntries,
@@ -1263,6 +1330,32 @@ class ChallengingBehaviourEntity_ {
       obx.QueryIntegerProperty<ChallengingBehaviourEntity>(
         _entities[1].properties[6],
       );
+
+  /// See [ChallengingBehaviourEntity.remoteId].
+  static final remoteId = obx.QueryStringProperty<ChallengingBehaviourEntity>(
+    _entities[1].properties[7],
+  );
+
+  /// See [ChallengingBehaviourEntity.updatedAt].
+  static final updatedAt = obx.QueryDateProperty<ChallengingBehaviourEntity>(
+    _entities[1].properties[8],
+  );
+
+  /// See [ChallengingBehaviourEntity.isSynced].
+  static final isSynced = obx.QueryBooleanProperty<ChallengingBehaviourEntity>(
+    _entities[1].properties[9],
+  );
+
+  /// See [ChallengingBehaviourEntity.pendingAction].
+  static final pendingAction =
+      obx.QueryIntegerProperty<ChallengingBehaviourEntity>(
+        _entities[1].properties[10],
+      );
+
+  /// See [ChallengingBehaviourEntity.isDeleted].
+  static final isDeleted = obx.QueryBooleanProperty<ChallengingBehaviourEntity>(
+    _entities[1].properties[11],
+  );
 
   /// see [ChallengingBehaviourEntity.diaryEntries]
   static final diaryEntries =

@@ -1,89 +1,75 @@
-import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
-import 'package:aut_toolkit/features/challenging_behaviour/provider/challenging_behaviour_notifier.dart';
-import 'package:aut_toolkit/features/selected_person/provider/selected_person_notifier.dart';
+import 'package:aut_toolkit/core/model/sync_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../selected_person/provider/selected_person_notifier.dart';
+import '../../domain/model/challenging_behaviour.dart';
+import '../../provider/challenging_behaviour_notifier.dart';
+
 final challengingBehaviourEditViewModelProvider =
-    NotifierProvider<
-      ChallengingBehaviourEditViewModel,
-      ChallengingBehaviourEditState
-    >(ChallengingBehaviourEditViewModel.new);
+NotifierProvider.autoDispose
+    .family<ChallengingBehaviourEditViewModel,
+    ChallengingBehaviourEditState,
+    ChallengingBehaviour>(
+  ChallengingBehaviourEditViewModel.new,
+);
 
 class ChallengingBehaviourEditViewModel
     extends Notifier<ChallengingBehaviourEditState> {
-  late ChallengingBehaviour cb;
-  late bool isNew;
+  final ChallengingBehaviour _behaviour;
+
+  ChallengingBehaviourEditViewModel(this._behaviour);
 
   @override
-  ChallengingBehaviourEditState build() => ChallengingBehaviourEditState(
-    occuring: Occuring.ocurring,
-    fromDate: DateTime.now(),
-    name: "",
-    description: "",
-  );
+  ChallengingBehaviourEditState build() {
+    final cb = _behaviour;
 
-  void init({
-    required ChallengingBehaviour behaviour,
-    required bool isNewBehaviour,
-  }) {
-    cb = behaviour;
-    isNew = isNewBehaviour;
-
-    state = ChallengingBehaviourEditState(
+    return ChallengingBehaviourEditState(
       occuring: cb.occuring ? Occuring.ocurring : Occuring.notOccuring,
       fromDate: cb.from,
       name: cb.name,
       description: cb.description,
+      remoteId: cb.remoteId,
+      pendingAction: cb.pendingAction,
     );
   }
 
-  void setOccuring(Occuring value) {
+  void updateOccuring(Occuring value) {
     state = state.copyWith(occuring: value);
   }
 
-  void setDate(DateTime newDate) {
+  void updateDate(DateTime newDate) {
     state = state.copyWith(fromDate: newDate);
   }
 
-  void setName(String name) => state = state.copyWith(name: name);
+  void updateName(String name) {
+    state = state.copyWith(name: name);
+  }
 
-  void setDescription(String desc) => state = state.copyWith(description: desc);
+  void updateDescription(String desc) {
+    state = state.copyWith(description: desc);
+  }
 
   void saveChanges() {
     final selectedPersonId = ref
-        .watch(selectedPersonsProvider.notifier)
+        .read(selectedPersonsProvider.notifier)
         .getSelected()
         .id!;
 
     final updatedCb = ChallengingBehaviour(
-      id: cb.id!,
+      id: _behaviour.id!,
       name: state.name,
       from: state.fromDate,
       description: state.description,
-      diaryEntries: cb.diaryEntries,
+      diaryEntries: _behaviour.diaryEntries,
       occuring: state.occuring == Occuring.ocurring,
-      userId: cb.userId,
+      userId: _behaviour.userId,
       selectedPersonId: selectedPersonId,
+      updatedAt: DateTime.now(),
+      pendingAction: _behaviour.pendingAction,
+      remoteId: _behaviour.remoteId,
     );
 
     ref.read(challengingBehavioursProvider.notifier).addBehaviour(updatedCb);
-  }
-
-  ChallengingBehaviour createUpdatedBehaviour({
-    required String name,
-    required String description,
-    required int selectedPersonId,
-  }) {
-    return ChallengingBehaviour(
-      id: cb.id!,
-      name: name.trim(),
-      from: state.fromDate,
-      description: description.trim(),
-      diaryEntries: [],
-      occuring: state.occuring == Occuring.ocurring,
-      userId: cb.userId,
-      selectedPersonId: selectedPersonId,
-    );
   }
 }
 
@@ -94,12 +80,16 @@ class ChallengingBehaviourEditState {
   final DateTime fromDate;
   final String name;
   final String description;
+  final String? remoteId;
+  final PendingAction? pendingAction;
 
   const ChallengingBehaviourEditState({
     required this.occuring,
     required this.fromDate,
     required this.name,
     required this.description,
+    this.remoteId,
+    this.pendingAction,
   });
 
   ChallengingBehaviourEditState copyWith({
@@ -107,12 +97,16 @@ class ChallengingBehaviourEditState {
     DateTime? fromDate,
     String? name,
     String? description,
+    String? remoteId,
+    PendingAction? pendingAction,
   }) {
     return ChallengingBehaviourEditState(
       occuring: occuring ?? this.occuring,
       fromDate: fromDate ?? this.fromDate,
       name: name ?? this.name,
       description: description ?? this.description,
+      remoteId: remoteId ?? this.remoteId,
+      pendingAction: pendingAction ?? this.pendingAction,
     );
   }
 }
