@@ -4,6 +4,7 @@ class EatingHabit extends GeneralHabit {
   DateTime? to;
   bool isEatingFlag;
   String? imageFilePath;
+  String? remoteImgPath;
 
   EatingHabit({
     super.id,
@@ -14,7 +15,13 @@ class EatingHabit extends GeneralHabit {
     required super.name,
     required super.description,
     required super.selectedPersonId,
-    required this.imageFilePath
+    required this.imageFilePath,
+    required super.updatedAt,
+    required super.remoteId,
+    super.pendingAction,
+    super.isDeleted,
+    super.isSynced,
+    this.remoteImgPath
   });
 
 

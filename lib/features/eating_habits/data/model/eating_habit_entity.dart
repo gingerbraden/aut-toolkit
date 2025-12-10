@@ -16,6 +16,13 @@ class EatingHabitEntity {
   int selectedPersonId;
   String? imageFilePath;
 
+  String? remoteId;
+  DateTime updatedAt;
+  bool isSynced;
+  int pendingAction;
+  bool isDeleted;
+  String? remoteImgPath;
+
   EatingHabitEntity({
     this.id = 0,
     required this.from,
@@ -25,7 +32,13 @@ class EatingHabitEntity {
     required this.description,
     required this.userId,
     required this.selectedPersonId,
-    required this.imageFilePath
+    required this.imageFilePath,
+    this.remoteId,
+    required this.updatedAt,
+    this.isSynced = true,
+    this.isDeleted = false,
+    this.pendingAction = 0,
+    required this.remoteImgPath
   });
 
 }

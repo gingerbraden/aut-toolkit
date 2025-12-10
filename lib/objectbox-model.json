@@ -131,7 +131,7 @@
     },
     {
       "id": "5:1812295606420934787",
-      "lastPropertyId": "14:9218695170647944606",
+      "lastPropertyId": "15:3150947832643554549",
       "name": "EatingHabitEntity",
       "properties": [
         {
@@ -204,6 +204,11 @@
           "id": "14:9218695170647944606",
           "name": "isDeleted",
           "type": 1
+        },
+        {
+          "id": "15:3150947832643554549",
+          "name": "remoteImgPath",
+          "type": 9
         }
       ],
       "relations": []

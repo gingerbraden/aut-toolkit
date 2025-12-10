@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/model/sync_entity.dart';
 import '../../../selected_person/provider/selected_person_notifier.dart';
 import '../../domain/model/eating_habit.dart';
 import '../../provider/eating_habits_notifier.dart';
@@ -25,6 +26,9 @@ class EatingHabitEditViewModel extends Notifier<EatingHabitFormState> {
       fromDate: _habit.from,
       toDate: _habit.to,
       imagePath: _habit.imageFilePath,
+      remoteId: _habit.remoteId,
+      pendingAction: _habit.pendingAction,
+      remoteImgPath: _habit.remoteImgPath
     );
   }
 
@@ -57,7 +61,11 @@ class EatingHabitEditViewModel extends Notifier<EatingHabitFormState> {
       from: state.fromDate,
       to: state.toDate,
       imageFilePath: state.imagePath,
+      remoteId: _habit.remoteId,
+      pendingAction: _habit.pendingAction, updatedAt: DateTime.now(),
+      remoteImgPath: _habit.remoteImgPath
     );
+
     ref.read(eatingHabitsProvider.notifier).addHabit(updatedHabit);
   }
 }
@@ -71,6 +79,9 @@ class EatingHabitFormState {
   final DateTime fromDate;
   final DateTime? toDate;
   final String? imagePath;
+  final String? remoteId;
+  final PendingAction? pendingAction;
+  final String? remoteImgPath;
 
   EatingHabitFormState({
     required this.name,
@@ -79,6 +90,9 @@ class EatingHabitFormState {
     required this.fromDate,
     this.toDate,
     this.imagePath,
+    this.remoteId,
+    this.pendingAction,
+    this.remoteImgPath
   });
 
   EatingHabitFormState copyWith({
@@ -88,6 +102,9 @@ class EatingHabitFormState {
     DateTime? fromDate,
     DateTime? toDate,
     String? imagePath,
+    String? remoteId,
+    PendingAction? pendingAction,
+    String? remoteImgPath
   }) {
     return EatingHabitFormState(
       name: name ?? this.name,
@@ -96,6 +113,9 @@ class EatingHabitFormState {
       fromDate: fromDate ?? this.fromDate,
       toDate: toDate ?? this.toDate,
       imagePath: imagePath ?? this.imagePath,
+      remoteId: remoteId ?? this.remoteId,
+      pendingAction: pendingAction ?? this.pendingAction,
+      remoteImgPath: remoteImgPath ?? this.remoteImgPath
     );
   }
 }

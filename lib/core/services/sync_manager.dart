@@ -13,7 +13,7 @@ class SyncManager {
 
   SyncManager({
     Connectivity? connectivity,
-    this.retryDelay = const Duration(seconds: 5),
+    this.retryDelay = const Duration(seconds: 60),
   }) : _connectivity = connectivity ?? Connectivity();
 
   void start() {

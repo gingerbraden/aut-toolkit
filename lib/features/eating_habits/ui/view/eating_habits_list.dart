@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -97,26 +98,35 @@ class EatingHabitsList extends ConsumerWidget {
           comparator: (a, b) => b.from.compareTo(a.from),
         ),
       ],
-      onTap: (habit) =>
-          router.push(RouterUtils.getEatingHabitDetailPath(), extra: habit),
+      onTap: (habit) {
+        router.push(RouterUtils.getEatingHabitDetailPath(), extra: habit);
+
+      },
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           final selectedPersonId = ref
               .watch(selectedPersonsProvider.notifier)
               .getSelected()
               .id!;
+
+          final docRef = FirebaseFirestore.instance
+              .collection('eating_habits')
+              .doc();
+
+          final newHabit = EatingHabit(
+            from: DateTime.now(),
+            to: null,
+            isEatingFlag: true,
+            name: '',
+            description: '',
+            userId: FirebaseService().currentUser!.uid,
+            selectedPersonId: selectedPersonId,
+            imageFilePath: null, updatedAt: DateTime.now(), remoteId: docRef.id,
+          );
+
           router.push(
             RouterUtils.getNewEatingHabitPath(),
-            extra: EatingHabit(
-              from: DateTime.now(),
-              to: null,
-              isEatingFlag: true,
-              name: '',
-              description: '',
-              userId: FirebaseService().currentUser!.uid,
-              selectedPersonId: selectedPersonId,
-              imageFilePath: null,
-            ),
+            extra: newHabit,
           );
         },
         child: const Icon(Icons.add),
