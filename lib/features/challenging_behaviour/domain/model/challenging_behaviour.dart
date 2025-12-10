@@ -7,12 +7,6 @@ class ChallengingBehaviour extends GeneralHabit {
   List<ChallengingBehaviourDiaryEntry> diaryEntries;
   bool occuring;
 
-  String? remoteId;
-  DateTime updatedAt;
-  bool isSynced;
-  PendingAction pendingAction;
-  bool isDeleted;
-
   ChallengingBehaviour({
     super.id = 0,
     required super.name,
@@ -22,10 +16,10 @@ class ChallengingBehaviour extends GeneralHabit {
     required this.occuring,
     required super.userId,
     required super.selectedPersonId,
-    this.remoteId,
-    required this.updatedAt,
-    this.isSynced = true,
-    this.isDeleted = false,
-    this.pendingAction = PendingAction.NONE
+    super.remoteId,
+    required super.updatedAt,
+    super.isSynced = true,
+    super.isDeleted = false,
+    super.pendingAction = PendingAction.NONE
   });
 }

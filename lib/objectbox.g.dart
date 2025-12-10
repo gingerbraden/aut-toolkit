@@ -183,7 +183,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(5, 1812295606420934787),
     name: 'EatingHabitEntity',
-    lastPropertyId: const obx_int.IdUid(9, 8780796419473162185),
+    lastPropertyId: const obx_int.IdUid(14, 9218695170647944606),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -238,6 +238,36 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(9, 8780796419473162185),
         name: 'imageFilePath',
         type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(10, 8541197116252804647),
+        name: 'remoteId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(11, 3953686466508685437),
+        name: 'updatedAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(12, 3883763254183442183),
+        name: 'isSynced',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(13, 2004123583268734160),
+        name: 'pendingAction',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(14, 9218695170647944606),
+        name: 'isDeleted',
+        type: 1,
         flags: 0,
       ),
     ],
@@ -808,7 +838,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final imageFilePathOffset = object.imageFilePath == null
             ? null
             : fbb.writeString(object.imageFilePath!);
-        fbb.startTable(10);
+        final remoteIdOffset = object.remoteId == null
+            ? null
+            : fbb.writeString(object.remoteId!);
+        fbb.startTable(15);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.to?.millisecondsSinceEpoch);
         fbb.addBool(2, object.isEatingFlag);
@@ -818,6 +851,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
         fbb.addOffset(6, userIdOffset);
         fbb.addInt64(7, object.selectedPersonId);
         fbb.addOffset(8, imageFilePathOffset);
+        fbb.addOffset(9, remoteIdOffset);
+        fbb.addInt64(10, object.updatedAt.millisecondsSinceEpoch);
+        fbb.addBool(11, object.isSynced);
+        fbb.addInt64(12, object.pendingAction);
+        fbb.addBool(13, object.isDeleted);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -865,6 +903,30 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final imageFilePathParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGetNullable(buffer, rootOffset, 20);
+        final remoteIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 22);
+        final updatedAtParam = DateTime.fromMillisecondsSinceEpoch(
+          const fb.Int64Reader().vTableGet(buffer, rootOffset, 24, 0),
+        );
+        final isSyncedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          26,
+          false,
+        );
+        final isDeletedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          30,
+          false,
+        );
+        final pendingActionParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          28,
+          0,
+        );
         final object = EatingHabitEntity(
           id: idParam,
           from: fromParam,
@@ -875,6 +937,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
           userId: userIdParam,
           selectedPersonId: selectedPersonIdParam,
           imageFilePath: imageFilePathParam,
+          remoteId: remoteIdParam,
+          updatedAt: updatedAtParam,
+          isSynced: isSyncedParam,
+          isDeleted: isDeletedParam,
+          pendingAction: pendingActionParam,
         );
 
         return object;
@@ -1410,6 +1477,31 @@ class EatingHabitEntity_ {
   /// See [EatingHabitEntity.imageFilePath].
   static final imageFilePath = obx.QueryStringProperty<EatingHabitEntity>(
     _entities[2].properties[8],
+  );
+
+  /// See [EatingHabitEntity.remoteId].
+  static final remoteId = obx.QueryStringProperty<EatingHabitEntity>(
+    _entities[2].properties[9],
+  );
+
+  /// See [EatingHabitEntity.updatedAt].
+  static final updatedAt = obx.QueryDateProperty<EatingHabitEntity>(
+    _entities[2].properties[10],
+  );
+
+  /// See [EatingHabitEntity.isSynced].
+  static final isSynced = obx.QueryBooleanProperty<EatingHabitEntity>(
+    _entities[2].properties[11],
+  );
+
+  /// See [EatingHabitEntity.pendingAction].
+  static final pendingAction = obx.QueryIntegerProperty<EatingHabitEntity>(
+    _entities[2].properties[12],
+  );
+
+  /// See [EatingHabitEntity.isDeleted].
+  static final isDeleted = obx.QueryBooleanProperty<EatingHabitEntity>(
+    _entities[2].properties[13],
   );
 }
 

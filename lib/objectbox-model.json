@@ -131,7 +131,7 @@
     },
     {
       "id": "5:1812295606420934787",
-      "lastPropertyId": "9:8780796419473162185",
+      "lastPropertyId": "14:9218695170647944606",
       "name": "EatingHabitEntity",
       "properties": [
         {
@@ -179,6 +179,31 @@
           "id": "9:8780796419473162185",
           "name": "imageFilePath",
           "type": 9
+        },
+        {
+          "id": "10:8541197116252804647",
+          "name": "remoteId",
+          "type": 9
+        },
+        {
+          "id": "11:3953686466508685437",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "12:3883763254183442183",
+          "name": "isSynced",
+          "type": 1
+        },
+        {
+          "id": "13:2004123583268734160",
+          "name": "pendingAction",
+          "type": 6
+        },
+        {
+          "id": "14:9218695170647944606",
+          "name": "isDeleted",
+          "type": 1
         }
       ],
       "relations": []
