@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:aut_toolkit/features/challenging_behaviour/data/challenging_behaviour_repository_impl.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/source/challenging_behaviour_local_source.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/source/challenging_behaviour_remote_source.dart';
@@ -61,36 +63,34 @@ StateNotifierProvider<ChallengingBehavioursNotifier,
 class ChallengingBehavioursNotifier
     extends StateNotifier<List<ChallengingBehaviour>> {
   final ChallengingBehaviourRepository _repo;
+  late final StreamSubscription _sub;
 
   ChallengingBehavioursNotifier(this._repo) : super([]) {
-    loadBehaviours();
+    _sub = _repo.watchAll().listen((data) {
+      state = data;
+    });
   }
 
-  void loadBehaviours() {
-    state = _repo.getAllCb();
+  @override
+  void dispose() {
+    _sub.cancel();
+    super.dispose();
   }
 
   void addBehaviour(ChallengingBehaviour cb) {
     _repo.saveCb(cb);
-    loadBehaviours();
   }
 
   void deleteBehaviour(ChallengingBehaviour cb) {
     _repo.deleteCb(cb);
-    loadBehaviours();
   }
 
   void addDiaryEntry(int cbId, ChallengingBehaviourDiaryEntry entry) {
     _repo.addDe(cbId, entry);
-    loadBehaviours();
   }
 
   void deleteDiaryEntry(ChallengingBehaviourDiaryEntry entry) {
     _repo.deleteDe(entry);
-    loadBehaviours();
-  }
-
-  List<ChallengingBehaviourDiaryEntry> getDiaryEntries(int cbId) {
-    return _repo.getAllDe(cbId);
   }
 }
+

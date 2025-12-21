@@ -24,4 +24,15 @@ class GoodHabitLocalSource {
     q.close();
     return result;
   }
+
+  Stream<List<GoodHabitEntity>> watchAllBehaviours() {
+    final builder = goodHabitBox.query();
+
+    return builder
+        .watch(triggerImmediately: true)
+        .map((query) {
+      final result = query.find();
+      return result;
+    });
+  }
 }

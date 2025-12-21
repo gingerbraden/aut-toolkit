@@ -50,7 +50,7 @@ class EatingHabitDetail extends ConsumerWidget {
                 const Divider(height: 32),
                 DescriptionDetail(description: viewModel.description),
                 const Divider(height: 32),
-                if (viewModel.imageFilePath!.isNotEmpty)
+                if (viewModel.imageFilePath != null && viewModel.imageFilePath!.isNotEmpty)
                   SquareImageFilledWidth(
                     imageFilePath: viewModel.imageFilePath,
                   ),

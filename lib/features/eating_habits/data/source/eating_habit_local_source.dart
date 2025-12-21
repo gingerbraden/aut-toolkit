@@ -24,4 +24,15 @@ class EatingHabitLocalSource {
     q.close();
     return result;
   }
+
+  Stream<List<EatingHabitEntity>> watchAll() {
+    final builder = eatingHabitBox.query();
+
+    return builder
+        .watch(triggerImmediately: true)
+        .map((query) {
+      final result = query.find();
+      return result;
+    });
+  }
 }

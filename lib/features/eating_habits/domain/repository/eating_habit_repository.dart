@@ -4,4 +4,6 @@ abstract class EatingHabitRepository {
   List<EatingHabit> getAllHabits();
   void saveHabit(EatingHabit eatingHabit);
   void deleteHabit(EatingHabit eatingHabit);
+
+  Stream<List<EatingHabit>> watchAll();
 }

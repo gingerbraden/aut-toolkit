@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:aut_toolkit/objectbox.g.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -52,9 +54,18 @@ StateNotifierProvider<EatingHabitsNotifier, List<EatingHabit>>((ref) {
 
 class EatingHabitsNotifier extends StateNotifier<List<EatingHabit>> {
   final EatingHabitRepository _repo;
+  late final StreamSubscription _sub;
+
+  @override
+  void dispose() {
+    _sub.cancel();
+    super.dispose();
+  }
 
   EatingHabitsNotifier(this._repo) : super([]) {
-    loadHabits();
+    _sub = _repo.watchAll().listen((data) {
+      state = data;
+    });
   }
 
   void loadHabits() {
@@ -63,11 +74,9 @@ class EatingHabitsNotifier extends StateNotifier<List<EatingHabit>> {
 
   void addHabit(EatingHabit habit) {
     _repo.saveHabit(habit);
-    loadHabits();
   }
 
   void deleteHabit(EatingHabit habit) {
     _repo.deleteHabit(habit);
-    loadHabits();
   }
 }

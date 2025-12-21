@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:aut_toolkit/features/good_habits/domain/model/good_habit.dart';
 import 'package:aut_toolkit/objectbox.g.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -52,9 +54,18 @@ final goodHabitsProvider =
 
 class GoodHabitsNotifier extends StateNotifier<List<GoodHabit>> {
   final GoodHabitRepository _repo;
+  late final StreamSubscription _sub;
+
+  @override
+  void dispose() {
+    _sub.cancel();
+    super.dispose();
+  }
 
   GoodHabitsNotifier(this._repo) : super([]) {
-    loadHabits();
+    _sub = _repo.watchAll().listen((data) {
+      state = data;
+    });
   }
 
   void loadHabits() {
@@ -63,11 +74,9 @@ class GoodHabitsNotifier extends StateNotifier<List<GoodHabit>> {
 
   void addHabit(GoodHabit habit) {
     _repo.saveHabit(habit);
-    loadHabits();
   }
 
   void deleteHabit(GoodHabit habit) {
     _repo.deleteHabit(habit);
-    loadHabits();
   }
 }

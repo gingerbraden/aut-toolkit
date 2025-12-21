@@ -9,4 +9,6 @@ abstract class ChallengingBehaviourRepository {
   void addDe(int cbId, ChallengingBehaviourDiaryEntry cbed);
   void deleteDe(ChallengingBehaviourDiaryEntry cbed);
   List<ChallengingBehaviourDiaryEntry> getAllDe(int cbId);
+
+  Stream<List<ChallengingBehaviour>> watchAll();
 }

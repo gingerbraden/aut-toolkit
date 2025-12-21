@@ -143,4 +143,11 @@ class EatingHabitRepositoryImpl implements EatingHabitRepository, SyncableReposi
       }
     }
   }
+
+  @override
+  Stream<List<EatingHabit>> watchAll() {
+    return _localSource
+        .watchAll()
+        .map((entities) => entities.map((e) => e.toModel()).toList());
+  }
 }

@@ -143,4 +143,11 @@ class ChallengingBehaviourRepositoryImpl
     }
   }
 
+  @override
+  Stream<List<ChallengingBehaviour>> watchAll() {
+    return _localSource
+        .watchAllBehaviours()
+        .map((entities) => entities.map((e) => e.toModel()).toList());
+  }
+
 }

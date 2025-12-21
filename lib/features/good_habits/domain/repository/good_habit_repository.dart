@@ -4,4 +4,5 @@ abstract class GoodHabitRepository {
   List<GoodHabit> getAllHabits();
   void saveHabit(GoodHabit eatingHabit);
   void deleteHabit(GoodHabit eatingHabit);
+  Stream<List<GoodHabit>> watchAll();
 }

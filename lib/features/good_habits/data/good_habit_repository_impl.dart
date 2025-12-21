@@ -117,5 +117,12 @@ class GoodHabitRepositoryImpl implements GoodHabitRepository, SyncableRepository
     }
   }
 
+  @override
+  Stream<List<GoodHabit>> watchAll() {
+    return _localSource
+        .watchAllBehaviours()
+        .map((entities) => entities.map((e) => e.toModel()).toList());
+  }
+
 
 }

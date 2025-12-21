@@ -13,6 +13,17 @@ class ChallengingBehaviourLocalSource {
       this.challengingBehaviourDiaryEntryBox,
       );
 
+  Stream<List<ChallengingBehaviourEntity>> watchAllBehaviours() {
+    final builder = challengingBehaviourBox.query();
+
+    return builder
+        .watch(triggerImmediately: true)
+        .map((query) {
+      final result = query.find();
+      return result;
+    });
+  }
+
   int putBehaviour(ChallengingBehaviourEntity behaviour) {
     return challengingBehaviourBox.put(behaviour);
   }
