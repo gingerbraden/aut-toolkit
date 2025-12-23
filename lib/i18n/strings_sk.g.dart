@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsSk implements Translations {
+class TranslationsSk with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsSk({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -173,148 +174,140 @@ class TranslationsSk implements Translations {
 	@override String get done => 'Hotovo!';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <sk>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsSk {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'good_day': return 'Dobrý deň';
-			case 'sign_in': return 'Prihláste sa, aby ste mohli používať AutToolkit';
-			case 'sign_in_google': return 'Prihlásiť sa pomocou Google';
-			case 'sign_in_mail': return 'Prihlásiť sa pomocou e-mailu';
-			case 'password': return 'Heslo';
-			case 'password_again': return 'Potvrďte heslo';
-			case 'no_account': return 'Nemáte ešte účet?';
-			case 'create_account': return 'Vytvoriť účet';
-			case 'log_in_button': return 'Prihlásiť sa';
-			case 'no_sign_in_details': return 'Chýbajuci e-mail alebo heslo';
-			case 'passwords_dont_match': return 'Heslá sa nezhodujú';
-			case 'invalid_mail': return 'Neplatná e-mailová adresa';
-			case 'invalid_password': return 'Heslo musí obsahovať aspoň 6 znakov';
-			case 'invalid_email_password': return 'Nesprávny e-mail alebo heslo';
-			case 'sign_in_button': return 'Registrovať sa';
-			case 'cancel': return 'Zrušiť';
-			case 'home': return 'Domov';
-			case 'settings': return 'Nastavenia';
-			case 'kid_mode_button': return 'Mód aplikácie dieťaťa';
-			case 'signed_in_as': return 'Prihlásený ako: ';
-			case 'log_out': return 'Odhlásiť sa';
-			case 'app_language': return 'Jazyk aplikácie';
-			case 'change': return 'Zmeniť';
-			case 'email': return 'E-mail';
-			case 'enter_details': return 'Zadajte údaje';
-			case 'really_log_out': return 'Naozaj sa chcete odhlásiť?';
-			case 'yes': return 'Áno';
-			case 'no': return 'Nie';
-			case 'change_app_language': return 'Zmeniť jazyk aplikácie';
-			case 'dark_mode_toggle': return 'Tmavý režim';
-			case 'good_habits': return 'Návyky';
-			case 'good_habits_desc': return 'Deti s PAS často uprednostňujú prísne rutiny a predvídateľnosť.';
-			case 'bad_habits': return 'Nevhodné správanie';
-			case 'eating_habits': return 'Jedálniček';
-			case 'eating_habits_desc': return 'Deti s PAS často jedia výberovo kvôli zmyslovej citlivosti.';
-			case 'is_eating': return 'Je';
-			case 'is_not_eating': return 'Neje';
-			case 'active': return 'Aktívne';
-			case 'inactive': return 'Neaktívne';
-			case 'search': return 'Vyhľadať';
-			case 'no_entries': return 'Žiadne záznamy';
-			case 'from': return 'Od';
-			case 'to': return 'Do';
-			case 'notes': return 'Poznámky';
-			case 'really_delete_object': return 'Naozaj si prajete vymazať ';
-			case 'not_set': return 'Nenastavené';
-			case 'edit': return 'Upraviť';
-			case 'name': return 'Názov';
-			case 'please_enter_name': return 'Prosím zadajte názov';
-			case 'save': return 'Uložiť';
-			case 'ascending': return 'Vzostupne';
-			case 'descending': return 'Zostupne';
-			case 'sort_by': return 'Zoradiť podľa';
-			case 'date': return 'Dátum';
-			case 'filters_and_sorting': return 'Filtre a triedenie';
-			case 'filters': return 'Filtre';
-			case 'sort': return 'Zoradenie podľa';
-			case 'challenging_behaviour': return 'Nevhodné správanie';
-			case 'challenging_behaviour_desc': return 'Deti s PAS môžu prejavovať náročné správanie, keď sú preťažené alebo nevedia vyjadriť svoje potreby.';
-			case 'occuring': return 'Nastáva';
-			case 'not_occuring': return 'Nenastáva';
-			case 'location': return 'Miesto';
-			case 'please_enter_location': return 'Prosím zadajte miesto';
-			case 'duration': return 'Trvanie';
-			case 'please_enter_duration': return 'Prosím zadajte trvanie';
-			case 'invalid_value': return 'Neplatná hodnota';
-			case 'one_minute': return 'Minúta';
-			case 'few_minutes': return 'Minúty';
-			case 'many_minutes': return 'Minút';
-			case 'circumstances': return 'Okolnosti';
-			case 'people_present': return 'Prítomné osoby';
-			case 'outcome': return 'Výsledok';
-			case 'reflection': return 'Reflexia';
-			case 'add_new_entry': return 'Pridať záznam';
-			case 'create': return 'Vytvoriť';
-			case 'after_typing_enter_submit': return 'Po napísaní stlačte "Enter" pre uloženie';
-			case 'minute': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sk'))(n,
-				one: 'Minúta',
-				few: 'Minúty',
-				many: 'Minút',
-				other: 'Minút',
-			);
-			case 'mon': return 'Po';
-			case 'tue': return 'Ut';
-			case 'wed': return 'St';
-			case 'thu': return 'Št';
-			case 'fri': return 'Pi';
-			case 'sat': return 'So';
-			case 'sun': return 'Ne';
-			case 'entry': return 'Záznam';
-			case 'close': return 'Zavrieť';
-			case 'managed_people': return 'Spravované osoby';
-			case 'add_managed_person': return 'Pridať osobu';
-			case 'load_image': return 'Nahrať obrázok';
-			case 'change_image': return 'Zmeniť obrázok';
-			case 'delete_image': return 'Odstrániť obrázok';
-			case 'change_saved': return 'Zmena uložená';
-			case 'image_changed': return 'Obrázok bol zmenený';
-			case 'image_deleted': return 'Obrázok bol odstránený';
-			case 'entry_added': return 'Záznam pridaný';
-			case 'currently_managed_person': return 'Práve spravovaná osoba:';
-			case 'crop_image': return 'Orezať obrázok';
-			case 'cards': return 'Kartičky';
-			case 'cards_desc': return 'Kartičky sú používané v AAC klávesnici a môžu byť použité pri tvorbe procesurálnych diagramov';
-			case 'visual_sequence_boards': return 'Procesurálne diagramy';
-			case 'visual_sequence_boards_desc': return 'Správa procesurálnych diagramov';
-			case 'arasaac_icons': return 'ARASAAC Ikony';
-			case 'create_card': return 'Vytvoriť kartičku';
-			case 'create_card_decision': return 'Aký si želáte použiť zdroj obrázku?';
-			case 'from_gallery': return 'Galéria';
-			case 'no_icons_found': return 'Neboli nájdené žiadne ikony pre daný vyhľadávací výraz.';
-			case 'use_this_image': return 'Použiť túto ikonu?';
-			case 'detail': return 'Detail';
-			case 'delete': return 'Odstrániť';
-			case 'cant_undo_action': return 'Túto akciu nemožno vrátiť späť.';
-			case 'error_occured': return 'Nastala chyba';
-			case 'no_image_set': return 'Nebol nastavený žiadny obrázok';
-			case 'registration_succesful': return 'Registrácia bola úspešná. Môžete sa prihlásiť.';
-			case 'visual_supports': return 'Vizuálne pomôcky';
-			case 'visual_schedules': return 'Vizuálne rozvrhy';
-			case 'visual_diagrams': return 'Vizuálne diagramy';
-			case 'first_then_boards': return 'Najprv-Potom tabuľky';
-			case 'visual_diagram_desc': return 'Vizuálny diagram predstavuje koncepty, procesy alebo vzťahy vo vizuálnom formáte, čo pomáha organizovať informácie a pochopiť súvislosti.';
-			case 'first_then_boards_desc': return 'Tabuľa „Najprv–Potom“ pomáha pochopiť a dokončiť úlohy tým, že zobrazuje, čo treba urobiť najprv a aká obľúbená činnosť nasleduje.';
-			case 'visual_schedule_desc': return 'Vizuálny rozvrh zobrazuje poradie denných aktivít alebo krokov v úlohe a pomáha pochopiť rutiny, znížiť úzkosť a podporiť samostatnosť.';
-			case 'first': return 'Najprv';
-			case 'then': return 'Potom';
-			case 'steps': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sk'))(n,
-				one: 'Krok',
-				few: 'Kroky',
-				many: 'Krokov',
-				other: 'Krokov',
-			);
-			case 'add_step': return 'Pridať krok';
-			case 'done': return 'Hotovo!';
-			default: return null;
-		}
+		return switch (path) {
+			'good_day' => 'Dobrý deň',
+			'sign_in' => 'Prihláste sa, aby ste mohli používať AutToolkit',
+			'sign_in_google' => 'Prihlásiť sa pomocou Google',
+			'sign_in_mail' => 'Prihlásiť sa pomocou e-mailu',
+			'password' => 'Heslo',
+			'password_again' => 'Potvrďte heslo',
+			'no_account' => 'Nemáte ešte účet?',
+			'create_account' => 'Vytvoriť účet',
+			'log_in_button' => 'Prihlásiť sa',
+			'no_sign_in_details' => 'Chýbajuci e-mail alebo heslo',
+			'passwords_dont_match' => 'Heslá sa nezhodujú',
+			'invalid_mail' => 'Neplatná e-mailová adresa',
+			'invalid_password' => 'Heslo musí obsahovať aspoň 6 znakov',
+			'invalid_email_password' => 'Nesprávny e-mail alebo heslo',
+			'sign_in_button' => 'Registrovať sa',
+			'cancel' => 'Zrušiť',
+			'home' => 'Domov',
+			'settings' => 'Nastavenia',
+			'kid_mode_button' => 'Mód aplikácie dieťaťa',
+			'signed_in_as' => 'Prihlásený ako: ',
+			'log_out' => 'Odhlásiť sa',
+			'app_language' => 'Jazyk aplikácie',
+			'change' => 'Zmeniť',
+			'email' => 'E-mail',
+			'enter_details' => 'Zadajte údaje',
+			'really_log_out' => 'Naozaj sa chcete odhlásiť?',
+			'yes' => 'Áno',
+			'no' => 'Nie',
+			'change_app_language' => 'Zmeniť jazyk aplikácie',
+			'dark_mode_toggle' => 'Tmavý režim',
+			'good_habits' => 'Návyky',
+			'good_habits_desc' => 'Deti s PAS často uprednostňujú prísne rutiny a predvídateľnosť.',
+			'bad_habits' => 'Nevhodné správanie',
+			'eating_habits' => 'Jedálniček',
+			'eating_habits_desc' => 'Deti s PAS často jedia výberovo kvôli zmyslovej citlivosti.',
+			'is_eating' => 'Je',
+			'is_not_eating' => 'Neje',
+			'active' => 'Aktívne',
+			'inactive' => 'Neaktívne',
+			'search' => 'Vyhľadať',
+			'no_entries' => 'Žiadne záznamy',
+			'from' => 'Od',
+			'to' => 'Do',
+			'notes' => 'Poznámky',
+			'really_delete_object' => 'Naozaj si prajete vymazať ',
+			'not_set' => 'Nenastavené',
+			'edit' => 'Upraviť',
+			'name' => 'Názov',
+			'please_enter_name' => 'Prosím zadajte názov',
+			'save' => 'Uložiť',
+			'ascending' => 'Vzostupne',
+			'descending' => 'Zostupne',
+			'sort_by' => 'Zoradiť podľa',
+			'date' => 'Dátum',
+			'filters_and_sorting' => 'Filtre a triedenie',
+			'filters' => 'Filtre',
+			'sort' => 'Zoradenie podľa',
+			'challenging_behaviour' => 'Nevhodné správanie',
+			'challenging_behaviour_desc' => 'Deti s PAS môžu prejavovať náročné správanie, keď sú preťažené alebo nevedia vyjadriť svoje potreby.',
+			'occuring' => 'Nastáva',
+			'not_occuring' => 'Nenastáva',
+			'location' => 'Miesto',
+			'please_enter_location' => 'Prosím zadajte miesto',
+			'duration' => 'Trvanie',
+			'please_enter_duration' => 'Prosím zadajte trvanie',
+			'invalid_value' => 'Neplatná hodnota',
+			'one_minute' => 'Minúta',
+			'few_minutes' => 'Minúty',
+			'many_minutes' => 'Minút',
+			'circumstances' => 'Okolnosti',
+			'people_present' => 'Prítomné osoby',
+			'outcome' => 'Výsledok',
+			'reflection' => 'Reflexia',
+			'add_new_entry' => 'Pridať záznam',
+			'create' => 'Vytvoriť',
+			'after_typing_enter_submit' => 'Po napísaní stlačte "Enter" pre uloženie',
+			'minute' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sk'))(n, one: 'Minúta', few: 'Minúty', many: 'Minút', other: 'Minút', ), 
+			'mon' => 'Po',
+			'tue' => 'Ut',
+			'wed' => 'St',
+			'thu' => 'Št',
+			'fri' => 'Pi',
+			'sat' => 'So',
+			'sun' => 'Ne',
+			'entry' => 'Záznam',
+			'close' => 'Zavrieť',
+			'managed_people' => 'Spravované osoby',
+			'add_managed_person' => 'Pridať osobu',
+			'load_image' => 'Nahrať obrázok',
+			'change_image' => 'Zmeniť obrázok',
+			'delete_image' => 'Odstrániť obrázok',
+			'change_saved' => 'Zmena uložená',
+			'image_changed' => 'Obrázok bol zmenený',
+			'image_deleted' => 'Obrázok bol odstránený',
+			'entry_added' => 'Záznam pridaný',
+			'currently_managed_person' => 'Práve spravovaná osoba:',
+			'crop_image' => 'Orezať obrázok',
+			'cards' => 'Kartičky',
+			'cards_desc' => 'Kartičky sú používané v AAC klávesnici a môžu byť použité pri tvorbe procesurálnych diagramov',
+			'visual_sequence_boards' => 'Procesurálne diagramy',
+			'visual_sequence_boards_desc' => 'Správa procesurálnych diagramov',
+			'arasaac_icons' => 'ARASAAC Ikony',
+			'create_card' => 'Vytvoriť kartičku',
+			'create_card_decision' => 'Aký si želáte použiť zdroj obrázku?',
+			'from_gallery' => 'Galéria',
+			'no_icons_found' => 'Neboli nájdené žiadne ikony pre daný vyhľadávací výraz.',
+			'use_this_image' => 'Použiť túto ikonu?',
+			'detail' => 'Detail',
+			'delete' => 'Odstrániť',
+			'cant_undo_action' => 'Túto akciu nemožno vrátiť späť.',
+			'error_occured' => 'Nastala chyba',
+			'no_image_set' => 'Nebol nastavený žiadny obrázok',
+			'registration_succesful' => 'Registrácia bola úspešná. Môžete sa prihlásiť.',
+			'visual_supports' => 'Vizuálne pomôcky',
+			'visual_schedules' => 'Vizuálne rozvrhy',
+			'visual_diagrams' => 'Vizuálne diagramy',
+			'first_then_boards' => 'Najprv-Potom tabuľky',
+			'visual_diagram_desc' => 'Vizuálny diagram predstavuje koncepty, procesy alebo vzťahy vo vizuálnom formáte, čo pomáha organizovať informácie a pochopiť súvislosti.',
+			'first_then_boards_desc' => 'Tabuľa „Najprv–Potom“ pomáha pochopiť a dokončiť úlohy tým, že zobrazuje, čo treba urobiť najprv a aká obľúbená činnosť nasleduje.',
+			'visual_schedule_desc' => 'Vizuálny rozvrh zobrazuje poradie denných aktivít alebo krokov v úlohe a pomáha pochopiť rutiny, znížiť úzkosť a podporiť samostatnosť.',
+			'first' => 'Najprv',
+			'then' => 'Potom',
+			'steps' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sk'))(n, one: 'Krok', few: 'Kroky', many: 'Krokov', other: 'Krokov', ), 
+			'add_step' => 'Pridať krok',
+			'done' => 'Hotovo!',
+			_ => null,
+		};
 	}
 }
-

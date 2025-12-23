@@ -3,12 +3,13 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 part of 'strings.g.dart';
 
 // Path: <root>
 typedef TranslationsEn = Translations; // ignore: unused_element
-class Translations implements BaseTranslations<AppLocale, Translations> {
+class Translations with BaseTranslations<AppLocale, Translations> {
 	/// Returns the current translations of the given [context].
 	///
 	/// Usage:
@@ -425,147 +426,140 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get done => 'Done!';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'good_day': return 'Hello!';
-			case 'sign_in': return 'Please sign in to use AutToolkit';
-			case 'sign_in_google': return 'Sign in with Google';
-			case 'sign_in_mail': return 'Sign in with Email';
-			case 'password': return 'Password';
-			case 'password_again': return 'Confirm password';
-			case 'no_account': return 'No account yet?';
-			case 'create_account': return 'Create account';
-			case 'log_in_button': return 'Log in';
-			case 'no_sign_in_details': return 'Missing e-mail or password';
-			case 'passwords_dont_match': return 'Passwords don\'t match';
-			case 'invalid_mail': return 'Invalid e-mail address';
-			case 'invalid_password': return 'Password must contain at elast 6 characters';
-			case 'invalid_email_password': return 'Incorrect e-mail or password';
-			case 'sign_in_button': return 'Sign in';
-			case 'cancel': return 'Cancel';
-			case 'home': return 'Home';
-			case 'settings': return 'Settings';
-			case 'kid_mode_button': return 'Child app mode';
-			case 'signed_in_as': return 'Signed in as: ';
-			case 'log_out': return 'Log out';
-			case 'app_language': return 'App language';
-			case 'change': return 'Change';
-			case 'email': return 'E-mail';
-			case 'enter_details': return 'Enter details';
-			case 'really_log_out': return 'Do you really want to log out?';
-			case 'yes': return 'Yes';
-			case 'no': return 'No';
-			case 'change_app_language': return 'Change app language';
-			case 'dark_mode_toggle': return 'Dark mode';
-			case 'good_habits': return 'Habits';
-			case 'good_habits_desc': return 'Autistic children often prefer strict routines and predictability.';
-			case 'bad_habits': return 'Bad habits';
-			case 'eating_habits': return 'Eating habits';
-			case 'eating_habits_desc': return 'Autistic children often eat selectively due to sensory sensitivities.';
-			case 'is_eating': return 'Eats';
-			case 'is_not_eating': return 'Does not eat';
-			case 'active': return 'Active';
-			case 'inactive': return 'Inactive';
-			case 'search': return 'Search';
-			case 'no_entries': return 'No entries';
-			case 'from': return 'From';
-			case 'to': return 'To';
-			case 'notes': return 'Notes';
-			case 'really_delete_object': return 'Do you really wish to delete ';
-			case 'not_set': return 'Not set';
-			case 'edit': return 'Edit';
-			case 'name': return 'Name';
-			case 'please_enter_name': return 'Please enter a name';
-			case 'save': return 'Save';
-			case 'ascending': return 'Ascending';
-			case 'descending': return 'Descending';
-			case 'sort_by': return 'Sort by';
-			case 'date': return 'Date';
-			case 'filters_and_sorting': return 'Filters and sorting';
-			case 'filters': return 'Filters';
-			case 'sort': return 'Sort by';
-			case 'challenging_behaviour': return 'Challenging behaviour';
-			case 'challenging_behaviour_desc': return 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs.';
-			case 'occuring': return 'Occuring';
-			case 'not_occuring': return 'Not occuring';
-			case 'location': return 'Location';
-			case 'please_enter_location': return 'Please enter a location';
-			case 'duration': return 'Duration';
-			case 'please_enter_duration': return 'Please enter duration';
-			case 'invalid_value': return 'Invalid value';
-			case 'one_minute': return 'Minute';
-			case 'few_minutes': return 'Minutes';
-			case 'many_minutes': return 'Minutes';
-			case 'circumstances': return 'Circumstances';
-			case 'people_present': return 'People present';
-			case 'outcome': return 'Outcome';
-			case 'reflection': return 'Reflection';
-			case 'add_new_entry': return 'Add new entry';
-			case 'create': return 'Create';
-			case 'after_typing_enter_submit': return 'After typing press "Enter" to save';
-			case 'minute': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-				zero: 'Minutes',
-				one: 'Minute',
-				other: 'Minutes',
-			);
-			case 'mon': return 'Mon';
-			case 'tue': return 'Tue';
-			case 'wed': return 'Wed';
-			case 'thu': return 'Thu';
-			case 'fri': return 'Fri';
-			case 'sat': return 'Sat';
-			case 'sun': return 'Sun';
-			case 'entry': return 'Entry';
-			case 'close': return 'Close';
-			case 'managed_people': return 'Managed people';
-			case 'add_managed_person': return 'Add a person';
-			case 'load_image': return 'Add image';
-			case 'change_image': return 'Change image';
-			case 'delete_image': return 'Delete image';
-			case 'change_saved': return 'Change saved';
-			case 'image_changed': return 'Image was changed';
-			case 'image_deleted': return 'Image was deleted';
-			case 'entry_added': return 'Entry added';
-			case 'currently_managed_person': return 'Currently managed person:';
-			case 'crop_image': return 'Crop image';
-			case 'cards': return 'Cards';
-			case 'cards_desc': return 'Cards are used in the AAC board, and can be used inside processural diagrams.';
-			case 'visual_sequence_boards': return 'Visual sequence boards';
-			case 'visual_sequence_boards_desc': return 'Visual sequence boards management';
-			case 'arasaac_icons': return 'ARASAAC Icons';
-			case 'create_card': return 'Create cards';
-			case 'create_card_decision': return 'What source would like to use for the icon?';
-			case 'from_gallery': return 'Gallery';
-			case 'no_icons_found': return 'No icons found for given search query.';
-			case 'use_this_image': return 'Use this icon?';
-			case 'detail': return 'Detail';
-			case 'delete': return 'Delete';
-			case 'cant_undo_action': return 'This action cannot be undone.';
-			case 'error_occured': return 'An error occured';
-			case 'no_image_set': return 'No image was set.';
-			case 'registration_succesful': return 'Registration was succesful. You can now log in.';
-			case 'visual_supports': return 'Visual supports';
-			case 'visual_schedules': return 'Visual schedules';
-			case 'visual_diagrams': return 'Vizuálne diagramy';
-			case 'first_then_boards': return 'First–Then boards';
-			case 'visual_diagram_desc': return 'A Visual Diagram represents concepts, processes, or relationships in a visual format, helping to organize information and understand connections.';
-			case 'first_then_boards_desc': return 'A First–Then Board helps understand and complete tasks by showing what needs to be done first and what preferred activity will follow.';
-			case 'visual_schedule_desc': return 'A Visual Schedule shows the order of daily activities or steps within a task, helping understand routines, reduce anxiety, and become more independent.';
-			case 'first': return 'First';
-			case 'then': return 'Then';
-			case 'steps': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
-				one: 'Step',
-				few: 'Steps',
-				many: 'Steps',
-				other: 'Steps',
-			);
-			case 'add_step': return 'Add step';
-			case 'done': return 'Done!';
-			default: return null;
-		}
+		return switch (path) {
+			'good_day' => 'Hello!',
+			'sign_in' => 'Please sign in to use AutToolkit',
+			'sign_in_google' => 'Sign in with Google',
+			'sign_in_mail' => 'Sign in with Email',
+			'password' => 'Password',
+			'password_again' => 'Confirm password',
+			'no_account' => 'No account yet?',
+			'create_account' => 'Create account',
+			'log_in_button' => 'Log in',
+			'no_sign_in_details' => 'Missing e-mail or password',
+			'passwords_dont_match' => 'Passwords don\'t match',
+			'invalid_mail' => 'Invalid e-mail address',
+			'invalid_password' => 'Password must contain at elast 6 characters',
+			'invalid_email_password' => 'Incorrect e-mail or password',
+			'sign_in_button' => 'Sign in',
+			'cancel' => 'Cancel',
+			'home' => 'Home',
+			'settings' => 'Settings',
+			'kid_mode_button' => 'Child app mode',
+			'signed_in_as' => 'Signed in as: ',
+			'log_out' => 'Log out',
+			'app_language' => 'App language',
+			'change' => 'Change',
+			'email' => 'E-mail',
+			'enter_details' => 'Enter details',
+			'really_log_out' => 'Do you really want to log out?',
+			'yes' => 'Yes',
+			'no' => 'No',
+			'change_app_language' => 'Change app language',
+			'dark_mode_toggle' => 'Dark mode',
+			'good_habits' => 'Habits',
+			'good_habits_desc' => 'Autistic children often prefer strict routines and predictability.',
+			'bad_habits' => 'Bad habits',
+			'eating_habits' => 'Eating habits',
+			'eating_habits_desc' => 'Autistic children often eat selectively due to sensory sensitivities.',
+			'is_eating' => 'Eats',
+			'is_not_eating' => 'Does not eat',
+			'active' => 'Active',
+			'inactive' => 'Inactive',
+			'search' => 'Search',
+			'no_entries' => 'No entries',
+			'from' => 'From',
+			'to' => 'To',
+			'notes' => 'Notes',
+			'really_delete_object' => 'Do you really wish to delete ',
+			'not_set' => 'Not set',
+			'edit' => 'Edit',
+			'name' => 'Name',
+			'please_enter_name' => 'Please enter a name',
+			'save' => 'Save',
+			'ascending' => 'Ascending',
+			'descending' => 'Descending',
+			'sort_by' => 'Sort by',
+			'date' => 'Date',
+			'filters_and_sorting' => 'Filters and sorting',
+			'filters' => 'Filters',
+			'sort' => 'Sort by',
+			'challenging_behaviour' => 'Challenging behaviour',
+			'challenging_behaviour_desc' => 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs.',
+			'occuring' => 'Occuring',
+			'not_occuring' => 'Not occuring',
+			'location' => 'Location',
+			'please_enter_location' => 'Please enter a location',
+			'duration' => 'Duration',
+			'please_enter_duration' => 'Please enter duration',
+			'invalid_value' => 'Invalid value',
+			'one_minute' => 'Minute',
+			'few_minutes' => 'Minutes',
+			'many_minutes' => 'Minutes',
+			'circumstances' => 'Circumstances',
+			'people_present' => 'People present',
+			'outcome' => 'Outcome',
+			'reflection' => 'Reflection',
+			'add_new_entry' => 'Add new entry',
+			'create' => 'Create',
+			'after_typing_enter_submit' => 'After typing press "Enter" to save',
+			'minute' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, zero: 'Minutes', one: 'Minute', other: 'Minutes', ), 
+			'mon' => 'Mon',
+			'tue' => 'Tue',
+			'wed' => 'Wed',
+			'thu' => 'Thu',
+			'fri' => 'Fri',
+			'sat' => 'Sat',
+			'sun' => 'Sun',
+			'entry' => 'Entry',
+			'close' => 'Close',
+			'managed_people' => 'Managed people',
+			'add_managed_person' => 'Add a person',
+			'load_image' => 'Add image',
+			'change_image' => 'Change image',
+			'delete_image' => 'Delete image',
+			'change_saved' => 'Change saved',
+			'image_changed' => 'Image was changed',
+			'image_deleted' => 'Image was deleted',
+			'entry_added' => 'Entry added',
+			'currently_managed_person' => 'Currently managed person:',
+			'crop_image' => 'Crop image',
+			'cards' => 'Cards',
+			'cards_desc' => 'Cards are used in the AAC board, and can be used inside processural diagrams.',
+			'visual_sequence_boards' => 'Visual sequence boards',
+			'visual_sequence_boards_desc' => 'Visual sequence boards management',
+			'arasaac_icons' => 'ARASAAC Icons',
+			'create_card' => 'Create cards',
+			'create_card_decision' => 'What source would like to use for the icon?',
+			'from_gallery' => 'Gallery',
+			'no_icons_found' => 'No icons found for given search query.',
+			'use_this_image' => 'Use this icon?',
+			'detail' => 'Detail',
+			'delete' => 'Delete',
+			'cant_undo_action' => 'This action cannot be undone.',
+			'error_occured' => 'An error occured',
+			'no_image_set' => 'No image was set.',
+			'registration_succesful' => 'Registration was succesful. You can now log in.',
+			'visual_supports' => 'Visual supports',
+			'visual_schedules' => 'Visual schedules',
+			'visual_diagrams' => 'Vizuálne diagramy',
+			'first_then_boards' => 'First–Then boards',
+			'visual_diagram_desc' => 'A Visual Diagram represents concepts, processes, or relationships in a visual format, helping to organize information and understand connections.',
+			'first_then_boards_desc' => 'A First–Then Board helps understand and complete tasks by showing what needs to be done first and what preferred activity will follow.',
+			'visual_schedule_desc' => 'A Visual Schedule shows the order of daily activities or steps within a task, helping understand routines, reduce anxiety, and become more independent.',
+			'first' => 'First',
+			'then' => 'Then',
+			'steps' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'Step', few: 'Steps', many: 'Steps', other: 'Steps', ), 
+			'add_step' => 'Add step',
+			'done' => 'Done!',
+			_ => null,
+		};
 	}
 }
-
