@@ -1,3 +1,4 @@
+import 'package:aut_toolkit/core/services/tts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -59,6 +60,7 @@ class _AppLanguageTileState extends ConsumerState<AppLanguageTile> {
 
     if (chosenLocale != null && chosenLocale != _selectedLocale) {
       setState(() {
+        TtsService.setLanguage(chosenLocale.name.toUpperCase());
         _selectedLocale = chosenLocale;
         LocaleSettings.setLocaleRaw(chosenLocale.name);
         ref

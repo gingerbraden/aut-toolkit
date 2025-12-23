@@ -1,4 +1,5 @@
 import 'package:aut_toolkit/app/router.dart';
+import 'package:aut_toolkit/core/services/tts_service.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
 import 'package:aut_toolkit/features/card_management/provider/card_notifier.dart';
 import 'package:aut_toolkit/i18n/strings.g.dart';
@@ -37,5 +38,9 @@ class UserCardDetailViewModel extends Notifier<void> {
       container.read(cardsProvider.notifier).deleteCard(card);
       router.pop();
     }
+  }
+
+  Future<void> speak(String text) async {
+    await TtsService.speak(text);
   }
 }

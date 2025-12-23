@@ -39,19 +39,22 @@ class UserCardDetail extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
-          child: Card(
-            child: Padding(
-              padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    card.names[LocaleSettings.currentLocale.languageCode] ?? '',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  const SizedBoxDivider(),
-                  SquareImageFilledWidth(imageFilePath: card.localImgPath),
-                ],
+          child: InkWell(
+            onTap: () => viewModel.speak(card.names[LocaleSettings.currentLocale.languageCode]!),
+            child: Card(
+              child: Padding(
+                padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      card.names[LocaleSettings.currentLocale.languageCode] ?? '',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    const SizedBoxDivider(),
+                    SquareImageFilledWidth(imageFilePath: card.localImgPath),
+                  ],
+                ),
               ),
             ),
           ),

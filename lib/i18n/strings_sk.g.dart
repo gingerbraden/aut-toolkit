@@ -172,6 +172,11 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	);
 	@override String get add_step => 'Pridať krok';
 	@override String get done => 'Hotovo!';
+	@override String get tts_settings => 'Nastavenia hlasu';
+	@override String get tts_rate => 'Tempo';
+	@override String get tts_volume => 'Hlasitosť';
+	@override String get tts_pitch => 'Tón';
+	@override String get tts_test => 'Test hlasu';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -307,6 +312,11 @@ extension on TranslationsSk {
 			'steps' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sk'))(n, one: 'Krok', few: 'Kroky', many: 'Krokov', other: 'Krokov', ), 
 			'add_step' => 'Pridať krok',
 			'done' => 'Hotovo!',
+			'tts_settings' => 'Nastavenia hlasu',
+			'tts_rate' => 'Tempo',
+			'tts_volume' => 'Hlasitosť',
+			'tts_pitch' => 'Tón',
+			'tts_test' => 'Test hlasu',
 			_ => null,
 		};
 	}

@@ -424,6 +424,21 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Done!'
 	String get done => 'Done!';
+
+	/// en: 'Voice settings'
+	String get tts_settings => 'Voice settings';
+
+	/// en: 'Rate'
+	String get tts_rate => 'Rate';
+
+	/// en: 'Volume'
+	String get tts_volume => 'Volume';
+
+	/// en: 'Pitch'
+	String get tts_pitch => 'Pitch';
+
+	/// en: 'Voice test'
+	String get tts_test => 'Voice test';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -559,6 +574,11 @@ extension on Translations {
 			'steps' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'Step', few: 'Steps', many: 'Steps', other: 'Steps', ), 
 			'add_step' => 'Add step',
 			'done' => 'Done!',
+			'tts_settings' => 'Voice settings',
+			'tts_rate' => 'Rate',
+			'tts_volume' => 'Volume',
+			'tts_pitch' => 'Pitch',
+			'tts_test' => 'Voice test',
 			_ => null,
 		};
 	}

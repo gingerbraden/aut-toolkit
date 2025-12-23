@@ -132,5 +132,10 @@
     "other": "Steps"
   },
   "add_step": "Add step",
-  "done": "Done!"
+  "done": "Done!",
+  "tts_settings": "Voice settings",
+  "tts_rate": "Rate",
+  "tts_volume": "Volume",
+  "tts_pitch": "Pitch",
+  "tts_test": "Voice test"
 }

@@ -1,5 +1,4 @@
 import 'package:aut_toolkit/features/selected_person/provider/selected_person_notifier.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,10 +20,10 @@ class _SelectedPersonManagementTileState
     final allPersons = ref.watch(selectedPersonsProvider);
 
     return ListTile(
-      leading: const Icon(CupertinoIcons.person_2),
+      leading: const Icon(Icons.person_2),
       title: Text(t.managed_people),
       subtitle: Text('${allPersons.length}'),
-      trailing: const Icon(CupertinoIcons.chevron_right),
+      trailing: const Icon(Icons.chevron_right),
       onTap: () => _showSelectedPeopleDialog(context, allPersons),
     );
   }

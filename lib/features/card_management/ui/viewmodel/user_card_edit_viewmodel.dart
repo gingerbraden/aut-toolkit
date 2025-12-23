@@ -1,4 +1,5 @@
 import 'package:aut_toolkit/app/router.dart';
+import 'package:aut_toolkit/core/services/tts_service.dart';
 import 'package:aut_toolkit/core/utils/image_util.dart';
 import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
@@ -119,6 +120,10 @@ class UserCardEditViewModel extends Notifier<UserCardEditState> {
       }
     }
     return UserCardEditResult.none;
+  }
+
+  void playAudio(String text) {
+    TtsService.speak(text);
   }
 }
 

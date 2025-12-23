@@ -133,6 +133,11 @@
     "other": "Krokov"
   },
   "add_step": "Pridať krok",
-  "done": "Hotovo!"
+  "done": "Hotovo!",
+  "tts_settings": "Nastavenia hlasu",
+  "tts_rate": "Tempo",
+  "tts_volume": "Hlasitosť",
+  "tts_pitch": "Tón",
+  "tts_test": "Test hlasu"
 
 }

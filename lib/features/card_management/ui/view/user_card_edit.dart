@@ -100,6 +100,13 @@ class _UserCardEditState extends ConsumerState<UserCardEdit> {
                                   : t.change_image,
                             ),
                           ),
+                          ElevatedButton.icon(
+                            onPressed: () => viewModel.playAudio(_nameController.text.toString()),
+                            icon: const Icon(Icons.audiotrack_outlined),
+                            label: Text(
+                              t.tts_test
+                            ),
+                          ),
                         ],
                       ),
                     ),
