@@ -439,6 +439,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Voice test'
 	String get tts_test => 'Voice test';
+
+	/// en: 'When creating a new card, the entered name is automatically used for all languages. To change the name in another language, switch the app language and then edit the card again. When editing an existing card, the change will be saved only for the currently active app language.'
+	String get card_name_language_info => 'When creating a new card, the entered name is automatically used for all languages. To change the name in another language, switch the app language and then edit the card again. When editing an existing card, the change will be saved only for the currently active app language.';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -579,6 +582,7 @@ extension on Translations {
 			'tts_volume' => 'Volume',
 			'tts_pitch' => 'Pitch',
 			'tts_test' => 'Voice test',
+			'card_name_language_info' => 'When creating a new card, the entered name is automatically used for all languages. To change the name in another language, switch the app language and then edit the card again. When editing an existing card, the change will be saved only for the currently active app language.',
 			_ => null,
 		};
 	}

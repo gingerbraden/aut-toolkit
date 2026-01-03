@@ -177,6 +177,7 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get tts_volume => 'Hlasitosť';
 	@override String get tts_pitch => 'Tón';
 	@override String get tts_test => 'Test hlasu';
+	@override String get card_name_language_info => 'Pri vytváraní novej kartičky sa zadaný názov automaticky použije aj pre ostatné jazyky. Ak chcete názov upraviť v inom jazyku, zmeňte jazyk aplikácie a následne kartičku znova upravte. Pri úprave existujúcej kartičky sa zmena sa uloží iba pre práve aktívny jazyk aplikácie.';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -317,6 +318,7 @@ extension on TranslationsSk {
 			'tts_volume' => 'Hlasitosť',
 			'tts_pitch' => 'Tón',
 			'tts_test' => 'Test hlasu',
+			'card_name_language_info' => 'Pri vytváraní novej kartičky sa zadaný názov automaticky použije aj pre ostatné jazyky. Ak chcete názov upraviť v inom jazyku, zmeňte jazyk aplikácie a následne kartičku znova upravte. Pri úprave existujúcej kartičky sa zmena sa uloží iba pre práve aktívny jazyk aplikácie.',
 			_ => null,
 		};
 	}

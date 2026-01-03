@@ -118,7 +118,27 @@ class _UserCardEditState extends ConsumerState<UserCardEdit> {
                     else if (state.imagePath != null &&
                         state.imagePath!.isNotEmpty)
                       SquareImageFilledWidth(imageFilePath: state.imagePath!),
-                  ],
+                    SizedBoxDivider(),
+                    Divider(),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.info_outline,
+                          size: 16,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            t.card_name_language_info,
+                            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )                  ],
                 ),
               ),
             ),

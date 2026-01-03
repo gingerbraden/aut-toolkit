@@ -138,6 +138,7 @@
   "tts_rate": "Tempo",
   "tts_volume": "Hlasitosť",
   "tts_pitch": "Tón",
-  "tts_test": "Test hlasu"
+  "tts_test": "Test hlasu",
+  "card_name_language_info": "Pri vytváraní novej kartičky sa zadaný názov automaticky použije aj pre ostatné jazyky. Ak chcete názov upraviť v inom jazyku, zmeňte jazyk aplikácie a následne kartičku znova upravte. Pri úprave existujúcej kartičky sa zmena sa uloží iba pre práve aktívny jazyk aplikácie."
 
 }
