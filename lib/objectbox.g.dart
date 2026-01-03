@@ -405,7 +405,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(9, 6961689238950263914),
     name: 'UserCardEntity',
-    lastPropertyId: const obx_int.IdUid(5, 6103644701031938418),
+    lastPropertyId: const obx_int.IdUid(11, 7584242058812361914),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -435,6 +435,42 @@ final _entities = <obx_int.ModelEntity>[
       obx_int.ModelProperty(
         id: const obx_int.IdUid(5, 6103644701031938418),
         name: 'namesJson',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 5505214374322437866),
+        name: 'remoteId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 1398351388652578857),
+        name: 'updatedAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 2437854286005673038),
+        name: 'isSynced',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 9095108670282445750),
+        name: 'pendingAction',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(10, 3224521116130135316),
+        name: 'isDeleted',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(11, 7584242058812361914),
+        name: 'remoteImgPath',
         type: 9,
         flags: 0,
       ),
@@ -1139,12 +1175,24 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final userIdOffset = fbb.writeString(object.userId);
         final localImgPathOffset = fbb.writeString(object.localImgPath);
         final namesJsonOffset = fbb.writeString(object.namesJson);
-        fbb.startTable(6);
+        final remoteIdOffset = object.remoteId == null
+            ? null
+            : fbb.writeString(object.remoteId!);
+        final remoteImgPathOffset = object.remoteImgPath == null
+            ? null
+            : fbb.writeString(object.remoteImgPath!);
+        fbb.startTable(12);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.arasaacId);
         fbb.addOffset(2, userIdOffset);
         fbb.addOffset(3, localImgPathOffset);
         fbb.addOffset(4, namesJsonOffset);
+        fbb.addOffset(5, remoteIdOffset);
+        fbb.addInt64(6, object.updatedAt.millisecondsSinceEpoch);
+        fbb.addBool(7, object.isSynced);
+        fbb.addInt64(8, object.pendingAction);
+        fbb.addBool(9, object.isDeleted);
+        fbb.addOffset(10, remoteImgPathOffset);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -1171,12 +1219,45 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final namesJsonParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 12, '');
+        final remoteIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 14);
+        final updatedAtParam = DateTime.fromMillisecondsSinceEpoch(
+          const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0),
+        );
+        final isSyncedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          18,
+          false,
+        );
+        final isDeletedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          22,
+          false,
+        );
+        final pendingActionParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          20,
+          0,
+        );
+        final remoteImgPathParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 24);
         final object = UserCardEntity(
           id: idParam,
           arasaacId: arasaacIdParam,
           userId: userIdParam,
           localImgPath: localImgPathParam,
           namesJson: namesJsonParam,
+          remoteId: remoteIdParam,
+          updatedAt: updatedAtParam,
+          isSynced: isSyncedParam,
+          isDeleted: isDeletedParam,
+          pendingAction: pendingActionParam,
+          remoteImgPath: remoteImgPathParam,
         );
 
         return object;
@@ -1640,6 +1721,36 @@ class UserCardEntity_ {
   /// See [UserCardEntity.namesJson].
   static final namesJson = obx.QueryStringProperty<UserCardEntity>(
     _entities[5].properties[4],
+  );
+
+  /// See [UserCardEntity.remoteId].
+  static final remoteId = obx.QueryStringProperty<UserCardEntity>(
+    _entities[5].properties[5],
+  );
+
+  /// See [UserCardEntity.updatedAt].
+  static final updatedAt = obx.QueryDateProperty<UserCardEntity>(
+    _entities[5].properties[6],
+  );
+
+  /// See [UserCardEntity.isSynced].
+  static final isSynced = obx.QueryBooleanProperty<UserCardEntity>(
+    _entities[5].properties[7],
+  );
+
+  /// See [UserCardEntity.pendingAction].
+  static final pendingAction = obx.QueryIntegerProperty<UserCardEntity>(
+    _entities[5].properties[8],
+  );
+
+  /// See [UserCardEntity.isDeleted].
+  static final isDeleted = obx.QueryBooleanProperty<UserCardEntity>(
+    _entities[5].properties[9],
+  );
+
+  /// See [UserCardEntity.remoteImgPath].
+  static final remoteImgPath = obx.QueryStringProperty<UserCardEntity>(
+    _entities[5].properties[10],
   );
 }
 

@@ -30,6 +30,8 @@ class UserCardEditViewModel extends Notifier<UserCardEditState> {
           : "",
       imagePath: _card.localImgPath,
       arasaacId: _card.arasaacId,
+      remoteImgPath: _card.remoteImgPath,
+      remoteId: _card.remoteId,
     );
   }
 
@@ -69,6 +71,7 @@ class UserCardEditViewModel extends Notifier<UserCardEditState> {
           Theme.of(context).colorScheme.surface,
           Theme.of(context).textTheme.headlineLarge!.color!,
         );
+        state = state.copyWith(arasaacId: 0);
       } else if (choice == 'arasaac') {
         await router.push(RouterUtils.getCardsARASAACPath());
         String? path = await state.asyncPrefs.getString('imgPath');
@@ -76,7 +79,7 @@ class UserCardEditViewModel extends Notifier<UserCardEditState> {
           imgPath = await ImageUtil.saveImageFromUrl(path);
           arasaacId = imgPath!.split("/").last.split("_").first;
           state.asyncPrefs.setString('imgPath', "");
-          state.copyWith(arasaacId: int.parse(arasaacId));
+          state = state.copyWith(arasaacId: int.parse(arasaacId));
         }
       }
       if (imgPath != null) {
@@ -111,8 +114,15 @@ class UserCardEditViewModel extends Notifier<UserCardEditState> {
           id: card.id,
           arasaacId: state.arasaacId,
           userId: card.userId,
-          names: LanguageUtil.setCardNameToLanguage(card.names, LocaleSettings.currentLocale.languageCode, state.name),
+          names: LanguageUtil.setCardNameToLanguage(
+            card.names,
+            LocaleSettings.currentLocale.languageCode,
+            state.name,
+          ),
           localImgPath: state.imagePath ?? '',
+          updatedAt: DateTime.now(),
+          remoteImgPath: state.remoteImgPath,
+          remoteId: state.remoteId,
         );
         ref.read(cardsProvider.notifier).addCard(updatedCard);
         return UserCardEditResult.saved;
@@ -137,6 +147,8 @@ class UserCardEditState {
   final int? arasaacId;
   final bool isLoadingImage;
   final SharedPreferencesAsync asyncPrefs;
+  final String? remoteImgPath;
+  final String? remoteId;
 
   UserCardEditState({
     required this.formKey,
@@ -145,6 +157,8 @@ class UserCardEditState {
     this.arasaacId,
     this.isLoadingImage = false,
     required this.asyncPrefs,
+    required this.remoteImgPath,
+    required this.remoteId,
   });
 
   UserCardEditState copyWith({
@@ -152,6 +166,8 @@ class UserCardEditState {
     int? arasaacId,
     bool? isLoadingImage,
     String? name,
+    String? remoteImgPath,
+    String? remoteId,
   }) {
     return UserCardEditState(
       formKey: formKey,
@@ -160,6 +176,8 @@ class UserCardEditState {
       arasaacId: arasaacId ?? this.arasaacId,
       isLoadingImage: isLoadingImage ?? this.isLoadingImage,
       asyncPrefs: asyncPrefs,
+      remoteImgPath: remoteImgPath ?? this.remoteImgPath,
+      remoteId: remoteId ?? this.remoteId,
     );
   }
 }

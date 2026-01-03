@@ -12,7 +12,10 @@ final filteredUserCardsProvider = Provider<List<UserCard>>((ref) {
   final allCards = ref.watch(cardsProvider);
   final currentUserId = FirebaseAuth.instance.currentUser?.uid;
   if (currentUserId == null) return [];
-  return allCards.where((card) => card.userId == currentUserId).toList();
+  return allCards
+      .where((card) => card.userId == currentUserId)
+      .where((h) => !h.isDeleted)
+      .toList();
 });
 
 class UserCardsListViewModel extends Notifier<List<UserCard>> {

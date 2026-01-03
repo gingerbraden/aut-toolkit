@@ -1,4 +1,7 @@
 import 'package:aut_toolkit/core/services/sync_manager.dart';
+import 'package:aut_toolkit/features/card_management/data/card_repository_impl.dart';
+import 'package:aut_toolkit/features/card_management/data/source/card_local_source.dart';
+import 'package:aut_toolkit/features/card_management/data/source/card_remote_source.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/challenging_behaviour_repository_impl.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/source/challenging_behaviour_local_source.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/source/challenging_behaviour_remote_source.dart';
@@ -17,6 +20,7 @@ class RepoService {
   late final GoodHabitRepositoryImpl goodHabitRepository;
   late final ChallengingBehaviourRepositoryImpl challengingBehaviourRepository;
   late final EatingHabitRepositoryImpl eatingHabitRepository;
+  late final CardRepositoryImpl cardRepositoryImpl;
 
   static final RepoService _instance = RepoService._();
 
@@ -44,7 +48,13 @@ class RepoService {
     eatingHabitRepository = EatingHabitRepositoryImpl(
       EatingHabitLocalSource(objectbox.eatingHabitEntityBox),
       EatingHabitRemoteSource(),
-      syncManager
+      syncManager,
+    );
+
+    cardRepositoryImpl = CardRepositoryImpl(
+      CardLocalSource(objectbox.cardBox),
+      CardRemoteSource(),
+      syncManager,
     );
 
     await _fetchAllRemoteData();
@@ -58,5 +68,6 @@ class RepoService {
     await goodHabitRepository.fetchRemote();
     await challengingBehaviourRepository.fetchRemote();
     await eatingHabitRepository.fetchRemote();
+    await cardRepositoryImpl.fetchRemote();
   }
 }

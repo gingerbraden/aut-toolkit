@@ -318,7 +318,7 @@
     },
     {
       "id": "9:6961689238950263914",
-      "lastPropertyId": "5:6103644701031938418",
+      "lastPropertyId": "11:7584242058812361914",
       "name": "UserCardEntity",
       "properties": [
         {
@@ -345,6 +345,36 @@
         {
           "id": "5:6103644701031938418",
           "name": "namesJson",
+          "type": 9
+        },
+        {
+          "id": "6:5505214374322437866",
+          "name": "remoteId",
+          "type": 9
+        },
+        {
+          "id": "7:1398351388652578857",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "8:2437854286005673038",
+          "name": "isSynced",
+          "type": 1
+        },
+        {
+          "id": "9:9095108670282445750",
+          "name": "pendingAction",
+          "type": 6
+        },
+        {
+          "id": "10:3224521116130135316",
+          "name": "isDeleted",
+          "type": 1
+        },
+        {
+          "id": "11:7584242058812361914",
+          "name": "remoteImgPath",
           "type": 9
         }
       ],

@@ -62,6 +62,7 @@ class ARASAACCardsSearchViewModel extends Notifier<ARASAACCardsSearchState> {
     final future = state.repo.searchPictograms(
       state.translations[query]!.join(" "),
     );
+    if (!ref.mounted) return;
     state = state.copyWith(futurePictograms: future, lastQuery: query);
   }
 

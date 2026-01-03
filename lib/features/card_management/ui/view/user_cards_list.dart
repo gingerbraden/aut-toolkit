@@ -86,6 +86,8 @@ class UserCardsList extends ConsumerWidget {
               userId: userId,
               localImgPath: "",
               names: <String, String>{},
+              updatedAt: DateTime.now(),
+              remoteImgPath: "",
             ),
           );
         },

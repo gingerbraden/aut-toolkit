@@ -13,10 +13,24 @@ extension FirstThenBoardEntityMapper on FirstThenBoardEntity {
       userId: userId,
       first:
           first.target?.toModel() ??
-          UserCard(id: 0, userId: '', names: {}, localImgPath: ''),
+          UserCard(
+            id: 0,
+            userId: '',
+            names: {},
+            localImgPath: '',
+            updatedAt: DateTime.now(),
+            remoteImgPath: "",
+          ),
       then:
           then.target?.toModel() ??
-          UserCard(id: 0, userId: '', names: {}, localImgPath: ''),
+          UserCard(
+            id: 0,
+            userId: '',
+            names: {},
+            localImgPath: '',
+            updatedAt: DateTime.now(),
+            remoteImgPath: "",
+          ),
       name: name,
     );
   }

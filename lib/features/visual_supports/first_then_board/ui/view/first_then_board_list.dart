@@ -174,8 +174,20 @@ class _FirstThenBoardListViewState extends ConsumerState<FirstThenBoardList> {
       extra: FirstThenBoard(
         name: '',
         userId: userId,
-        first: UserCard(userId: userId, localImgPath: "", names: {}),
-        then: UserCard(userId: userId, localImgPath: "", names: {}),
+        first: UserCard(
+          userId: userId,
+          localImgPath: "",
+          names: {},
+          updatedAt: DateTime.now(),
+          remoteImgPath: "",
+        ),
+        then: UserCard(
+          userId: userId,
+          localImgPath: "",
+          names: {},
+          updatedAt: DateTime.now(),
+          remoteImgPath: "",
+        ),
       ),
     );
   }
