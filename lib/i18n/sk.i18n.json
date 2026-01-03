@@ -139,6 +139,17 @@
   "tts_volume": "Hlasitosť",
   "tts_pitch": "Tón",
   "tts_test": "Test hlasu",
-  "card_name_language_info": "Pri vytváraní novej kartičky sa zadaný názov automaticky použije aj pre ostatné jazyky. Ak chcete názov upraviť v inom jazyku, zmeňte jazyk aplikácie a následne kartičku znova upravte. Pri úprave existujúcej kartičky sa zmena sa uloží iba pre práve aktívny jazyk aplikácie."
-
+  "card_name_language_info": "Pri vytváraní novej kartičky sa zadaný názov automaticky použije aj pre ostatné jazyky. Ak chcete názov upraviť v inom jazyku, zmeňte jazyk aplikácie a následne kartičku znova upravte. Pri úprave existujúcej kartičky sa zmena sa uloží iba pre práve aktívny jazyk aplikácie.",
+  "noun": "Podstatné meno",
+  "pronoun": "Zámeno",
+  "verb": "Sloveso",
+  "adjective": "Prídavné meno",
+  "preposition": "Predložka",
+  "question": "Opytovacie slovo",
+  "negation_important": "Záporové a dôležité slová",
+  "adverb": "Príslovka",
+  "conjunction": "Spojka",
+  "determiner": "Určovací výraz",
+  "please_choose_word_category": "Prosím zvoľte typ slova",
+  "word_category": "Typ slova"
 }

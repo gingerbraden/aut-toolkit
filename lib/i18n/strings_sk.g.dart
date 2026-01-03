@@ -178,6 +178,18 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get tts_pitch => 'Tón';
 	@override String get tts_test => 'Test hlasu';
 	@override String get card_name_language_info => 'Pri vytváraní novej kartičky sa zadaný názov automaticky použije aj pre ostatné jazyky. Ak chcete názov upraviť v inom jazyku, zmeňte jazyk aplikácie a následne kartičku znova upravte. Pri úprave existujúcej kartičky sa zmena sa uloží iba pre práve aktívny jazyk aplikácie.';
+	@override String get noun => 'Podstatné meno';
+	@override String get pronoun => 'Zámeno';
+	@override String get verb => 'Sloveso';
+	@override String get adjective => 'Prídavné meno';
+	@override String get preposition => 'Predložka';
+	@override String get question => 'Opytovacie slovo';
+	@override String get negation_important => 'Záporové a dôležité slová';
+	@override String get adverb => 'Príslovka';
+	@override String get conjunction => 'Spojka';
+	@override String get determiner => 'Určovací výraz';
+	@override String get please_choose_word_category => 'Prosím zvoľte typ slova';
+	@override String get word_category => 'Typ slova';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -319,6 +331,18 @@ extension on TranslationsSk {
 			'tts_pitch' => 'Tón',
 			'tts_test' => 'Test hlasu',
 			'card_name_language_info' => 'Pri vytváraní novej kartičky sa zadaný názov automaticky použije aj pre ostatné jazyky. Ak chcete názov upraviť v inom jazyku, zmeňte jazyk aplikácie a následne kartičku znova upravte. Pri úprave existujúcej kartičky sa zmena sa uloží iba pre práve aktívny jazyk aplikácie.',
+			'noun' => 'Podstatné meno',
+			'pronoun' => 'Zámeno',
+			'verb' => 'Sloveso',
+			'adjective' => 'Prídavné meno',
+			'preposition' => 'Predložka',
+			'question' => 'Opytovacie slovo',
+			'negation_important' => 'Záporové a dôležité slová',
+			'adverb' => 'Príslovka',
+			'conjunction' => 'Spojka',
+			'determiner' => 'Určovací výraz',
+			'please_choose_word_category' => 'Prosím zvoľte typ slova',
+			'word_category' => 'Typ slova',
 			_ => null,
 		};
 	}

@@ -99,6 +99,7 @@ class CardRemoteSource {
       'pendingAction': e.pendingAction.index,
       'updatedAt': e.updatedAt.toIso8601String(),
       'remoteImgPath': e.remoteImagePath,
+      'wordCategory': e.wordCategory,
     };
   }
 
@@ -117,6 +118,7 @@ class CardRemoteSource {
             ? DateTime.parse(d['updatedAt'])
             : DateTime.now(),
         remoteImagePath: d['remoteImgPath'] ?? null,
+        wordCategory: d['wordCategory'] ?? 0,
       )
       ..remoteId = snap.id
       ..isSynced = d['isSynced'] ?? true

@@ -442,6 +442,42 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'When creating a new card, the entered name is automatically used for all languages. To change the name in another language, switch the app language and then edit the card again. When editing an existing card, the change will be saved only for the currently active app language.'
 	String get card_name_language_info => 'When creating a new card, the entered name is automatically used for all languages. To change the name in another language, switch the app language and then edit the card again. When editing an existing card, the change will be saved only for the currently active app language.';
+
+	/// en: 'Noun'
+	String get noun => 'Noun';
+
+	/// en: 'Pronoun'
+	String get pronoun => 'Pronoun';
+
+	/// en: 'Verb'
+	String get verb => 'Verb';
+
+	/// en: 'Adjective'
+	String get adjective => 'Adjective';
+
+	/// en: 'Preposition'
+	String get preposition => 'Preposition';
+
+	/// en: 'Question word'
+	String get question => 'Question word';
+
+	/// en: 'Negation & important words'
+	String get negation_important => 'Negation & important words';
+
+	/// en: 'Adverb'
+	String get adverb => 'Adverb';
+
+	/// en: 'Conjunction'
+	String get conjunction => 'Conjunction';
+
+	/// en: 'Determiner'
+	String get determiner => 'Determiner';
+
+	/// en: 'Please choose a word type'
+	String get please_choose_word_category => 'Please choose a word type';
+
+	/// en: 'Word type'
+	String get word_category => 'Word type';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -583,6 +619,18 @@ extension on Translations {
 			'tts_pitch' => 'Pitch',
 			'tts_test' => 'Voice test',
 			'card_name_language_info' => 'When creating a new card, the entered name is automatically used for all languages. To change the name in another language, switch the app language and then edit the card again. When editing an existing card, the change will be saved only for the currently active app language.',
+			'noun' => 'Noun',
+			'pronoun' => 'Pronoun',
+			'verb' => 'Verb',
+			'adjective' => 'Adjective',
+			'preposition' => 'Preposition',
+			'question' => 'Question word',
+			'negation_important' => 'Negation & important words',
+			'adverb' => 'Adverb',
+			'conjunction' => 'Conjunction',
+			'determiner' => 'Determiner',
+			'please_choose_word_category' => 'Please choose a word type',
+			'word_category' => 'Word type',
 			_ => null,
 		};
 	}

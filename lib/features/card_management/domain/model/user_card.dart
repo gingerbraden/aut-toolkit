@@ -1,11 +1,25 @@
 import '../../../../core/model/sync_entity.dart';
 
+enum WordCategory {
+  NOUN,
+  PRONOUN,
+  VERB,
+  ADJECTIVE,
+  PREPOSITION,
+  QUESTION,
+  NEGATION_IMPORTANT,
+  ADVERB,
+  CONJUNCTION,
+  DETERMINER,
+}
+
 class UserCard {
   int? id;
   int? arasaacId;
   String userId;
   String localImgPath;
   Map<String, String> names;
+  WordCategory? wordCategory;
 
   String? remoteId;
   DateTime updatedAt;
@@ -26,5 +40,6 @@ class UserCard {
     this.isDeleted = false,
     this.pendingAction = PendingAction.NONE,
     required this.remoteImgPath,
+    this.wordCategory,
   });
 }

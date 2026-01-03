@@ -8,6 +8,7 @@ class UserCardEntity {
   String userId;
   String localImgPath;
   String namesJson;
+  int? wordCategory;
 
   String? remoteId;
   DateTime updatedAt;
@@ -28,5 +29,6 @@ class UserCardEntity {
     this.isDeleted = false,
     this.pendingAction = 0,
     required this.remoteImgPath,
+    this.wordCategory,
   });
 }

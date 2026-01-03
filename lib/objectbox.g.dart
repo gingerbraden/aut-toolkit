@@ -405,7 +405,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(9, 6961689238950263914),
     name: 'UserCardEntity',
-    lastPropertyId: const obx_int.IdUid(11, 7584242058812361914),
+    lastPropertyId: const obx_int.IdUid(12, 1866969144154095752),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -472,6 +472,12 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(11, 7584242058812361914),
         name: 'remoteImgPath',
         type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(12, 1866969144154095752),
+        name: 'wordCategory',
+        type: 6,
         flags: 0,
       ),
     ],
@@ -1181,7 +1187,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final remoteImgPathOffset = object.remoteImgPath == null
             ? null
             : fbb.writeString(object.remoteImgPath!);
-        fbb.startTable(12);
+        fbb.startTable(13);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.arasaacId);
         fbb.addOffset(2, userIdOffset);
@@ -1193,6 +1199,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         fbb.addInt64(8, object.pendingAction);
         fbb.addBool(9, object.isDeleted);
         fbb.addOffset(10, remoteImgPathOffset);
+        fbb.addInt64(11, object.wordCategory);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -1246,6 +1253,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final remoteImgPathParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGetNullable(buffer, rootOffset, 24);
+        final wordCategoryParam = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          26,
+        );
         final object = UserCardEntity(
           id: idParam,
           arasaacId: arasaacIdParam,
@@ -1258,6 +1270,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           isDeleted: isDeletedParam,
           pendingAction: pendingActionParam,
           remoteImgPath: remoteImgPathParam,
+          wordCategory: wordCategoryParam,
         );
 
         return object;
@@ -1751,6 +1764,11 @@ class UserCardEntity_ {
   /// See [UserCardEntity.remoteImgPath].
   static final remoteImgPath = obx.QueryStringProperty<UserCardEntity>(
     _entities[5].properties[10],
+  );
+
+  /// See [UserCardEntity.wordCategory].
+  static final wordCategory = obx.QueryIntegerProperty<UserCardEntity>(
+    _entities[5].properties[11],
   );
 }
 

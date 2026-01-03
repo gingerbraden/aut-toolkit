@@ -19,6 +19,9 @@ extension UserCardEntityMapper on UserCardEntity {
     remoteId: remoteId,
     updatedAt: updatedAt,
     remoteImgPath: remoteImgPath,
+    wordCategory: wordCategory != null
+        ? WordCategory.values[wordCategory!]
+        : null,
   );
 }
 
@@ -35,6 +38,7 @@ extension UserCardMapper on UserCard {
     remoteId: remoteId,
     updatedAt: updatedAt,
     remoteImgPath: remoteImgPath,
+    wordCategory: wordCategory?.index,
   );
 }
 
@@ -48,6 +52,7 @@ extension UserCardEntityToRemote on UserCardEntity {
           namesJson: namesJson,
           updatedAt: updatedAt,
           remoteImagePath: remoteImgPath,
+          wordCategory: wordCategory,
         )
         ..isDeleted = isDeleted
         ..isSynced = isSynced
@@ -68,5 +73,6 @@ extension UserCardRemoteToEntity on UserCardRemoteEntity {
     remoteId: remoteId,
     updatedAt: updatedAt,
     remoteImgPath: remoteImagePath,
+    wordCategory: wordCategory,
   );
 }

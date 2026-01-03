@@ -318,7 +318,7 @@
     },
     {
       "id": "9:6961689238950263914",
-      "lastPropertyId": "11:7584242058812361914",
+      "lastPropertyId": "12:1866969144154095752",
       "name": "UserCardEntity",
       "properties": [
         {
@@ -376,6 +376,11 @@
           "id": "11:7584242058812361914",
           "name": "remoteImgPath",
           "type": 9
+        },
+        {
+          "id": "12:1866969144154095752",
+          "name": "wordCategory",
+          "type": 6
         }
       ],
       "relations": []

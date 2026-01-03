@@ -1,5 +1,6 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/constants/app_constants.dart';
+import 'package:aut_toolkit/core/utils/card_util.dart';
 import 'package:aut_toolkit/core/widgets/divider/sized_box_divider.dart';
 import 'package:aut_toolkit/core/widgets/square_image_filled_width.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
@@ -45,11 +46,7 @@ class _UserCardEditState extends ConsumerState<UserCardEdit> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text(
-          widget.isNew
-              ? t.create
-              : t.edit,
-        ),
+        title: Text(widget.isNew ? t.create : t.edit),
         centerTitle: true,
         actions: [
           TextButton.icon(
@@ -61,7 +58,9 @@ class _UserCardEditState extends ConsumerState<UserCardEdit> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
+          padding: EdgeInsets.symmetric(
+            horizontal: AppConstants.BASE_APP_UI_PADDING,
+          ),
           child: Card(
             child: Padding(
               padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
@@ -79,6 +78,48 @@ class _UserCardEditState extends ConsumerState<UserCardEdit> {
                       validator: (value) => value == null || value.isEmpty
                           ? t.please_enter_name
                           : null,
+                    ),
+                    const SizedBoxDivider(),
+                    DropdownButtonFormField<WordCategory>(
+                      initialValue: ref
+                          .watch(userCardEditViewModelProvider(widget.card))
+                          .wordCategory,
+                      decoration: InputDecoration(
+                        labelText: t.word_category,
+                        border: const OutlineInputBorder(),
+                      ),
+                      items: WordCategory.values.map((category) {
+                        final label = CardUtil.getWordCategoryLabel(category);
+                        return DropdownMenuItem(
+                          value: category,
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 16,
+                                height: 16,
+                                decoration: BoxDecoration(
+                                  color: CardUtil.getColorForWordCat(category),
+                                  borderRadius: BorderRadius.circular(4),
+                                  border: Border.all(color: Colors.black26),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Text(label),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (category) {
+                        ref
+                            .read(
+                              userCardEditViewModelProvider(
+                                widget.card,
+                              ).notifier,
+                            )
+                            .updateWordCategory(category);
+                      },
+                      validator: (value) =>
+                          value == null ? t.please_choose_word_category : null,
                     ),
                     const SizedBoxDivider(),
                     Padding(
@@ -101,11 +142,11 @@ class _UserCardEditState extends ConsumerState<UserCardEdit> {
                             ),
                           ),
                           ElevatedButton.icon(
-                            onPressed: () => viewModel.playAudio(_nameController.text.toString()),
-                            icon: const Icon(Icons.audiotrack_outlined),
-                            label: Text(
-                              t.tts_test
+                            onPressed: () => viewModel.playAudio(
+                              _nameController.text.toString(),
                             ),
+                            icon: const Icon(Icons.audiotrack_outlined),
+                            label: Text(t.tts_test),
                           ),
                         ],
                       ),
@@ -132,13 +173,17 @@ class _UserCardEditState extends ConsumerState<UserCardEdit> {
                         Expanded(
                           child: Text(
                             t.card_name_language_info,
-                            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                              color: Theme.of(context).colorScheme.onSurfaceVariant,
-                            ),
+                            style: Theme.of(context).textTheme.labelSmall
+                                ?.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurfaceVariant,
+                                ),
                           ),
                         ),
                       ],
-                    )                  ],
+                    ),
+                  ],
                 ),
               ),
             ),

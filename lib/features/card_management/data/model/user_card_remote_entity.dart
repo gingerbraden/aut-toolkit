@@ -7,6 +7,7 @@ class UserCardRemoteEntity extends SyncEntity {
   String localImgPath;
   String namesJson;
   String? remoteImagePath;
+  int? wordCategory;
 
   UserCardRemoteEntity({
     required this.localId,
@@ -16,5 +17,6 @@ class UserCardRemoteEntity extends SyncEntity {
     required this.namesJson,
     required super.updatedAt,
     required this.remoteImagePath,
+    this.wordCategory,
   });
 }

@@ -32,6 +32,7 @@ class UserCardEditViewModel extends Notifier<UserCardEditState> {
       arasaacId: _card.arasaacId,
       remoteImgPath: _card.remoteImgPath,
       remoteId: _card.remoteId,
+      wordCategory: _card.wordCategory,
     );
   }
 
@@ -123,6 +124,7 @@ class UserCardEditViewModel extends Notifier<UserCardEditState> {
           updatedAt: DateTime.now(),
           remoteImgPath: state.remoteImgPath,
           remoteId: state.remoteId,
+          wordCategory: state.wordCategory,
         );
         ref.read(cardsProvider.notifier).addCard(updatedCard);
         return UserCardEditResult.saved;
@@ -135,6 +137,10 @@ class UserCardEditViewModel extends Notifier<UserCardEditState> {
 
   void playAudio(String text) {
     TtsService.speak(text);
+  }
+
+  void updateWordCategory(WordCategory? category) {
+    state = state.copyWith(wordCategory: category);
   }
 }
 
@@ -149,6 +155,7 @@ class UserCardEditState {
   final SharedPreferencesAsync asyncPrefs;
   final String? remoteImgPath;
   final String? remoteId;
+  final WordCategory? wordCategory;
 
   UserCardEditState({
     required this.formKey,
@@ -159,6 +166,7 @@ class UserCardEditState {
     required this.asyncPrefs,
     required this.remoteImgPath,
     required this.remoteId,
+    required this.wordCategory,
   });
 
   UserCardEditState copyWith({
@@ -168,6 +176,7 @@ class UserCardEditState {
     String? name,
     String? remoteImgPath,
     String? remoteId,
+    WordCategory? wordCategory,
   }) {
     return UserCardEditState(
       formKey: formKey,
@@ -178,6 +187,7 @@ class UserCardEditState {
       asyncPrefs: asyncPrefs,
       remoteImgPath: remoteImgPath ?? this.remoteImgPath,
       remoteId: remoteId ?? this.remoteId,
+      wordCategory: wordCategory ?? this.wordCategory,
     );
   }
 }
