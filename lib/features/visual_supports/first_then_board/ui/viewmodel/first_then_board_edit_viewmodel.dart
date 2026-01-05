@@ -64,9 +64,11 @@ class FirstThenBoardEditViewModel
     final updatedBoard = FirstThenBoard(
       id: _board.id,
       userId: _board.userId,
+      remoteId: _board.remoteId,
       name: state.name,
       first: state.first,
       then: state.then,
+      updatedAt: DateTime.now()
     );
     ref
         .read(firstThenBoardProvider(_board.userId).notifier)

@@ -92,7 +92,7 @@ class CardRepositoryImpl implements CardRepository, SyncableRepository {
         }
       }
     } catch (e) {
-      print('Error fetching remote habits: $e');
+      print('Error fetching remote cards: $e');
     }
   }
 
@@ -157,7 +157,7 @@ class CardRepositoryImpl implements CardRepository, SyncableRepository {
             _localSource.put(e);
           });
         } catch (err) {
-          print("Error syncing eating habit: $err");
+          print("Error syncing cards: $err");
           continue;
         }
       }

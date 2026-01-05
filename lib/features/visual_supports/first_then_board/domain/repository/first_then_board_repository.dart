@@ -4,4 +4,5 @@ abstract class FirstThenBoardRepository {
   List<FirstThenBoard> getAllBoardsForUserId(String userId);
   void saveBoard(FirstThenBoard board);
   void deleteBoard(FirstThenBoard board);
+  Stream<List<FirstThenBoard>> watchAll();
 }

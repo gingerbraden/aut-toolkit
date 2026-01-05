@@ -22,7 +22,7 @@ class FirstThenBoardViewModel extends StateNotifier<List<FirstThenBoard>> {
   }
 
   void loadBoards() {
-    _allBoards = ref.watch(firstThenBoardProvider(userId));
+    _allBoards = ref.watch(firstThenBoardProvider(userId)).where((h)=>!h.isDeleted).toList();
     _applySearch();
   }
 

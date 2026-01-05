@@ -517,7 +517,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(10, 1199814977235704664),
     name: 'FirstThenBoardEntity',
-    lastPropertyId: const obx_int.IdUid(5, 6697845778278102898),
+    lastPropertyId: const obx_int.IdUid(10, 2669246360585599562),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -552,6 +552,36 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(5, 6697845778278102898),
         name: 'name',
         type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 8466979600048851975),
+        name: 'remoteId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 3897816500772209071),
+        name: 'updatedAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 2180224956550888189),
+        name: 'isSynced',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 8866165492561161763),
+        name: 'pendingAction',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(10, 2669246360585599562),
+        name: 'isDeleted',
+        type: 1,
         flags: 0,
       ),
     ],
@@ -1357,12 +1387,20 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (FirstThenBoardEntity object, fb.Builder fbb) {
         final userIdOffset = fbb.writeString(object.userId);
         final nameOffset = fbb.writeString(object.name);
-        fbb.startTable(6);
+        final remoteIdOffset = object.remoteId == null
+            ? null
+            : fbb.writeString(object.remoteId!);
+        fbb.startTable(11);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, userIdOffset);
         fbb.addInt64(2, object.first.targetId);
         fbb.addInt64(3, object.then.targetId);
         fbb.addOffset(4, nameOffset);
+        fbb.addOffset(5, remoteIdOffset);
+        fbb.addInt64(6, object.updatedAt.millisecondsSinceEpoch);
+        fbb.addBool(7, object.isSynced);
+        fbb.addInt64(8, object.pendingAction);
+        fbb.addBool(9, object.isDeleted);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -1387,12 +1425,41 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final nameParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 12, '');
+        final remoteIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 14);
+        final updatedAtParam = DateTime.fromMillisecondsSinceEpoch(
+          const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0),
+        );
+        final isSyncedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          18,
+          false,
+        );
+        final isDeletedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          22,
+          false,
+        );
+        final pendingActionParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          20,
+          0,
+        );
         final object = FirstThenBoardEntity(
           id: idParam,
           userId: userIdParam,
           first: firstParam,
           then: thenParam,
           name: nameParam,
+          remoteId: remoteIdParam,
+          updatedAt: updatedAtParam,
+          isSynced: isSyncedParam,
+          isDeleted: isDeletedParam,
+          pendingAction: pendingActionParam,
         );
         object.first.attach(store);
         object.then.attach(store);
@@ -1891,6 +1958,31 @@ class FirstThenBoardEntity_ {
   /// See [FirstThenBoardEntity.name].
   static final name = obx.QueryStringProperty<FirstThenBoardEntity>(
     _entities[6].properties[4],
+  );
+
+  /// See [FirstThenBoardEntity.remoteId].
+  static final remoteId = obx.QueryStringProperty<FirstThenBoardEntity>(
+    _entities[6].properties[5],
+  );
+
+  /// See [FirstThenBoardEntity.updatedAt].
+  static final updatedAt = obx.QueryDateProperty<FirstThenBoardEntity>(
+    _entities[6].properties[6],
+  );
+
+  /// See [FirstThenBoardEntity.isSynced].
+  static final isSynced = obx.QueryBooleanProperty<FirstThenBoardEntity>(
+    _entities[6].properties[7],
+  );
+
+  /// See [FirstThenBoardEntity.pendingAction].
+  static final pendingAction = obx.QueryIntegerProperty<FirstThenBoardEntity>(
+    _entities[6].properties[8],
+  );
+
+  /// See [FirstThenBoardEntity.isDeleted].
+  static final isDeleted = obx.QueryBooleanProperty<FirstThenBoardEntity>(
+    _entities[6].properties[9],
   );
 }
 

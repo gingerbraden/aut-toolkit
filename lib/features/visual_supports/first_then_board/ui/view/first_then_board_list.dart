@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:aut_toolkit/core/services/firebase_service.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -169,9 +170,13 @@ class _FirstThenBoardListViewState extends ConsumerState<FirstThenBoardList> {
   }
 
   void _createNewBoard() {
+    final docRef = FirebaseFirestore.instance
+        .collection('first_then_boards')
+        .doc();
     router.push(
       RouterUtils.getNewFirstThenBoardPath(),
       extra: FirstThenBoard(
+        remoteId: docRef.id,
         name: '',
         userId: userId,
         first: UserCard(
@@ -188,6 +193,7 @@ class _FirstThenBoardListViewState extends ConsumerState<FirstThenBoardList> {
           updatedAt: DateTime.now(),
           remoteImgPath: "",
         ),
+        updatedAt: DateTime.now(),
       ),
     );
   }

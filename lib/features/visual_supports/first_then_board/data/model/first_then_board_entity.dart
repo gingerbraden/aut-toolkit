@@ -11,11 +11,22 @@ class FirstThenBoardEntity {
   ToOne<UserCardEntity> then;
   String name;
 
+  String? remoteId;
+  DateTime updatedAt;
+  bool isSynced;
+  int pendingAction;
+  bool isDeleted;
+
   FirstThenBoardEntity({
     this.id = 0,
     required this.userId,
     required this.first,
     required this.then,
     required this.name,
+    this.remoteId,
+    required this.updatedAt,
+    this.isSynced = true,
+    this.isDeleted = false,
+    this.pendingAction = 0,
   });
 }

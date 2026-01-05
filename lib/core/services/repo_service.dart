@@ -11,6 +11,9 @@ import 'package:aut_toolkit/features/eating_habits/data/source/eating_habit_remo
 import 'package:aut_toolkit/features/selected_person/data/selected_person_repository_impl.dart';
 import 'package:aut_toolkit/features/selected_person/data/source/selected_person_local_source.dart';
 import 'package:aut_toolkit/features/selected_person/data/source/selected_person_remote_source.dart';
+import 'package:aut_toolkit/features/visual_supports/first_then_board/data/first_then_board_repository_impl.dart';
+import 'package:aut_toolkit/features/visual_supports/first_then_board/data/source/first_then_board_local_source.dart';
+import 'package:aut_toolkit/features/visual_supports/first_then_board/data/source/first_then_board_remote_source.dart';
 import 'package:aut_toolkit/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -25,6 +28,7 @@ class RepoService {
   late final EatingHabitRepositoryImpl eatingHabitRepository;
   late final CardRepositoryImpl cardRepositoryImpl;
   late final SelectedPersonRepositoryImpl selectedPersonRepositoryImpl;
+  late final FirstThenBoardRepositoryImpl firstThenBoardRepositoryImpl;
 
   static final RepoService _instance = RepoService._();
 
@@ -73,6 +77,10 @@ class RepoService {
       syncManager,
     );
 
+    firstThenBoardRepositoryImpl = FirstThenBoardRepositoryImpl(
+        FirstThenBoardLocalSource(objectbox.firstThenBoardBox),
+        FirstThenBoardRemoteSource(), syncManager);
+
     // TODO do not fetch data here, but do it on the main page after the app loads, and show a loading popup
     // await _fetchAllRemoteData();
     syncManager.start();
@@ -87,5 +95,6 @@ class RepoService {
     await eatingHabitRepository.fetchRemote();
     await cardRepositoryImpl.fetchRemote();
     await selectedPersonRepositoryImpl.fetchRemote();
+    await firstThenBoardRepositoryImpl.fetchRemote();
   }
 }

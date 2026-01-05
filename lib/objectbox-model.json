@@ -412,7 +412,7 @@
     },
     {
       "id": "10:1199814977235704664",
-      "lastPropertyId": "5:6697845778278102898",
+      "lastPropertyId": "10:2669246360585599562",
       "name": "FirstThenBoardEntity",
       "properties": [
         {
@@ -446,6 +446,31 @@
           "id": "5:6697845778278102898",
           "name": "name",
           "type": 9
+        },
+        {
+          "id": "6:8466979600048851975",
+          "name": "remoteId",
+          "type": 9
+        },
+        {
+          "id": "7:3897816500772209071",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "8:2180224956550888189",
+          "name": "isSynced",
+          "type": 1
+        },
+        {
+          "id": "9:8866165492561161763",
+          "name": "pendingAction",
+          "type": 6
+        },
+        {
+          "id": "10:2669246360585599562",
+          "name": "isDeleted",
+          "type": 1
         }
       ],
       "relations": []

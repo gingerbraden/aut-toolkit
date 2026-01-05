@@ -17,4 +17,24 @@ class FirstThenBoardLocalSource {
   int put(FirstThenBoardEntity entity) => firstThenBoardBox.put(entity);
 
   void remove(int id) => firstThenBoardBox.remove(id);
+
+  List<FirstThenBoardEntity> getAll() => firstThenBoardBox.getAll();
+
+  FirstThenBoardEntity? getById(int id) => firstThenBoardBox.get(id);
+
+  Stream<List<FirstThenBoardEntity>> watchAll() {
+    final builder = firstThenBoardBox.query();
+
+    return builder.watch(triggerImmediately: true).map((query) {
+      final result = query.find();
+      return result;
+    });
+  }
+
+  List<FirstThenBoardEntity> getAllPending() {
+    final q = firstThenBoardBox.query(FirstThenBoardEntity_.pendingAction.notEquals(0)).build();
+    final result = q.find();
+    q.close();
+    return result;
+  }
 }
