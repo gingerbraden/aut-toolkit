@@ -28,7 +28,10 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
   Widget build(BuildContext context) {
     final viewModel = ref.read(authenticationViewModelProvider.notifier);
 
-    ref.listen<AuthenticationState>(authenticationViewModelProvider, (previous, next) {
+    ref.listen<AuthenticationState>(authenticationViewModelProvider, (
+      previous,
+      next,
+    ) {
       if (next.message != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -154,7 +157,6 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
   ];
 
   void _showSignUpDialog(AuthenticationViewModel viewModel) {
-    final isLoading = ref.watch(authenticationViewModelProvider).loading;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -188,24 +190,36 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
             },
             child: Text(t.cancel),
           ),
-          ElevatedButton(
-            onPressed: isLoading
-                ? null
-                : () => viewModel.signUp(
-                    signInEmailController.text,
-                    signInPasswordController.text,
-                    signInPasswordRepeatController.text,
-                  ),
-            child: isLoading
-                ? SizedBox(
-                    height: 20,
-                    width: 20,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                      strokeWidth: 2,
-                    ),
-                  )
-                : Text(t.sign_in_button),
+          Consumer(
+            builder: (context, ref, _) {
+              final isLoading = ref
+                  .watch(authenticationViewModelProvider)
+                  .loading;
+              return ElevatedButton(
+                onPressed: isLoading
+                    ? null
+                    : () async {
+                        await viewModel.signUp(
+                          signInEmailController.text,
+                          signInPasswordController.text,
+                          signInPasswordRepeatController.text,
+                        );
+                        signInPasswordController.clear();
+                        signInPasswordRepeatController.clear();
+                        signInEmailController.clear();
+                      },
+                child: isLoading
+                    ? SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : Text(t.sign_in_button),
+              );
+            },
           ),
         ],
       ),
