@@ -95,29 +95,67 @@ class _FirstThenBoardEditState extends ConsumerState<FirstThenBoardEdit> {
                   if (!widget.isNew)
                     Column(
                       children: [
-                        Divider(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                viewModel.deleteBoard();
-                                router.pop();
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(Icons.delete, color: Colors.redAccent,),
-                                  SizedBox(width: 8),
-                                  Text(t.delete, style: TextStyle(color: Colors.redAccent),),
-                                ],
+                        const Divider(),
+                        if (!widget.isNew)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  final confirmed = await showDialog<bool>(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text(t.really_delete_object),
+                                        content: Text(t.yes),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.of(
+                                              context,
+                                            ).pop(false),
+                                            child: Text(t.cancel),
+                                          ),
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.of(context).pop(true),
+                                            style: TextButton.styleFrom(
+                                              foregroundColor: Colors.redAccent,
+                                            ),
+                                            child: Text(t.delete),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+
+                                  if (confirmed == true) {
+                                    viewModel.deleteBoard();
+                                    router.pop();
+                                  }
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(
+                                      Icons.delete,
+                                      color: Colors.redAccent,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      t.delete,
+                                      style: const TextStyle(
+                                        color: Colors.redAccent,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
                       ],
-                    )
+                    ),
                 ],
               ),
             ),

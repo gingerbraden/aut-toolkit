@@ -87,4 +87,8 @@ class VisualListEditViewModel extends StateNotifier<VisualListEditFormState> {
           .addSchedule(updatedList);
     }
   }
+
+  void deleteBoard() {
+    ref.read(visualDiagramsProvider(_list.userId).notifier).deleteDiagram(_list);
+  }
 }
