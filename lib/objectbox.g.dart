@@ -371,7 +371,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(7, 6805867481002173015),
     name: 'SelectedPersonEntity',
-    lastPropertyId: const obx_int.IdUid(4, 4538225831951454339),
+    lastPropertyId: const obx_int.IdUid(9, 1312882274832971233),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -396,6 +396,36 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(4, 4538225831951454339),
         name: 'name',
         type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 906012178411674136),
+        name: 'remoteId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 8506682528747091890),
+        name: 'updatedAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 2635370223566698696),
+        name: 'isSynced',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 6625574527690844553),
+        name: 'pendingAction',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 1312882274832971233),
+        name: 'isDeleted',
+        type: 1,
         flags: 0,
       ),
     ],
@@ -1130,11 +1160,19 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectToFB: (SelectedPersonEntity object, fb.Builder fbb) {
         final userIdOffset = fbb.writeString(object.userId);
         final nameOffset = fbb.writeString(object.name);
-        fbb.startTable(5);
+        final remoteIdOffset = object.remoteId == null
+            ? null
+            : fbb.writeString(object.remoteId!);
+        fbb.startTable(10);
         fbb.addInt64(0, object.id);
         fbb.addBool(1, object.isSelected);
         fbb.addOffset(2, userIdOffset);
         fbb.addOffset(3, nameOffset);
+        fbb.addOffset(4, remoteIdOffset);
+        fbb.addInt64(5, object.updatedAt.millisecondsSinceEpoch);
+        fbb.addBool(6, object.isSynced);
+        fbb.addInt64(7, object.pendingAction);
+        fbb.addBool(8, object.isDeleted);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -1159,11 +1197,40 @@ obx_int.ModelDefinition getObjectBoxModel() {
           6,
           false,
         );
+        final updatedAtParam = DateTime.fromMillisecondsSinceEpoch(
+          const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0),
+        );
+        final isSyncedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          16,
+          false,
+        );
+        final isDeletedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          20,
+          false,
+        );
+        final pendingActionParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          18,
+          0,
+        );
+        final remoteIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 12);
         final object = SelectedPersonEntity(
           id: idParam,
           userId: userIdParam,
           name: nameParam,
           isSelected: isSelectedParam,
+          updatedAt: updatedAtParam,
+          isSynced: isSyncedParam,
+          isDeleted: isDeletedParam,
+          pendingAction: pendingActionParam,
+          remoteId: remoteIdParam,
         );
 
         return object;
@@ -1706,6 +1773,31 @@ class SelectedPersonEntity_ {
   /// See [SelectedPersonEntity.name].
   static final name = obx.QueryStringProperty<SelectedPersonEntity>(
     _entities[4].properties[3],
+  );
+
+  /// See [SelectedPersonEntity.remoteId].
+  static final remoteId = obx.QueryStringProperty<SelectedPersonEntity>(
+    _entities[4].properties[4],
+  );
+
+  /// See [SelectedPersonEntity.updatedAt].
+  static final updatedAt = obx.QueryDateProperty<SelectedPersonEntity>(
+    _entities[4].properties[5],
+  );
+
+  /// See [SelectedPersonEntity.isSynced].
+  static final isSynced = obx.QueryBooleanProperty<SelectedPersonEntity>(
+    _entities[4].properties[6],
+  );
+
+  /// See [SelectedPersonEntity.pendingAction].
+  static final pendingAction = obx.QueryIntegerProperty<SelectedPersonEntity>(
+    _entities[4].properties[7],
+  );
+
+  /// See [SelectedPersonEntity.isDeleted].
+  static final isDeleted = obx.QueryBooleanProperty<SelectedPersonEntity>(
+    _entities[4].properties[8],
   );
 }
 

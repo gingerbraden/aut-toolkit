@@ -9,7 +9,7 @@ final filteredChallengingBehavioursProvider =
       final behaviours = ref.watch(challengingBehavioursProvider);
       final selectedPerson = ref.watch(selectedPersonProvider);
       return behaviours
-          .where((cb) => cb.selectedPersonId == selectedPerson.id)
+          .where((cb) => cb.selectedPersonId == selectedPerson!.id!)
           .toList();
     });
 

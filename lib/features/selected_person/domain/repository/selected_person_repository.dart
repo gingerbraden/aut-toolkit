@@ -4,4 +4,6 @@ abstract class SelectedPersonRepository {
   List<SelectedPerson> getAll();
   void save(SelectedPerson eatingHabit);
   void delete(SelectedPerson eatingHabit);
+  Stream<List<SelectedPerson>> watchAll();
+
 }

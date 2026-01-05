@@ -8,6 +8,9 @@ import 'package:aut_toolkit/features/challenging_behaviour/data/source/challengi
 import 'package:aut_toolkit/features/eating_habits/data/eating_habit_repository_impl.dart';
 import 'package:aut_toolkit/features/eating_habits/data/source/eating_habit_local_source.dart';
 import 'package:aut_toolkit/features/eating_habits/data/source/eating_habit_remote_source.dart';
+import 'package:aut_toolkit/features/selected_person/data/selected_person_repository_impl.dart';
+import 'package:aut_toolkit/features/selected_person/data/source/selected_person_local_source.dart';
+import 'package:aut_toolkit/features/selected_person/data/source/selected_person_remote_source.dart';
 import 'package:aut_toolkit/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -21,6 +24,7 @@ class RepoService {
   late final ChallengingBehaviourRepositoryImpl challengingBehaviourRepository;
   late final EatingHabitRepositoryImpl eatingHabitRepository;
   late final CardRepositoryImpl cardRepositoryImpl;
+  late final SelectedPersonRepositoryImpl selectedPersonRepositoryImpl;
 
   static final RepoService _instance = RepoService._();
 
@@ -57,7 +61,20 @@ class RepoService {
       syncManager,
     );
 
-    await _fetchAllRemoteData();
+    selectedPersonRepositoryImpl = SelectedPersonRepositoryImpl(
+      SelectedPersonLocalSource(objectbox.selectedPersonBox),
+      ChallengingBehaviourLocalSource(
+        objectbox.challengingBehaviourBox,
+        objectbox.challengingBehaviourDiaryEntryBox,
+      ),
+      EatingHabitLocalSource(objectbox.eatingHabitEntityBox),
+      GoodHabitLocalSource(objectbox.goodHabitBox),
+      SelectedPersonRemoteSource(),
+      syncManager,
+    );
+
+    // TODO do not fetch data here, but do it on the main page after the app loads, and show a loading popup
+    // await _fetchAllRemoteData();
     syncManager.start();
   }
 
@@ -69,5 +86,6 @@ class RepoService {
     await challengingBehaviourRepository.fetchRemote();
     await eatingHabitRepository.fetchRemote();
     await cardRepositoryImpl.fetchRemote();
+    await selectedPersonRepositoryImpl.fetchRemote();
   }
 }

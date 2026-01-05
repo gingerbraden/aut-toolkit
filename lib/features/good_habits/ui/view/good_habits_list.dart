@@ -79,10 +79,7 @@ class GoodHabitsList extends ConsumerWidget {
       ],
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final selectedPersonId = ref
-              .watch(selectedPersonsProvider.notifier)
-              .getSelected()
-              .id!;
+          final selectedPersonId = ref.watch(selectedPersonProvider)!.id!;
 
           final docRef = FirebaseFirestore.instance
               .collection('good_habits')

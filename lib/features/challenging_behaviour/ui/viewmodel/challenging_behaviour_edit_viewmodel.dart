@@ -50,10 +50,7 @@ class ChallengingBehaviourEditViewModel
   }
 
   void saveChanges() {
-    final selectedPersonId = ref
-        .read(selectedPersonsProvider.notifier)
-        .getSelected()
-        .id!;
+    final selectedPersonId = ref.watch(selectedPersonProvider)?.id!;
 
     final updatedCb = ChallengingBehaviour(
       id: _behaviour.id!,
@@ -63,7 +60,7 @@ class ChallengingBehaviourEditViewModel
       diaryEntries: _behaviour.diaryEntries,
       occuring: state.occuring == Occuring.ocurring,
       userId: _behaviour.userId,
-      selectedPersonId: selectedPersonId,
+      selectedPersonId: selectedPersonId!,
       updatedAt: DateTime.now(),
       pendingAction: _behaviour.pendingAction,
       remoteId: _behaviour.remoteId,

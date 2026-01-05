@@ -84,9 +84,7 @@ class ChallengingBehaviourList extends ConsumerWidget {
       },
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final selectedPerson = ref
-              .watch(selectedPersonsProvider.notifier)
-              .getSelected();
+          final selectedPerson = ref.watch(selectedPersonProvider);
 
           final docRef = FirebaseFirestore.instance
               .collection('challenging_behaviour')
@@ -100,7 +98,7 @@ class ChallengingBehaviourList extends ConsumerWidget {
             diaryEntries: [],
             occuring: true,
             userId: FirebaseService().currentUser!.uid,
-            selectedPersonId: selectedPerson.id!, updatedAt: DateTime.now(),
+            selectedPersonId: selectedPerson!.id!, updatedAt: DateTime.now(),
           );
 
           router.push(

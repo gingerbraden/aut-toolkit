@@ -3,6 +3,7 @@ import 'package:aut_toolkit/core/services/firebase_service.dart';
 import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:aut_toolkit/features/selected_person/domain/model/selected_person.dart';
 import 'package:aut_toolkit/features/selected_person/provider/selected_person_notifier.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -132,10 +133,13 @@ class _HomePageState extends ConsumerState<HomePage> {
             TextButton(
               onPressed: () {
                 if (name.isNotEmpty) {
+                  final docRef = FirebaseFirestore.instance
+                      .collection('selected_persons')
+                      .doc();
                   final newPerson = SelectedPerson(
                     userId: FirebaseService().currentUser!.uid,
                     name: name,
-                    isSelected: false,
+                    isSelected: false, remoteId: docRef.id, updatedAt: DateTime.now(),
                   );
 
                   ref.read(selectedPersonsProvider.notifier).add(newPerson);

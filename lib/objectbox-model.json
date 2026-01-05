@@ -289,7 +289,7 @@
     },
     {
       "id": "7:6805867481002173015",
-      "lastPropertyId": "4:4538225831951454339",
+      "lastPropertyId": "9:1312882274832971233",
       "name": "SelectedPersonEntity",
       "properties": [
         {
@@ -312,6 +312,31 @@
           "id": "4:4538225831951454339",
           "name": "name",
           "type": 9
+        },
+        {
+          "id": "5:906012178411674136",
+          "name": "remoteId",
+          "type": 9
+        },
+        {
+          "id": "6:8506682528747091890",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "7:2635370223566698696",
+          "name": "isSynced",
+          "type": 1
+        },
+        {
+          "id": "8:6625574527690844553",
+          "name": "pendingAction",
+          "type": 6
+        },
+        {
+          "id": "9:1312882274832971233",
+          "name": "isDeleted",
+          "type": 1
         }
       ],
       "relations": []
