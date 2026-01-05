@@ -591,7 +591,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(11, 7067190488023369742),
     name: 'VisualListEntity',
-    lastPropertyId: const obx_int.IdUid(6, 1529333965761639297),
+    lastPropertyId: const obx_int.IdUid(11, 4831757516744912034),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -628,6 +628,36 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(6, 1529333965761639297),
         name: 'stepsOrderJson',
         type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 4839881553848490846),
+        name: 'remoteId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 548131136931843964),
+        name: 'updatedAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 3223760566051516712),
+        name: 'isSynced',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(10, 1838813683034157021),
+        name: 'pendingAction',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(11, 4831757516744912034),
+        name: 'isDeleted',
+        type: 1,
         flags: 0,
       ),
     ],
@@ -1482,13 +1512,21 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final stepsOrderJsonOffset = object.stepsOrderJson == null
             ? null
             : fbb.writeString(object.stepsOrderJson!);
-        fbb.startTable(7);
+        final remoteIdOffset = object.remoteId == null
+            ? null
+            : fbb.writeString(object.remoteId!);
+        fbb.startTable(12);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, userIdOffset);
         fbb.addOffset(2, nameOffset);
         fbb.addBool(3, object.isVisualSchedule);
         fbb.addBool(4, object.isVisualDiagram);
         fbb.addOffset(5, stepsOrderJsonOffset);
+        fbb.addOffset(6, remoteIdOffset);
+        fbb.addInt64(7, object.updatedAt.millisecondsSinceEpoch);
+        fbb.addBool(8, object.isSynced);
+        fbb.addInt64(9, object.pendingAction);
+        fbb.addBool(10, object.isDeleted);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -1522,6 +1560,30 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final stepsOrderJsonParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGetNullable(buffer, rootOffset, 14);
+        final remoteIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 16);
+        final updatedAtParam = DateTime.fromMillisecondsSinceEpoch(
+          const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0),
+        );
+        final isSyncedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          20,
+          false,
+        );
+        final isDeletedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          24,
+          false,
+        );
+        final pendingActionParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          22,
+          0,
+        );
         final object = VisualListEntity(
           id: idParam,
           userId: userIdParam,
@@ -1529,6 +1591,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
           isVisualSchedule: isVisualScheduleParam,
           isVisualDiagram: isVisualDiagramParam,
           stepsOrderJson: stepsOrderJsonParam,
+          remoteId: remoteIdParam,
+          updatedAt: updatedAtParam,
+          isSynced: isSyncedParam,
+          isDeleted: isDeletedParam,
+          pendingAction: pendingActionParam,
         );
         obx_int.InternalToManyAccess.setRelInfo<VisualListEntity>(
           object.steps,
@@ -2016,6 +2083,31 @@ class VisualListEntity_ {
   /// See [VisualListEntity.stepsOrderJson].
   static final stepsOrderJson = obx.QueryStringProperty<VisualListEntity>(
     _entities[7].properties[5],
+  );
+
+  /// See [VisualListEntity.remoteId].
+  static final remoteId = obx.QueryStringProperty<VisualListEntity>(
+    _entities[7].properties[6],
+  );
+
+  /// See [VisualListEntity.updatedAt].
+  static final updatedAt = obx.QueryDateProperty<VisualListEntity>(
+    _entities[7].properties[7],
+  );
+
+  /// See [VisualListEntity.isSynced].
+  static final isSynced = obx.QueryBooleanProperty<VisualListEntity>(
+    _entities[7].properties[8],
+  );
+
+  /// See [VisualListEntity.pendingAction].
+  static final pendingAction = obx.QueryIntegerProperty<VisualListEntity>(
+    _entities[7].properties[9],
+  );
+
+  /// See [VisualListEntity.isDeleted].
+  static final isDeleted = obx.QueryBooleanProperty<VisualListEntity>(
+    _entities[7].properties[10],
   );
 
   /// see [VisualListEntity.steps]

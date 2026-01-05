@@ -30,6 +30,17 @@ class VisualListLocalSource {
     return l;
   }
 
+  List<VisualListEntity> getAll(String userId) {
+    Query<VisualListEntity> q = visualListBox
+        .query(
+      VisualListEntity_.userId
+          .equals(userId),
+    )
+        .build();
+    List<VisualListEntity> l = q.find();
+    return l;
+  }
+
   int put(VisualListEntity entity) {
     if (entity.id != 0) {
       final oldEntity = visualListBox.get(entity.id);
@@ -43,4 +54,22 @@ class VisualListLocalSource {
   }
 
   void remove(int id) => visualListBox.remove(id);
+
+  VisualListEntity? getById(int id) => visualListBox.get(id);
+
+  Stream<List<VisualListEntity>> watchAll() {
+    final builder = visualListBox.query();
+
+    return builder.watch(triggerImmediately: true).map((query) {
+      final result = query.find();
+      return result;
+    });
+  }
+
+  List<VisualListEntity> getAllPending() {
+    final q = visualListBox.query(VisualListEntity_.pendingAction.notEquals(0)).build();
+    final result = q.find();
+    q.close();
+    return result;
+  }
 }

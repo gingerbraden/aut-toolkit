@@ -13,12 +13,23 @@ class VisualListEntity {
   bool isVisualDiagram;
   String? stepsOrderJson;
 
+  String? remoteId;
+  DateTime updatedAt;
+  bool isSynced;
+  int pendingAction;
+  bool isDeleted;
+
   VisualListEntity({
     this.id = 0,
     required this.userId,
     required this.name,
     required this.isVisualSchedule,
     required this.isVisualDiagram,
-    this.stepsOrderJson
+    this.stepsOrderJson,
+    this.remoteId,
+    required this.updatedAt,
+    this.isSynced = true,
+    this.isDeleted = false,
+    this.pendingAction = 0,
   });
 }

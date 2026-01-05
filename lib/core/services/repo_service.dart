@@ -14,6 +14,9 @@ import 'package:aut_toolkit/features/selected_person/data/source/selected_person
 import 'package:aut_toolkit/features/visual_supports/first_then_board/data/first_then_board_repository_impl.dart';
 import 'package:aut_toolkit/features/visual_supports/first_then_board/data/source/first_then_board_local_source.dart';
 import 'package:aut_toolkit/features/visual_supports/first_then_board/data/source/first_then_board_remote_source.dart';
+import 'package:aut_toolkit/features/visual_supports/visual_lists/data/source/visual_list_local_source.dart';
+import 'package:aut_toolkit/features/visual_supports/visual_lists/data/source/visual_list_remote_source.dart';
+import 'package:aut_toolkit/features/visual_supports/visual_lists/data/visual_list_repository_impl.dart';
 import 'package:aut_toolkit/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -29,6 +32,7 @@ class RepoService {
   late final CardRepositoryImpl cardRepositoryImpl;
   late final SelectedPersonRepositoryImpl selectedPersonRepositoryImpl;
   late final FirstThenBoardRepositoryImpl firstThenBoardRepositoryImpl;
+  late final VisualListRepositoryImpl visualListRepositoryImpl;
 
   static final RepoService _instance = RepoService._();
 
@@ -78,8 +82,16 @@ class RepoService {
     );
 
     firstThenBoardRepositoryImpl = FirstThenBoardRepositoryImpl(
-        FirstThenBoardLocalSource(objectbox.firstThenBoardBox),
-        FirstThenBoardRemoteSource(), syncManager);
+      FirstThenBoardLocalSource(objectbox.firstThenBoardBox),
+      FirstThenBoardRemoteSource(),
+      syncManager,
+    );
+
+    visualListRepositoryImpl = VisualListRepositoryImpl(
+      VisualListLocalSource(objectbox.visualListBox),
+      VisualListRemoteSource(),
+      syncManager,
+    );
 
     // TODO do not fetch data here, but do it on the main page after the app loads, and show a loading popup
     // await _fetchAllRemoteData();
@@ -96,5 +108,6 @@ class RepoService {
     await cardRepositoryImpl.fetchRemote();
     await selectedPersonRepositoryImpl.fetchRemote();
     await firstThenBoardRepositoryImpl.fetchRemote();
+    await visualListRepositoryImpl.fetchRemote();
   }
 }

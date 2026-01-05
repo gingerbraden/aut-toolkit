@@ -8,4 +8,6 @@ abstract class VisualListRepository {
   void save(VisualList board);
 
   void delete(VisualList board);
+
+  Stream<List<VisualList>> watchAll();
 }

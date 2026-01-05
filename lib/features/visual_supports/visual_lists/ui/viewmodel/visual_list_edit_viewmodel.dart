@@ -73,6 +73,8 @@ class VisualListEditViewModel extends StateNotifier<VisualListEditFormState> {
       steps: state.steps,
       isVisualSchedule: _list.isVisualSchedule,
       isVisualDiagram: _list.isVisualDiagram,
+      remoteId: _list.remoteId,
+      updatedAt: DateTime.now(),
     );
 
     if (_list.isVisualDiagram) {

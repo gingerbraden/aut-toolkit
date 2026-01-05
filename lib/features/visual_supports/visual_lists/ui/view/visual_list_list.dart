@@ -1,4 +1,5 @@
 import 'package:aut_toolkit/core/services/firebase_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -122,6 +123,7 @@ class _VisualListScreenState extends ConsumerState<VisualListList> {
   }
 
   void _createNewList() {
+    final docRef = FirebaseFirestore.instance.collection('visual_lists').doc();
     router.push(
       RouterUtils.getNewVisualListPath(),
       extra: VisualList(
@@ -130,6 +132,8 @@ class _VisualListScreenState extends ConsumerState<VisualListList> {
         steps: [],
         isVisualSchedule: !widget.isDiagram,
         isVisualDiagram: widget.isDiagram,
+        updatedAt: DateTime.now(),
+        remoteId: docRef.id,
       ),
     );
   }
