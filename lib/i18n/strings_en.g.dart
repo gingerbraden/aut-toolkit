@@ -478,6 +478,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Word type'
 	String get word_category => 'Word type';
+
+	/// en: 'Syncing data, please wait...'
+	String get data_sync => 'Syncing data, please wait...';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -631,6 +634,7 @@ extension on Translations {
 			'determiner' => 'Determiner',
 			'please_choose_word_category' => 'Please choose a word type',
 			'word_category' => 'Word type',
+			'data_sync' => 'Syncing data, please wait...',
 			_ => null,
 		};
 	}

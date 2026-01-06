@@ -151,5 +151,6 @@
   "conjunction": "Spojka",
   "determiner": "Určovací výraz",
   "please_choose_word_category": "Prosím zvoľte typ slova",
-  "word_category": "Typ slova"
+  "word_category": "Typ slova",
+  "data_sync": "Synchronizujem dáta, prosim počkajte..."
 }

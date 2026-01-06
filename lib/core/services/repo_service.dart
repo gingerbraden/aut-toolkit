@@ -18,6 +18,7 @@ import 'package:aut_toolkit/features/visual_supports/visual_lists/data/source/vi
 import 'package:aut_toolkit/features/visual_supports/visual_lists/data/source/visual_list_remote_source.dart';
 import 'package:aut_toolkit/features/visual_supports/visual_lists/data/visual_list_repository_impl.dart';
 import 'package:aut_toolkit/main.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../features/good_habits/data/good_habit_repository_impl.dart';
@@ -93,12 +94,14 @@ class RepoService {
       syncManager,
     );
 
-    // TODO do not fetch data here, but do it on the main page after the app loads, and show a loading popup
-    // await _fetchAllRemoteData();
     syncManager.start();
   }
 
-  Future<void> _fetchAllRemoteData() async {
+  Future<void> fetchAllRemoteData() async {
+    final conn = Connectivity();
+    var result = await conn.checkConnectivity();
+    if (!result.contains(ConnectivityResult.wifi) && !result.contains(ConnectivityResult.mobile)) return;
+
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
 

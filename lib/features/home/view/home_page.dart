@@ -1,5 +1,6 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/services/firebase_service.dart';
+import 'package:aut_toolkit/core/services/repo_service.dart';
 import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:aut_toolkit/features/selected_person/domain/model/selected_person.dart';
 import 'package:aut_toolkit/features/selected_person/provider/selected_person_notifier.dart';
@@ -18,18 +19,54 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+  bool _startupSyncDone = false;
+
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final allPersons = ref.read(selectedPersonsProvider);
 
       if (allPersons.isEmpty) {
         _showCreatePersonDialog(true);
       }
+
+      if (_startupSyncDone) return;
+      _startupSyncDone = true;
+
+      await _runStartupSync();
     });
   }
+
+  Future<void> _runStartupSync() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        content: Padding(
+          padding: EdgeInsets.only(top: AppConstants.BASE_APP_UI_PADDING),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16),
+              Text(t.data_sync),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    try {
+      await RepoService().fetchAllRemoteData();
+    } finally {
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {

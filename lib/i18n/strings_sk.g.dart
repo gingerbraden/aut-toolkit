@@ -190,6 +190,7 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get determiner => 'Určovací výraz';
 	@override String get please_choose_word_category => 'Prosím zvoľte typ slova';
 	@override String get word_category => 'Typ slova';
+	@override String get data_sync => 'Synchronizujem dáta, prosim počkajte...';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -343,6 +344,7 @@ extension on TranslationsSk {
 			'determiner' => 'Určovací výraz',
 			'please_choose_word_category' => 'Prosím zvoľte typ slova',
 			'word_category' => 'Typ slova',
+			'data_sync' => 'Synchronizujem dáta, prosim počkajte...',
 			_ => null,
 		};
 	}

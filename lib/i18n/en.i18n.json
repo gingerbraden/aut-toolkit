@@ -150,5 +150,6 @@
   "conjunction": "Conjunction",
   "determiner": "Determiner",
   "please_choose_word_category": "Please choose a word type",
-  "word_category": "Word type"
+  "word_category": "Word type",
+  "data_sync": "Syncing data, please wait..."
 }
