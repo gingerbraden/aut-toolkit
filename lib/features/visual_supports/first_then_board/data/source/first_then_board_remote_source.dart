@@ -53,7 +53,7 @@ class FirstThenBoardRemoteSource {
           .map((doc) => mapFromSnapshot(doc))
           .toList();
     } catch (e) {
-      print('Error fetching remote boards: $e');
+      print('Error fetching remote first-then boards in remote source: $e');
       return [];
     }
   }

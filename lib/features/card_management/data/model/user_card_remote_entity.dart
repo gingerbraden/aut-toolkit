@@ -1,7 +1,6 @@
 import 'package:aut_toolkit/core/model/sync_entity.dart';
 
 class UserCardRemoteEntity extends SyncEntity {
-  int localId;
   int? arasaacId;
   String userId;
   String localImgPath;
@@ -10,7 +9,6 @@ class UserCardRemoteEntity extends SyncEntity {
   int? wordCategory;
 
   UserCardRemoteEntity({
-    required this.localId,
     this.arasaacId = 0,
     required this.userId,
     required this.localImgPath,

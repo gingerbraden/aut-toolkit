@@ -472,7 +472,8 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(6, 5505214374322437866),
         name: 'remoteId',
         type: 9,
-        flags: 0,
+        flags: 2048,
+        indexId: const obx_int.IdUid(4, 8420073143863359238),
       ),
       obx_int.ModelProperty(
         id: const obx_int.IdUid(7, 1398351388652578857),
@@ -711,7 +712,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
     lastEntityId: const obx_int.IdUid(11, 7067190488023369742),
-    lastIndexId: const obx_int.IdUid(3, 3602341172251329567),
+    lastIndexId: const obx_int.IdUid(4, 8420073143863359238),
     lastRelationId: const obx_int.IdUid(1, 3447432801872670905),
     lastSequenceId: const obx_int.IdUid(0, 0),
     retiredEntityUids: const [

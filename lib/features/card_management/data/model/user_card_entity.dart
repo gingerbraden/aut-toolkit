@@ -1,5 +1,7 @@
 import 'package:objectbox/objectbox.dart';
 
+import '../../../../objectbox.g.dart';
+
 @Entity()
 class UserCardEntity {
   @Id()
@@ -10,6 +12,7 @@ class UserCardEntity {
   String namesJson;
   int? wordCategory;
 
+  @Index()
   String? remoteId;
   DateTime updatedAt;
   bool isSynced;
@@ -31,4 +34,12 @@ class UserCardEntity {
     required this.remoteImgPath,
     this.wordCategory,
   });
+}
+
+extension CardBoxExtensions on Box<UserCardEntity> {
+  UserCardEntity? getByRemoteId(String remoteId) {
+    return query(UserCardEntity_.remoteId.equals(remoteId))
+        .build()
+        .findFirst();
+  }
 }

@@ -1,13 +1,16 @@
 import 'dart:io';
 
+import 'package:aut_toolkit/core/services/arasaac_service.dart';
 import 'package:aut_toolkit/core/services/syncable_repository.dart';
 import 'package:aut_toolkit/core/utils/image_util.dart';
 import 'package:aut_toolkit/features/card_management/data/model/card_mappers.dart';
+import 'package:aut_toolkit/features/card_management/data/model/user_card_remote_entity.dart';
 import 'package:aut_toolkit/features/card_management/data/source/card_local_source.dart';
 import 'package:aut_toolkit/features/card_management/data/source/card_remote_source.dart';
 import 'package:aut_toolkit/main.dart';
 import 'package:aut_toolkit/objectbox.g.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../../core/model/sync_entity.dart';
 import '../../../core/services/sync_manager.dart';
@@ -70,30 +73,42 @@ class CardRepositoryImpl implements CardRepository, SyncableRepository {
 
     try {
       final remoteData = await _remoteSource.getAllRemote(userId: userId);
-
       final localData = _localSource.getAll();
 
-      for (final remoteEntity in remoteData) {
-        final local = _localSource.getById(remoteEntity.localId);
-        final entityToSave = remoteEntity.toEntity();
+      final remoteIds = <String>{};
 
-        if (local != null && local.pendingAction != PendingAction.NONE.index) {
-          entityToSave.pendingAction = local.pendingAction;
-          entityToSave.isSynced = local.isSynced;
+      for (final remoteEntity in remoteData) {
+        remoteIds.add(remoteEntity.remoteId!);
+
+        final local =
+        _localSource.getByRemoteId(remoteEntity.remoteId!);
+
+        final entityToSave = remoteEntity.toEntity();
+        entityToSave.id = 0;
+
+        if (local != null) {
+          entityToSave.id = local.id;
+
+          if (local.pendingAction != PendingAction.NONE.index) {
+            entityToSave.pendingAction = local.pendingAction;
+            entityToSave.isSynced = local.isSynced;
+          }
         }
+
+        await _syncImageIfNeeded(remoteEntity);
 
         _localSource.put(entityToSave);
       }
 
-      final remoteIds = remoteData.map((e) => e.localId).toSet();
       for (final localEntity in localData) {
-        if (!remoteIds.contains(localEntity.id)) {
+        if (!remoteIds.contains(localEntity.remoteId)) {
           _localSource.remove(localEntity.id);
         }
       }
     } catch (e) {
       print('Error fetching remote cards: $e');
     }
+
   }
 
   @override
@@ -163,4 +178,35 @@ class CardRepositoryImpl implements CardRepository, SyncableRepository {
       }
     }
   }
+  Future<void> _syncImageIfNeeded(UserCardRemoteEntity remote) async {
+    if (remote.localImgPath.isEmpty) return;
+
+    final file = File(remote.localImgPath);
+
+    if (await file.exists()) return;
+
+    if (remote.arasaacId != null && remote.arasaacId != 0) {
+      await ImageUtil.saveImageFromUrl(ARASAACService().getPictogramUrl(remote.arasaacId!));
+      return;
+    }
+
+    if (remote.remoteImagePath != null &&
+        remote.remoteImagePath!.isNotEmpty) {
+      final ref =
+      FirebaseStorage.instance.refFromURL(remote.remoteImagePath!);
+
+        final filePath = remote.localImgPath;
+        final file = File(filePath);
+
+        try {
+          final task = ref.writeToFile(file);
+          await task;
+        } catch (e) {
+          print('Image download failed: $e');
+        }
+
+    }
+  }
+
+
 }

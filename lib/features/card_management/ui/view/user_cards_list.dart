@@ -5,6 +5,7 @@ import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:aut_toolkit/core/widgets/square_items_list.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
 import 'package:aut_toolkit/i18n/strings.g.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -80,6 +81,7 @@ class UserCardsList extends ConsumerWidget {
         onPressed: () {
           final userId = FirebaseAuth.instance.currentUser?.uid;
           if (userId == null) return;
+          final docRef = FirebaseFirestore.instance.collection('user_cards') .doc();
           router.push(
             RouterUtils.getNewCardPath(),
             extra: UserCard(
@@ -88,6 +90,7 @@ class UserCardsList extends ConsumerWidget {
               names: <String, String>{},
               updatedAt: DateTime.now(),
               remoteImgPath: "",
+              remoteId: docRef.id
             ),
           );
         },

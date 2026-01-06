@@ -88,7 +88,6 @@ class CardRemoteSource {
 
   Map<String, dynamic> _entityToMap(UserCardRemoteEntity e) {
     return {
-      'localId': e.localId,
       'arasaacId': e.arasaacId,
       'userId': e.userId,
       'localImgPath': e.localImgPath,
@@ -109,7 +108,6 @@ class CardRemoteSource {
     final d = snap.data() ?? {};
 
     return UserCardRemoteEntity(
-        localId: d['localId'] ?? 0,
         arasaacId: d['arasaacId'] ?? 0,
         userId: d['userId'] ?? '',
         localImgPath: d['localImgPath'] ?? '',

@@ -58,17 +58,25 @@ final firstThenBoardProvider = StateNotifierProvider.family<
 class FirstThenBoardNotifier extends StateNotifier<List<FirstThenBoard>> {
   final FirstThenBoardRepository _repo;
   final String _userId;
-  late final StreamSubscription _sub;
+  late final StreamSubscription _boardSub;
+  late final StreamSubscription _cardSub;
 
   FirstThenBoardNotifier(this._repo, this._userId) : super([]) {
-    _sub = _repo.watchAll().listen((boards) {
+    _boardSub = _repo.watchAll().listen((boards) {
       state = boards;
+    });
+
+    final cardBox = objectbox.cardBox;
+    _cardSub = cardBox.query().watch(triggerImmediately: false).listen((_) {
+      final currentBoards = _repo.getAllBoardsForUserId(_userId);
+      state = currentBoards;
     });
   }
 
   @override
   void dispose() {
-    _sub.cancel();
+    _boardSub.cancel();
+    _cardSub.cancel();
     super.dispose();
   }
 
@@ -80,3 +88,4 @@ class FirstThenBoardNotifier extends StateNotifier<List<FirstThenBoard>> {
     _repo.deleteBoard(board);
   }
 }
+

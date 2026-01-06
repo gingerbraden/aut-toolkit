@@ -10,6 +10,8 @@ class CardLocalSource {
 
   UserCardEntity? getById(int id) => cardBox.get(id);
 
+  UserCardEntity? getByRemoteId(String id) => cardBox.getByRemoteId(id);
+
   int put(UserCardEntity entity) => cardBox.put(entity);
 
   void remove(int id) => cardBox.remove(id);

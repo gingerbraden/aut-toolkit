@@ -3,8 +3,8 @@ import 'package:aut_toolkit/core/model/sync_entity.dart';
 class FirstThenBoardRemoteEntity extends SyncEntity {
   int localId;
   String userId;
-  int first;
-  int then;
+  String first;
+  String then;
   String name;
 
   FirstThenBoardRemoteEntity({

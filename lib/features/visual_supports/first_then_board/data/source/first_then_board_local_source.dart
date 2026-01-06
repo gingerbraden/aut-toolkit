@@ -22,6 +22,8 @@ class FirstThenBoardLocalSource {
 
   FirstThenBoardEntity? getById(int id) => firstThenBoardBox.get(id);
 
+  FirstThenBoardEntity? getByRemoteId(String id) => firstThenBoardBox.getByRemoteId(id);
+
   Stream<List<FirstThenBoardEntity>> watchAll() {
     final builder = firstThenBoardBox.query();
 

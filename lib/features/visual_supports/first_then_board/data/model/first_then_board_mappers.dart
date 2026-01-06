@@ -73,8 +73,8 @@ extension FirstThenBoardEntityToRemote on FirstThenBoardEntity {
     return FirstThenBoardRemoteEntity(
         localId: id,
         userId: userId,
-        first: first.target!.id,
-        then: then.target!.id,
+        first: first.target!.remoteId!,
+        then: then.target!.remoteId!,
         name: name,
         updatedAt: updatedAt,
       )
@@ -96,11 +96,11 @@ extension FirstThenBoardRemoteToEntity on FirstThenBoardRemoteEntity {
       updatedAt: updatedAt,
     );
 
-    if (first != 0) {
-      entity.first.target = objectbox.cardBox.get(first);
+    if (first.isNotEmpty) {
+      entity.first.target = objectbox.cardBox.getByRemoteId(first);
     }
-    if (then != 0) {
-      entity.then.target = objectbox.cardBox.get(then);
+    if (then.isNotEmpty) {
+      entity.then.target = objectbox.cardBox.getByRemoteId(then);
     }
 
     entity.isDeleted = isDeleted;

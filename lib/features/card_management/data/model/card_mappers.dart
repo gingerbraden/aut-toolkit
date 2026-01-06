@@ -45,7 +45,6 @@ extension UserCardMapper on UserCard {
 extension UserCardEntityToRemote on UserCardEntity {
   UserCardRemoteEntity toRemote() =>
       UserCardRemoteEntity(
-          localId: id,
           arasaacId: arasaacId,
           userId: userId,
           localImgPath: localImgPath,
@@ -62,7 +61,6 @@ extension UserCardEntityToRemote on UserCardEntity {
 
 extension UserCardRemoteToEntity on UserCardRemoteEntity {
   UserCardEntity toEntity() => UserCardEntity(
-    id: localId,
     arasaacId: arasaacId,
     userId: userId,
     localImgPath: localImgPath,

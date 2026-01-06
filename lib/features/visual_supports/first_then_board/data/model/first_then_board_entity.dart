@@ -1,5 +1,6 @@
 import 'package:objectbox/objectbox.dart';
 
+import '../../../../../objectbox.g.dart';
 import '../../../../card_management/data/model/user_card_entity.dart';
 
 @Entity()
@@ -29,4 +30,12 @@ class FirstThenBoardEntity {
     this.isDeleted = false,
     this.pendingAction = 0,
   });
+}
+
+extension FirstThenBoardExtensions on Box<FirstThenBoardEntity> {
+  FirstThenBoardEntity? getByRemoteId(String remoteId) {
+    return query(FirstThenBoardEntity_.remoteId.equals(remoteId))
+        .build()
+        .findFirst();
+  }
 }
