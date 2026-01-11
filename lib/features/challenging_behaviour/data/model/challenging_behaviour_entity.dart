@@ -1,6 +1,8 @@
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_entity.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../../../objectbox.g.dart';
+
 @Entity()
 class ChallengingBehaviourEntity {
   @Id()
@@ -12,7 +14,7 @@ class ChallengingBehaviourEntity {
   ToMany<ChallengingBehaviourDiaryEntryEntity> diaryEntries;
   bool occuring;
   String userId;
-  int selectedPersonId;
+  String selectedPersonId;
 
   String? remoteId;
   DateTime updatedAt;
@@ -35,4 +37,12 @@ class ChallengingBehaviourEntity {
     this.isDeleted = false,
     this.pendingAction = 0
   });
+}
+
+extension ChallengingBehaviourBoxExtensions on Box<ChallengingBehaviourEntity> {
+  ChallengingBehaviourEntity? getByRemoteId(String remoteId) {
+    return query(ChallengingBehaviourEntity_.remoteId.equals(remoteId))
+        .build()
+        .findFirst();
+  }
 }

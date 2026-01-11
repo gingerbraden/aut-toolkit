@@ -1,5 +1,7 @@
 import 'package:objectbox/objectbox.dart';
 
+import '../../../../objectbox.g.dart';
+
 @Entity()
 class SelectedPersonEntity {
   @Id()
@@ -8,6 +10,7 @@ class SelectedPersonEntity {
   String userId;
   String name;
 
+  @Index()
   String? remoteId;
   DateTime updatedAt;
   bool isSynced;
@@ -26,4 +29,12 @@ class SelectedPersonEntity {
     this.remoteId
   });
 
+}
+
+extension CardBoxExtensions on Box<SelectedPersonEntity> {
+  SelectedPersonEntity? getByRemoteId(String remoteId) {
+    return query(SelectedPersonEntity_.remoteId.equals(remoteId))
+        .build()
+        .findFirst();
+  }
 }

@@ -105,11 +105,11 @@ class RepoService {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
 
-    // await goodHabitRepository.fetchRemote();
-    // await challengingBehaviourRepository.fetchRemote();
-    // await eatingHabitRepository.fetchRemote();
     await cardRepositoryImpl.fetchRemote();
-    // await selectedPersonRepositoryImpl.fetchRemote();
+    await selectedPersonRepositoryImpl.fetchRemote();
+    await goodHabitRepository.fetchRemote();
+    await challengingBehaviourRepository.fetchRemote();
+    await eatingHabitRepository.fetchRemote();
     await firstThenBoardRepositoryImpl.fetchRemote();
     await visualListRepositoryImpl.fetchRemote();
   }

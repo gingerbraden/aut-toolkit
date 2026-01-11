@@ -16,7 +16,7 @@ class ChallengingBehaviourRemoteEntity extends SyncEntity {
 
   String userId;
 
-  int selectedPersonId;
+  String selectedPersonId;
 
   ChallengingBehaviourRemoteEntity({
     required this.localId,

@@ -7,7 +7,7 @@ import '../../provider/eating_habits_notifier.dart';
 final filteredEatingHabitsProvider = Provider<List<EatingHabit>>((ref) {
   final habits = ref.watch(eatingHabitsProvider);
   final selectedPerson = ref.watch(selectedPersonProvider);
-  return habits.where((h) => h.selectedPersonId == selectedPerson!.id).where((h)=>!h.isDeleted).toList();
+  return habits.where((h) => h.selectedPersonId == selectedPerson!.remoteId).where((h)=>!h.isDeleted).toList();
 });
 
 class EatingHabitsListViewModel extends Notifier<List<EatingHabit>> {

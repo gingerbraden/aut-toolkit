@@ -7,7 +7,7 @@ class GoodHabitRemoteEntity extends SyncEntity {
   String name;
   String description;
   bool isOccuringFlag;
-  int selectedPersonId;
+  String selectedPersonId;
   DateTime? to;
 
   GoodHabitRemoteEntity({

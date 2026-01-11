@@ -14,6 +14,9 @@ class SelectedPersonLocalSource {
 
   void remove(int id) => selectedPersonBox.remove(id);
 
+  SelectedPersonEntity? getByRemoteId(String id) => selectedPersonBox.getByRemoteId(id);
+
+
   SelectedPersonEntity? getById(int id) => selectedPersonBox.get(id);
 
   List<SelectedPersonEntity> getAllPending() {

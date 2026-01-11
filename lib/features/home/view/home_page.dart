@@ -26,16 +26,13 @@ class _HomePageState extends ConsumerState<HomePage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!_startupSyncDone) await _runStartupSync();
+
       final allPersons = ref.read(selectedPersonsProvider);
 
       if (allPersons.isEmpty) {
         _showCreatePersonDialog(true);
       }
-
-      if (_startupSyncDone) return;
-      _startupSyncDone = true;
-
-      await _runStartupSync();
     });
   }
 
@@ -62,6 +59,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       await RepoService().fetchAllRemoteData();
     } finally {
       if (mounted) {
+        _startupSyncDone = true;
         Navigator.of(context).pop();
       }
     }

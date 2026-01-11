@@ -7,18 +7,10 @@ import '../model/good_habit_entity.dart';
 
 class GoodHabitRemoteSource {
   final FirebaseFirestore _firestore;
-  final FirebaseStorage _storage;
   final String collectionPath = 'good_habits';
 
   GoodHabitRemoteSource({FirebaseFirestore? firestore, FirebaseStorage? storage})
-      : _firestore = firestore ?? FirebaseFirestore.instance,
-        _storage = storage ?? FirebaseStorage.instance;
-
-  Future<String> uploadFile(File file, String folder, String filename) async {
-    final ref = _storage.ref().child('$folder/$filename');
-    final uploadTask = await ref.putFile(file);
-    return await ref.getDownloadURL();
-  }
+      : _firestore = firestore ?? FirebaseFirestore.instance;
 
   Future<String> createRemote(GoodHabitRemoteEntity entity, {File? file}) async {
     final docRef = entity.remoteId != null
@@ -93,7 +85,7 @@ class GoodHabitRemoteSource {
       name: d['name'] ?? '',
       description: d['description'] ?? '',
       isOccuringFlag: d['isOccuringFlag'] ?? false,
-      selectedPersonId: d['selectedPersonId'] ?? 0,
+      selectedPersonId: d['selectedPersonId'] ?? '',
 
       updatedAt: d['updatedAt'] != null
           ? DateTime.parse(d['updatedAt'])

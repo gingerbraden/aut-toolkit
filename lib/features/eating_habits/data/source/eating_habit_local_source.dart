@@ -16,6 +16,8 @@ class EatingHabitLocalSource {
 
   EatingHabitEntity? getById(int id) => eatingHabitBox.get(id);
 
+  EatingHabitEntity? getByRemoteId(String id) => eatingHabitBox.getByRemoteId(id);
+
   List<EatingHabitEntity> getAllPending() {
     final q = eatingHabitBox.query(
       EatingHabitEntity_.pendingAction.notEquals(0),

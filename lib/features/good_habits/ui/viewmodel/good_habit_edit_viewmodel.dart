@@ -50,7 +50,7 @@ class GoodHabitEditViewmodel extends Notifier<GoodHabitFormState> {
   }
 
   void saveChanges() {
-    final selectedPersonId = ref.watch(selectedPersonProvider)!.id!;
+    final selectedPersonId = ref.watch(selectedPersonProvider)!.remoteId!;
 
 
     final updatedHabit = GoodHabit(

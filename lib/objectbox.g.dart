@@ -137,7 +137,7 @@ final _entities = <obx_int.ModelEntity>[
       obx_int.ModelProperty(
         id: const obx_int.IdUid(7, 3086927186571094073),
         name: 'selectedPersonId',
-        type: 6,
+        type: 9,
         flags: 0,
       ),
       obx_int.ModelProperty(
@@ -231,7 +231,7 @@ final _entities = <obx_int.ModelEntity>[
       obx_int.ModelProperty(
         id: const obx_int.IdUid(8, 5857236163708609311),
         name: 'selectedPersonId',
-        type: 6,
+        type: 9,
         flags: 0,
       ),
       obx_int.ModelProperty(
@@ -325,7 +325,7 @@ final _entities = <obx_int.ModelEntity>[
       obx_int.ModelProperty(
         id: const obx_int.IdUid(7, 3174147389341847264),
         name: 'selectedPersonId',
-        type: 6,
+        type: 9,
         flags: 0,
       ),
       obx_int.ModelProperty(
@@ -402,7 +402,8 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(5, 906012178411674136),
         name: 'remoteId',
         type: 9,
-        flags: 0,
+        flags: 2048,
+        indexId: const obx_int.IdUid(5, 1811413472325290029),
       ),
       obx_int.ModelProperty(
         id: const obx_int.IdUid(6, 8506682528747091890),
@@ -712,7 +713,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
     lastEntityId: const obx_int.IdUid(11, 7067190488023369742),
-    lastIndexId: const obx_int.IdUid(4, 8420073143863359238),
+    lastIndexId: const obx_int.IdUid(5, 1811413472325290029),
     lastRelationId: const obx_int.IdUid(1, 3447432801872670905),
     lastSequenceId: const obx_int.IdUid(0, 0),
     retiredEntityUids: const [
@@ -855,6 +856,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
               object.generalDescription,
             );
             final userIdOffset = fbb.writeString(object.userId);
+            final selectedPersonIdOffset = fbb.writeString(
+              object.selectedPersonId,
+            );
             final remoteIdOffset = object.remoteId == null
                 ? null
                 : fbb.writeString(object.remoteId!);
@@ -865,7 +869,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
             fbb.addInt64(3, object.from.millisecondsSinceEpoch);
             fbb.addOffset(4, generalDescriptionOffset);
             fbb.addOffset(5, userIdOffset);
-            fbb.addInt64(6, object.selectedPersonId);
+            fbb.addOffset(6, selectedPersonIdOffset);
             fbb.addOffset(7, remoteIdOffset);
             fbb.addInt64(8, object.updatedAt.millisecondsSinceEpoch);
             fbb.addBool(9, object.isSynced);
@@ -902,12 +906,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
             final userIdParam = const fb.StringReader(
               asciiOptimization: true,
             ).vTableGet(buffer, rootOffset, 14, '');
-            final selectedPersonIdParam = const fb.Int64Reader().vTableGet(
-              buffer,
-              rootOffset,
-              16,
-              0,
-            );
+            final selectedPersonIdParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGet(buffer, rootOffset, 16, '');
             final remoteIdParam = const fb.StringReader(
               asciiOptimization: true,
             ).vTableGetNullable(buffer, rootOffset, 18);
@@ -974,6 +975,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final nameOffset = fbb.writeString(object.name);
         final descriptionOffset = fbb.writeString(object.description);
         final userIdOffset = fbb.writeString(object.userId);
+        final selectedPersonIdOffset = fbb.writeString(object.selectedPersonId);
         final imageFilePathOffset = object.imageFilePath == null
             ? null
             : fbb.writeString(object.imageFilePath!);
@@ -991,7 +993,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         fbb.addOffset(4, nameOffset);
         fbb.addOffset(5, descriptionOffset);
         fbb.addOffset(6, userIdOffset);
-        fbb.addInt64(7, object.selectedPersonId);
+        fbb.addOffset(7, selectedPersonIdOffset);
         fbb.addOffset(8, imageFilePathOffset);
         fbb.addOffset(9, remoteIdOffset);
         fbb.addInt64(10, object.updatedAt.millisecondsSinceEpoch);
@@ -1037,12 +1039,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final userIdParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 16, '');
-        final selectedPersonIdParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          18,
-          0,
-        );
+        final selectedPersonIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 18, '');
         final imageFilePathParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGetNullable(buffer, rootOffset, 20);
@@ -1106,6 +1105,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final userIdOffset = fbb.writeString(object.userId);
         final nameOffset = fbb.writeString(object.name);
         final descriptionOffset = fbb.writeString(object.description);
+        final selectedPersonIdOffset = fbb.writeString(object.selectedPersonId);
         final remoteIdOffset = object.remoteId == null
             ? null
             : fbb.writeString(object.remoteId!);
@@ -1116,7 +1116,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         fbb.addOffset(3, nameOffset);
         fbb.addOffset(4, descriptionOffset);
         fbb.addBool(5, object.isOccuringFlag);
-        fbb.addInt64(6, object.selectedPersonId);
+        fbb.addOffset(6, selectedPersonIdOffset);
         fbb.addInt64(7, object.to?.millisecondsSinceEpoch);
         fbb.addOffset(8, remoteIdOffset);
         fbb.addInt64(9, object.updatedAt.millisecondsSinceEpoch);
@@ -1158,12 +1158,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           14,
           false,
         );
-        final selectedPersonIdParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          16,
-          0,
-        );
+        final selectedPersonIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 16, '');
         final toParam = toValue == null
             ? null
             : DateTime.fromMillisecondsSinceEpoch(toValue);
@@ -1704,7 +1701,7 @@ class ChallengingBehaviourEntity_ {
 
   /// See [ChallengingBehaviourEntity.selectedPersonId].
   static final selectedPersonId =
-      obx.QueryIntegerProperty<ChallengingBehaviourEntity>(
+      obx.QueryStringProperty<ChallengingBehaviourEntity>(
         _entities[1].properties[6],
       );
 
@@ -1780,7 +1777,7 @@ class EatingHabitEntity_ {
   );
 
   /// See [EatingHabitEntity.selectedPersonId].
-  static final selectedPersonId = obx.QueryIntegerProperty<EatingHabitEntity>(
+  static final selectedPersonId = obx.QueryStringProperty<EatingHabitEntity>(
     _entities[2].properties[7],
   );
 
@@ -1853,7 +1850,7 @@ class GoodHabitEntity_ {
   );
 
   /// See [GoodHabitEntity.selectedPersonId].
-  static final selectedPersonId = obx.QueryIntegerProperty<GoodHabitEntity>(
+  static final selectedPersonId = obx.QueryStringProperty<GoodHabitEntity>(
     _entities[3].properties[6],
   );
 

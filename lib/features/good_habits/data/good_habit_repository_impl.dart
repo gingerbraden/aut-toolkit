@@ -99,21 +99,38 @@ class GoodHabitRepositoryImpl implements GoodHabitRepository, SyncableRepository
 
     try {
       final remoteData = await _remoteSource.getAllRemote(userId: userId);
-
       final localData = _localSource.getAll();
 
+      final remoteIds = <String>{};
+
       for (final remoteEntity in remoteData) {
-        _localSource.put(remoteEntity.toEntity());
+        remoteIds.add(remoteEntity.remoteId!);
+
+        final local =
+        _localSource.getByRemoteId(remoteEntity.remoteId!);
+
+        final entityToSave = remoteEntity.toEntity();
+        entityToSave.id = 0;
+
+        if (local != null) {
+          entityToSave.id = local.id;
+
+          if (local.pendingAction != PendingAction.NONE.index) {
+            entityToSave.pendingAction = local.pendingAction;
+            entityToSave.isSynced = local.isSynced;
+          }
+        }
+
+        _localSource.put(entityToSave);
       }
 
-      final remoteIds = remoteData.map((e) => e.localId).toSet();
       for (final localEntity in localData) {
-        if (!remoteIds.contains(localEntity.id)) {
+        if (!remoteIds.contains(localEntity.remoteId)) {
           _localSource.remove(localEntity.id);
         }
       }
     } catch (e) {
-      print('Error fetching remote habits: $e');
+      print('Error fetching remote eating habits: $e');
     }
   }
 

@@ -105,7 +105,7 @@ class EatingHabitsList extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           final selectedPerson = ref.watch(selectedPersonProvider);
-          final selectedPersonId = selectedPerson!.id!;
+          final selectedPersonId = selectedPerson!.remoteId!;
 
           final docRef = FirebaseFirestore.instance
               .collection('eating_habits')

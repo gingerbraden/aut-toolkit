@@ -16,6 +16,8 @@ class GoodHabitLocalSource {
 
   GoodHabitEntity? getById(int id) => goodHabitBox.get(id);
 
+  GoodHabitEntity? getByRemoteId(String id) => goodHabitBox.getByRemoteId(id);
+
   List<GoodHabitEntity> getAllPending() {
     final q = goodHabitBox.query(
       GoodHabitEntity_.pendingAction.notEquals(0),

@@ -47,7 +47,7 @@ class EatingHabitEditViewModel extends Notifier<EatingHabitFormState> {
   void updateImage(String? path) => state = state.copyWith(imagePath: path);
 
   void saveChanges(WidgetRef ref) {
-    final selectedPersonId = ref.watch(selectedPersonProvider)!.id!;
+    final selectedPersonId = ref.watch(selectedPersonProvider)!.remoteId!;
 
     final updatedHabit = EatingHabit(
       id: _habit.id,

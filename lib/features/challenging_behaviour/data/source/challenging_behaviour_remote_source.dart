@@ -10,20 +10,12 @@ import '../model/challenging_behaviour_remote_entity.dart';
 
 class ChallengingBehaviourRemoteSource {
   final FirebaseFirestore _firestore;
-  final FirebaseStorage _storage;
   final String collectionPath = 'challenging_behaviour';
 
   ChallengingBehaviourRemoteSource({
     FirebaseFirestore? firestore,
     FirebaseStorage? storage,
-  }) : _firestore = firestore ?? FirebaseFirestore.instance,
-       _storage = storage ?? FirebaseStorage.instance;
-
-  Future<String> uploadFile(File file, String folder, String filename) async {
-    final ref = _storage.ref().child('$folder/$filename');
-    final uploadTask = await ref.putFile(file);
-    return await ref.getDownloadURL();
-  }
+  }) : _firestore = firestore ?? FirebaseFirestore.instance;
 
   Future<String> createRemote(
     ChallengingBehaviourRemoteEntity entity, {
@@ -127,7 +119,7 @@ class ChallengingBehaviourRemoteSource {
         diaryEntries: diaryEntries,
         occuring: d['occuring'] ?? false,
         userId: d['userId'] ?? '',
-        selectedPersonId: d['selectedPersonId'] ?? 0,
+        selectedPersonId: d['selectedPersonId'] ?? '',
         updatedAt: d['updatedAt'] != null
             ? DateTime.parse(d['updatedAt'])
             : DateTime.now(),

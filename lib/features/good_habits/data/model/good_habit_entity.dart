@@ -1,5 +1,7 @@
 import 'package:objectbox/objectbox.dart';
 
+import '../../../../objectbox.g.dart';
+
 @Entity()
 class GoodHabitEntity {
   @Id()
@@ -10,7 +12,7 @@ class GoodHabitEntity {
   String name;
   String description;
   bool isOccuringFlag;
-  int selectedPersonId;
+  String selectedPersonId;
   DateTime? to;
 
   String? remoteId;
@@ -35,4 +37,12 @@ class GoodHabitEntity {
     this.pendingAction = 0
   });
 
+}
+
+extension GoodHabitBoxExtensions on Box<GoodHabitEntity> {
+  GoodHabitEntity? getByRemoteId(String remoteId) {
+    return query(GoodHabitEntity_.remoteId.equals(remoteId))
+        .build()
+        .findFirst();
+  }
 }

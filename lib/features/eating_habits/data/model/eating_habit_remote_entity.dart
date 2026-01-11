@@ -8,7 +8,7 @@ class EatingHabitRemoteEntity extends SyncEntity {
   String name;
   String description;
   String userId;
-  int selectedPersonId;
+  String selectedPersonId;
   String? imageFilePath;
   String? remoteImagePath;
 

@@ -6,7 +6,7 @@ class GeneralHabit {
   String userId;
   String name;
   String description;
-  int selectedPersonId;
+  String selectedPersonId;
 
   String? remoteId;
   DateTime updatedAt;

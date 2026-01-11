@@ -1,5 +1,7 @@
 import 'package:objectbox/objectbox.dart';
 
+import '../../../../objectbox.g.dart';
+
 
 @Entity()
 class EatingHabitEntity {
@@ -13,7 +15,7 @@ class EatingHabitEntity {
   String name;
   String description;
   String userId;
-  int selectedPersonId;
+  String selectedPersonId;
   String? imageFilePath;
 
   String? remoteId;
@@ -41,4 +43,12 @@ class EatingHabitEntity {
     required this.remoteImgPath
   });
 
+}
+
+extension EatingHabitBoxExtensions on Box<EatingHabitEntity> {
+  EatingHabitEntity? getByRemoteId(String remoteId) {
+    return query(EatingHabitEntity_.remoteId.equals(remoteId))
+        .build()
+        .findFirst();
+  }
 }

@@ -50,7 +50,7 @@ class ChallengingBehaviourEditViewModel
   }
 
   void saveChanges() {
-    final selectedPersonId = ref.watch(selectedPersonProvider)?.id!;
+    final selectedPersonId = ref.watch(selectedPersonProvider)?.remoteId!;
 
     final updatedCb = ChallengingBehaviour(
       id: _behaviour.id!,

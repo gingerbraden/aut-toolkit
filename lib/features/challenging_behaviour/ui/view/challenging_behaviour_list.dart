@@ -98,7 +98,7 @@ class ChallengingBehaviourList extends ConsumerWidget {
             diaryEntries: [],
             occuring: true,
             userId: FirebaseService().currentUser!.uid,
-            selectedPersonId: selectedPerson!.id!, updatedAt: DateTime.now(),
+            selectedPersonId: selectedPerson!.remoteId!, updatedAt: DateTime.now(),
           );
 
           router.push(

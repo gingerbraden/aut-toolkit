@@ -84,5 +84,8 @@ class ChallengingBehaviourLocalSource {
 
   ChallengingBehaviourEntity? getById(int id) => challengingBehaviourBox.get(id);
 
+  ChallengingBehaviourEntity? getByRemoteId(String id) => challengingBehaviourBox.getByRemoteId(id);
+
+
 
 }

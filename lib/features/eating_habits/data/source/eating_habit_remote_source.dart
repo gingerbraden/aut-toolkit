@@ -114,12 +114,12 @@ class EatingHabitRemoteSource {
       name: d['name'] ?? '',
       description: d['description'] ?? '',
       userId: d['userId'] ?? '',
-      selectedPersonId: d['selectedPersonId'] ?? 0,
+      selectedPersonId: d['selectedPersonId'] ?? '',
       imageFilePath: d['imageFilePath'],
       updatedAt: d['updatedAt'] != null
           ? DateTime.parse(d['updatedAt'])
           : DateTime.now(),
-      remoteImagePath: d['remoteImgPath'] ?? null
+      remoteImagePath: d['remoteImgPath']
     )
       ..remoteId = snap.id
       ..isSynced = true
