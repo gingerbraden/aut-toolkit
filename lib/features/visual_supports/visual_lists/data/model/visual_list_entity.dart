@@ -1,5 +1,6 @@
 import 'package:objectbox/objectbox.dart';
 
+import '../../../../../objectbox.g.dart';
 import '../../../../card_management/data/model/user_card_entity.dart';
 
 @Entity()
@@ -32,4 +33,12 @@ class VisualListEntity {
     this.isDeleted = false,
     this.pendingAction = 0,
   });
+}
+
+extension VisualListExtensions on Box<VisualListEntity> {
+  VisualListEntity? getByRemoteId(String remoteId) {
+    return query(VisualListEntity_.remoteId.equals(remoteId))
+        .build()
+        .findFirst();
+  }
 }

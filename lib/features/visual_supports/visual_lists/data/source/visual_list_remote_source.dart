@@ -92,7 +92,7 @@ class VisualListRemoteSource {
           ? DateTime.parse(d['updatedAt'])
           : DateTime.now(),
       steps: (d['steps'] as List<dynamic>? ?? [])
-          .map((e) => e as int)
+          .map((e) => e as String)
           .toList(),
     )
       ..remoteId = snap.id

@@ -111,6 +111,6 @@ class RepoService {
     await cardRepositoryImpl.fetchRemote();
     // await selectedPersonRepositoryImpl.fetchRemote();
     await firstThenBoardRepositoryImpl.fetchRemote();
-    // await visualListRepositoryImpl.fetchRemote();
+    await visualListRepositoryImpl.fetchRemote();
   }
 }

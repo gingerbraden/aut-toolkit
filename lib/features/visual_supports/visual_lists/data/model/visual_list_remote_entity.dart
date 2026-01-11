@@ -3,7 +3,7 @@ import 'package:aut_toolkit/core/model/sync_entity.dart';
 class VisualListRemoteEntity extends SyncEntity {
   int localId;
   String userId;
-  List<int> steps;
+  List<String> steps;
   String name;
   bool isVisualSchedule;
   bool isVisualDiagram;

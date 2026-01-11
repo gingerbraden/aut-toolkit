@@ -23,14 +23,14 @@ extension VisualListEntityMapper on VisualListEntity {
       stepModels.sort((a, b) {
         final orderA = orderMap.entries
             .firstWhere(
-              (entry) => entry.value == a.id.toString(),
+              (entry) => entry.value == a.remoteId.toString(),
           orElse: () => const MapEntry(99999, ""),
         )
             .key;
 
         final orderB = orderMap.entries
             .firstWhere(
-              (entry) => entry.value == b.id.toString(),
+              (entry) => entry.value == b.remoteId.toString(),
           orElse: () => const MapEntry(99999, ""),
         )
             .key;
@@ -73,7 +73,7 @@ extension VisualListMapper on VisualList {
 
     final orderMap = stepEntities
         .asMap()
-        .map((index, step) => MapEntry(index.toString(), step.id.toString()));
+        .map((index, step) => MapEntry(index.toString(), step.remoteId.toString()));
 
     entity.stepsOrderJson = json.encode(orderMap);
 
@@ -96,7 +96,7 @@ extension VisualListEntityToRemote on VisualListEntity {
       isVisualDiagram: isVisualDiagram,
       stepsOrderJson: stepsOrderJson,
       updatedAt: updatedAt,
-      steps: steps.map((e) => e.id).toList(),
+      steps: steps.map((e) => e.remoteId!).toList(),
     )
       ..isDeleted = isDeleted
       ..isSynced = isSynced
@@ -120,7 +120,7 @@ extension VisualListRemoteToEntity on VisualListRemoteEntity {
       ..clear()
       ..addAll(
         steps
-            .map((id) => objectbox.cardBox.get(id))
+            .map((remoteId) => objectbox.cardBox.getByRemoteId(remoteId))
             .whereType<UserCardEntity>()
             .toList(),
       );

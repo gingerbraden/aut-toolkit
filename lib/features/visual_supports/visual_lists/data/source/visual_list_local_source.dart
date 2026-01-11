@@ -57,6 +57,8 @@ class VisualListLocalSource {
 
   VisualListEntity? getById(int id) => visualListBox.get(id);
 
+  VisualListEntity? getByRemoteId(String id) => visualListBox.getByRemoteId(id);
+
   Stream<List<VisualListEntity>> watchAll() {
     final builder = visualListBox.query();
 
