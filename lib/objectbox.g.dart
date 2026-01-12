@@ -14,6 +14,8 @@ import 'package:objectbox/internal.dart'
 import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
+import 'features/aac_keyboard/data/model/aac_keyboard_entity.dart';
+import 'features/aac_keyboard/data/model/keyboard_slot_entity.dart';
 import 'features/card_management/data/model/user_card_entity.dart';
 import 'features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_entity.dart';
 import 'features/challenging_behaviour/data/model/challenging_behaviour_entity.dart';
@@ -672,6 +674,144 @@ final _entities = <obx_int.ModelEntity>[
     ],
     backlinks: <obx_int.ModelBacklink>[],
   ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(12, 3191255753294435572),
+    name: 'AACKeyboardEntity',
+    lastPropertyId: const obx_int.IdUid(8, 7609992600903892014),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 3732962548823026874),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 1416300664203425332),
+        name: 'userId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 6228580049155623211),
+        name: 'name',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 3894890434916793095),
+        name: 'remoteId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 1884668942156963236),
+        name: 'updatedAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 8325316155025080306),
+        name: 'isSynced',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 5963092940203517850),
+        name: 'isDeleted',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 7609992600903892014),
+        name: 'pendingAction',
+        type: 6,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[
+      obx_int.ModelRelation(
+        id: const obx_int.IdUid(2, 4312164299543832681),
+        name: 'slots',
+        targetId: const obx_int.IdUid(13, 8071004945004675470),
+      ),
+    ],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(13, 8071004945004675470),
+    name: 'KeyboardSlotEntity',
+    lastPropertyId: const obx_int.IdUid(10, 8717594652464928298),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 2226016036427132340),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 5404749930011883641),
+        name: 'x',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 1212682359372845143),
+        name: 'y',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 4627871673631543610),
+        name: 'remoteId',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 7369886376216116003),
+        name: 'updatedAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 2678570930367569102),
+        name: 'isSynced',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 7509948899868077966),
+        name: 'isDeleted',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 3704408321346579172),
+        name: 'pendingAction',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 3382988567311895433),
+        name: 'cardId',
+        type: 11,
+        flags: 520,
+        indexId: const obx_int.IdUid(6, 4477255171735361142),
+        relationTarget: 'UserCardEntity',
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(10, 8717594652464928298),
+        name: 'keyboardId',
+        type: 11,
+        flags: 520,
+        indexId: const obx_int.IdUid(7, 945333411442306796),
+        relationTarget: 'AACKeyboardEntity',
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
 ];
 
 /// Shortcut for [obx.Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -712,9 +852,9 @@ Future<obx.Store> openStore({
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(11, 7067190488023369742),
-    lastIndexId: const obx_int.IdUid(5, 1811413472325290029),
-    lastRelationId: const obx_int.IdUid(1, 3447432801872670905),
+    lastEntityId: const obx_int.IdUid(13, 8071004945004675470),
+    lastIndexId: const obx_int.IdUid(7, 945333411442306796),
+    lastRelationId: const obx_int.IdUid(2, 4312164299543832681),
     lastSequenceId: const obx_int.IdUid(0, 0),
     retiredEntityUids: const [
       1777307641083598478,
@@ -1603,6 +1743,190 @@ obx_int.ModelDefinition getObjectBoxModel() {
         return object;
       },
     ),
+    AACKeyboardEntity: obx_int.EntityDefinition<AACKeyboardEntity>(
+      model: _entities[8],
+      toOneRelations: (AACKeyboardEntity object) => [],
+      toManyRelations: (AACKeyboardEntity object) => {
+        obx_int.RelInfo<AACKeyboardEntity>.toMany(2, object.id!): object.slots,
+      },
+      getId: (AACKeyboardEntity object) => object.id,
+      setId: (AACKeyboardEntity object, int id) {
+        object.id = id;
+      },
+      objectToFB: (AACKeyboardEntity object, fb.Builder fbb) {
+        final userIdOffset = fbb.writeString(object.userId);
+        final nameOffset = fbb.writeString(object.name);
+        final remoteIdOffset = object.remoteId == null
+            ? null
+            : fbb.writeString(object.remoteId!);
+        fbb.startTable(9);
+        fbb.addInt64(0, object.id ?? 0);
+        fbb.addOffset(1, userIdOffset);
+        fbb.addOffset(2, nameOffset);
+        fbb.addOffset(3, remoteIdOffset);
+        fbb.addInt64(4, object.updatedAt.millisecondsSinceEpoch);
+        fbb.addBool(5, object.isSynced);
+        fbb.addBool(6, object.isDeleted);
+        fbb.addInt64(7, object.pendingAction);
+        fbb.finish(fbb.endTable());
+        return object.id ?? 0;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          4,
+        );
+        final userIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 6, '');
+        final nameParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 8, '');
+        final remoteIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 10);
+        final updatedAtParam = DateTime.fromMillisecondsSinceEpoch(
+          const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0),
+        );
+        final isSyncedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          14,
+          false,
+        );
+        final isDeletedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          16,
+          false,
+        );
+        final pendingActionParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          18,
+          0,
+        );
+        final object = AACKeyboardEntity(
+          id: idParam,
+          userId: userIdParam,
+          name: nameParam,
+          remoteId: remoteIdParam,
+          updatedAt: updatedAtParam,
+          isSynced: isSyncedParam,
+          isDeleted: isDeletedParam,
+          pendingAction: pendingActionParam,
+        );
+        obx_int.InternalToManyAccess.setRelInfo<AACKeyboardEntity>(
+          object.slots,
+          store,
+          obx_int.RelInfo<AACKeyboardEntity>.toMany(2, object.id!),
+        );
+        return object;
+      },
+    ),
+    KeyboardSlotEntity: obx_int.EntityDefinition<KeyboardSlotEntity>(
+      model: _entities[9],
+      toOneRelations: (KeyboardSlotEntity object) => [
+        object.card,
+        object.keyboard,
+      ],
+      toManyRelations: (KeyboardSlotEntity object) => {},
+      getId: (KeyboardSlotEntity object) => object.id,
+      setId: (KeyboardSlotEntity object, int id) {
+        object.id = id;
+      },
+      objectToFB: (KeyboardSlotEntity object, fb.Builder fbb) {
+        final remoteIdOffset = object.remoteId == null
+            ? null
+            : fbb.writeString(object.remoteId!);
+        fbb.startTable(11);
+        fbb.addInt64(0, object.id ?? 0);
+        fbb.addInt64(1, object.x);
+        fbb.addInt64(2, object.y);
+        fbb.addOffset(3, remoteIdOffset);
+        fbb.addInt64(4, object.updatedAt.millisecondsSinceEpoch);
+        fbb.addBool(5, object.isSynced);
+        fbb.addBool(6, object.isDeleted);
+        fbb.addInt64(7, object.pendingAction);
+        fbb.addInt64(8, object.card.targetId);
+        fbb.addInt64(9, object.keyboard.targetId);
+        fbb.finish(fbb.endTable());
+        return object.id ?? 0;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          4,
+        );
+        final xParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          6,
+          0,
+        );
+        final yParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          8,
+          0,
+        );
+        final remoteIdParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 10);
+        final updatedAtParam = DateTime.fromMillisecondsSinceEpoch(
+          const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0),
+        );
+        final isSyncedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          14,
+          false,
+        );
+        final isDeletedParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          16,
+          false,
+        );
+        final pendingActionParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          18,
+          0,
+        );
+        final object = KeyboardSlotEntity(
+          id: idParam,
+          x: xParam,
+          y: yParam,
+          remoteId: remoteIdParam,
+          updatedAt: updatedAtParam,
+          isSynced: isSyncedParam,
+          isDeleted: isDeletedParam,
+          pendingAction: pendingActionParam,
+        );
+        object.card.targetId = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          20,
+          0,
+        );
+        object.card.attach(store);
+        object.keyboard.targetId = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          22,
+          0,
+        );
+        object.keyboard.attach(store);
+        return object;
+      },
+    ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -2112,5 +2436,109 @@ class VisualListEntity_ {
   static final steps =
       obx.QueryRelationToMany<VisualListEntity, UserCardEntity>(
         _entities[7].relations[0],
+      );
+}
+
+/// [AACKeyboardEntity] entity fields to define ObjectBox queries.
+class AACKeyboardEntity_ {
+  /// See [AACKeyboardEntity.id].
+  static final id = obx.QueryIntegerProperty<AACKeyboardEntity>(
+    _entities[8].properties[0],
+  );
+
+  /// See [AACKeyboardEntity.userId].
+  static final userId = obx.QueryStringProperty<AACKeyboardEntity>(
+    _entities[8].properties[1],
+  );
+
+  /// See [AACKeyboardEntity.name].
+  static final name = obx.QueryStringProperty<AACKeyboardEntity>(
+    _entities[8].properties[2],
+  );
+
+  /// See [AACKeyboardEntity.remoteId].
+  static final remoteId = obx.QueryStringProperty<AACKeyboardEntity>(
+    _entities[8].properties[3],
+  );
+
+  /// See [AACKeyboardEntity.updatedAt].
+  static final updatedAt = obx.QueryDateProperty<AACKeyboardEntity>(
+    _entities[8].properties[4],
+  );
+
+  /// See [AACKeyboardEntity.isSynced].
+  static final isSynced = obx.QueryBooleanProperty<AACKeyboardEntity>(
+    _entities[8].properties[5],
+  );
+
+  /// See [AACKeyboardEntity.isDeleted].
+  static final isDeleted = obx.QueryBooleanProperty<AACKeyboardEntity>(
+    _entities[8].properties[6],
+  );
+
+  /// See [AACKeyboardEntity.pendingAction].
+  static final pendingAction = obx.QueryIntegerProperty<AACKeyboardEntity>(
+    _entities[8].properties[7],
+  );
+
+  /// see [AACKeyboardEntity.slots]
+  static final slots =
+      obx.QueryRelationToMany<AACKeyboardEntity, KeyboardSlotEntity>(
+        _entities[8].relations[0],
+      );
+}
+
+/// [KeyboardSlotEntity] entity fields to define ObjectBox queries.
+class KeyboardSlotEntity_ {
+  /// See [KeyboardSlotEntity.id].
+  static final id = obx.QueryIntegerProperty<KeyboardSlotEntity>(
+    _entities[9].properties[0],
+  );
+
+  /// See [KeyboardSlotEntity.x].
+  static final x = obx.QueryIntegerProperty<KeyboardSlotEntity>(
+    _entities[9].properties[1],
+  );
+
+  /// See [KeyboardSlotEntity.y].
+  static final y = obx.QueryIntegerProperty<KeyboardSlotEntity>(
+    _entities[9].properties[2],
+  );
+
+  /// See [KeyboardSlotEntity.remoteId].
+  static final remoteId = obx.QueryStringProperty<KeyboardSlotEntity>(
+    _entities[9].properties[3],
+  );
+
+  /// See [KeyboardSlotEntity.updatedAt].
+  static final updatedAt = obx.QueryDateProperty<KeyboardSlotEntity>(
+    _entities[9].properties[4],
+  );
+
+  /// See [KeyboardSlotEntity.isSynced].
+  static final isSynced = obx.QueryBooleanProperty<KeyboardSlotEntity>(
+    _entities[9].properties[5],
+  );
+
+  /// See [KeyboardSlotEntity.isDeleted].
+  static final isDeleted = obx.QueryBooleanProperty<KeyboardSlotEntity>(
+    _entities[9].properties[6],
+  );
+
+  /// See [KeyboardSlotEntity.pendingAction].
+  static final pendingAction = obx.QueryIntegerProperty<KeyboardSlotEntity>(
+    _entities[9].properties[7],
+  );
+
+  /// See [KeyboardSlotEntity.card].
+  static final card =
+      obx.QueryRelationToOne<KeyboardSlotEntity, UserCardEntity>(
+        _entities[9].properties[8],
+      );
+
+  /// See [KeyboardSlotEntity.keyboard].
+  static final keyboard =
+      obx.QueryRelationToOne<KeyboardSlotEntity, AACKeyboardEntity>(
+        _entities[9].properties[9],
       );
 }

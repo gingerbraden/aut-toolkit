@@ -1,3 +1,5 @@
+import 'package:aut_toolkit/features/aac_keyboard/data/model/aac_keyboard_entity.dart';
+import 'package:aut_toolkit/features/aac_keyboard/data/model/keyboard_slot_entity.dart';
 import 'package:aut_toolkit/features/card_management/data/model/user_card_entity.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_entity.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_entity.dart';
@@ -20,6 +22,8 @@ class ObjectBox {
   late final Box<UserCardEntity> cardBox;
   late final Box<FirstThenBoardEntity> firstThenBoardBox;
   late final Box<VisualListEntity> visualListBox;
+  late final Box<KeyboardSlotEntity> keyboardSlotBox;
+  late final Box<AACKeyboardEntity> aacKeyboardBox;
 
   ObjectBox._create(this.store) {
     eatingHabitEntityBox = Box<EatingHabitEntity>(store);
@@ -30,6 +34,8 @@ class ObjectBox {
     cardBox = Box<UserCardEntity>(store);
     firstThenBoardBox = Box<FirstThenBoardEntity>(store);
     visualListBox = Box<VisualListEntity>(store);
+    keyboardSlotBox = Box<KeyboardSlotEntity>(store);
+    aacKeyboardBox = Box<AACKeyboardEntity>(store);
   }
 
   static Future<ObjectBox> create() async {
