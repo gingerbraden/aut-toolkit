@@ -1,3 +1,4 @@
+import 'package:objectbox/objectbox.dart';
 import '../../../../objectbox.g.dart';
 import 'keyboard_slot_entity.dart';
 

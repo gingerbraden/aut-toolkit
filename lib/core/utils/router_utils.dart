@@ -27,6 +27,8 @@ class RouterUtils {
   static final String NEW_VISUAL_LIST_CARD_PICKER = 'new-visual-list-card-picker';
   static final String VISUAL_LIST_DIAGRAM_SHOW = 'visual-list-diagram-show';
   static final String VISUAL_LIST_SCHEDULE_SHOW = 'visual-list-schedule-show';
+  static final String AAC_KEYBOARD_MAIN = 'aac-keyboard-main';
+  static final String AAC_KEYBOARD_CARD_PICKER = 'aac-keyboard-card-picker';
 
   static String getEatingHabitsPath() => HOME + SLASH + EATING_HABITS;
   static String getEatingHabitDetailPath() => getEatingHabitsPath() + SLASH + EATING_HABIT_DETAIL;
@@ -64,4 +66,8 @@ class RouterUtils {
   static String getVisualListDiagramShowPath() => getVisualListsPath() + SLASH + VISUAL_LIST_DIAGRAM_SHOW;
   static String getVisualListScheduleShowPath() => getVisualListsPath() + SLASH + VISUAL_LIST_SCHEDULE_SHOW;
 
-  }
+  static String getAACKeyboardMainPath() => HOME + SLASH + AAC_KEYBOARD_MAIN;
+  static String getAACKeyboardCardPickerPath() => getAACKeyboardMainPath() + SLASH + AAC_KEYBOARD_CARD_PICKER;
+
+
+}

@@ -1,5 +1,6 @@
 import 'package:aut_toolkit/features/aac_keyboard/data/model/aac_keyboard_entity.dart';
 
+import 'package:objectbox/objectbox.dart';
 import '../../../../objectbox.g.dart';
 import '../../../card_management/data/model/user_card_entity.dart';
 
