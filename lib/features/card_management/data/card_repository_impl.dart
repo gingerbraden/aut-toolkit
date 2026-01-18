@@ -126,6 +126,7 @@ class CardRepositoryImpl implements CardRepository, SyncableRepository {
           if (e.arasaacId == null || e.arasaacId == 0) {
             if (e.remoteImgPath != null && e.remoteImgPath!.isNotEmpty) {
               await _remoteSource.deleteRemoteImage(e.remoteImgPath!);
+              e.remoteImgPath = "";
             }
             if (File(e.localImgPath).existsSync() &&
                 (e.remoteImgPath == null ||

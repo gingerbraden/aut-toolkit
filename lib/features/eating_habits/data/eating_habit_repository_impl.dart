@@ -116,6 +116,7 @@ class EatingHabitRepositoryImpl implements EatingHabitRepository, SyncableReposi
 
         if (e.remoteImgPath != null && e.remoteImgPath!.isNotEmpty) {
           await _remoteSource.deleteRemoteImage(e.remoteImgPath!);
+          e.remoteImgPath = "";
         }
 
         if (e.imageFilePath != null && File(e.imageFilePath!).existsSync() && e.remoteImgPath == null) {
