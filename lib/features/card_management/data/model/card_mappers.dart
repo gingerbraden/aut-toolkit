@@ -54,8 +54,8 @@ extension UserCardEntityToRemote on UserCardEntity {
           wordCategory: wordCategory,
         )
         ..isDeleted = isDeleted
-        ..isSynced = isSynced
-        ..pendingAction = PendingAction.values[pendingAction]
+        ..isSynced = true
+        ..pendingAction = PendingAction.NONE
         ..remoteId = remoteId;
 }
 

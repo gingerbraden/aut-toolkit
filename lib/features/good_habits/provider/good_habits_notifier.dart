@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:aut_toolkit/core/services/repo_service.dart';
 import 'package:aut_toolkit/features/good_habits/domain/model/good_habit.dart';
 import 'package:aut_toolkit/objectbox.g.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_riverpod/legacy.dart';
 import '../../../core/services/objectbox.dart';
 import '../../../core/services/sync_manager.dart';
 import '../../../main.dart';
-import '../data/good_habit_repository_impl.dart';
 import '../data/model/good_habit_entity.dart';
 import '../data/source/good_habit_local_source.dart';
 import '../data/source/good_habit_remote_source.dart';
@@ -29,7 +29,6 @@ final goodHabitRemoteSourceProvider = Provider<GoodHabitRemoteSource>((ref) {
 
 final syncManagerProvider = Provider<SyncManager>((ref) {
   final sm = SyncManager();
-  sm.start();
   ref.onDispose(() => sm.dispose());
   return sm;
 });
@@ -40,10 +39,7 @@ final goodHabitLocalSourceProvider = Provider<GoodHabitLocalSource>((ref) {
 });
 
 final goodHabitRepositoryProvider = Provider<GoodHabitRepository>((ref) {
-  final localSource = ref.watch(goodHabitLocalSourceProvider);
-  final remote = ref.watch(goodHabitRemoteSourceProvider);
-  final sync = ref.watch(syncManagerProvider);
-  return GoodHabitRepositoryImpl(localSource, remote, sync);
+  return RepoService().goodHabitRepository;
 });
 
 final goodHabitsProvider =

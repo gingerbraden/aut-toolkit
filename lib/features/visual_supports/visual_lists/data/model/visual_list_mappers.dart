@@ -99,8 +99,8 @@ extension VisualListEntityToRemote on VisualListEntity {
       steps: steps.map((e) => e.remoteId!).toList(),
     )
       ..isDeleted = isDeleted
-      ..isSynced = isSynced
-      ..pendingAction = PendingAction.values[pendingAction]
+      ..isSynced = true
+      ..pendingAction = PendingAction.NONE
       ..remoteId = remoteId;
   }
 }

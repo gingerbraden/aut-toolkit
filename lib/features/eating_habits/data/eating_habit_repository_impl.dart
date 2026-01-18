@@ -124,7 +124,7 @@ class EatingHabitRepositoryImpl implements EatingHabitRepository, SyncableReposi
           uploadedUrl = await _remoteSource.uploadFile(
             file,
             'eating_habits_images',
-            '${e.userId}_${e.remoteId}.jpg',
+            '${e.userId}_${e.remoteId}_${DateTime.now()}.jpg',
           );
 
           e.remoteImgPath = uploadedUrl;

@@ -41,8 +41,8 @@ extension SelectedPersonEntityToRemote on SelectedPersonEntity {
     updatedAt: updatedAt,
   )
     ..isDeleted = isDeleted
-    ..isSynced = isSynced
-    ..pendingAction = PendingAction.values[pendingAction]
+    ..isSynced = true
+    ..pendingAction = PendingAction.NONE
     ..remoteId = remoteId;
 }
 

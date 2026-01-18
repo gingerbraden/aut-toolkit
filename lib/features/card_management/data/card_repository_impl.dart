@@ -135,7 +135,7 @@ class CardRepositoryImpl implements CardRepository, SyncableRepository {
               uploadedUrl = await _remoteSource.uploadFile(
                 file,
                 'user_cards_images',
-                '${e.userId}_${e.remoteId}.jpg',
+                '${e.userId}_${e.remoteId}_${DateTime.now()}.jpg',
               );
 
               e.remoteImgPath = uploadedUrl;

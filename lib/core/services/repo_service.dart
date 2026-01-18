@@ -1,4 +1,7 @@
 import 'package:aut_toolkit/core/services/sync_manager.dart';
+import 'package:aut_toolkit/features/aac_keyboard/data/aac_keyboard_repository_impl.dart';
+import 'package:aut_toolkit/features/aac_keyboard/data/source/aac_keyboard_local_source.dart';
+import 'package:aut_toolkit/features/aac_keyboard/data/source/aac_keyboard_remote_source.dart';
 import 'package:aut_toolkit/features/card_management/data/card_repository_impl.dart';
 import 'package:aut_toolkit/features/card_management/data/source/card_local_source.dart';
 import 'package:aut_toolkit/features/card_management/data/source/card_remote_source.dart';
@@ -34,6 +37,7 @@ class RepoService {
   late final SelectedPersonRepositoryImpl selectedPersonRepositoryImpl;
   late final FirstThenBoardRepositoryImpl firstThenBoardRepositoryImpl;
   late final VisualListRepositoryImpl visualListRepositoryImpl;
+  late final AACKeyboardRepositoryImpl aacKeyboardRepositoryImpl;
 
   static final RepoService _instance = RepoService._();
 
@@ -94,13 +98,21 @@ class RepoService {
       syncManager,
     );
 
+    aacKeyboardRepositoryImpl = AACKeyboardRepositoryImpl(
+      AACKeyboardLocalSource(objectbox.aacKeyboardBox, objectbox.keyboardSlotBox),
+      AACKeyboardRemoteSource(),
+      syncManager,
+    );
+
     syncManager.start();
   }
 
   Future<void> fetchAllRemoteData() async {
     final conn = Connectivity();
     var result = await conn.checkConnectivity();
-    if (!result.contains(ConnectivityResult.wifi) && !result.contains(ConnectivityResult.mobile)) return;
+    if (!result.contains(ConnectivityResult.wifi) &&
+        !result.contains(ConnectivityResult.mobile))
+      return;
 
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
@@ -112,5 +124,6 @@ class RepoService {
     await eatingHabitRepository.fetchRemote();
     await firstThenBoardRepositoryImpl.fetchRemote();
     await visualListRepositoryImpl.fetchRemote();
+    await aacKeyboardRepositoryImpl.fetchRemote();
   }
 }

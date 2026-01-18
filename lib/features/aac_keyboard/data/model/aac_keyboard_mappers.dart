@@ -107,8 +107,8 @@ extension AACKeyboardEntityToRemote on AACKeyboardEntity {
         updatedAt: updatedAt,
       )
       ..isDeleted = isDeleted
-      ..isSynced = isSynced
-      ..pendingAction = PendingAction.values[pendingAction]
+      ..isSynced = true
+      ..pendingAction = PendingAction.NONE
       ..remoteId = remoteId;
   }
 }
@@ -123,8 +123,8 @@ extension KeyboardSlotEntityToRemoteMapper on KeyboardSlotEntity {
         updatedAt: updatedAt,
       )
       ..isDeleted = isDeleted
-      ..isSynced = isSynced
-      ..pendingAction = PendingAction.values[pendingAction]
+      ..isSynced = true
+      ..pendingAction = PendingAction.NONE
       ..remoteId = remoteId;
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:aut_toolkit/core/services/repo_service.dart';
 import 'package:aut_toolkit/objectbox.g.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -7,7 +8,6 @@ import 'package:flutter_riverpod/legacy.dart';
 import '../../../core/services/objectbox.dart';
 import '../../../core/services/sync_manager.dart';
 import '../../../main.dart';
-import '../data/aac_keyboard_repository_impl.dart';
 import '../data/model/aac_keyboard_entity.dart';
 import '../data/model/keyboard_slot_entity.dart';
 import '../data/source/aac_keyboard_local_source.dart';
@@ -38,7 +38,6 @@ final aacKeyboardRemoteSourceProvider = Provider<AACKeyboardRemoteSource>((
 
 final syncManagerProvider = Provider<SyncManager>((ref) {
   final sm = SyncManager();
-  sm.start();
   ref.onDispose(() => sm.dispose());
   return sm;
 });
@@ -50,10 +49,7 @@ final aacKeyboardLocalSourceProvider = Provider<AACKeyboardLocalSource>((ref) {
 });
 
 final aacKeyboardRepositoryProvider = Provider<AACKeyboardRepository>((ref) {
-  final localSource = ref.watch(aacKeyboardLocalSourceProvider);
-  final remote = ref.watch(aacKeyboardRemoteSourceProvider);
-  final sync = ref.watch(syncManagerProvider);
-  return AACKeyboardRepositoryImpl(localSource, remote, sync);
+  return RepoService().aacKeyboardRepositoryImpl;
 });
 
 final aacKeyboardsProvider =

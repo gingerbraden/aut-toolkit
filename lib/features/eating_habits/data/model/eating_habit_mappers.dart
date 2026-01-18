@@ -59,8 +59,8 @@ extension EatingHabitEntityToRemote on EatingHabitEntity {
     remoteImagePath: remoteImgPath
   )
     ..remoteId = remoteId
-    ..isSynced = isSynced
-    ..isDeleted = isDeleted
+    ..isSynced = true
+    ..pendingAction = PendingAction.NONE
     ..pendingAction = PendingAction.values[pendingAction];
 }
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:aut_toolkit/core/services/repo_service.dart';
 import 'package:aut_toolkit/objectbox.g.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -7,7 +8,6 @@ import 'package:flutter_riverpod/legacy.dart';
 import '../../../core/services/objectbox.dart';
 import '../../../core/services/sync_manager.dart';
 import '../../../main.dart';
-import '../data/card_repository_impl.dart';
 import '../data/model/user_card_entity.dart';
 import '../data/source/card_local_source.dart';
 import '../data/source/card_remote_source.dart';
@@ -29,7 +29,6 @@ final cardRemoteSourceProvider = Provider<CardRemoteSource>((ref) {
 
 final syncManagerProvider = Provider<SyncManager>((ref) {
   final sm = SyncManager();
-  sm.start();
   ref.onDispose(() => sm.dispose());
   return sm;
 });
@@ -40,10 +39,7 @@ final cardLocalSourceProvider = Provider<CardLocalSource>((ref) {
 });
 
 final cardRepositoryProvider = Provider<CardRepository>((ref) {
-  final localSource = ref.watch(cardLocalSourceProvider);
-  final remoteSource = ref.watch(cardRemoteSourceProvider);
-  final sync = ref.watch(syncManagerProvider);
-  return CardRepositoryImpl(localSource, remoteSource, sync);
+  return RepoService().cardRepositoryImpl;
 });
 
 final cardsProvider = StateNotifierProvider<CardsNotifier, List<UserCard>>((

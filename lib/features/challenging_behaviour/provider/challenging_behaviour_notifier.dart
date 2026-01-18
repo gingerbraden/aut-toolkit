@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:aut_toolkit/features/challenging_behaviour/data/challenging_behaviour_repository_impl.dart';
+import 'package:aut_toolkit/core/services/repo_service.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/source/challenging_behaviour_local_source.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/source/challenging_behaviour_remote_source.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
@@ -16,49 +16,48 @@ import '../data/model/challenging_behaviour_diary_entry_entity.dart';
 import '../data/model/challenging_behaviour_entity.dart';
 
 final challengingBehaviourBoxProvider =
-Provider<Box<ChallengingBehaviourEntity>>((ref) {
-  final obx = ref.watch(objectBoxProvider);
-  return obx.challengingBehaviourBox;
-});
+    Provider<Box<ChallengingBehaviourEntity>>((ref) {
+      final obx = ref.watch(objectBoxProvider);
+      return obx.challengingBehaviourBox;
+    });
 
 final challengingBehaviourDiaryEntryBoxProvider =
-Provider<Box<ChallengingBehaviourDiaryEntryEntity>>((ref) {
-  final obx = ref.watch(objectBoxProvider);
-  return obx.challengingBehaviourDiaryEntryBox;
-});
+    Provider<Box<ChallengingBehaviourDiaryEntryEntity>>((ref) {
+      final obx = ref.watch(objectBoxProvider);
+      return obx.challengingBehaviourDiaryEntryBox;
+    });
 
-final challengingBehaviourRemoteSourceProvider = Provider<ChallengingBehaviourRemoteSource>((ref) {
-  return ChallengingBehaviourRemoteSource();
-});
+final challengingBehaviourRemoteSourceProvider =
+    Provider<ChallengingBehaviourRemoteSource>((ref) {
+      return ChallengingBehaviourRemoteSource();
+    });
 
 final syncManagerProvider = Provider<SyncManager>((ref) {
   final sm = SyncManager();
-  sm.start();
   ref.onDispose(() => sm.dispose());
   return sm;
 });
 
 final challengingBehaviourLocalSourceProvider =
-Provider<ChallengingBehaviourLocalSource>((ref) {
-  final behaviourBox = ref.watch(challengingBehaviourBoxProvider);
-  final diaryBox = ref.watch(challengingBehaviourDiaryEntryBoxProvider);
-  return ChallengingBehaviourLocalSource(behaviourBox, diaryBox);
-});
+    Provider<ChallengingBehaviourLocalSource>((ref) {
+      final behaviourBox = ref.watch(challengingBehaviourBoxProvider);
+      final diaryBox = ref.watch(challengingBehaviourDiaryEntryBoxProvider);
+      return ChallengingBehaviourLocalSource(behaviourBox, diaryBox);
+    });
 
 final challengingBehaviourRepositoryProvider =
-Provider<ChallengingBehaviourRepository>((ref) {
-  final localSource = ref.watch(challengingBehaviourLocalSourceProvider);
-  final remote = ref.watch(challengingBehaviourRemoteSourceProvider);
-  final sync = ref.watch(syncManagerProvider);
-  return ChallengingBehaviourRepositoryImpl(localSource, remote, sync);
-});
+    Provider<ChallengingBehaviourRepository>((ref) {
+      return RepoService().challengingBehaviourRepository;
+    });
 
 final challengingBehavioursProvider =
-StateNotifierProvider<ChallengingBehavioursNotifier,
-    List<ChallengingBehaviour>>((ref) {
-  final repo = ref.watch(challengingBehaviourRepositoryProvider);
-  return ChallengingBehavioursNotifier(repo);
-});
+    StateNotifierProvider<
+      ChallengingBehavioursNotifier,
+      List<ChallengingBehaviour>
+    >((ref) {
+      final repo = ref.watch(challengingBehaviourRepositoryProvider);
+      return ChallengingBehavioursNotifier(repo);
+    });
 
 class ChallengingBehavioursNotifier
     extends StateNotifier<List<ChallengingBehaviour>> {
@@ -93,4 +92,3 @@ class ChallengingBehavioursNotifier
     _repo.deleteDe(entry);
   }
 }
-
