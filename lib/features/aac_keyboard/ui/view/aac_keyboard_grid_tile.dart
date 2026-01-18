@@ -16,6 +16,7 @@ class AACKeyboardTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 0,
       color: slot?.card != null
           ? CardUtil.getColorForWordCat(slot!.card!.wordCategory!)
           : slot?.keyboard != null
