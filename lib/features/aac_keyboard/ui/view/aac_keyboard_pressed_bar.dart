@@ -8,11 +8,13 @@ import 'aac_keyboard_grid_tile.dart';
 class PressedBar extends StatefulWidget {
   final List<UserCard> pressedCards;
   final VoidCallback onClear;
+  final VoidCallback onClearLast;
 
   const PressedBar({
     super.key,
     required this.pressedCards,
     required this.onClear,
+    required this.onClearLast,
   });
 
   @override
@@ -27,7 +29,6 @@ class _PressedBarState extends State<PressedBar> {
     super.didUpdateWidget(oldWidget);
 
     if (widget.pressedCards.length > oldWidget.pressedCards.length) {
-      // scroll after frame
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (_controller.hasClients) {
           _controller.animateTo(
@@ -49,9 +50,11 @@ class _PressedBarState extends State<PressedBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppConstants.BASE_APP_UI_PADDING,
+      ),
       child: SizedBox(
-        height: 110,
+        height: 130,
         child: Row(
           children: [
             Expanded(
@@ -60,11 +63,14 @@ class _PressedBarState extends State<PressedBar> {
                 child: ListView.builder(
                   controller: _controller,
                   scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 8,
+                  ),
                   itemCount: widget.pressedCards.length,
                   itemBuilder: (context, index) {
                     final card = widget.pressedCards[index];
-                      
+
                     return IgnorePointer(
                       child: SizedBox(
                         width: 90,
@@ -84,16 +90,32 @@ class _PressedBarState extends State<PressedBar> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8),
-              child: IconButton(
-                onPressed: widget.onClear,
-                icon: const Icon(Icons.backspace),
-                iconSize: 32,
-                style: IconButton.styleFrom(
-                  backgroundColor: Colors.red.shade600,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.all(16),
-                  shape: const CircleBorder(),
-                ),
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: widget.onClearLast,
+                    icon: const Icon(Icons.backspace),
+                    iconSize: 32,
+                    style: IconButton.styleFrom(
+                      backgroundColor: Colors.red.shade600,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.all(16),
+                      shape: const CircleBorder(),
+                    ),
+                  ),
+                  SizedBox(width: AppConstants.BASE_APP_UI_PADDING),
+                  IconButton(
+                    onPressed: widget.onClear,
+                    icon: const Icon(Icons.clear),
+                    iconSize: 32,
+                    style: IconButton.styleFrom(
+                      backgroundColor: Colors.red.shade600,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.all(16),
+                      shape: const CircleBorder(),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -102,4 +124,3 @@ class _PressedBarState extends State<PressedBar> {
     );
   }
 }
-

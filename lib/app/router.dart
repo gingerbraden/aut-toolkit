@@ -66,7 +66,7 @@ final GoRouter router = GoRouter(
           path: RouterUtils.AAC_KEYBOARD_MAIN,
           builder: (context, state) {
             final keyboard = state.extra as AACKeyboard;
-            return AACKeyboardMain(keyboard: keyboard);
+            return AACKeyboardMain(keyboard: keyboard, goHome: () {  },);
           },
           routes: [
             GoRoute(

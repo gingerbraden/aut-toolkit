@@ -191,6 +191,20 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get please_choose_word_category => 'Prosím zvoľte typ slova';
 	@override String get word_category => 'Typ slova';
 	@override String get data_sync => 'Synchronizujem dáta, prosim počkajte...';
+	@override String get unlocking => 'Odomykám...';
+	@override String get locking => 'Klávesnica je zamknutá';
+	@override String get hold_to_unlock => 'Držte tlačidlo ešte';
+	@override String second({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sk'))(n,
+		one: 'sekunda',
+		few: 'sekundy',
+		many: 'sekúnd',
+		other: 'sekúnd',
+	);
+	@override String get to_unlock_hold => 'Na odomknutie klávesnice prosím podržte tlačidlo';
+	@override String get grid_settings => 'Nastavenia klávesnice';
+	@override String get grid_size => 'Rozmery klávesnice';
+	@override String get rows => 'Riadky';
+	@override String get cols => 'Stĺpce';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -345,6 +359,15 @@ extension on TranslationsSk {
 			'please_choose_word_category' => 'Prosím zvoľte typ slova',
 			'word_category' => 'Typ slova',
 			'data_sync' => 'Synchronizujem dáta, prosim počkajte...',
+			'unlocking' => 'Odomykám...',
+			'locking' => 'Klávesnica je zamknutá',
+			'hold_to_unlock' => 'Držte tlačidlo ešte',
+			'second' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sk'))(n, one: 'sekunda', few: 'sekundy', many: 'sekúnd', other: 'sekúnd', ), 
+			'to_unlock_hold' => 'Na odomknutie klávesnice prosím podržte tlačidlo',
+			'grid_settings' => 'Nastavenia klávesnice',
+			'grid_size' => 'Rozmery klávesnice',
+			'rows' => 'Riadky',
+			'cols' => 'Stĺpce',
 			_ => null,
 		};
 	}

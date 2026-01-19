@@ -481,6 +481,38 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Syncing data, please wait...'
 	String get data_sync => 'Syncing data, please wait...';
+
+	/// en: 'Unlocking...'
+	String get unlocking => 'Unlocking...';
+
+	/// en: 'Keyboard is locked'
+	String get locking => 'Keyboard is locked';
+
+	/// en: 'Keep holding the button for'
+	String get hold_to_unlock => 'Keep holding the button for';
+
+	/// en: '(one) {second} (few) {seconds} (many) {Seconds} (other) {seconds}'
+	String second({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		one: 'second',
+		few: 'seconds',
+		many: 'Seconds',
+		other: 'seconds',
+	);
+
+	/// en: 'To unlock the keyboard please hold the button for'
+	String get to_unlock_hold => 'To unlock the keyboard please hold the button for';
+
+	/// en: 'Keyboard settings'
+	String get grid_settings => 'Keyboard settings';
+
+	/// en: 'Keyboard size'
+	String get grid_size => 'Keyboard size';
+
+	/// en: 'Rows'
+	String get rows => 'Rows';
+
+	/// en: 'Columns'
+	String get cols => 'Columns';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -635,6 +667,15 @@ extension on Translations {
 			'please_choose_word_category' => 'Please choose a word type',
 			'word_category' => 'Word type',
 			'data_sync' => 'Syncing data, please wait...',
+			'unlocking' => 'Unlocking...',
+			'locking' => 'Keyboard is locked',
+			'hold_to_unlock' => 'Keep holding the button for',
+			'second' => ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'second', few: 'seconds', many: 'Seconds', other: 'seconds', ), 
+			'to_unlock_hold' => 'To unlock the keyboard please hold the button for',
+			'grid_settings' => 'Keyboard settings',
+			'grid_size' => 'Keyboard size',
+			'rows' => 'Rows',
+			'cols' => 'Columns',
 			_ => null,
 		};
 	}

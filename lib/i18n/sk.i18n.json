@@ -152,5 +152,19 @@
   "determiner": "Určovací výraz",
   "please_choose_word_category": "Prosím zvoľte typ slova",
   "word_category": "Typ slova",
-  "data_sync": "Synchronizujem dáta, prosim počkajte..."
+  "data_sync": "Synchronizujem dáta, prosim počkajte...",
+  "unlocking": "Odomykám...",
+  "locking": "Klávesnica je zamknutá",
+  "hold_to_unlock": "Držte tlačidlo ešte",
+  "second": {
+    "one": "sekunda",
+    "few": "sekundy",
+    "many": "sekúnd",
+    "other": "sekúnd"
+  },
+  "to_unlock_hold": "Na odomknutie klávesnice prosím podržte tlačidlo",
+  "grid_settings": "Nastavenia klávesnice",
+  "grid_size": "Rozmery klávesnice",
+  "rows": "Riadky",
+  "cols": "Stĺpce"
 }

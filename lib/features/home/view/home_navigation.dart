@@ -20,11 +20,26 @@ class _HomeNavigationState extends ConsumerState<HomeNavigation> {
   bool isLoading = false;
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
-    const HomePage(),
-    AACKeyboardMain(keyboard: AACKeyboard(userId: FirebaseService().currentUser!.uid, name: "=", slots: [], updatedAt: DateTime.now())),
-    const SettingsPage(),
-  ];
+  late final AACKeyboard _keyboard;
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _keyboard = AACKeyboard(
+      userId: FirebaseService().currentUser!.uid,
+      name: "=",
+      slots: [],
+      updatedAt: DateTime.now(),
+    );
+
+    _pages = [
+      const HomePage(),
+      AACKeyboardMain(keyboard: _keyboard, goHome: () => _onItemTapped(0)),
+      const SettingsPage(),
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -34,25 +49,33 @@ class _HomeNavigationState extends ConsumerState<HomeNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    final locale = ref.watch(localeChangeNotifierProvider);
+    ref.watch(localeChangeNotifierProvider);
+
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
 
     return Scaffold(
       body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: t.home),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.search),
-            label: t.kid_mode_button,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.settings),
-            label: t.settings,
-          ),
-        ],
-      ),
+      bottomNavigationBar: isLandscape && _selectedIndex == 1
+          ? null
+          : BottomNavigationBar(
+              currentIndex: _selectedIndex,
+              onTap: _onItemTapped,
+              items: [
+                BottomNavigationBarItem(
+                  icon: const Icon(Icons.home),
+                  label: t.home,
+                ),
+                BottomNavigationBarItem(
+                  icon: const Icon(Icons.search),
+                  label: t.kid_mode_button,
+                ),
+                BottomNavigationBarItem(
+                  icon: const Icon(Icons.settings),
+                  label: t.settings,
+                ),
+              ],
+            ),
     );
   }
 }

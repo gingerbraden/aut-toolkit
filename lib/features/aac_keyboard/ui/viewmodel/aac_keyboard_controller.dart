@@ -17,6 +17,8 @@ class AACKeyboardState {
   final List<KeyboardSlot> slots;
   final List<UserCard> pressedCards;
 
+  final bool locked;
+
   AACKeyboardState({
     required this.currentKeyboard,
     required this.keyboardStack,
@@ -24,6 +26,7 @@ class AACKeyboardState {
     required this.columns,
     required this.slots,
     required this.pressedCards,
+    this.locked = true,
   });
 
   AACKeyboardState copyWith({
@@ -33,6 +36,7 @@ class AACKeyboardState {
     int? columns,
     List<KeyboardSlot>? slots,
     List<UserCard>? pressedCards,
+    bool? locked,
   }) {
     return AACKeyboardState(
       currentKeyboard: currentKeyboard ?? this.currentKeyboard,
@@ -41,6 +45,7 @@ class AACKeyboardState {
       columns: columns ?? this.columns,
       slots: slots ?? this.slots,
       pressedCards: pressedCards ?? this.pressedCards,
+      locked: locked ?? this.locked,
     );
   }
 }
@@ -83,6 +88,22 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
     }
   }
 
+  void onPressedBarPressed() {
+    var textToSpeak = "";
+
+    for (UserCard uc in state.pressedCards) {
+      textToSpeak +=
+          uc.names[LocaleSettings.currentLocale.languageCode] ??
+          uc.names.values.firstOrNull ??
+          '';
+      textToSpeak += " ";
+    }
+
+    if (textToSpeak.isNotEmpty) {
+      TtsService.speak(textToSpeak);
+    }
+  }
+
   void _openNestedKeyboard(AACKeyboard keyboard) {
     state = state.copyWith(
       keyboardStack: [...state.keyboardStack, state.currentKeyboard],
@@ -108,6 +129,17 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
 
   void clearPressedCards() {
     state = state.copyWith(pressedCards: []);
+  }
+
+  void clearLastCard() {
+    if (state.pressedCards.isNotEmpty) {
+      state = state.copyWith(
+        pressedCards: state.pressedCards.sublist(
+          0,
+          state.pressedCards.length - 1,
+        ),
+      );
+    }
   }
 
   void updateGridSize({required int rows, required int columns}) {
@@ -162,6 +194,16 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
     }
 
     state = state.copyWith(slots: updatedSlots);
+  }
+
+  bool get isLocked => state.locked;
+
+  void setLocked(bool value) {
+    state = state.copyWith(locked: value);
+  }
+
+  void toggleLocked() {
+    state = state.copyWith(locked: !state.locked);
   }
 }
 

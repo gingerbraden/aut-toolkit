@@ -151,5 +151,19 @@
   "determiner": "Determiner",
   "please_choose_word_category": "Please choose a word type",
   "word_category": "Word type",
-  "data_sync": "Syncing data, please wait..."
+  "data_sync": "Syncing data, please wait...",
+  "unlocking": "Unlocking...",
+  "locking": "Keyboard is locked",
+  "hold_to_unlock": "Keep holding the button for",
+  "second": {
+    "one": "second",
+    "few": "seconds",
+    "many": "Seconds",
+    "other": "seconds"
+  },
+  "to_unlock_hold": "To unlock the keyboard please hold the button for",
+  "grid_settings": "Keyboard settings",
+  "grid_size": "Keyboard size",
+  "rows": "Rows",
+  "cols": "Columns"
 }
