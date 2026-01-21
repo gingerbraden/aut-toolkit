@@ -14,6 +14,7 @@ class AACKeyboardEntity {
   bool isSynced;
   int pendingAction;
   bool isDeleted;
+  bool isInternal;
 
   AACKeyboardEntity({
     this.id = 0,
@@ -24,6 +25,7 @@ class AACKeyboardEntity {
     this.isSynced = true,
     this.isDeleted = false,
     this.pendingAction = 0,
+    required this.isInternal
   });
 }
 

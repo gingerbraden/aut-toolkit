@@ -7,6 +7,7 @@ class AACKeyboard {
   String userId;
   String name;
   List<KeyboardSlot> slots;
+  bool isInternal;
 
   String? remoteId;
   DateTime updatedAt;
@@ -24,5 +25,6 @@ class AACKeyboard {
     this.isSynced = true,
     this.isDeleted = false,
     this.pendingAction = PendingAction.NONE,
+    required this.isInternal
   });
 }

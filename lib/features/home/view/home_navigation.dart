@@ -32,6 +32,7 @@ class _HomeNavigationState extends ConsumerState<HomeNavigation> {
       name: "=",
       slots: [],
       updatedAt: DateTime.now(),
+      isInternal: false
     );
 
     _pages = [

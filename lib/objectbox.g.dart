@@ -677,7 +677,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(12, 3191255753294435572),
     name: 'AACKeyboardEntity',
-    lastPropertyId: const obx_int.IdUid(8, 7609992600903892014),
+    lastPropertyId: const obx_int.IdUid(9, 5255856660335499510),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -726,6 +726,12 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(8, 7609992600903892014),
         name: 'pendingAction',
         type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 5255856660335499510),
+        name: 'isInternal',
+        type: 1,
         flags: 0,
       ),
     ],
@@ -1759,7 +1765,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final remoteIdOffset = object.remoteId == null
             ? null
             : fbb.writeString(object.remoteId!);
-        fbb.startTable(9);
+        fbb.startTable(10);
         fbb.addInt64(0, object.id ?? 0);
         fbb.addOffset(1, userIdOffset);
         fbb.addOffset(2, nameOffset);
@@ -1768,6 +1774,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         fbb.addBool(5, object.isSynced);
         fbb.addBool(6, object.isDeleted);
         fbb.addInt64(7, object.pendingAction);
+        fbb.addBool(8, object.isInternal);
         fbb.finish(fbb.endTable());
         return object.id ?? 0;
       },
@@ -1809,6 +1816,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
           18,
           0,
         );
+        final isInternalParam = const fb.BoolReader().vTableGet(
+          buffer,
+          rootOffset,
+          20,
+          false,
+        );
         final object = AACKeyboardEntity(
           id: idParam,
           userId: userIdParam,
@@ -1818,6 +1831,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           isSynced: isSyncedParam,
           isDeleted: isDeletedParam,
           pendingAction: pendingActionParam,
+          isInternal: isInternalParam,
         );
         obx_int.InternalToManyAccess.setRelInfo<AACKeyboardEntity>(
           object.slots,
@@ -2479,6 +2493,11 @@ class AACKeyboardEntity_ {
   /// See [AACKeyboardEntity.pendingAction].
   static final pendingAction = obx.QueryIntegerProperty<AACKeyboardEntity>(
     _entities[8].properties[7],
+  );
+
+  /// See [AACKeyboardEntity.isInternal].
+  static final isInternal = obx.QueryBooleanProperty<AACKeyboardEntity>(
+    _entities[8].properties[8],
   );
 
   /// see [AACKeyboardEntity.slots]

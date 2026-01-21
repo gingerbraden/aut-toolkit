@@ -16,6 +16,7 @@ class AACKeyboardMain extends ConsumerStatefulWidget {
   final AACKeyboard keyboard;
   final VoidCallback goHome;
 
+
   const AACKeyboardMain({
     super.key,
     required this.keyboard,
@@ -58,11 +59,7 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
 
     final msg = _secondsLeft == 1 && _secondsLeft >= 1
         ? t.unlocking
-        : t.hold_to_unlock +
-              " " +
-              _secondsLeft.toString() +
-              " " +
-              t.second(n: _secondsLeft);
+        : "${t.hold_to_unlock} $_secondsLeft ${t.second(n: _secondsLeft)}";
 
     if (_secondsLeft < 1) return;
 
@@ -153,7 +150,7 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
               icon: state.locked ? Icon(Icons.lock) : Icon(Icons.lock_open),
               onPressed: () {
                 if (!state.locked) {
-                  ScaffoldMessenger.of(context)..showSnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(t.locking),
                       behavior: SnackBarBehavior.floating,
@@ -161,14 +158,10 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
                   );
                   vm.toggleLocked();
                 } else {
-                  ScaffoldMessenger.of(context)..showSnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        t.to_unlock_hold +
-                            " " +
-                            _secondsLeft.toString() +
-                            " " +
-                            t.second(n: _unlockHoldSeconds),
+                        "${t.to_unlock_hold} $_secondsLeft ${t.second(n: _unlockHoldSeconds)}",
                       ),
                       behavior: SnackBarBehavior.floating,
                     ),
@@ -207,7 +200,13 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
                       vertical: AppConstants.BASE_APP_UI_PADDING,
                       horizontal: AppConstants.BASE_APP_UI_PADDING * 2,
                     ),
-                    child: Divider(),
+                    child: state.keyboardStack.isNotEmpty ? Row(
+                      children: [
+                        IconButton(onPressed: vm.goBack, icon: Icon(Icons.arrow_back)),
+                        Divider(),
+                      ],
+                    ) :
+                    Divider(),
                   ),
                   Expanded(
                     child: KeyboardGrid(

@@ -551,7 +551,7 @@
     },
     {
       "id": "12:3191255753294435572",
-      "lastPropertyId": "8:7609992600903892014",
+      "lastPropertyId": "9:5255856660335499510",
       "name": "AACKeyboardEntity",
       "properties": [
         {
@@ -594,6 +594,11 @@
           "id": "8:7609992600903892014",
           "name": "pendingAction",
           "type": 6
+        },
+        {
+          "id": "9:5255856660335499510",
+          "name": "isInternal",
+          "type": 1
         }
       ],
       "relations": [

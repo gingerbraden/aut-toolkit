@@ -66,6 +66,7 @@ class AACKeyboardRemoteSource {
       'isDeleted': e.isDeleted,
       'isSynced': e.isSynced,
       'pendingAction': e.pendingAction.index,
+      'isInternal': e.isInternal
     };
   }
 
@@ -81,6 +82,7 @@ class AACKeyboardRemoteSource {
         updatedAt: d['updatedAt'] != null
             ? DateTime.parse(d['updatedAt'])
             : DateTime.now(),
+        isInternal: d['isInternal']
       )
       ..remoteId = snap.id
       ..isSynced = true

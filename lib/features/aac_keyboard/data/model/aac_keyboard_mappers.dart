@@ -23,6 +23,7 @@ extension AACKeyboardEntityMapper on AACKeyboardEntity {
       isSynced: isSynced,
       pendingAction: PendingAction.values[pendingAction],
       remoteId: remoteId,
+      isInternal: isInternal
     );
     return model;
   }
@@ -59,6 +60,7 @@ extension AacKeyboardMapper on AACKeyboard {
       isSynced: isSynced,
       pendingAction: pendingAction.index,
       remoteId: remoteId,
+      isInternal: isInternal
     );
 
     final slotsEntities = slots.map((e) => e.toEntity()).toList();
@@ -105,6 +107,7 @@ extension AACKeyboardEntityToRemote on AACKeyboardEntity {
         userId: userId,
         name: name,
         updatedAt: updatedAt,
+        isInternal: isInternal
       )
       ..isDeleted = isDeleted
       ..isSynced = true
@@ -135,6 +138,7 @@ extension AACKeyboardRemoteToEntity on AACKeyboardRemoteEntity {
       userId: userId,
       name: name,
       updatedAt: updatedAt,
+      isInternal: isInternal
     );
 
     entity.slots
