@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../card_management/domain/model/user_card.dart';
 import '../../domain/model/keyboad_slot.dart';
-import 'aac_keyboard_grid_tile.dart';
+import 'aac_keyboard_tile.dart';
 
 class PressedBar extends StatefulWidget {
   final List<UserCard> pressedCards;

@@ -513,6 +513,18 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Columns'
 	String get cols => 'Columns';
+
+	/// en: 'Add a card'
+	String get add_card => 'Add a card';
+
+	/// en: 'Add a folder'
+	String get add_folder => 'Add a folder';
+
+	/// en: 'Folder name'
+	String get folder_name => 'Folder name';
+
+	/// en: 'e. g. Food, Body, ...'
+	String get folder_name_hint => 'e. g. Food, Body, ...';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -676,6 +688,10 @@ extension on Translations {
 			'grid_size' => 'Keyboard size',
 			'rows' => 'Rows',
 			'cols' => 'Columns',
+			'add_card' => 'Add a card',
+			'add_folder' => 'Add a folder',
+			'folder_name' => 'Folder name',
+			'folder_name_hint' => 'e. g. Food, Body, ...',
 			_ => null,
 		};
 	}

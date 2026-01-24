@@ -166,5 +166,9 @@
   "grid_settings": "Nastavenia klávesnice",
   "grid_size": "Rozmery klávesnice",
   "rows": "Riadky",
-  "cols": "Stĺpce"
+  "cols": "Stĺpce",
+  "add_card": "Pridať kartu",
+  "add_folder": "Pridať priečinok",
+  "folder_name": "Názov priečinka",
+  "folder_name_hint": "napr. Jedlo, Telo, ..."
 }

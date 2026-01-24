@@ -28,4 +28,30 @@ class KeyboardSlot {
     this.isDeleted = false,
     this.pendingAction = PendingAction.NONE,
   });
+
+  KeyboardSlot copyWith({
+    int? id,
+    int? x,
+    int? y,
+    UserCard? card,
+    AACKeyboard? keyboard,
+    String? remoteId,
+    DateTime? updatedAt,
+    bool? isSynced,
+    PendingAction? pendingAction,
+    bool? isDeleted,
+  }) {
+    return KeyboardSlot(
+      id: id ?? this.id,
+      x: x ?? this.x,
+      y: y ?? this.y,
+      card: card ?? this.card,
+      keyboard: keyboard ?? this.keyboard,
+      remoteId: remoteId ?? this.remoteId,
+      updatedAt: updatedAt ?? this.updatedAt,
+      isSynced: isSynced ?? this.isSynced,
+      isDeleted: isDeleted ?? this.isDeleted,
+      pendingAction: pendingAction ?? this.pendingAction,
+    );
+  }
 }

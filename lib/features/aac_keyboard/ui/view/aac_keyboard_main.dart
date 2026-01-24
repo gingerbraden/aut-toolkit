@@ -16,7 +16,6 @@ class AACKeyboardMain extends ConsumerStatefulWidget {
   final AACKeyboard keyboard;
   final VoidCallback goHome;
 
-
   const AACKeyboardMain({
     super.key,
     required this.keyboard,
@@ -200,13 +199,28 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
                       vertical: AppConstants.BASE_APP_UI_PADDING,
                       horizontal: AppConstants.BASE_APP_UI_PADDING * 2,
                     ),
-                    child: state.keyboardStack.isNotEmpty ? Row(
-                      children: [
-                        IconButton(onPressed: vm.goBack, icon: Icon(Icons.arrow_back)),
-                        Divider(),
-                      ],
-                    ) :
-                    Divider(),
+                    child: SizedBox(
+                      height: 22,
+                      child: state.keyboardStack.isNotEmpty
+                          ? Row(
+                              children: [
+                                IconButton(
+                                  onPressed: vm.goBack,
+                                  icon: const Icon(Icons.arrow_back),
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(
+                                    minWidth: 40,
+                                    minHeight: 40,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                const Expanded(
+                                  child: Divider(height: 1, thickness: 1),
+                                ),
+                              ],
+                            )
+                          : const Divider(height: 1, thickness: 1),
+                    ),
                   ),
                   Expanded(
                     child: KeyboardGrid(
@@ -216,6 +230,12 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
                       onSlotPressed: vm.onSlotPressed,
                       onAssignCard: (x, y, card) {
                         vm.assignCardToPosition(x: x, y: y, card: card);
+                      },
+                      onCreateFolder: (x, y, name) {
+                        vm.assignFolderToPosition(x: x, y: y, name: name);
+                      },
+                      onDelete: (x, y) {
+                        vm.deleteSlot(x: x, y: y);
                       },
                       keyboard: widget.keyboard,
                     ),

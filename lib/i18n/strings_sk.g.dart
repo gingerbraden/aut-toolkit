@@ -205,6 +205,10 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get grid_size => 'Rozmery klávesnice';
 	@override String get rows => 'Riadky';
 	@override String get cols => 'Stĺpce';
+	@override String get add_card => 'Pridať kartu';
+	@override String get add_folder => 'Pridať priečinok';
+	@override String get folder_name => 'Názov priečinka';
+	@override String get folder_name_hint => 'napr. Jedlo, Telo, ...';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -368,6 +372,10 @@ extension on TranslationsSk {
 			'grid_size' => 'Rozmery klávesnice',
 			'rows' => 'Riadky',
 			'cols' => 'Stĺpce',
+			'add_card' => 'Pridať kartu',
+			'add_folder' => 'Pridať priečinok',
+			'folder_name' => 'Názov priečinka',
+			'folder_name_hint' => 'napr. Jedlo, Telo, ...',
 			_ => null,
 		};
 	}

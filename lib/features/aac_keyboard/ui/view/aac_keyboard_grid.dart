@@ -1,11 +1,12 @@
 import 'package:aut_toolkit/core/constants/app_constants.dart';
 import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:aut_toolkit/features/aac_keyboard/domain/model/aac_keyboard.dart';
-import 'package:aut_toolkit/features/aac_keyboard/ui/view/aac_keyboard_grid_tile.dart';
+import 'package:aut_toolkit/features/aac_keyboard/ui/view/aac_keyboard_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../i18n/strings.g.dart';
 import '../../../card_management/domain/model/user_card.dart';
 import '../../domain/model/keyboad_slot.dart';
 import '../viewmodel/aac_keyboard_controller.dart';
@@ -17,6 +18,8 @@ class KeyboardGrid extends ConsumerStatefulWidget {
   final KeyboardSlot? Function(int x, int y) slotBuilder;
   final void Function(KeyboardSlot slot) onSlotPressed;
   final void Function(int x, int y, UserCard card)? onAssignCard;
+  final void Function(int x, int y)? onDelete;
+  final void Function(int x, int y, String folderName)? onCreateFolder;
 
   const KeyboardGrid({
     super.key,
@@ -25,6 +28,8 @@ class KeyboardGrid extends ConsumerStatefulWidget {
     required this.slotBuilder,
     required this.onSlotPressed,
     this.onAssignCard,
+    this.onDelete,
+    this.onCreateFolder,
     required this.keyboard,
   });
 
@@ -32,7 +37,122 @@ class KeyboardGrid extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _KeyboardGridState();
 }
 
+enum _TileDialogAction { addCard, addFolder, deleteCard }
+
 class _KeyboardGridState extends ConsumerState<KeyboardGrid> {
+  Future<void> _handleTap({
+    required BuildContext context,
+    required bool locked,
+    required int x,
+    required int y,
+    required KeyboardSlot? slot,
+  }) async {
+    final hasCard = slot?.card != null;
+    final hasFolder = slot?.keyboard != null;
+
+    if (locked) {
+      if (slot == null) return;
+      widget.onSlotPressed(slot);
+      return;
+    }
+
+    if (hasFolder) {
+      widget.onSlotPressed(slot!);
+      return;
+    }
+
+    if (hasCard) {
+      await _showAddDialog(context: context, x: x, y: y, showDelete: true);
+      return;
+    }
+
+    await _showAddDialog(context: context, x: x, y: y, showDelete: false);
+  }
+
+  Future<void> _handleLongPress({
+    required BuildContext context,
+    required bool locked,
+    required int x,
+    required int y,
+    required KeyboardSlot? slot,
+  }) async {
+    if (locked) return;
+
+    final hasFolder = slot?.keyboard != null;
+    if (hasFolder) {
+      await _showAddDialog(context: context, x: x, y: y, showDelete: true);
+    }
+  }
+
+  Future<void> _showAddDialog({
+    required BuildContext context,
+    required int x,
+    required int y,
+    required bool showDelete,
+  }) async {
+    final action = await showDialog<_TileDialogAction>(
+      context: context,
+      builder: (_) => _AddCardOrFolderDialog(showDelete: showDelete),
+    );
+
+    if (!mounted || action == null) return;
+
+    switch (action) {
+      case _TileDialogAction.addCard:
+        context.push(
+          RouterUtils.getAACKeyboardCardPickerPath(),
+          extra: <String, dynamic>{
+            'onSelected': (UserCard selected) {
+              widget.onAssignCard?.call(x, y, selected);
+            },
+          },
+        );
+        return;
+
+      case _TileDialogAction.addFolder:
+        final folderName = await _promptFolderName(context);
+        if (!mounted || folderName == null) return;
+        widget.onCreateFolder?.call(x, y, folderName);
+        return;
+
+      case _TileDialogAction.deleteCard:
+        widget.onDelete?.call(x, y);
+        return;
+    }
+  }
+
+  Future<String?> _promptFolderName(BuildContext context) async {
+    final controller = TextEditingController();
+
+    final result = await showDialog<String>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(t.folder_name),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          textInputAction: TextInputAction.done,
+          decoration: InputDecoration(hintText: t.folder_name_hint),
+          onSubmitted: (_) => Navigator.of(context).pop(controller.text.trim()),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(t.cancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(controller.text.trim()),
+            child: Text(t.create),
+          ),
+        ],
+      ),
+    );
+
+    final name = result?.trim();
+    if (name == null || name.isEmpty) return null;
+    return name;
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(aacKeyboardProvider(widget.keyboard));
@@ -63,23 +183,20 @@ class _KeyboardGridState extends ConsumerState<KeyboardGrid> {
                   color: Colors.transparent,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),
-                    onTap: () {
-                      if (!state.locked) {
-                        context.push(
-                          RouterUtils.getAACKeyboardCardPickerPath(),
-                          extra: <String, dynamic>{
-                            'onSelected': (UserCard selected) {
-                              widget.onAssignCard?.call(x, y, selected);
-                            },
-                          },
-                        );
-                        return;
-                      }
-
-                      if (slot != null) {
-                        widget.onSlotPressed(slot);
-                      }
-                    },
+                    onTap: () => _handleTap(
+                      context: context,
+                      locked: state.locked,
+                      x: x,
+                      y: y,
+                      slot: slot,
+                    ),
+                    onLongPress: () => _handleLongPress(
+                      context: context,
+                      locked: state.locked,
+                      x: x,
+                      y: y,
+                      slot: slot,
+                    ),
                     child: Ink(child: AACKeyboardTile(slot: slot)),
                   ),
                 ),
@@ -87,6 +204,136 @@ class _KeyboardGridState extends ConsumerState<KeyboardGrid> {
             },
           );
         },
+      ),
+    );
+  }
+}
+
+class _AddCardOrFolderDialog extends StatelessWidget {
+  final bool showDelete;
+
+  const _AddCardOrFolderDialog({required this.showDelete});
+
+  @override
+  Widget build(BuildContext context) {
+    final screen = MediaQuery.of(context).size;
+
+    return Dialog(
+      insetPadding: const EdgeInsets.all(24),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: screen.width * 0.3,
+          maxHeight: screen.height * 0.5,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _BigSquareAction(
+                    icon: Icons.style,
+                    label: t.add_card,
+                    onTap: () =>
+                        Navigator.of(context).pop(_TileDialogAction.addCard),
+                  ),
+                  const SizedBox(width: 16),
+                  _BigSquareAction(
+                    icon: Icons.folder,
+                    label: t.add_folder,
+                    onTap: () =>
+                        Navigator.of(context).pop(_TileDialogAction.addFolder),
+                  ),
+                ],
+              ),
+
+              if (showDelete) ...[
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    icon: const Icon(Icons.delete_outline),
+                    label: Text(t.delete),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.red,
+                      side: const BorderSide(color: Colors.red),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onPressed: () =>
+                        Navigator.of(context).pop(_TileDialogAction.deleteCard),
+                  ),
+                ),
+              ],
+
+              const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text(t.cancel),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BigSquareAction extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  const _BigSquareAction({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final screen = MediaQuery.of(context).size;
+    final double size = screen.width * 0.128;
+
+    return SizedBox(
+      width: size,
+      height: size,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: onTap,
+        child: Ink(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.black12),
+            color: Theme.of(context).colorScheme.surface,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, size: 40),
+                const SizedBox(height: 8),
+                Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

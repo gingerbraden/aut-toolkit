@@ -165,5 +165,9 @@
   "grid_settings": "Keyboard settings",
   "grid_size": "Keyboard size",
   "rows": "Rows",
-  "cols": "Columns"
+  "cols": "Columns",
+  "add_card": "Add a card",
+  "add_folder": "Add a folder",
+  "folder_name": "Folder name",
+  "folder_name_hint": "e. g. Food, Body, ..."
 }
