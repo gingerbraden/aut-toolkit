@@ -6,13 +6,13 @@ abstract class AACKeyboardRepository {
 
   void deleteKeyboard(AACKeyboard keyboard);
 
-  void saveKeyboard(AACKeyboard keyboard);
+  int saveKeyboard(AACKeyboard keyboard);
 
   List<KeyboardSlot> getAllSlots(AACKeyboard keyboard);
 
-  void deleteSlot(KeyboardSlot slot);
+  void deleteSlot(KeyboardSlot slot, int parentKeyboardId);
 
-  void saveSlot(KeyboardSlot slot);
+  void saveSlot(KeyboardSlot slot, int parentKeyboardId);
 
   Stream<List<AACKeyboard>> watchAll();
 }

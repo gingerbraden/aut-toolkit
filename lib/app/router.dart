@@ -1,6 +1,5 @@
 import 'package:aut_toolkit/core/constants/app_constants.dart';
 import 'package:aut_toolkit/core/utils/router_utils.dart';
-import 'package:aut_toolkit/features/aac_keyboard/domain/model/aac_keyboard.dart';
 import 'package:aut_toolkit/features/aac_keyboard/ui/view/aac_keyboard_main.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
 import 'package:aut_toolkit/features/card_management/ui/view/arasaac_cards_search.dart';
@@ -65,8 +64,7 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: RouterUtils.AAC_KEYBOARD_MAIN,
           builder: (context, state) {
-            final keyboard = state.extra as AACKeyboard;
-            return AACKeyboardMain(keyboard: keyboard, goHome: () {  },);
+            return AACKeyboardMain(goHome: () {  },);
           },
           routes: [
             GoRoute(

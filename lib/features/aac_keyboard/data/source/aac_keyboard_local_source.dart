@@ -45,35 +45,47 @@ class AACKeyboardLocalSource {
 
   void deleteKeyboard(int id, {bool cascade = true}) {
     if (cascade) {
-      final keyboard = keyboardBox.get(id);
-      if (keyboard != null) {
-        for (final slot in keyboard.slots) {
-          slotBox.remove(slot.id!);
-        }
+      final q = slotBox.query(KeyboardSlotEntity_.parent.equals(id)).build();
+      final slots = q.find();
+      q.close();
+
+      for (final s in slots) {
+        if (s.id != null) slotBox.remove(s.id!);
       }
     }
     keyboardBox.remove(id);
   }
 
-  int addSlot(KeyboardSlotEntity slot) {
-    final keyboard = keyboardBox.get(slot.keyboard.targetId);
-    if (keyboard == null) {
-      throw Exception('Keyboard not found');
+  int addSlot({
+    required int parentKeyboardId,
+    required KeyboardSlotEntity slot,
+  }) {
+    slot.parent.targetId = parentKeyboardId;
+
+    final rid = slot.remoteId;
+    if (rid == null || rid.isEmpty) {
+      throw StateError('Slot.remoteId must be set before saving.');
     }
 
-    slot.keyboard.target = keyboard;
+    final existing = slotBox
+        .query(
+          KeyboardSlotEntity_.remoteId.equals(rid) &
+              KeyboardSlotEntity_.parent.equals(parentKeyboardId),
+        )
+        .build()
+        .findFirst();
 
-    final slotId = slotBox.put(slot);
+    if (existing != null) {
+      slot.id = existing.id;
+    }
 
-    keyboard.slots.add(slot);
-    keyboardBox.put(keyboard);
-
-    return slotId;
+    return slotBox.put(slot);
   }
 
-  int updateSlot(KeyboardSlotEntity slot) {
-    if (slot.id == null) {
-      throw Exception('Slot must have an id');
+  int updateSlot(KeyboardSlotEntity slot, {int? parentKeyboardId}) {
+    if (slot.id == null) throw Exception('Slot must have an id');
+    if (parentKeyboardId != null) {
+      slot.parent.targetId = parentKeyboardId;
     }
     return slotBox.put(slot);
   }
@@ -83,12 +95,15 @@ class AACKeyboardLocalSource {
   }
 
   List<KeyboardSlotEntity> getSlots({int? keyboardId}) {
-    if (keyboardId == null) {
-      return slotBox.getAll();
-    }
+    if (keyboardId == null) return slotBox.getAll();
 
-    final keyboard = keyboardBox.get(keyboardId);
-    return keyboard?.slots.toList() ?? [];
+    final q = slotBox
+        .query(KeyboardSlotEntity_.parent.equals(keyboardId))
+        .build();
+
+    final result = q.find();
+    q.close();
+    return result;
   }
 
   KeyboardSlotEntity? getSlotByRemoteId(String remoteId) {

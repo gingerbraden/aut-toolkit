@@ -74,8 +74,21 @@ class AACKeyboardsNotifier extends StateNotifier<List<AACKeyboard>> {
     super.dispose();
   }
 
-  void addKeyboard(AACKeyboard kb) {
-    _repo.saveKeyboard(kb);
+  AACKeyboard? getKeyboard(int kbid) {
+    return _repo.getAllKeyboards().firstWhere((x) => x.id == kbid);
+  }
+
+  AACKeyboard? getSelectedKeyboardForUser(String userId) {
+    for (final k in _repo.getAllKeyboards()) {
+      if (k.userId == userId && k.isSelected) {
+        return k;
+      }
+    }
+    return null;
+  }
+
+  int addKeyboard(AACKeyboard kb) {
+    return _repo.saveKeyboard(kb);
   }
 
   void updateKeyboard(AACKeyboard kb) {
@@ -86,12 +99,12 @@ class AACKeyboardsNotifier extends StateNotifier<List<AACKeyboard>> {
     _repo.deleteKeyboard(kb);
   }
 
-  void updateSlot(KeyboardSlot slot) {
-    _repo.saveSlot(slot);
+  void updateSlot(KeyboardSlot slot, int parentKeyboardId) {
+    _repo.saveSlot(slot, parentKeyboardId);
   }
 
-  void deleteSlot(KeyboardSlot slot) {
-    _repo.deleteSlot(slot);
+  void deleteSlot(KeyboardSlot slot, int parentKeyboardId) {
+    _repo.deleteSlot(slot, parentKeyboardId);
   }
 
   List<KeyboardSlot> getSlots(AACKeyboard keyboard) {

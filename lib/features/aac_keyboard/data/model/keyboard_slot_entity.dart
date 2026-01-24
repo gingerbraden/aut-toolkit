@@ -10,8 +10,10 @@ class KeyboardSlotEntity {
   int? id;
   int x;
   int y;
-  late ToOne<UserCardEntity> card;
-  late ToOne<AACKeyboardEntity> keyboard;
+  final ToOne<UserCardEntity> card = ToOne<UserCardEntity>();
+  final ToOne<AACKeyboardEntity> keyboard = ToOne<AACKeyboardEntity>();
+  final ToOne<AACKeyboardEntity> parent = ToOne<AACKeyboardEntity>();
+
 
   String? remoteId;
   DateTime updatedAt;

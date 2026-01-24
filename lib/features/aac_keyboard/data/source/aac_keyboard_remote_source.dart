@@ -7,7 +7,6 @@ import '../model/keyboard_slot_remote_entity.dart';
 class AACKeyboardRemoteSource {
   final FirebaseFirestore _firestore;
   final String keyboardCollection = 'aac_keyboards';
-  final String slotCollection = 'keyboard_slots';
 
   AACKeyboardRemoteSource({FirebaseFirestore? firestore})
     : _firestore = firestore ?? FirebaseFirestore.instance;
@@ -47,13 +46,142 @@ class AACKeyboardRemoteSource {
           .where('userId', isEqualTo: userId)
           .get();
 
-      return querySnapshot.docs
-          .map((doc) => _keyboardFromSnapshot(doc))
-          .toList();
+      return querySnapshot.docs.map(_keyboardFromSnapshot).toList();
     } catch (e) {
       print('Error fetching keyboards: $e');
       return [];
     }
+  }
+
+  Future<List<KeyboardSlotRemoteEntity>> getSlots({
+    required String keyboardRemoteId,
+  }) async {
+    final snap = await _firestore
+        .collection(keyboardCollection)
+        .doc(keyboardRemoteId)
+        .get();
+
+    if (!snap.exists) return [];
+
+    final data = snap.data() ?? {};
+    final rawSlots = (data['slots'] as List?) ?? const [];
+
+    return rawSlots
+        .map((m) => _slotFromMap(Map<String, dynamic>.from(m as Map)))
+        .toList();
+  }
+
+  Future<void> createSlot({
+    required String keyboardRemoteId,
+    required KeyboardSlotRemoteEntity slot,
+  }) async {
+    final docRef = _firestore
+        .collection(keyboardCollection)
+        .doc(keyboardRemoteId);
+
+    await _firestore.runTransaction((tx) async {
+      final snap = await tx.get(docRef);
+      if (!snap.exists) {
+        throw StateError('Keyboard $keyboardRemoteId does not exist');
+      }
+
+      final data = snap.data() ?? {};
+      final slotsRaw = (data['slots'] as List?) ?? [];
+      final slots = slotsRaw
+          .map((m) => Map<String, dynamic>.from(m as Map))
+          .toList();
+
+      final int slotId = slot.id!;
+
+      final idx = slots.indexWhere(
+        (s) => (s['remoteId'] ?? '') == slot.remoteId,
+      );
+      final newSlotMap = _slotToMap(slot..id = slotId);
+
+      if (idx == -1) {
+        slots.add(newSlotMap);
+      } else {
+        slots[idx] = newSlotMap;
+      }
+
+      tx.update(docRef, {
+        'slots': slots,
+        'updatedAt': DateTime.now().toIso8601String(),
+      });
+    });
+  }
+
+  Future<void> updateSlot({
+    required String keyboardRemoteId,
+    required KeyboardSlotRemoteEntity slot,
+  }) async {
+    final docRef = _firestore
+        .collection(keyboardCollection)
+        .doc(keyboardRemoteId);
+
+    await _firestore.runTransaction((tx) async {
+      final snap = await tx.get(docRef);
+      if (!snap.exists) {
+        throw StateError('Keyboard $keyboardRemoteId does not exist');
+      }
+
+      final data = snap.data() ?? {};
+      final slotsRaw = (data['slots'] as List?) ?? [];
+      final slots = slotsRaw
+          .map((m) => Map<String, dynamic>.from(m as Map))
+          .toList();
+
+      final idx = slots.indexWhere(
+        (s) => (s['remoteId'] ?? '') == slot.remoteId,
+      );
+      if (idx == -1) {
+        throw StateError('Slot with id=${slot.id} not found in keyboard');
+      }
+
+      slots[idx] = _slotToMap(slot);
+
+      tx.update(docRef, {
+        'slots': slots,
+        'updatedAt': DateTime.now().toIso8601String(),
+      });
+    });
+  }
+
+  Future<void> deleteSlot({
+    required String keyboardRemoteId,
+    required String remoteId,
+    bool softDelete = false,
+  }) async {
+    final docRef = _firestore
+        .collection(keyboardCollection)
+        .doc(keyboardRemoteId);
+
+    await _firestore.runTransaction((tx) async {
+      final snap = await tx.get(docRef);
+      if (!snap.exists) return;
+
+      final data = snap.data() ?? {};
+      final slotsRaw = (data['slots'] as List?) ?? [];
+      final slots = slotsRaw
+          .map((m) => Map<String, dynamic>.from(m as Map))
+          .toList();
+
+      if (softDelete) {
+        final idx = slots.indexWhere((s) => (s['remoteId'] ?? '') == remoteId);
+        if (idx != -1) {
+          slots[idx]['isDeleted'] = true;
+          slots[idx]['pendingAction'] = PendingAction.DELETE.index;
+          slots[idx]['updatedAt'] = DateTime.now().toIso8601String();
+        }
+      } else {
+        slots.removeWhere((s) => (s['remoteId'] ?? '') == remoteId);
+      }
+
+      tx.update(docRef, {
+        'slots': slots,
+        'updatedAt': DateTime.now().toIso8601String(),
+      });
+    });
   }
 
   Map<String, dynamic> _keyboardToMap(AACKeyboardRemoteEntity e) {
@@ -61,12 +189,15 @@ class AACKeyboardRemoteSource {
       'localId': e.localId,
       'userId': e.userId,
       'name': e.name,
-      'slots': e.slots,
+
+      'slots': (e.slots).map(_slotToMap).toList(),
+
       'updatedAt': e.updatedAt.toIso8601String(),
       'isDeleted': e.isDeleted,
       'isSynced': e.isSynced,
       'pendingAction': e.pendingAction.index,
-      'isInternal': e.isInternal
+      'isInternal': e.isInternal,
+      'isSelected': e.isSelected,
     };
   }
 
@@ -74,15 +205,22 @@ class AACKeyboardRemoteSource {
     DocumentSnapshot<Map<String, dynamic>> snap,
   ) {
     final d = snap.data() ?? {};
+
+    final rawSlots = (d['slots'] as List?) ?? const [];
+    final slots = rawSlots
+        .map((m) => _slotFromMap(Map<String, dynamic>.from(m as Map)))
+        .toList();
+
     return AACKeyboardRemoteEntity(
         localId: d['localId'] ?? 0,
-        slots: List<String>.from(d['slots'] ?? []),
         userId: d['userId'] ?? '',
         name: d['name'] ?? '',
+        slots: slots,
         updatedAt: d['updatedAt'] != null
             ? DateTime.parse(d['updatedAt'])
             : DateTime.now(),
-        isInternal: d['isInternal']
+        isInternal: d['isInternal'] ?? false,
+        isSelected: d['isSelected'] ?? false,
       )
       ..remoteId = snap.id
       ..isSynced = true
@@ -90,46 +228,10 @@ class AACKeyboardRemoteSource {
       ..pendingAction = PendingAction.values[d['pendingAction'] ?? 0];
   }
 
-  Future<String> createSlot(KeyboardSlotRemoteEntity entity) async {
-    final docRef = entity.remoteId != null
-        ? _firestore.collection(slotCollection).doc(entity.remoteId)
-        : _firestore.collection(slotCollection).doc();
-
-    await docRef.set(_slotToMap(entity));
-    return docRef.id;
-  }
-
-  Future<void> updateSlot(KeyboardSlotRemoteEntity entity) async {
-    if (entity.remoteId == null) throw ArgumentError('remoteId is null');
-    final docRef = _firestore.collection(slotCollection).doc(entity.remoteId);
-    await docRef.update(_slotToMap(entity));
-  }
-
-  Future<void> deleteSlot(KeyboardSlotRemoteEntity entity) async {
-    if (entity.remoteId == null) return;
-    final docRef = _firestore.collection(slotCollection).doc(entity.remoteId);
-    await docRef.delete();
-  }
-
-  Future<List<KeyboardSlotRemoteEntity>> getSlots({
-    required String userId,
-  }) async {
-    try {
-      final querySnapshot = await _firestore
-          .collection(slotCollection)
-          .where('userId', isEqualTo: userId)
-          .get();
-
-      return querySnapshot.docs.map((doc) => _slotFromSnapshot(doc)).toList();
-    } catch (e) {
-      print('Error fetching slots: $e');
-      return [];
-    }
-  }
-
   Map<String, dynamic> _slotToMap(KeyboardSlotRemoteEntity e) {
     return {
       'id': e.id,
+      'remoteId': e.remoteId,
       'x': e.x,
       'y': e.y,
       'card': e.card,
@@ -141,10 +243,7 @@ class AACKeyboardRemoteSource {
     };
   }
 
-  KeyboardSlotRemoteEntity _slotFromSnapshot(
-    DocumentSnapshot<Map<String, dynamic>> snap,
-  ) {
-    final d = snap.data() ?? {};
+  KeyboardSlotRemoteEntity _slotFromMap(Map<String, dynamic> d) {
     return KeyboardSlotRemoteEntity(
         id: d['id'] ?? 0,
         x: d['x'] ?? 0,
@@ -154,8 +253,9 @@ class AACKeyboardRemoteSource {
         updatedAt: d['updatedAt'] != null
             ? DateTime.parse(d['updatedAt'])
             : DateTime.now(),
+        remoteId: d['remoteId'],
       )
-      ..remoteId = snap.id
+      ..remoteId = d['remoteId']
       ..isSynced = true
       ..isDeleted = d['isDeleted'] ?? false
       ..pendingAction = PendingAction.values[d['pendingAction'] ?? 0];

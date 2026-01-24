@@ -1,4 +1,3 @@
-import 'package:aut_toolkit/features/aac_keyboard/domain/model/aac_keyboard.dart';
 import 'package:aut_toolkit/features/aac_keyboard/ui/view/aac_keyboard_main.dart';
 import 'package:aut_toolkit/features/home/view/home_page.dart';
 import 'package:aut_toolkit/features/settings/view/settings_page.dart';
@@ -6,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/provider/locale_change_notifier.dart';
-import '../../../core/services/firebase_service.dart';
 import '../../../i18n/strings.g.dart';
 
 class HomeNavigation extends ConsumerStatefulWidget {
@@ -20,24 +18,15 @@ class _HomeNavigationState extends ConsumerState<HomeNavigation> {
   bool isLoading = false;
   int _selectedIndex = 0;
 
-  late final AACKeyboard _keyboard;
   late final List<Widget> _pages;
 
   @override
   void initState() {
     super.initState();
 
-    _keyboard = AACKeyboard(
-      userId: FirebaseService().currentUser!.uid,
-      name: "=",
-      slots: [],
-      updatedAt: DateTime.now(),
-      isInternal: false
-    );
-
     _pages = [
       const HomePage(),
-      AACKeyboardMain(keyboard: _keyboard, goHome: () => _onItemTapped(0)),
+      AACKeyboardMain(goHome: () => _onItemTapped(0)),
       const SettingsPage(),
     ];
   }

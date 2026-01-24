@@ -1,6 +1,9 @@
 import 'package:aut_toolkit/features/aac_keyboard/domain/model/keyboad_slot.dart';
+import 'package:aut_toolkit/features/aac_keyboard/provider/aac_keyboard_notifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../core/model/sync_entity.dart';
 import '../../../../core/services/firebase_service.dart';
@@ -10,7 +13,7 @@ import '../../../card_management/domain/model/user_card.dart';
 import '../../domain/model/aac_keyboard.dart';
 
 class AACKeyboardState {
-  final AACKeyboard currentKeyboard;
+  final AACKeyboard? currentKeyboard;
   final List<AACKeyboard> keyboardStack;
 
   final int rows;
@@ -19,6 +22,7 @@ class AACKeyboardState {
   final List<UserCard> pressedCards;
 
   final bool locked;
+  final bool isLoading;
 
   AACKeyboardState({
     required this.currentKeyboard,
@@ -27,6 +31,7 @@ class AACKeyboardState {
     required this.columns,
     required this.pressedCards,
     this.locked = true,
+    this.isLoading = true,
   });
 
   AACKeyboardState copyWith({
@@ -36,6 +41,7 @@ class AACKeyboardState {
     int? columns,
     List<UserCard>? pressedCards,
     bool? locked,
+    bool? isLoading,
   }) {
     return AACKeyboardState(
       currentKeyboard: currentKeyboard ?? this.currentKeyboard,
@@ -44,24 +50,62 @@ class AACKeyboardState {
       columns: columns ?? this.columns,
       pressedCards: pressedCards ?? this.pressedCards,
       locked: locked ?? this.locked,
+      isLoading: isLoading ?? this.isLoading,
     );
   }
 }
 
 class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
-  AACKeyboardViewModel({
-    required AACKeyboard rootKeyboard,
+  final Ref ref;
+
+  AACKeyboardViewModel(
+    this.ref, {
     required int initialRows,
     required int initialColumns,
   }) : super(
          AACKeyboardState(
-           currentKeyboard: rootKeyboard,
+           currentKeyboard: null,
            keyboardStack: [],
            rows: initialRows,
            columns: initialColumns,
            pressedCards: [],
          ),
-       );
+       ) {
+    Future.microtask(_ensureKeyboardLoaded);
+  }
+
+  Future<void> _ensureKeyboardLoaded() async {
+    state = state.copyWith(isLoading: true);
+
+    final userId = FirebaseService().currentUser!.uid;
+    final existing = await ref
+        .read(aacKeyboardsProvider.notifier)
+        .getSelectedKeyboardForUser(userId);
+
+    if (existing != null) {
+      state = state.copyWith(currentKeyboard: existing, isLoading: false);
+      return;
+    }
+
+    final docRef = FirebaseFirestore.instance.collection('aac_keyboards').doc();
+
+    final created = AACKeyboard(
+      id: 0,
+      userId: userId,
+      name: "Klavesnica main",
+      slots: const [],
+      updatedAt: DateTime.now(),
+      isInternal: false,
+      remoteId: docRef.id,
+      isSelected: true,
+    );
+
+    final id = ref.read(aacKeyboardsProvider.notifier).addKeyboard(created);
+
+    final saved = ref.read(aacKeyboardsProvider.notifier).getKeyboard(id);
+
+    state = state.copyWith(currentKeyboard: saved, isLoading: false);
+  }
 
   void onSlotPressed(KeyboardSlot slot) {
     if (slot.keyboard != null) {
@@ -103,7 +147,7 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
 
   void _openNestedKeyboard(AACKeyboard keyboard) {
     state = state.copyWith(
-      keyboardStack: [...state.keyboardStack, state.currentKeyboard],
+      keyboardStack: [...state.keyboardStack, state.currentKeyboard!],
       currentKeyboard: keyboard,
     );
   }
@@ -140,7 +184,7 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
 
   KeyboardSlot? slotAt(int x, int y) {
     try {
-      return state.currentKeyboard.slots.firstWhere(
+      return state.currentKeyboard!.slots.firstWhere(
         (s) => s.x == x && s.y == y,
       );
     } catch (_) {
@@ -148,17 +192,16 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
     }
   }
 
-  void assignCardToPosition({
+  Future<void> assignCardToPosition({
     required int x,
     required int y,
     required UserCard card,
-  }) {
-    final docRefSlot = FirebaseFirestore.instance
-        .collection('keyboard_slots')
-        .doc();
-    final updatedSlots = state.currentKeyboard.slots.map((s) {
+  }) async {
+    KeyboardSlot? updatedSlot;
+
+    final updatedSlots = state.currentKeyboard!.slots.map((s) {
       if (s.x == x && s.y == y) {
-        return KeyboardSlot(
+        final newSlot = KeyboardSlot(
           id: s.id,
           x: s.x,
           y: s.y,
@@ -170,113 +213,152 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
           isDeleted: false,
           pendingAction: PendingAction.UPDATE,
         );
+        updatedSlot = newSlot;
+        return newSlot;
       }
       return s;
     }).toList();
 
-    final exists = state.currentKeyboard.slots.any((s) => s.x == x && s.y == y);
+    final exists = state.currentKeyboard!.slots.any(
+      (s) => s.x == x && s.y == y,
+    );
+
     if (!exists) {
-      updatedSlots.add(
-        KeyboardSlot(
-          x: x,
-          y: y,
-          card: card,
-          keyboard: null,
-          updatedAt: DateTime.now(),
-          isSynced: false,
-          isDeleted: false,
-          pendingAction: PendingAction.CREATE,
-          remoteId: docRefSlot.id,
-        ),
+      final uuid = const Uuid();
+
+      final newSlot = KeyboardSlot(
+        x: x,
+        y: y,
+        card: card,
+        keyboard: null,
+        updatedAt: DateTime.now(),
+        isSynced: false,
+        isDeleted: false,
+        pendingAction: PendingAction.CREATE,
+        remoteId: uuid.v4(),
       );
+      updatedSlot = newSlot;
+      updatedSlots.add(newSlot);
     }
 
-    final updatedKeyboard = state.currentKeyboard.copyWith(
-      slots: List.of(updatedSlots),
+    final updatedKeyboard = state.currentKeyboard!.copyWith(
+      slots: updatedSlots,
     );
 
     state = state.copyWith(currentKeyboard: updatedKeyboard);
     _bubbleCurrentKeyboardUpStack();
+    ref
+        .read(aacKeyboardsProvider.notifier)
+        .updateSlot(updatedSlot!, state.currentKeyboard!.id!);
   }
 
-  void assignFolderToPosition({
+  Future<void> assignFolderToPosition({
     required int x,
     required int y,
     required String name,
-  }) {
-    final docRefSlot = FirebaseFirestore.instance
-        .collection('keyboard_slots')
-        .doc();
+  }) async {
     final docRefKeyb = FirebaseFirestore.instance
         .collection('aac_keyboards')
         .doc();
-    final updatedSlots = state.currentKeyboard.slots.map((s) {
+
+    final folderDraft = AACKeyboard(
+      id: 0,
+      userId: FirebaseService().currentUser!.uid,
+      name: name,
+      slots: const [],
+      updatedAt: DateTime.now(),
+      isInternal: true,
+      remoteId: docRefKeyb.id,
+      isSelected: false,
+    );
+
+    final folderId = ref
+        .read(aacKeyboardsProvider.notifier)
+        .addKeyboard(folderDraft);
+    final folderSaved = ref
+        .read(aacKeyboardsProvider.notifier)
+        .getKeyboard(folderId);
+
+    if (folderSaved == null) {
+      throw StateError('Folder keyboard was not persisted (id=$folderId).');
+    }
+
+    KeyboardSlot? updatedSlot;
+
+    final updatedSlots = state.currentKeyboard!.slots.map((s) {
       if (s.x == x && s.y == y) {
-        return KeyboardSlot(
+        final newSlot = KeyboardSlot(
           id: s.id,
           x: s.x,
           y: s.y,
           card: null,
-          keyboard: AACKeyboard(
-            userId: FirebaseService().currentUser!.uid,
-            name: name,
-            slots: [],
-            updatedAt: DateTime.now(),
-            isInternal: true,
-            remoteId: docRefKeyb.id,
-          ),
+          keyboard: folderSaved,
           remoteId: s.remoteId,
           updatedAt: DateTime.now(),
           isSynced: false,
           isDeleted: false,
           pendingAction: PendingAction.UPDATE,
         );
+        updatedSlot = newSlot;
+        return newSlot;
       }
       return s;
     }).toList();
 
-    final exists = state.currentKeyboard.slots.any((s) => s.x == x && s.y == y);
+    const uuid = Uuid();
+
+    final exists = state.currentKeyboard!.slots.any(
+      (s) => s.x == x && s.y == y,
+    );
     if (!exists) {
-      updatedSlots.add(
-        KeyboardSlot(
-          x: x,
-          y: y,
-          card: null,
-          keyboard: AACKeyboard(
-            userId: FirebaseService().currentUser!.uid,
-            name: name,
-            slots: [],
-            updatedAt: DateTime.now(),
-            isInternal: true,
-            remoteId: docRefKeyb.id,
-          ),
-          updatedAt: DateTime.now(),
-          isSynced: false,
-          isDeleted: false,
-          pendingAction: PendingAction.CREATE,
-          remoteId: docRefSlot.id,
-        ),
+      final newSlot = KeyboardSlot(
+        x: x,
+        y: y,
+        card: null,
+        keyboard: folderSaved,
+        updatedAt: DateTime.now(),
+        isSynced: false,
+        isDeleted: false,
+        pendingAction: PendingAction.CREATE,
+        remoteId: uuid.v4(),
       );
+      updatedSlot = newSlot;
+      updatedSlots.add(newSlot);
     }
 
-    final updatedKeyboard = state.currentKeyboard.copyWith(
-      slots: List.of(updatedSlots),
+    final updatedKeyboard = state.currentKeyboard!.copyWith(
+      slots: updatedSlots,
     );
 
     state = state.copyWith(currentKeyboard: updatedKeyboard);
     _bubbleCurrentKeyboardUpStack();
+
+    ref
+        .read(aacKeyboardsProvider.notifier)
+        .updateSlot(updatedSlot!, state.currentKeyboard!.id!);
   }
 
   void deleteSlot({required int x, required int y}) {
-    final updatedSlots = List<KeyboardSlot>.from(state.currentKeyboard.slots);
-    updatedSlots.removeWhere((s) => s.x == x && s.y == y);
+    final updatedSlots = List<KeyboardSlot>.from(state.currentKeyboard!.slots);
 
-    final updatedKeyboard = state.currentKeyboard.copyWith(
+    final slotToDelete = updatedSlots.cast<KeyboardSlot?>().firstWhere(
+      (s) => s!.x == x && s.y == y,
+      orElse: () => null,
+    );
+
+    if (slotToDelete == null) return;
+
+    updatedSlots.remove(slotToDelete);
+
+    final updatedKeyboard = state.currentKeyboard!.copyWith(
       slots: List.of(updatedSlots),
     );
 
     state = state.copyWith(currentKeyboard: updatedKeyboard);
     _bubbleCurrentKeyboardUpStack();
+    ref
+        .read(aacKeyboardsProvider.notifier)
+        .deleteSlot(slotToDelete, state.currentKeyboard!.id!);
   }
 
   bool get isLocked => state.locked;
@@ -300,7 +382,7 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
 
       final newSlots = parent.slots.map((s) {
         final kb = s.keyboard;
-        if (kb != null && kb.remoteId == child.remoteId) {
+        if (kb != null && kb.remoteId == child!.remoteId) {
           return s.copyWith(
             keyboard: child,
             updatedAt: DateTime.now(),
@@ -321,15 +403,7 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
   }
 }
 
-final aacKeyboardProvider =
-    StateNotifierProvider.family<
-      AACKeyboardViewModel,
-      AACKeyboardState,
-      AACKeyboard
-    >((ref, rootKeyboard) {
-      return AACKeyboardViewModel(
-        rootKeyboard: rootKeyboard,
-        initialRows: 4,
-        initialColumns: 4,
-      );
+final aacMainKeyboardProvider =
+    StateNotifierProvider<AACKeyboardViewModel, AACKeyboardState>((ref) {
+      return AACKeyboardViewModel(ref, initialRows: 4, initialColumns: 4);
     });

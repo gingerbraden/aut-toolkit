@@ -1,4 +1,3 @@
-import 'package:objectbox/objectbox.dart';
 import '../../../../objectbox.g.dart';
 import 'keyboard_slot_entity.dart';
 
@@ -8,6 +7,7 @@ class AACKeyboardEntity {
   int? id;
   String userId;
   String name;
+  @Backlink('parent')
   final slots = ToMany<KeyboardSlotEntity>();
   String? remoteId;
   DateTime updatedAt;
@@ -15,6 +15,7 @@ class AACKeyboardEntity {
   int pendingAction;
   bool isDeleted;
   bool isInternal;
+  bool isSelected;
 
   AACKeyboardEntity({
     this.id = 0,
@@ -25,7 +26,8 @@ class AACKeyboardEntity {
     this.isSynced = true,
     this.isDeleted = false,
     this.pendingAction = 0,
-    required this.isInternal
+    required this.isInternal,
+    required this.isSelected,
   });
 }
 

@@ -155,7 +155,7 @@ class _KeyboardGridState extends ConsumerState<KeyboardGrid> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(aacKeyboardProvider(widget.keyboard));
+    final state = ref.watch(aacMainKeyboardProvider);
 
     return Padding(
       padding: EdgeInsets.symmetric(

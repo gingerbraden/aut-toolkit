@@ -14,5 +14,6 @@ class KeyboardSlotRemoteEntity extends SyncEntity {
     required this.x,
     required this.y,
     required super.updatedAt,
+    required super.remoteId
   });
 }

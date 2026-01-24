@@ -9,7 +9,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/model/sync_entity.dart';
 import '../../../core/services/sync_manager.dart';
-import 'model/keyboard_slot_remote_entity.dart';
 
 class AACKeyboardRepositoryImpl
     implements AACKeyboardRepository, SyncableRepository {
@@ -32,7 +31,7 @@ class AACKeyboardRepositoryImpl
   }
 
   @override
-  void saveKeyboard(AACKeyboard keyboard) {
+  int saveKeyboard(AACKeyboard keyboard) {
     final now = DateTime.now();
     if (keyboard.id == 0 || keyboard.remoteId == null) {
       keyboard.pendingAction = PendingAction.CREATE;
@@ -43,8 +42,9 @@ class AACKeyboardRepositoryImpl
     }
     keyboard.updatedAt = now;
 
-    _localSource.putKeyboard(keyboard.toEntity());
+    final id = _localSource.putKeyboard(keyboard.toEntity());
     _syncManager.processOnce();
+    return id;
   }
 
   @override
@@ -61,7 +61,7 @@ class AACKeyboardRepositoryImpl
   }
 
   @override
-  void saveSlot(KeyboardSlot slot) {
+  void saveSlot(KeyboardSlot slot, int parentKeyboardId) {
     if (slot.id == 0 || slot.remoteId == null) {
       slot.pendingAction = PendingAction.CREATE;
       slot.isSynced = false;
@@ -70,19 +70,25 @@ class AACKeyboardRepositoryImpl
       slot.isSynced = false;
     }
     slot.updatedAt = DateTime.now();
-    _localSource.addSlot(slot.toEntity());
+    _localSource.addSlot(
+      parentKeyboardId: parentKeyboardId,
+      slot: slot.toEntity(),
+    );
+    _markKeyboardDirty(parentKeyboardId);
+
     _syncManager.processOnce();
   }
 
   @override
-  void deleteSlot(KeyboardSlot slot) {
+  void deleteSlot(KeyboardSlot slot, int parentKeyboardId) {
     final entity = slot.toEntity();
     if (entity.id == 0) return;
     entity.isDeleted = true;
     entity.pendingAction = PendingAction.DELETE.index;
     entity.isSynced = false;
     entity.updatedAt = DateTime.now();
-    _localSource.addSlot(entity);
+    _localSource.addSlot(parentKeyboardId: parentKeyboardId, slot: entity);
+    _markKeyboardDirty(parentKeyboardId);
 
     _syncManager.processOnce();
   }
@@ -93,20 +99,24 @@ class AACKeyboardRepositoryImpl
     return slots.map((e) => e.toModel()).toList();
   }
 
+  void _markKeyboardDirty(int parentKeyboardId) {
+    final kb = _localSource.getById(parentKeyboardId);
+    if (kb == null) return;
+
+    if (kb.pendingAction == PendingAction.NONE.index) {
+      kb.pendingAction = PendingAction.UPDATE.index;
+    }
+    kb.isSynced = false;
+    kb.updatedAt = DateTime.now();
+    _localSource.putKeyboard(kb);
+  }
+
   @override
   Future<void> fetchRemote() async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) return;
 
     try {
-      final allSlots = await _remoteSource.getSlots(userId: userId);
-
-      final Map<String, List<KeyboardSlotRemoteEntity>> slotsByKeyboard = {};
-      for (final slot in allSlots) {
-        if (slot.keyboard == null) continue;
-        slotsByKeyboard.putIfAbsent(slot.keyboard!, () => []).add(slot);
-      }
-
       final remoteKeyboards = await _remoteSource.getAllKeyboards(
         userId: userId,
       );
@@ -115,9 +125,12 @@ class AACKeyboardRepositoryImpl
       final remoteKeyboardIds = <String>{};
 
       for (final remoteKb in remoteKeyboards) {
-        remoteKeyboardIds.add(remoteKb.remoteId!);
+        final remoteKbId = remoteKb.remoteId;
+        if (remoteKbId == null) continue;
 
-        final localKb = _localSource.getByRemoteId(remoteKb.remoteId!);
+        remoteKeyboardIds.add(remoteKbId);
+
+        final localKb = _localSource.getByRemoteId(remoteKbId);
 
         final kbEntity = remoteKb.toEntity();
         kbEntity.id = localKb?.id ?? 0;
@@ -128,9 +141,10 @@ class AACKeyboardRepositoryImpl
           kbEntity.isSynced = localKb.isSynced;
         }
 
-        final remoteSlots = slotsByKeyboard[remoteKb.remoteId!] ?? [];
+        final remoteSlots = remoteKb.slots;
 
         kbEntity.slots.clear();
+
         for (final slotRemote in remoteSlots) {
           final localSlot = _localSource.getSlotByRemoteId(
             slotRemote.remoteId!,
@@ -145,10 +159,7 @@ class AACKeyboardRepositoryImpl
             slotEntity.isSynced = localSlot.isSynced;
           }
 
-          slotEntity.keyboard.target = kbEntity;
-
           kbEntity.slots.add(slotEntity);
-
           _localSource.updateSlot(slotEntity);
         }
 
@@ -156,8 +167,9 @@ class AACKeyboardRepositoryImpl
 
         final localSlots = _localSource.getSlots(keyboardId: kbEntity.id);
         for (final localSlot in localSlots) {
-          if (localSlot.remoteId != null &&
-              !remoteSlots.any((s) => s.remoteId! == localSlot.remoteId)) {
+          final localSlotId = localSlot.id;
+          if (localSlotId != null &&
+              !remoteSlots.any((s) => s.id == localSlotId)) {
             _localSource.deleteSlot(localSlot.id!);
           }
         }
@@ -169,35 +181,41 @@ class AACKeyboardRepositoryImpl
           _localSource.deleteKeyboard(localKb.id!);
         }
       }
-    } catch (e) {
-      print('Error fetching remote keyboards and slots: $e');
+    } catch (e, st) {
+      print('Error fetching remote keyboards: $e\n$st');
     }
   }
 
   @override
   Future<void> processPending() async {
     final pendingKeyboards = _localSource.getAllPending();
+
     for (final kb in pendingKeyboards) {
       try {
         final action = PendingAction.values[kb.pendingAction];
 
         if (action == PendingAction.CREATE) {
           kb.pendingAction = PendingAction.NONE.index;
-          await _remoteSource.createKeyboard(kb.toRemote());
+
+          final newRemoteId = await _remoteSource.createKeyboard(kb.toRemote());
+          kb.remoteId = newRemoteId;
+
           kb.isSynced = true;
           _localSource.putKeyboard(kb);
         } else if (action == PendingAction.UPDATE) {
+          kb.pendingAction = PendingAction.NONE.index;
+
           if (kb.remoteId == null) {
-            kb.pendingAction = PendingAction.NONE.index;
-            await _remoteSource.createKeyboard(kb.toRemote());
-            kb.isSynced = true;
-            _localSource.putKeyboard(kb);
+            final newRemoteId = await _remoteSource.createKeyboard(
+              kb.toRemote(),
+            );
+            kb.remoteId = newRemoteId;
           } else {
-            kb.pendingAction = PendingAction.NONE.index;
             await _remoteSource.updateKeyboard(kb.toRemote());
-            kb.isSynced = true;
-            _localSource.putKeyboard(kb);
           }
+
+          kb.isSynced = true;
+          _localSource.putKeyboard(kb);
         } else if (action == PendingAction.DELETE) {
           if (kb.remoteId != null) {
             await _remoteSource.deleteKeyboard(kb.toRemote());
@@ -212,31 +230,18 @@ class AACKeyboardRepositoryImpl
     final pendingSlots = _localSource.getAllPendingSlots();
     for (final slot in pendingSlots) {
       try {
-        final action = PendingAction.values[slot.pendingAction];
+        final parentKb = slot.keyboard.target;
+        if (parentKb == null) continue;
 
-        if (action == PendingAction.CREATE) {
-          slot.pendingAction = PendingAction.NONE.index;
-          await _remoteSource.createSlot(slot.toRemote());
-          slot.isSynced = true;
-          _localSource.updateSlot(slot);
-        } else if (action == PendingAction.UPDATE) {
-          if (slot.remoteId == null) {
-            slot.pendingAction = PendingAction.NONE.index;
-            await _remoteSource.createSlot(slot.toRemote());
-            slot.isSynced = true;
-            _localSource.updateSlot(slot);
-          } else {
-            slot.pendingAction = PendingAction.NONE.index;
-            await _remoteSource.updateSlot(slot.toRemote());
-            slot.isSynced = true;
-            _localSource.updateSlot(slot);
-          }
-        } else if (action == PendingAction.DELETE) {
-          if (slot.remoteId != null) {
-            await _remoteSource.deleteSlot(slot.toRemote());
-          }
-          _localSource.deleteSlot(slot.id!);
+        if (parentKb.pendingAction == PendingAction.NONE.index) {
+          parentKb.pendingAction = PendingAction.UPDATE.index;
+          parentKb.isSynced = false;
+          _localSource.putKeyboard(parentKb);
         }
+
+        slot.pendingAction = PendingAction.NONE.index;
+        slot.isSynced = true;
+        _localSource.updateSlot(slot);
       } catch (_) {
         continue;
       }

@@ -13,7 +13,8 @@ import '../../../../core/model/sync_entity.dart';
 extension AACKeyboardEntityMapper on AACKeyboardEntity {
   AACKeyboard toModel() {
     final slotModels = slots.map((s) => s.toModel()).toList();
-    final model = AACKeyboard(
+
+    return AACKeyboard(
       id: id,
       userId: userId,
       name: name,
@@ -23,15 +24,16 @@ extension AACKeyboardEntityMapper on AACKeyboardEntity {
       isSynced: isSynced,
       pendingAction: PendingAction.values[pendingAction],
       remoteId: remoteId,
-      isInternal: isInternal
+      isInternal: isInternal,
+      isSelected: isSelected,
     );
-    return model;
   }
 }
 
 extension KeyboardSlotEntityMapper on KeyboardSlotEntity {
   KeyboardSlot toModel() {
     final model = KeyboardSlot(
+      id: id,
       x: x,
       y: y,
       updatedAt: updatedAt,
@@ -40,12 +42,29 @@ extension KeyboardSlotEntityMapper on KeyboardSlotEntity {
       pendingAction: PendingAction.values[pendingAction],
       remoteId: remoteId,
     );
-    if (card.target != null) {
-      model.card = card.target!.toModel();
+
+    final c = card.target;
+    if (c != null) {
+      model.card = c.toModel();
     }
-    if (keyboard.target != null) {
-      model.keyboard = keyboard.target!.toModel();
+
+    final kb = keyboard.target;
+    if (kb != null) {
+      model.keyboard = AACKeyboard(
+        id: kb.id,
+        userId: kb.userId,
+        name: kb.name,
+        slots: const [],
+        updatedAt: kb.updatedAt,
+        isDeleted: kb.isDeleted,
+        isSynced: kb.isSynced,
+        pendingAction: PendingAction.values[kb.pendingAction],
+        remoteId: kb.remoteId,
+        isInternal: kb.isInternal,
+        isSelected: kb.isSelected,
+      );
     }
+
     return model;
   }
 }
@@ -53,6 +72,7 @@ extension KeyboardSlotEntityMapper on KeyboardSlotEntity {
 extension AacKeyboardMapper on AACKeyboard {
   AACKeyboardEntity toEntity() {
     final entity = AACKeyboardEntity(
+      id: id,
       userId: userId,
       name: name,
       updatedAt: updatedAt,
@@ -60,22 +80,26 @@ extension AacKeyboardMapper on AACKeyboard {
       isSynced: isSynced,
       pendingAction: pendingAction.index,
       remoteId: remoteId,
-      isInternal: isInternal
+      isInternal: isInternal,
+      isSelected: isSelected,
     );
 
-    final slotsEntities = slots.map((e) => e.toEntity()).toList();
+    final slotEntities = slots
+        .map((s) => s.toEntity(parentKeyboard: entity))
+        .toList();
 
     entity.slots
       ..clear()
-      ..addAll(slotsEntities);
+      ..addAll(slotEntities);
 
     return entity;
   }
 }
 
 extension KeyboardSlotMapper on KeyboardSlot {
-  KeyboardSlotEntity toEntity() {
+  KeyboardSlotEntity toEntity({AACKeyboardEntity? parentKeyboard}) {
     final entity = KeyboardSlotEntity(
+      id: id,
       x: x,
       y: y,
       updatedAt: updatedAt,
@@ -90,11 +114,17 @@ extension KeyboardSlotMapper on KeyboardSlot {
     } else {
       entity.card.target = null;
     }
+
     if (keyboard != null) {
       entity.keyboard.targetId = keyboard!.id;
     } else {
       entity.keyboard.target = null;
     }
+
+    if (parentKeyboard != null) {
+      entity.parent.target = parentKeyboard;
+    }
+
     return entity;
   }
 }
@@ -102,33 +132,35 @@ extension KeyboardSlotMapper on KeyboardSlot {
 extension AACKeyboardEntityToRemote on AACKeyboardEntity {
   AACKeyboardRemoteEntity toRemote() {
     return AACKeyboardRemoteEntity(
-        localId: id!,
-        slots: slots.map((e) => e.remoteId!).toList(),
+        localId: id ?? 0,
         userId: userId,
         name: name,
+        slots: slots.map((e) => e.toRemote()).toList(),
         updatedAt: updatedAt,
-        isInternal: isInternal
+        isInternal: isInternal,
+        isSelected: isSelected,
       )
+      ..remoteId = remoteId
       ..isDeleted = isDeleted
       ..isSynced = true
-      ..pendingAction = PendingAction.NONE
-      ..remoteId = remoteId;
+      ..pendingAction = PendingAction.NONE;
   }
 }
 
 extension KeyboardSlotEntityToRemoteMapper on KeyboardSlotEntity {
   KeyboardSlotRemoteEntity toRemote() {
     return KeyboardSlotRemoteEntity(
-        keyboard: keyboard.target?.remoteId,
-        card: card.target?.remoteId,
+        id: id ?? 0,
+        remoteId: remoteId,
         x: x,
         y: y,
+        card: card.target?.remoteId,
+        keyboard: keyboard.target?.remoteId,
         updatedAt: updatedAt,
       )
       ..isDeleted = isDeleted
       ..isSynced = true
-      ..pendingAction = PendingAction.NONE
-      ..remoteId = remoteId;
+      ..pendingAction = PendingAction.NONE;
   }
 }
 
@@ -138,32 +170,37 @@ extension AACKeyboardRemoteToEntity on AACKeyboardRemoteEntity {
       userId: userId,
       name: name,
       updatedAt: updatedAt,
-      isInternal: isInternal
+      isInternal: isInternal,
+      isSelected: isSelected,
     );
+
+    final slotEntities = (slots)
+        .where((s) => s.isDeleted != true)
+        .map((s) => s.toEntity(parentKeyboard: entity))
+        .toList();
 
     entity.slots
       ..clear()
-      ..addAll(
-        slots
-            .map(
-              (remoteId) => objectbox.keyboardSlotBox.getByRemoteId(remoteId),
-            )
-            .whereType<KeyboardSlotEntity>()
-            .toList(),
-      );
+      ..addAll(slotEntities);
 
-    entity.isDeleted = isDeleted;
-    entity.isSynced = isSynced;
-    entity.pendingAction = pendingAction.index;
     entity.remoteId = remoteId;
+    entity.isDeleted = isDeleted;
+    entity.isSynced = true;
+    entity.pendingAction = PendingAction.NONE.index;
 
     return entity;
   }
 }
 
 extension KeyboardSlotRemoteToEntity on KeyboardSlotRemoteEntity {
-  KeyboardSlotEntity toEntity() {
-    final entity = KeyboardSlotEntity(x: x, y: y, updatedAt: updatedAt);
+  KeyboardSlotEntity toEntity({AACKeyboardEntity? parentKeyboard}) {
+    final entity = KeyboardSlotEntity(
+      x: x,
+      y: y,
+      updatedAt: updatedAt,
+      remoteId: remoteId,
+      id: 0,
+    );
 
     if (card != null && card!.isNotEmpty) {
       entity.card.target = objectbox.cardBox.getByRemoteId(card!);
@@ -179,10 +216,13 @@ extension KeyboardSlotRemoteToEntity on KeyboardSlotRemoteEntity {
       entity.keyboard.target = null;
     }
 
+    if (parentKeyboard != null) {
+      entity.parent.target = parentKeyboard;
+    }
+
     entity.isDeleted = isDeleted;
-    entity.isSynced = isSynced;
-    entity.pendingAction = pendingAction.index;
-    entity.remoteId = remoteId;
+    entity.isSynced = true;
+    entity.pendingAction = PendingAction.NONE.index;
 
     return entity;
   }

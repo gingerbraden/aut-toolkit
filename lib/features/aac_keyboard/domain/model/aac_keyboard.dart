@@ -8,6 +8,7 @@ class AACKeyboard {
   String name;
   List<KeyboardSlot> slots;
   bool isInternal;
+  bool isSelected;
 
   String? remoteId;
   DateTime updatedAt;
@@ -26,6 +27,7 @@ class AACKeyboard {
     this.isDeleted = false,
     this.pendingAction = PendingAction.NONE,
     required this.isInternal,
+    required this.isSelected,
   });
 
   AACKeyboard copyWith({List<KeyboardSlot>? slots}) {
@@ -40,6 +42,7 @@ class AACKeyboard {
       isDeleted: isDeleted,
       pendingAction: pendingAction,
       isInternal: isInternal,
+      isSelected: isSelected,
     );
   }
 }

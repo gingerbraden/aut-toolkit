@@ -551,7 +551,7 @@
     },
     {
       "id": "12:3191255753294435572",
-      "lastPropertyId": "9:5255856660335499510",
+      "lastPropertyId": "10:8927511304484920224",
       "name": "AACKeyboardEntity",
       "properties": [
         {
@@ -599,19 +599,18 @@
           "id": "9:5255856660335499510",
           "name": "isInternal",
           "type": 1
+        },
+        {
+          "id": "10:8927511304484920224",
+          "name": "isSelected",
+          "type": 1
         }
       ],
-      "relations": [
-        {
-          "id": "2:4312164299543832681",
-          "name": "slots",
-          "targetId": "13:8071004945004675470"
-        }
-      ]
+      "relations": []
     },
     {
       "id": "13:8071004945004675470",
-      "lastPropertyId": "10:8717594652464928298",
+      "lastPropertyId": "11:2541356922669917380",
       "name": "KeyboardSlotEntity",
       "properties": [
         {
@@ -670,13 +669,21 @@
           "type": 11,
           "flags": 520,
           "relationTarget": "AACKeyboardEntity"
+        },
+        {
+          "id": "11:2541356922669917380",
+          "name": "parentId",
+          "indexId": "8:2535178561303580670",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "AACKeyboardEntity"
         }
       ],
       "relations": []
     }
   ],
   "lastEntityId": "13:8071004945004675470",
-  "lastIndexId": "7:945333411442306796",
+  "lastIndexId": "8:2535178561303580670",
   "lastRelationId": "2:4312164299543832681",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
@@ -708,6 +715,8 @@
     2821425816074388931,
     4317918244815278053
   ],
-  "retiredRelationUids": [],
+  "retiredRelationUids": [
+    4312164299543832681
+  ],
   "version": 1
 }

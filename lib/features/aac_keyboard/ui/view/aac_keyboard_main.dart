@@ -6,21 +6,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../i18n/strings.g.dart';
-import '../../domain/model/aac_keyboard.dart';
 import '../viewmodel/aac_keyboard_controller.dart';
 import 'aac_keyboard_grid.dart';
 import 'aac_keyboard_pressed_bar.dart';
 import 'aac_keyboard_settings.dart';
 
 class AACKeyboardMain extends ConsumerStatefulWidget {
-  final AACKeyboard keyboard;
   final VoidCallback goHome;
 
-  const AACKeyboardMain({
-    super.key,
-    required this.keyboard,
-    required this.goHome,
-  });
+  const AACKeyboardMain({super.key, required this.goHome});
 
   @override
   ConsumerState<AACKeyboardMain> createState() => _AACKeyboardMainState();
@@ -122,8 +116,11 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(aacKeyboardProvider(widget.keyboard));
-    final vm = ref.read(aacKeyboardProvider(widget.keyboard).notifier);
+    final state = ref.watch(aacMainKeyboardProvider);
+    final vm = ref.read(aacMainKeyboardProvider.notifier);
+
+    if (state.isLoading || state.currentKeyboard == null)
+      return Center(child: CircularProgressIndicator());
 
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
@@ -237,7 +234,7 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
                       onDelete: (x, y) {
                         vm.deleteSlot(x: x, y: y);
                       },
-                      keyboard: widget.keyboard,
+                      keyboard: state.currentKeyboard!,
                     ),
                   ),
                 ],
