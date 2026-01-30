@@ -525,6 +525,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'e. g. Food, Body, ...'
 	String get folder_name_hint => 'e. g. Food, Body, ...';
+
+	/// en: 'Choose icon and create folder'
+	String get choose_cover_and_save => 'Choose icon and create folder';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -692,6 +695,7 @@ extension on Translations {
 			'add_folder' => 'Add a folder',
 			'folder_name' => 'Folder name',
 			'folder_name_hint' => 'e. g. Food, Body, ...',
+			'choose_cover_and_save' => 'Choose icon and create folder',
 			_ => null,
 		};
 	}

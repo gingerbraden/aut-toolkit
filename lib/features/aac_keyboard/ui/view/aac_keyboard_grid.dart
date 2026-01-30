@@ -150,7 +150,7 @@ class _KeyboardGridState extends ConsumerState<KeyboardGrid> {
           ),
           FilledButton(
             onPressed: () => Navigator.of(context).pop(controller.text.trim()),
-            child: Text(t.create),
+            child: Text(t.choose_cover_and_save),
           ),
         ],
       ),

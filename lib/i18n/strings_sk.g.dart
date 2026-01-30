@@ -209,6 +209,7 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get add_folder => 'Pridať priečinok';
 	@override String get folder_name => 'Názov priečinka';
 	@override String get folder_name_hint => 'napr. Jedlo, Telo, ...';
+	@override String get choose_cover_and_save => 'Vybrať ikonu a vytvoriť priečinok';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -376,6 +377,7 @@ extension on TranslationsSk {
 			'add_folder' => 'Pridať priečinok',
 			'folder_name' => 'Názov priečinka',
 			'folder_name_hint' => 'napr. Jedlo, Telo, ...',
+			'choose_cover_and_save' => 'Vybrať ikonu a vytvoriť priečinok',
 			_ => null,
 		};
 	}

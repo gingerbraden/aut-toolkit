@@ -170,5 +170,6 @@
   "add_card": "Pridať kartu",
   "add_folder": "Pridať priečinok",
   "folder_name": "Názov priečinka",
-  "folder_name_hint": "napr. Jedlo, Telo, ..."
+  "folder_name_hint": "napr. Jedlo, Telo, ...",
+  "choose_cover_and_save" : "Vybrať ikonu a vytvoriť priečinok"
 }

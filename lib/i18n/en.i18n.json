@@ -169,5 +169,6 @@
   "add_card": "Add a card",
   "add_folder": "Add a folder",
   "folder_name": "Folder name",
-  "folder_name_hint": "e. g. Food, Body, ..."
+  "folder_name_hint": "e. g. Food, Body, ...",
+  "choose_cover_and_save" : "Choose icon and create folder"
 }
