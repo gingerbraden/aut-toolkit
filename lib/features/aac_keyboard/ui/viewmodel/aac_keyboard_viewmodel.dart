@@ -1,6 +1,7 @@
 import 'package:aut_toolkit/features/aac_keyboard/domain/model/keyboad_slot.dart';
 import 'package:aut_toolkit/features/aac_keyboard/provider/aac_keyboard_notifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:uuid/uuid.dart';
@@ -24,6 +25,9 @@ class AACKeyboardState {
   final bool locked;
   final bool isLoading;
 
+  final KeyboardInputMode inputMode;
+  final String typedText;
+
   AACKeyboardState({
     required this.currentKeyboard,
     required this.keyboardStack,
@@ -32,6 +36,9 @@ class AACKeyboardState {
     required this.pressedCards,
     this.locked = true,
     this.isLoading = true,
+
+    this.inputMode = KeyboardInputMode.aacGrid,
+    this.typedText = '',
   });
 
   AACKeyboardState copyWith({
@@ -42,6 +49,9 @@ class AACKeyboardState {
     List<UserCard>? pressedCards,
     bool? locked,
     bool? isLoading,
+
+    KeyboardInputMode? inputMode,
+    String? typedText,
   }) {
     return AACKeyboardState(
       currentKeyboard: currentKeyboard ?? this.currentKeyboard,
@@ -51,9 +61,16 @@ class AACKeyboardState {
       pressedCards: pressedCards ?? this.pressedCards,
       locked: locked ?? this.locked,
       isLoading: isLoading ?? this.isLoading,
+
+      inputMode: inputMode ?? this.inputMode,
+      typedText: typedText ?? this.typedText,
     );
   }
 }
+
+enum KeyboardInputMode { aacGrid, qwerty }
+
+enum _Diacritic { acute, caron }
 
 class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
   final Ref ref;
@@ -69,6 +86,8 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
            rows: initialRows,
            columns: initialColumns,
            pressedCards: [],
+           inputMode: KeyboardInputMode.aacGrid,
+           typedText: '',
          ),
        ) {
     Future.microtask(_ensureKeyboardLoaded);
@@ -83,7 +102,12 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
         .getSelectedKeyboardForUser(userId);
 
     if (existing != null) {
-      state = state.copyWith(currentKeyboard: existing, isLoading: false, rows: existing.rows, columns: existing.cols);
+      state = state.copyWith(
+        currentKeyboard: existing,
+        isLoading: false,
+        rows: existing.rows,
+        columns: existing.cols,
+      );
       return;
     }
 
@@ -99,7 +123,7 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
       remoteId: docRef.id,
       isSelected: true,
       rows: 5,
-      cols: 5
+      cols: 5,
     );
 
     final id = ref.read(aacKeyboardsProvider.notifier).addKeyboard(created);
@@ -200,6 +224,7 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
     _bubbleCurrentKeyboardUpStack();
     ref.read(aacKeyboardsProvider.notifier).updateKeyboard(updatedKb);
   }
+
   KeyboardSlot? slotAt(int x, int y) {
     try {
       return state.currentKeyboard!.slots.firstWhere(
@@ -290,7 +315,7 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
       remoteId: docRefKeyb.id,
       isSelected: false,
       rows: 5,
-      cols: 5
+      cols: 5,
     );
 
     final folderId = ref
@@ -423,7 +448,106 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
     state = state.copyWith(keyboardStack: stack);
   }
 
+  void switchKb() {
+    state = state.copyWith(
+      inputMode: state.inputMode == KeyboardInputMode.qwerty
+          ? KeyboardInputMode.aacGrid
+          : KeyboardInputMode.qwerty,
+    );
+  }
 
+  void toggleInputMode() {
+    state = state.copyWith(
+      inputMode: state.inputMode == KeyboardInputMode.aacGrid
+          ? KeyboardInputMode.qwerty
+          : KeyboardInputMode.aacGrid,
+    );
+  }
+
+  void typeText(String text) {
+    if (text.isEmpty) return;
+    state = state.copyWith(typedText: state.typedText + text);
+  }
+
+  void backspaceTyped() {
+    final s = state.typedText;
+    if (s.isEmpty) return;
+    state = state.copyWith(typedText: s.substring(0, s.length - 1));
+  }
+
+  void clearTyped() {
+    if (state.typedText.isEmpty) return;
+    state = state.copyWith(typedText: '');
+  }
+
+  void speakTyped() {
+    final text = state.typedText.trim();
+    if (text.isEmpty) return;
+    TtsService.speak(text);
+  }
+
+  void applyAcute() => _applyDiacritic(_Diacritic.acute);
+
+  void applyCaron() => _applyDiacritic(_Diacritic.caron);
+
+  void _applyDiacritic(_Diacritic d) {
+    final text = state.typedText;
+    if (text.isEmpty) {
+      state = state.copyWith(typedText: d == _Diacritic.acute ? '´' : 'ˇ');
+      return;
+    }
+
+    final chars = text.characters;
+    final last = chars.last;
+
+    final mapped = switch (d) {
+      _Diacritic.acute => _acuteMap[last],
+      _Diacritic.caron => _caronMap[last],
+    };
+
+    if (mapped == null) {
+      return;
+    }
+
+    final prefix = chars.take(chars.length - 1).toString();
+    state = state.copyWith(typedText: prefix + mapped);
+  }
+
+  static const Map<String, String> _acuteMap = {
+    'a': 'á',
+    'A': 'Á',
+    'e': 'é',
+    'E': 'É',
+    'i': 'í',
+    'I': 'Í',
+    'o': 'ó',
+    'O': 'Ó',
+    'u': 'ú',
+    'U': 'Ú',
+    'y': 'ý',
+    'Y': 'Ý',
+    'r': 'ŕ',
+    'R': 'Ŕ',
+    'l': 'ĺ',
+    'L': 'Ĺ',
+  };
+
+  static const Map<String, String> _caronMap = {
+    'c': 'č',
+    'C': 'Č',
+    's': 'š',
+    'S': 'Š',
+    'z': 'ž',
+    'Z': 'Ž',
+    'd': 'ď',
+    'D': 'Ď',
+    't': 'ť',
+    'T': 'Ť',
+    'n': 'ň',
+    'N': 'Ň',
+    'l': 'ľ',
+    'L': 'Ľ',
+  };
 }
 
 final aacMainKeyboardProvider =

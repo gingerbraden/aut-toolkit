@@ -9,12 +9,14 @@ class PressedBar extends StatefulWidget {
   final List<UserCard> pressedCards;
   final VoidCallback onClear;
   final VoidCallback onClearLast;
+  final VoidCallback onSwitchToQwerty;
 
   const PressedBar({
     super.key,
     required this.pressedCards,
     required this.onClear,
     required this.onClearLast,
+    required this.onSwitchToQwerty,
   });
 
   @override
@@ -47,6 +49,24 @@ class _PressedBarState extends State<PressedBar> {
     super.dispose();
   }
 
+  IconButton _roundActionButton({
+    required VoidCallback onPressed,
+    required IconData icon,
+    required Color background,
+  }) {
+    return IconButton(
+      onPressed: onPressed,
+      icon: Icon(icon),
+      iconSize: 32,
+      style: IconButton.styleFrom(
+        backgroundColor: background,
+        foregroundColor: Colors.white,
+        padding: const EdgeInsets.all(16),
+        shape: const CircleBorder(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -57,6 +77,14 @@ class _PressedBarState extends State<PressedBar> {
         height: 130,
         child: Row(
           children: [
+            _roundActionButton(
+              onPressed: widget.onSwitchToQwerty,
+              icon: Icons.keyboard,
+              background: Theme.of(context).colorScheme.primary,
+            ),
+
+            SizedBox(width: AppConstants.BASE_APP_UI_PADDING),
+
             Expanded(
               child: Card(
                 elevation: 0,
@@ -88,32 +116,21 @@ class _PressedBarState extends State<PressedBar> {
                 ),
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8),
               child: Row(
                 children: [
-                  IconButton(
+                  _roundActionButton(
                     onPressed: widget.onClearLast,
-                    icon: const Icon(Icons.backspace),
-                    iconSize: 32,
-                    style: IconButton.styleFrom(
-                      backgroundColor: Colors.red.shade600,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.all(16),
-                      shape: const CircleBorder(),
-                    ),
+                    icon: Icons.backspace,
+                    background: Colors.red.shade600,
                   ),
                   SizedBox(width: AppConstants.BASE_APP_UI_PADDING),
-                  IconButton(
+                  _roundActionButton(
                     onPressed: widget.onClear,
-                    icon: const Icon(Icons.clear),
-                    iconSize: 32,
-                    style: IconButton.styleFrom(
-                      backgroundColor: Colors.red.shade600,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.all(16),
-                      shape: const CircleBorder(),
-                    ),
+                    icon: Icons.clear,
+                    background: Colors.red.shade600,
                   ),
                 ],
               ),
