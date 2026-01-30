@@ -9,6 +9,8 @@ class AACKeyboardRemoteEntity extends SyncEntity {
   List<KeyboardSlotRemoteEntity> slots;
   bool isInternal;
   bool isSelected;
+  int rows;
+  int cols;
 
   AACKeyboardRemoteEntity({
     required this.localId,
@@ -18,5 +20,7 @@ class AACKeyboardRemoteEntity extends SyncEntity {
     required super.updatedAt,
     required this.isInternal,
     required this.isSelected,
+    required this.rows,
+    required this.cols,
   });
 }

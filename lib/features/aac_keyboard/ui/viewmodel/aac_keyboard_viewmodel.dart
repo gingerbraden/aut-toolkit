@@ -83,7 +83,7 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
         .getSelectedKeyboardForUser(userId);
 
     if (existing != null) {
-      state = state.copyWith(currentKeyboard: existing, isLoading: false);
+      state = state.copyWith(currentKeyboard: existing, isLoading: false, rows: existing.rows, columns: existing.cols);
       return;
     }
 
@@ -98,6 +98,8 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
       isInternal: false,
       remoteId: docRef.id,
       isSelected: true,
+      rows: 5,
+      cols: 5
     );
 
     final id = ref.read(aacKeyboardsProvider.notifier).addKeyboard(created);
@@ -178,10 +180,26 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
     }
   }
 
-  void updateGridSize({required int rows, required int columns}) {
-    state = state.copyWith(rows: rows, columns: columns);
-  }
+  Future<void> updateGridSize({required int rows, required int columns}) async {
+    final kb = state.currentKeyboard;
+    if (kb == null) return;
 
+    final updatedKb = kb.copyWith(
+      rows: rows,
+      cols: columns,
+      updatedAt: DateTime.now(),
+      isSynced: false,
+      pendingAction: PendingAction.UPDATE,
+    );
+
+    state = state.copyWith(
+      rows: rows,
+      columns: columns,
+      currentKeyboard: updatedKb,
+    );
+    _bubbleCurrentKeyboardUpStack();
+    ref.read(aacKeyboardsProvider.notifier).updateKeyboard(updatedKb);
+  }
   KeyboardSlot? slotAt(int x, int y) {
     try {
       return state.currentKeyboard!.slots.firstWhere(
@@ -271,6 +289,8 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
       isInternal: true,
       remoteId: docRefKeyb.id,
       isSelected: false,
+      rows: 5,
+      cols: 5
     );
 
     final folderId = ref
@@ -402,6 +422,8 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
 
     state = state.copyWith(keyboardStack: stack);
   }
+
+
 }
 
 final aacMainKeyboardProvider =

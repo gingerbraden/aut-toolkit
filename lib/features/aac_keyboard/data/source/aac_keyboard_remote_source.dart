@@ -198,6 +198,8 @@ class AACKeyboardRemoteSource {
       'pendingAction': e.pendingAction.index,
       'isInternal': e.isInternal,
       'isSelected': e.isSelected,
+      'rows': e.rows,
+      'cols': e.cols,
     };
   }
 
@@ -221,6 +223,8 @@ class AACKeyboardRemoteSource {
             : DateTime.now(),
         isInternal: d['isInternal'] ?? false,
         isSelected: d['isSelected'] ?? false,
+        rows: d['rows'] ?? 5,
+        cols: d['cols'] ?? 5,
       )
       ..remoteId = snap.id
       ..isSynced = true

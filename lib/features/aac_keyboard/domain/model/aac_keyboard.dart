@@ -9,6 +9,8 @@ class AACKeyboard {
   List<KeyboardSlot> slots;
   bool isInternal;
   bool isSelected;
+  int rows;
+  int cols;
 
   String? remoteId;
   DateTime updatedAt;
@@ -28,21 +30,25 @@ class AACKeyboard {
     this.pendingAction = PendingAction.NONE,
     required this.isInternal,
     required this.isSelected,
+    required this.rows,
+    required this.cols,
   });
 
-  AACKeyboard copyWith({List<KeyboardSlot>? slots}) {
+  AACKeyboard copyWith({List<KeyboardSlot>? slots, int? rows, int? cols, DateTime? updatedAt, bool? isSynced, PendingAction? pendingAction}) {
     return AACKeyboard(
       id: id,
       userId: userId,
       name: name,
       slots: slots ?? List<KeyboardSlot>.from(this.slots),
       remoteId: remoteId,
-      updatedAt: updatedAt,
-      isSynced: isSynced,
+      updatedAt: updatedAt ?? this.updatedAt,
+      isSynced: isSynced ?? this.isSynced,
       isDeleted: isDeleted,
-      pendingAction: pendingAction,
+      pendingAction: pendingAction ?? this.pendingAction,
       isInternal: isInternal,
       isSelected: isSelected,
+      rows: rows ?? this.rows,
+      cols: cols ?? this.cols,
     );
   }
 }

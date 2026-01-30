@@ -1,3 +1,4 @@
+import 'package:objectbox/objectbox.dart';
 import '../../../../objectbox.g.dart';
 import 'keyboard_slot_entity.dart';
 
@@ -16,6 +17,8 @@ class AACKeyboardEntity {
   bool isDeleted;
   bool isInternal;
   bool isSelected;
+  int rows;
+  int cols;
 
   AACKeyboardEntity({
     this.id = 0,
@@ -28,6 +31,8 @@ class AACKeyboardEntity {
     this.pendingAction = 0,
     required this.isInternal,
     required this.isSelected,
+    required this.rows,
+    required this.cols,
   });
 }
 

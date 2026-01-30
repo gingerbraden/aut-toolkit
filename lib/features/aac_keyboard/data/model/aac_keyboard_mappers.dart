@@ -26,6 +26,8 @@ extension AACKeyboardEntityMapper on AACKeyboardEntity {
       remoteId: remoteId,
       isInternal: isInternal,
       isSelected: isSelected,
+      rows: rows,
+      cols: cols,
     );
   }
 }
@@ -62,6 +64,8 @@ extension KeyboardSlotEntityMapper on KeyboardSlotEntity {
         remoteId: kb.remoteId,
         isInternal: kb.isInternal,
         isSelected: kb.isSelected,
+        rows: kb.rows,
+        cols: kb.cols,
       );
     }
 
@@ -82,6 +86,8 @@ extension AacKeyboardMapper on AACKeyboard {
       remoteId: remoteId,
       isInternal: isInternal,
       isSelected: isSelected,
+      rows: rows,
+      cols: cols,
     );
 
     final slotEntities = slots
@@ -139,6 +145,8 @@ extension AACKeyboardEntityToRemote on AACKeyboardEntity {
         updatedAt: updatedAt,
         isInternal: isInternal,
         isSelected: isSelected,
+        rows: rows,
+        cols: cols,
       )
       ..remoteId = remoteId
       ..isDeleted = isDeleted
@@ -172,6 +180,8 @@ extension AACKeyboardRemoteToEntity on AACKeyboardRemoteEntity {
       updatedAt: updatedAt,
       isInternal: isInternal,
       isSelected: isSelected,
+      rows: rows,
+      cols: cols,
     );
 
     final slotEntities = (slots)
