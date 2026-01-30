@@ -45,6 +45,7 @@ class AACKeyboardPrintUtil {
     required Widget widget,
     required Size logicalSize,
     double pixelRatio = 3.0,
+    Future<void> Function(BuildContext context)? beforeSnapshot,
   }) async {
     WidgetsFlutterBinding.ensureInitialized();
 
@@ -94,6 +95,10 @@ class AACKeyboardPrintUtil {
     buildOwner.buildScope(rootElement);
     buildOwner.finalizeTree();
 
+    if (beforeSnapshot != null) {
+      await beforeSnapshot(rootElement);
+    }
+
     pipelineOwner.flushLayout();
     pipelineOwner.flushCompositingBits();
     pipelineOwner.flushPaint();
@@ -130,6 +135,7 @@ class AACKeyboardPrintUtil {
           data: theme,
           child: KeyboardPrintView(keyboard: kb, showTitle: showTitle),
         ),
+        beforeSnapshot: (ctx) => precacheKeyboardFileImages(kb, ctx),
       );
 
       final img = pw.MemoryImage(pngBytes);
@@ -152,5 +158,27 @@ class AACKeyboardPrintUtil {
     final file = File('${dir.path}/$filename');
     await file.writeAsBytes(bytes, flush: true);
     return file;
+  }
+
+  static Future<void> precacheKeyboardFileImages(
+    AACKeyboard keyboard,
+    BuildContext context,
+  ) async {
+    final futures = <Future<void>>[];
+
+    for (final slot in keyboard.slots) {
+      final card = slot.card;
+      if (card == null) continue;
+
+      final path = card.localImgPath;
+      if (path.isEmpty) continue;
+
+      final file = File(path);
+      if (!file.existsSync()) continue;
+
+      futures.add(precacheImage(FileImage(file), context));
+    }
+
+    await Future.wait(futures);
   }
 }

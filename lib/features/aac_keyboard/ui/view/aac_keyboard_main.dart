@@ -313,14 +313,14 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              SizedBox(
+            children: [
+              const SizedBox(
                 width: 24,
                 height: 24,
                 child: CircularProgressIndicator(strokeWidth: 3),
               ),
-              SizedBox(height: 20),
-              Text('Preparing PDF…'),
+              const SizedBox(height: 20),
+              Text(t.preparing_pdf),
             ],
           ),
         ),
