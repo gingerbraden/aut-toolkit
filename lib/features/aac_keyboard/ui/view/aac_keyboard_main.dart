@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:aut_toolkit/core/constants/app_constants.dart';
+import 'package:aut_toolkit/features/aac_keyboard/util/aac_keyboard_print_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -167,13 +168,33 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
               },
             ),
           ),
-          state.locked
-              ? Container()
-              : GridSettingsMenu(
-                  rows: state.rows,
-                  columns: state.columns,
-                  onChanged: (r, c) => vm.updateGridSize(rows: r, columns: c),
-                ),
+          if (!state.locked)
+            GridSettingsMenu(
+              rows: state.rows,
+              columns: state.columns,
+              onChanged: (r, c) => vm.updateGridSize(rows: r, columns: c),
+            ),
+          if (!state.locked)
+            IconButton(
+              icon: const Icon(Icons.picture_as_pdf),
+              onPressed: () async {
+                final kb = state.currentKeyboard;
+                if (kb == null) return;
+
+                await runWithLoading(context, () async {
+                  final file = await AACKeyboardPrintUtil.exportToA4PdfRaster(
+                    root: kb,
+                    theme: Theme.of(context),
+                    pixelRatio: 3.5,
+                    showTitle: true,
+                  );
+
+                  await AACKeyboardPrintUtil.shareWithSharePlus(file);
+
+                  debugPrint('PDF saved: ${file.path}');
+                });
+              },
+            ),
         ],
       ),
       body: !isLandscape
@@ -270,5 +291,48 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
               ),
             ),
     );
+  }
+
+  Future<T> runWithLoading<T>(
+    BuildContext context,
+    Future<T> Function() task,
+  ) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 24,
+          vertical: 20,
+        ),
+        content: ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxWidth: 260,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const [
+              SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(strokeWidth: 3),
+              ),
+              SizedBox(height: 20),
+              Text('Preparing PDF…'),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    try {
+      return await task();
+    } finally {
+      if (context.mounted) {
+        Navigator.of(context).pop();
+      }
+    }
   }
 }
