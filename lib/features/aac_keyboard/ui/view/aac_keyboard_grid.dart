@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../i18n/strings.g.dart';
 import '../../../card_management/domain/model/user_card.dart';
 import '../../domain/model/keyboad_slot.dart';
-import '../viewmodel/aac_keyboard_controller.dart';
+import '../viewmodel/aac_keyboard_viewmodel.dart';
 
 class KeyboardGrid extends ConsumerStatefulWidget {
   final int rows;
@@ -19,7 +19,8 @@ class KeyboardGrid extends ConsumerStatefulWidget {
   final void Function(KeyboardSlot slot) onSlotPressed;
   final void Function(int x, int y, UserCard card)? onAssignCard;
   final void Function(int x, int y)? onDelete;
-  final void Function(int x, int y, String folderName)? onCreateFolder;
+  final void Function(int x, int y, String folderName, UserCard coverCard)?
+  onCreateFolder;
 
   const KeyboardGrid({
     super.key,
@@ -112,9 +113,16 @@ class _KeyboardGridState extends ConsumerState<KeyboardGrid> {
       case _TileDialogAction.addFolder:
         final folderName = await _promptFolderName(context);
         if (!mounted || folderName == null) return;
-        widget.onCreateFolder?.call(x, y, folderName);
-        return;
 
+        context.push(
+          RouterUtils.getAACKeyboardCardPickerPath(),
+          extra: <String, dynamic>{
+            'onSelected': (UserCard selected) {
+              widget.onCreateFolder?.call(x, y, folderName, selected);
+            },
+          },
+        );
+        return;
       case _TileDialogAction.deleteCard:
         widget.onDelete?.call(x, y);
         return;

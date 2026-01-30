@@ -1,34 +1,91 @@
+import 'dart:io';
+
+import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
 import 'package:flutter/material.dart';
 
 class KeyboardTileContent extends StatelessWidget {
   final String name;
+  final UserCard cover;
 
-  const KeyboardTileContent({required this.name});
+  const KeyboardTileContent({
+    super.key,
+    required this.name,
+    required this.cover,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: Center(
-            child: Icon(
-              Icons.folder,
-              size: 56,
-              color: Theme.of(context).colorScheme.primary,
+    final borderColor = Theme.of(context).dividerColor;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final w = constraints.maxWidth;
+        final h = constraints.maxHeight;
+
+        final tabW = w * 0.5;
+        final tabH = h * 0.14;
+
+        return Stack(
+          children: [
+            Positioned(
+              top: 0,
+              left: 0,
+              child: Container(
+                width: tabW,
+                height: tabH,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(color: borderColor),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-        const SizedBox(height: 6),
-        Text(
-          name,
-          textAlign: TextAlign.center,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-      ],
+
+            Positioned.fill(
+              top: tabH * 0.6,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade50,
+                  border: Border.all(color: borderColor),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.file(
+                            File(cover.localImgPath),
+                            fit: BoxFit.contain,
+                            errorBuilder: (_, _, _) => Icon(
+                              Icons.broken_image_outlined,
+                              size: 36,
+                              color: borderColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        name,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
-

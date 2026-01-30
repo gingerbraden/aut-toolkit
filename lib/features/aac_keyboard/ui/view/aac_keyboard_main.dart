@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../i18n/strings.g.dart';
-import '../viewmodel/aac_keyboard_controller.dart';
+import '../viewmodel/aac_keyboard_viewmodel.dart';
 import 'aac_keyboard_grid.dart';
 import 'aac_keyboard_pressed_bar.dart';
 import 'aac_keyboard_settings.dart';
@@ -228,8 +228,13 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
                       onAssignCard: (x, y, card) {
                         vm.assignCardToPosition(x: x, y: y, card: card);
                       },
-                      onCreateFolder: (x, y, name) {
-                        vm.assignFolderToPosition(x: x, y: y, name: name);
+                      onCreateFolder: (x, y, name, coverCard) {
+                        vm.assignFolderToPosition(
+                          x: x,
+                          y: y,
+                          name: name,
+                          coverCard: coverCard,
+                        );
                       },
                       onDelete: (x, y) {
                         vm.deleteSlot(x: x, y: y);

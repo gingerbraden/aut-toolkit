@@ -256,6 +256,7 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
     required int x,
     required int y,
     required String name,
+    required UserCard coverCard,
   }) async {
     final docRefKeyb = FirebaseFirestore.instance
         .collection('aac_keyboards')
@@ -291,7 +292,7 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
           id: s.id,
           x: s.x,
           y: s.y,
-          card: null,
+          card: coverCard,
           keyboard: folderSaved,
           remoteId: s.remoteId,
           updatedAt: DateTime.now(),
@@ -314,7 +315,7 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
       final newSlot = KeyboardSlot(
         x: x,
         y: y,
-        card: null,
+        card: coverCard,
         keyboard: folderSaved,
         updatedAt: DateTime.now(),
         isSynced: false,
