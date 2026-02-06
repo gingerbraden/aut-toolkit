@@ -62,8 +62,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'No account yet?'
 	String get no_account => 'No account yet?';
 
-	/// en: 'Create account'
-	String get create_account => 'Create account';
+	/// en: 'Create account using an e-mail address'
+	String get create_account => 'Create account using an e-mail address';
 
 	/// en: 'Log in'
 	String get log_in_button => 'Log in';
@@ -531,6 +531,12 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Preparing PDF...'
 	String get preparing_pdf => 'Preparing PDF...';
+
+	/// en: 'or'
+	String get or => 'or';
+
+	/// en: 'An unexpected error occured. Please try again later.'
+	String get unknown_error => 'An unexpected error occured. Please try again later.';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -548,7 +554,7 @@ extension on Translations {
 			'password' => 'Password',
 			'password_again' => 'Confirm password',
 			'no_account' => 'No account yet?',
-			'create_account' => 'Create account',
+			'create_account' => 'Create account using an e-mail address',
 			'log_in_button' => 'Log in',
 			'no_sign_in_details' => 'Missing e-mail or password',
 			'passwords_dont_match' => 'Passwords don\'t match',
@@ -700,6 +706,8 @@ extension on Translations {
 			'folder_name_hint' => 'e. g. Food, Body, ...',
 			'choose_cover_and_save' => 'Choose icon and create folder',
 			'preparing_pdf' => 'Preparing PDF...',
+			'or' => 'or',
+			'unknown_error' => 'An unexpected error occured. Please try again later.',
 			_ => null,
 		};
 	}

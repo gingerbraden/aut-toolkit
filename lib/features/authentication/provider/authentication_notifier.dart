@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../core/services/firebase_service.dart';
 
-
 class AuthentificationNotifier extends Notifier<User?> {
   final FirebaseService _firebaseService = FirebaseService();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
   User? build() {
@@ -35,8 +36,39 @@ class AuthentificationNotifier extends Notifier<User?> {
     return 'Sign-in failed';
   }
 
+  Future<void> signInGoogle() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn(
+        scopes: ['email', 'profile'],
+      );
+
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+      if (googleUser == null) return;
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+        accessToken: googleAuth.accessToken,
+      );
+
+      final UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithCredential(credential);
+
+      final User? firebaseUser = userCredential.user;
+      if (firebaseUser == null) return;
+
+      state = firebaseUser;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> signOut() async {
     await _firebaseService.signOut();
+    await _googleSignIn.signOut();
     state = null;
   }
 

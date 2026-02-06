@@ -44,7 +44,7 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get password => 'Heslo';
 	@override String get password_again => 'Potvrďte heslo';
 	@override String get no_account => 'Nemáte ešte účet?';
-	@override String get create_account => 'Vytvoriť účet';
+	@override String get create_account => 'Vytvoriť účet pomocou e-mailovej adresy';
 	@override String get log_in_button => 'Prihlásiť sa';
 	@override String get no_sign_in_details => 'Chýbajuci e-mail alebo heslo';
 	@override String get passwords_dont_match => 'Heslá sa nezhodujú';
@@ -211,6 +211,8 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get folder_name_hint => 'napr. Jedlo, Telo, ...';
 	@override String get choose_cover_and_save => 'Vybrať ikonu a vytvoriť priečinok';
 	@override String get preparing_pdf => 'Pripravujem PDF...';
+	@override String get or => 'alebo';
+	@override String get unknown_error => 'Nastala neznáma chyba. Prosím opakujte pokus neskôr.';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -228,7 +230,7 @@ extension on TranslationsSk {
 			'password' => 'Heslo',
 			'password_again' => 'Potvrďte heslo',
 			'no_account' => 'Nemáte ešte účet?',
-			'create_account' => 'Vytvoriť účet',
+			'create_account' => 'Vytvoriť účet pomocou e-mailovej adresy',
 			'log_in_button' => 'Prihlásiť sa',
 			'no_sign_in_details' => 'Chýbajuci e-mail alebo heslo',
 			'passwords_dont_match' => 'Heslá sa nezhodujú',
@@ -380,6 +382,8 @@ extension on TranslationsSk {
 			'folder_name_hint' => 'napr. Jedlo, Telo, ...',
 			'choose_cover_and_save' => 'Vybrať ikonu a vytvoriť priečinok',
 			'preparing_pdf' => 'Pripravujem PDF...',
+			'or' => 'alebo',
+			'unknown_error' => 'Nastala neznáma chyba. Prosím opakujte pokus neskôr.',
 			_ => null,
 		};
 	}

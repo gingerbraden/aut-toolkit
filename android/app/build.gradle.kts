@@ -41,9 +41,9 @@ android {
     }
 
     dependencies {
-        implementation("androidx.credentials:credentials:1.6.0-beta02")
-        implementation("androidx.credentials:credentials-play-services-auth:1.6.0-beta02")
-        implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+        implementation("androidx.credentials:credentials:1.6.0-rc01")
+        implementation("androidx.credentials:credentials-play-services-auth:1.6.0-rc01")
+        implementation("com.google.android.libraries.identity.googleid:googleid:<latest version>")
     }
 }
 

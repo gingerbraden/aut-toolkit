@@ -32,6 +32,14 @@ class AuthenticationViewModel extends Notifier<AuthenticationState> {
     }
   }
 
+  Future<void> logInGoogle() async {
+    state = state.copyWith(loading: true, message: null);
+    await ref.read(authentificationNotifierProvider.notifier).signInGoogle();
+    state = state.copyWith(loading: false);
+
+    router.go(RouterUtils.HOME);
+  }
+
   Future<void> signUp(
     String email,
     String password,

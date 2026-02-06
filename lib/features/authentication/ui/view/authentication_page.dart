@@ -142,6 +142,20 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
         );
       },
     ),
+    Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Text(
+        t.or,
+        style: Theme.of(context).textTheme.titleSmall,
+        textAlign: TextAlign.center,
+      ),
+    ),
+    ElevatedButton(
+      onPressed: () {
+        viewModel.logInGoogle();
+      },
+      child: Text(t.sign_in_google),
+    ),
   ];
 
   List<Widget> _noAccountArea(AuthenticationViewModel viewModel) => [

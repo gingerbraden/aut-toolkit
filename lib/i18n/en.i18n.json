@@ -6,7 +6,7 @@
   "password": "Password",
   "password_again": "Confirm password",
   "no_account": "No account yet?",
-  "create_account": "Create account",
+  "create_account": "Create account using an e-mail address",
   "log_in_button": "Log in",
   "no_sign_in_details": "Missing e-mail or password",
   "passwords_dont_match": "Passwords don't match",
@@ -171,5 +171,7 @@
   "folder_name": "Folder name",
   "folder_name_hint": "e. g. Food, Body, ...",
   "choose_cover_and_save" : "Choose icon and create folder",
-  "preparing_pdf": "Preparing PDF..."
+  "preparing_pdf": "Preparing PDF...",
+  "or": "or",
+  "unknown_error": "An unexpected error occured. Please try again later."
 }

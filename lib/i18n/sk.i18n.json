@@ -6,7 +6,7 @@
   "password": "Heslo",
   "password_again": "Potvrďte heslo",
   "no_account": "Nemáte ešte účet?",
-  "create_account": "Vytvoriť účet",
+  "create_account": "Vytvoriť účet pomocou e-mailovej adresy",
   "log_in_button": "Prihlásiť sa",
   "no_sign_in_details": "Chýbajuci e-mail alebo heslo",
   "passwords_dont_match": "Heslá sa nezhodujú",
@@ -172,5 +172,7 @@
   "folder_name": "Názov priečinka",
   "folder_name_hint": "napr. Jedlo, Telo, ...",
   "choose_cover_and_save" : "Vybrať ikonu a vytvoriť priečinok",
-  "preparing_pdf": "Pripravujem PDF..."
+  "preparing_pdf": "Pripravujem PDF...",
+  "or": "alebo",
+  "unknown_error": "Nastala neznáma chyba. Prosím opakujte pokus neskôr."
 }
