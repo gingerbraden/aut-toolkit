@@ -101,9 +101,7 @@ class GoodHabitsList extends ConsumerWidget {
             RouterUtils.getNewGoodHabitPath(),
             extra: newHabit,
           );
-
-          ref.read(filteredHabitsProvider).add(newHabit);
-        },
+          },
         child: const Icon(Icons.add),
       ),
 
