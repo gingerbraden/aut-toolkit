@@ -224,71 +224,92 @@ class _AddCardOrFolderDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screen = MediaQuery.of(context).size;
-
     return Dialog(
       insetPadding: const EdgeInsets.all(24),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: screen.width * 0.3,
-          maxHeight: screen.height * 0.5,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
+        constraints: const BoxConstraints(maxWidth: 320),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final contentWidth = constraints.maxWidth;
+            final spacing = 16.0;
+            final buttonWidth = (contentWidth - spacing) / 2;
+
+            return Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _BigSquareAction(
-                    icon: Icons.style,
-                    label: t.add_card,
-                    onTap: () =>
-                        Navigator.of(context).pop(_TileDialogAction.addCard),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          width: buttonWidth,
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: _BigSquareAction(
+                              icon: Icons.style,
+                              label: t.add_card,
+                              onTap: () => Navigator.of(
+                                context,
+                              ).pop(_TileDialogAction.addCard),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: SizedBox(
+                          width: buttonWidth,
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: _BigSquareAction(
+                              icon: Icons.folder,
+                              label: t.add_folder,
+                              onTap: () => Navigator.of(
+                                context,
+                              ).pop(_TileDialogAction.addFolder),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 16),
-                  _BigSquareAction(
-                    icon: Icons.folder,
-                    label: t.add_folder,
-                    onTap: () =>
-                        Navigator.of(context).pop(_TileDialogAction.addFolder),
+
+                  if (showDelete) ...[
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        icon: const Icon(Icons.delete_outline),
+                        label: Text(t.delete),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.red,
+                          side: const BorderSide(color: Colors.red),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        onPressed: () => Navigator.of(
+                          context,
+                        ).pop(_TileDialogAction.deleteCard),
+                      ),
+                    ),
+                  ],
+
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text(t.cancel),
+                    ),
                   ),
                 ],
               ),
-
-              if (showDelete) ...[
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton.icon(
-                    icon: const Icon(Icons.delete_outline),
-                    label: Text(t.delete),
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.red,
-                      side: const BorderSide(color: Colors.red),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed: () =>
-                        Navigator.of(context).pop(_TileDialogAction.deleteCard),
-                  ),
-                ),
-              ],
-
-              const SizedBox(height: 16),
-              SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text(t.cancel),
-                ),
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
@@ -308,12 +329,10 @@ class _BigSquareAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screen = MediaQuery.of(context).size;
-    final double size = screen.width * 0.128;
+    final scheme = Theme.of(context).colorScheme;
 
-    return SizedBox(
-      width: size,
-      height: size,
+    return Material(
+      color: Colors.transparent,
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: onTap,
@@ -321,21 +340,25 @@ class _BigSquareAction extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: Colors.black12),
-            color: Theme.of(context).colorScheme.surface,
+            color: scheme.surface,
           ),
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, size: 40),
-                const SizedBox(height: 8),
-                Text(
-                  label,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                FittedBox(fit: BoxFit.scaleDown, child: Icon(icon, size: 44)),
+                const SizedBox(height: 10),
+                Flexible(
+                  child: Text(
+                    label,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],

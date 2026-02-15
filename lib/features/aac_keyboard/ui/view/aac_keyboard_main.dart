@@ -124,9 +124,6 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
     if (state.isLoading || state.currentKeyboard == null)
       return Center(child: CircularProgressIndicator());
 
-    final isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
     return Scaffold(
       appBar: AppBar(
         leading: !state.locked
@@ -197,9 +194,7 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
             ),
         ],
       ),
-      body: !isLandscape
-          ? null
-          : Padding(
+      body: Padding(
               padding: EdgeInsets.only(
                 bottom: AppConstants.BASE_APP_UI_PADDING * 2,
               ),
