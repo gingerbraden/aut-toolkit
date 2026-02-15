@@ -1,7 +1,7 @@
-import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour_diary_entry.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_entity.dart';
-import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_entity.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour_diary_entry.dart';
 import 'package:aut_toolkit/objectbox.g.dart';
 
 import '../../../../core/model/sync_entity.dart';
@@ -23,7 +23,7 @@ extension ChallengingBehaviourMapper on ChallengingBehaviourEntity {
       isDeleted: isDeleted,
       isSynced: isSynced,
       pendingAction: PendingAction.values[pendingAction],
-      remoteId: remoteId
+      remoteId: remoteId,
     );
   }
 }
@@ -31,7 +31,7 @@ extension ChallengingBehaviourMapper on ChallengingBehaviourEntity {
 extension ChallengingBehaviourEntityMapper on ChallengingBehaviour {
   ChallengingBehaviourEntity toEntity() {
     final entity = ChallengingBehaviourEntity(
-      id: id,
+      id: id!,
       name: name,
       from: from,
       generalDescription: description,
@@ -43,7 +43,7 @@ extension ChallengingBehaviourEntityMapper on ChallengingBehaviour {
       isDeleted: isDeleted,
       isSynced: isSynced,
       pendingAction: pendingAction.index,
-      remoteId: remoteId
+      remoteId: remoteId,
     );
 
     if (diaryEntries.isNotEmpty) {
@@ -56,7 +56,8 @@ extension ChallengingBehaviourEntityMapper on ChallengingBehaviour {
   }
 }
 
-extension ChallengingBehaviourDiaryEntryMapper on ChallengingBehaviourDiaryEntryEntity {
+extension ChallengingBehaviourDiaryEntryMapper
+    on ChallengingBehaviourDiaryEntryEntity {
   ChallengingBehaviourDiaryEntry toModel() {
     return ChallengingBehaviourDiaryEntry(
       id: id,
@@ -71,7 +72,8 @@ extension ChallengingBehaviourDiaryEntryMapper on ChallengingBehaviourDiaryEntry
   }
 }
 
-extension ChallengingBehaviourDiaryEntryEntityMapper on ChallengingBehaviourDiaryEntry {
+extension ChallengingBehaviourDiaryEntryEntityMapper
+    on ChallengingBehaviourDiaryEntry {
   ChallengingBehaviourDiaryEntryEntity toEntity() {
     return ChallengingBehaviourDiaryEntryEntity(
       id: id,
@@ -86,32 +88,34 @@ extension ChallengingBehaviourDiaryEntryEntityMapper on ChallengingBehaviourDiar
   }
 }
 
-
 extension ChallengingBehaviourEntityToRemote on ChallengingBehaviourEntity {
-  ChallengingBehaviourRemoteEntity toRemote() => ChallengingBehaviourRemoteEntity(
-    localId: id!,
-    name: name,
-    from: from,
-    generalDescription: generalDescription,
-    diaryEntries: diaryEntries.map((x) => x.toRemote()).toList(),
-    occuring: occuring,
-    userId: userId,
-    selectedPersonId: selectedPersonId,
-    updatedAt: updatedAt,
-  )
-    ..isDeleted = isDeleted
-    ..isSynced = true
-    ..pendingAction = PendingAction.NONE
-    ..remoteId = remoteId;
+  ChallengingBehaviourRemoteEntity toRemote() =>
+      ChallengingBehaviourRemoteEntity(
+          localId: id,
+          name: name,
+          from: from,
+          generalDescription: generalDescription,
+          diaryEntries: diaryEntries.map((x) => x.toRemote()).toList(),
+          occuring: occuring,
+          userId: userId,
+          selectedPersonId: selectedPersonId,
+          updatedAt: updatedAt,
+        )
+        ..isDeleted = isDeleted
+        ..isSynced = true
+        ..pendingAction = PendingAction.NONE
+        ..remoteId = remoteId;
 }
 
-extension ChallengingBehaviourRemoteToEntity on ChallengingBehaviourRemoteEntity {
+extension ChallengingBehaviourRemoteToEntity
+    on ChallengingBehaviourRemoteEntity {
   ChallengingBehaviourEntity toEntity() => ChallengingBehaviourEntity(
     id: localId,
     name: name,
     from: from,
     generalDescription: generalDescription,
-    diaryEntries: ToMany<ChallengingBehaviourDiaryEntryEntity>()..addAll(diaryEntries.map((x) => x.toEntity()).toList()),
+    diaryEntries: ToMany<ChallengingBehaviourDiaryEntryEntity>()
+      ..addAll(diaryEntries.map((x) => x.toEntity()).toList()),
     occuring: occuring,
     userId: userId,
     selectedPersonId: selectedPersonId,
@@ -124,27 +128,30 @@ extension ChallengingBehaviourRemoteToEntity on ChallengingBehaviourRemoteEntity
 }
 
 extension DiaryEntryEntityToRemote on ChallengingBehaviourDiaryEntryEntity {
-  ChallengingBehaviourDiaryEntryRemoteEntity toRemote() => ChallengingBehaviourDiaryEntryRemoteEntity(
-    id: id,
-    location: location,
-    date: date,
-    duration: duration,
-    circumstances: circumstances,
-    people: people,
-    outcome: outcome,
-    reflection: reflection,
-  );
+  ChallengingBehaviourDiaryEntryRemoteEntity toRemote() =>
+      ChallengingBehaviourDiaryEntryRemoteEntity(
+        id: id,
+        location: location,
+        date: date,
+        duration: duration,
+        circumstances: circumstances,
+        people: people,
+        outcome: outcome,
+        reflection: reflection,
+      );
 }
 
-extension DiaryEntryRemoteToEntity on ChallengingBehaviourDiaryEntryRemoteEntity {
-  ChallengingBehaviourDiaryEntryEntity toEntity() => ChallengingBehaviourDiaryEntryEntity(
-    id: id,
-    location: location,
-    date: date,
-    duration: duration,
-    circumstances: circumstances,
-    people: people,
-    outcome: outcome,
-    reflection: reflection,
-  );
+extension DiaryEntryRemoteToEntity
+    on ChallengingBehaviourDiaryEntryRemoteEntity {
+  ChallengingBehaviourDiaryEntryEntity toEntity() =>
+      ChallengingBehaviourDiaryEntryEntity(
+        id: id,
+        location: location,
+        date: date,
+        duration: duration,
+        circumstances: circumstances,
+        people: people,
+        outcome: outcome,
+        reflection: reflection,
+      );
 }

@@ -9,19 +9,21 @@ import '../../../core/model/sync_entity.dart';
 import '../../../core/services/sync_manager.dart';
 import '../domain/repository/good_habit_repository.dart';
 
-class GoodHabitRepositoryImpl implements GoodHabitRepository, SyncableRepository  {
+class GoodHabitRepositoryImpl
+    implements GoodHabitRepository, SyncableRepository {
   final GoodHabitLocalSource _localSource;
   final GoodHabitRemoteSource _remoteSource;
   final SyncManager _syncManager;
 
   GoodHabitRepositoryImpl(
-      this._localSource,
-      this._remoteSource,
-      this._syncManager,
-      ) {
+    this._localSource,
+    this._remoteSource,
+    this._syncManager,
+  ) {
     _syncManager.processors.add(processPending);
     _syncManager.addProcessor(fetchRemote);
   }
+
   @override
   List<GoodHabit> getAllHabits() {
     return _localSource.getAll().map((e) => e.toModel()).toList();
@@ -106,8 +108,7 @@ class GoodHabitRepositoryImpl implements GoodHabitRepository, SyncableRepository
       for (final remoteEntity in remoteData) {
         remoteIds.add(remoteEntity.remoteId!);
 
-        final local =
-        _localSource.getByRemoteId(remoteEntity.remoteId!);
+        final local = _localSource.getByRemoteId(remoteEntity.remoteId!);
 
         final entityToSave = remoteEntity.toEntity();
         entityToSave.id = 0;
@@ -130,16 +131,14 @@ class GoodHabitRepositoryImpl implements GoodHabitRepository, SyncableRepository
         }
       }
     } catch (e) {
-      print('Error fetching remote eating habits: $e');
+      print('Error fetching remote good habits: $e');
     }
   }
 
   @override
   Stream<List<GoodHabit>> watchAll() {
-    return _localSource
-        .watchAllBehaviours()
-        .map((entities) => entities.map((e) => e.toModel()).toList());
+    return _localSource.watchAllBehaviours().map(
+      (entities) => entities.map((e) => e.toModel()).toList(),
+    );
   }
-
-
 }

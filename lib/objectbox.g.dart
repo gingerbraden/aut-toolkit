@@ -1024,7 +1024,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           toManyRelations: (ChallengingBehaviourEntity object) => {
             obx_int.RelInfo<ChallengingBehaviourDiaryEntryEntity>.toOneBacklink(
               2,
-              object.id!,
+              object.id,
               (ChallengingBehaviourDiaryEntryEntity srcObject) =>
                   srcObject.challengingBehaviour,
             ): object.diaryEntries,
@@ -1046,7 +1046,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
                 ? null
                 : fbb.writeString(object.remoteId!);
             fbb.startTable(13);
-            fbb.addInt64(0, object.id ?? 0);
+            fbb.addInt64(0, object.id);
             fbb.addBool(1, object.occuring);
             fbb.addOffset(2, nameOffset);
             fbb.addInt64(3, object.from.millisecondsSinceEpoch);
@@ -1059,15 +1059,16 @@ obx_int.ModelDefinition getObjectBoxModel() {
             fbb.addInt64(10, object.pendingAction);
             fbb.addBool(11, object.isDeleted);
             fbb.finish(fbb.endTable());
-            return object.id ?? 0;
+            return object.id;
           },
           objectFromFB: (obx.Store store, ByteData fbData) {
             final buffer = fb.BufferContext(fbData);
             final rootOffset = buffer.derefObject(0);
-            final idParam = const fb.Int64Reader().vTableGetNullable(
+            final idParam = const fb.Int64Reader().vTableGet(
               buffer,
               rootOffset,
               4,
+              0,
             );
             final nameParam = const fb.StringReader(
               asciiOptimization: true,
@@ -1138,7 +1139,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
                 ChallengingBehaviourDiaryEntryEntity
               >.toOneBacklink(
                 2,
-                object.id!,
+                object.id,
                 (ChallengingBehaviourDiaryEntryEntity srcObject) =>
                     srcObject.challengingBehaviour,
               ),

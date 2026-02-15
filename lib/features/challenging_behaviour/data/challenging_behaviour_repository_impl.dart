@@ -16,14 +16,14 @@ class ChallengingBehaviourRepositoryImpl
   final ChallengingBehaviourRemoteSource _remoteSource;
   final SyncManager _syncManager;
 
-  ChallengingBehaviourRepositoryImpl(this._localSource,
-      this._remoteSource,
-      this._syncManager) {
+  ChallengingBehaviourRepositoryImpl(
+    this._localSource,
+    this._remoteSource,
+    this._syncManager,
+  ) {
     _syncManager.processors.add(processPending);
     _syncManager.addProcessor(fetchRemote);
   }
-
-
 
   @override
   List<ChallengingBehaviour> getAllCb() {
@@ -94,14 +94,21 @@ class ChallengingBehaviourRepositoryImpl
       for (final remoteEntity in remoteData) {
         remoteIds.add(remoteEntity.remoteId!);
 
-        final local =
-        _localSource.getByRemoteId(remoteEntity.remoteId!);
+        final local = _localSource.getByRemoteId(remoteEntity.remoteId!);
 
         final entityToSave = remoteEntity.toEntity();
         entityToSave.id = 0;
 
+        for (final diaryEntry in entityToSave.diaryEntries) {
+          diaryEntry.id = 0;
+        }
+
         if (local != null) {
           entityToSave.id = local.id;
+
+          for (final localEntry in local.diaryEntries) {
+            _localSource.deleteDiaryEntry(localEntry.id!);
+          }
 
           if (local.pendingAction != PendingAction.NONE.index) {
             entityToSave.pendingAction = local.pendingAction;
@@ -113,11 +120,11 @@ class ChallengingBehaviourRepositoryImpl
 
       for (final localEntity in localData) {
         if (!remoteIds.contains(localEntity.remoteId)) {
-          _localSource.deleteBehaviour(localEntity.id!);
+          _localSource.deleteBehaviour(localEntity.id);
         }
       }
     } catch (e) {
-      print('Error fetching remote eating habits: $e');
+      print('Error fetching remote challenging behaviours: $e');
     }
   }
 
@@ -151,7 +158,7 @@ class ChallengingBehaviourRepositoryImpl
           if (e.remoteId != null) {
             await _remoteSource.deleteRemote(e);
           }
-          _localSource.deleteBehaviour(e.id!);
+          _localSource.deleteBehaviour(e.id);
         }
       } catch (err) {
         continue;
@@ -161,9 +168,8 @@ class ChallengingBehaviourRepositoryImpl
 
   @override
   Stream<List<ChallengingBehaviour>> watchAll() {
-    return _localSource
-        .watchAllBehaviours()
-        .map((entities) => entities.map((e) => e.toModel()).toList());
+    return _localSource.watchAllBehaviours().map(
+      (entities) => entities.map((e) => e.toModel()).toList(),
+    );
   }
-
 }
