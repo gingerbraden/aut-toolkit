@@ -52,21 +52,7 @@ extension KeyboardSlotEntityMapper on KeyboardSlotEntity {
 
     final kb = keyboard.target;
     if (kb != null) {
-      model.keyboard = AACKeyboard(
-        id: kb.id,
-        userId: kb.userId,
-        name: kb.name,
-        slots: const [],
-        updatedAt: kb.updatedAt,
-        isDeleted: kb.isDeleted,
-        isSynced: kb.isSynced,
-        pendingAction: PendingAction.values[kb.pendingAction],
-        remoteId: kb.remoteId,
-        isInternal: kb.isInternal,
-        isSelected: kb.isSelected,
-        rows: kb.rows,
-        cols: kb.cols,
-      );
+      model.keyboard = kb.toModel();
     }
 
     return model;

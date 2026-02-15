@@ -141,8 +141,9 @@ class AACKeyboardRepositoryImpl
 
         final localKb = _localSource.getByRemoteId(remoteKbId);
 
-        final remoteEntity = remoteKb.toEntity();
-        remoteEntity.id = localKb?.id ?? 0;
+        final baseRemoteEntity = remoteKb.toEntity();
+
+        baseRemoteEntity.id = localKb?.id ?? 0;
 
         final localHasPending =
             localKb != null &&
@@ -150,19 +151,29 @@ class AACKeyboardRepositoryImpl
 
         final localIsNewer =
             localKb?.updatedAt != null &&
-            localKb!.updatedAt.isAfter(remoteEntity.updatedAt);
+            localKb!.updatedAt.isAfter(baseRemoteEntity.updatedAt);
 
         final AACKeyboardEntity keyboardToSave;
         if (localHasPending && localIsNewer) {
           keyboardToSave = localKb;
-          keyboardToSave.remoteId = remoteEntity.remoteId;
+          keyboardToSave.remoteId = baseRemoteEntity.remoteId;
           keyboardToSave.isSynced = false;
         } else {
-          keyboardToSave = remoteEntity;
+          keyboardToSave = baseRemoteEntity;
           keyboardToSave.pendingAction = PendingAction.NONE.index;
           keyboardToSave.isSynced = true;
           keyboardToSave.isDeleted = false;
         }
+
+        _localSource.putKeyboard(keyboardToSave);
+      }
+
+      for (final remoteKb in remoteKeyboards) {
+        final remoteKbId = remoteKb.remoteId;
+        if (remoteKbId == null) continue;
+
+        final keyboardToSave = _localSource.getByRemoteId(remoteKbId);
+        if (keyboardToSave == null) continue;
 
         final remoteSlots = remoteKb.slots
             .where((s) => s.isDeleted != true)
