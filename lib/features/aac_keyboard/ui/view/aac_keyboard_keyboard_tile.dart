@@ -27,25 +27,7 @@ class KeyboardTileContent extends StatelessWidget {
 
         return Stack(
           children: [
-            Positioned(
-              top: 0,
-              left: 0,
-              child: Container(
-                width: tabW,
-                height: tabH,
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  border: Border.all(color: borderColor),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                ),
-              ),
-            ),
-
             Positioned.fill(
-              top: tabH * 0.6,
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.blue.shade50,
@@ -53,8 +35,9 @@ class KeyboardTileContent extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.only(bottom: 16.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Expanded(
                         child: ClipRRect(
@@ -71,14 +54,38 @@ class KeyboardTileContent extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        name,
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: Text(
+                          name,
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            height: 1.1,
+                          ),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+              ),
+            ),
+
+            Positioned(
+              top: 0,
+              left: 0,
+              child: Container(
+                width: tabW,
+                height: tabH,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(color: borderColor),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
                   ),
                 ),
               ),
