@@ -25,6 +25,14 @@ class AACKeyboardLocalSource {
     return keyboardBox.getAll();
   }
 
+  List<AACKeyboardEntity> getAllKeyboardsForUser(String uid) {
+    final q = keyboardBox.query(AACKeyboardEntity_.userId.equals(uid)).build();
+
+    final result = q.find();
+    q.close();
+    return result;
+  }
+
   AACKeyboardEntity? getById(int id) {
     return keyboardBox.get(id);
   }

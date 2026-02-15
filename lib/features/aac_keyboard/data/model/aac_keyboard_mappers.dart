@@ -158,7 +158,7 @@ extension AACKeyboardEntityToRemote on AACKeyboardEntity {
 extension KeyboardSlotEntityToRemoteMapper on KeyboardSlotEntity {
   KeyboardSlotRemoteEntity toRemote() {
     return KeyboardSlotRemoteEntity(
-        id: id ?? 0,
+        id: 0,
         remoteId: remoteId,
         x: x,
         y: y,

@@ -6,9 +6,12 @@ import 'package:aut_toolkit/features/aac_keyboard/domain/model/aac_keyboard.dart
 import 'package:aut_toolkit/features/aac_keyboard/domain/model/keyboad_slot.dart';
 import 'package:aut_toolkit/features/aac_keyboard/domain/repository/aac_keyboard_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../core/model/sync_entity.dart';
 import '../../../core/services/sync_manager.dart';
+import 'model/aac_keyboard_entity.dart';
+import 'model/keyboard_slot_entity.dart';
 
 class AACKeyboardRepositoryImpl
     implements AACKeyboardRepository, SyncableRepository {
@@ -60,22 +63,28 @@ class AACKeyboardRepositoryImpl
     _syncManager.processOnce();
   }
 
+  final _uuid = const Uuid();
+
   @override
   void saveSlot(KeyboardSlot slot, int parentKeyboardId) {
-    if (slot.id == 0 || slot.remoteId == null) {
+    slot.remoteId ??= _uuid.v4();
+
+    if (slot.id == 0) {
       slot.pendingAction = PendingAction.CREATE;
       slot.isSynced = false;
     } else {
       slot.pendingAction = PendingAction.UPDATE;
       slot.isSynced = false;
     }
+
     slot.updatedAt = DateTime.now();
+
     _localSource.addSlot(
       parentKeyboardId: parentKeyboardId,
       slot: slot.toEntity(),
     );
-    _markKeyboardDirty(parentKeyboardId);
 
+    _markKeyboardDirty(parentKeyboardId);
     _syncManager.processOnce();
   }
 
@@ -120,7 +129,7 @@ class AACKeyboardRepositoryImpl
       final remoteKeyboards = await _remoteSource.getAllKeyboards(
         userId: userId,
       );
-      final localKeyboards = _localSource.getAllKeyboards();
+      final localKeyboards = _localSource.getAllKeyboardsForUser(userId);
 
       final remoteKeyboardIds = <String>{};
 
@@ -132,52 +141,102 @@ class AACKeyboardRepositoryImpl
 
         final localKb = _localSource.getByRemoteId(remoteKbId);
 
-        final kbEntity = remoteKb.toEntity();
-        kbEntity.id = localKb?.id ?? 0;
+        final remoteEntity = remoteKb.toEntity();
+        remoteEntity.id = localKb?.id ?? 0;
 
-        if (localKb != null &&
-            localKb.pendingAction != PendingAction.NONE.index) {
-          kbEntity.pendingAction = localKb.pendingAction;
-          kbEntity.isSynced = localKb.isSynced;
+        final localHasPending =
+            localKb != null &&
+            localKb.pendingAction != PendingAction.NONE.index;
+
+        final localIsNewer =
+            localKb?.updatedAt != null &&
+            localKb!.updatedAt.isAfter(remoteEntity.updatedAt);
+
+        final AACKeyboardEntity keyboardToSave;
+        if (localHasPending && localIsNewer) {
+          keyboardToSave = localKb;
+          keyboardToSave.remoteId = remoteEntity.remoteId;
+          keyboardToSave.isSynced = false;
+        } else {
+          keyboardToSave = remoteEntity;
+          keyboardToSave.pendingAction = PendingAction.NONE.index;
+          keyboardToSave.isSynced = true;
+          keyboardToSave.isDeleted = false;
         }
 
-        final remoteSlots = remoteKb.slots;
+        final remoteSlots = remoteKb.slots
+            .where((s) => s.isDeleted != true)
+            .toList();
 
-        kbEntity.slots.clear();
+        final remoteSlotIds = remoteSlots
+            .map((s) => s.remoteId)
+            .whereType<String>()
+            .toSet();
 
-        for (final slotRemote in remoteSlots) {
-          final localSlot = _localSource.getSlotByRemoteId(
-            slotRemote.remoteId!,
+        keyboardToSave.slots.clear();
+
+        for (final remoteSlot in remoteSlots) {
+          final rid = remoteSlot.remoteId;
+          if (rid == null) continue;
+
+          final localSlot = _localSource.getSlotByRemoteId(rid);
+
+          final remoteSlotEntity = remoteSlot.toEntity(
+            parentKeyboard: keyboardToSave,
           );
+          remoteSlotEntity.id = localSlot?.id ?? 0;
 
-          final slotEntity = slotRemote.toEntity();
-          slotEntity.id = localSlot?.id ?? 0;
+          final localSlotHasPending =
+              localSlot != null &&
+              localSlot.pendingAction != PendingAction.NONE.index;
 
-          if (localSlot != null &&
-              localSlot.pendingAction != PendingAction.NONE.index) {
-            slotEntity.pendingAction = localSlot.pendingAction;
-            slotEntity.isSynced = localSlot.isSynced;
+          final localSlotIsNewer =
+              localSlot?.updatedAt != null &&
+              localSlot!.updatedAt.isAfter(remoteSlotEntity.updatedAt);
+
+          final KeyboardSlotEntity slotToSave;
+          if (localSlotHasPending && localSlotIsNewer) {
+            slotToSave = localSlot;
+            slotToSave.remoteId = remoteSlotEntity.remoteId;
+            slotToSave.isSynced = false;
+          } else {
+            slotToSave = remoteSlotEntity;
+            slotToSave.pendingAction = PendingAction.NONE.index;
+            slotToSave.isSynced = true;
+            slotToSave.isDeleted = false;
           }
 
-          kbEntity.slots.add(slotEntity);
-          _localSource.updateSlot(slotEntity);
+          keyboardToSave.slots.add(slotToSave);
+          _localSource.updateSlot(slotToSave);
         }
 
-        _localSource.putKeyboard(kbEntity);
+        _localSource.putKeyboard(keyboardToSave);
 
-        final localSlots = _localSource.getSlots(keyboardId: kbEntity.id);
-        for (final localSlot in localSlots) {
-          final localSlotId = localSlot.id;
-          if (localSlotId != null &&
-              !remoteSlots.any((s) => s.id == localSlotId)) {
-            _localSource.deleteSlot(localSlot.id!);
+        final kbId = keyboardToSave.id;
+        if (kbId != null && kbId != 0) {
+          final localSlots = _localSource.getSlots(keyboardId: kbId);
+
+          for (final localSlot in localSlots) {
+            final localRid = localSlot.remoteId;
+            if (localRid == null) continue;
+
+            final localPending =
+                localSlot.pendingAction != PendingAction.NONE.index;
+
+            if (!localPending && !remoteSlotIds.contains(localRid)) {
+              _localSource.deleteSlot(localSlot.id!);
+            }
           }
         }
       }
 
       for (final localKb in localKeyboards) {
-        if (localKb.remoteId != null &&
-            !remoteKeyboardIds.contains(localKb.remoteId)) {
+        final rid = localKb.remoteId;
+        if (rid == null) continue;
+
+        final localPending = localKb.pendingAction != PendingAction.NONE.index;
+
+        if (!localPending && !remoteKeyboardIds.contains(rid)) {
           _localSource.deleteKeyboard(localKb.id!);
         }
       }
