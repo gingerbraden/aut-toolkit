@@ -80,8 +80,7 @@ class CardRepositoryImpl implements CardRepository, SyncableRepository {
       for (final remoteEntity in remoteData) {
         remoteIds.add(remoteEntity.remoteId!);
 
-        final local =
-        _localSource.getByRemoteId(remoteEntity.remoteId!);
+        final local = _localSource.getByRemoteId(remoteEntity.remoteId!);
 
         final entityToSave = remoteEntity.toEntity();
         entityToSave.id = 0;
@@ -108,7 +107,6 @@ class CardRepositoryImpl implements CardRepository, SyncableRepository {
     } catch (e) {
       print('Error fetching remote cards: $e');
     }
-
   }
 
   @override
@@ -135,7 +133,7 @@ class CardRepositoryImpl implements CardRepository, SyncableRepository {
 
               uploadedUrl = await _remoteSource.uploadFile(
                 file,
-                'user_cards_images',
+                e.userId,
                 '${e.userId}_${e.remoteId}_${DateTime.now()}.jpg',
               );
 
@@ -179,6 +177,7 @@ class CardRepositoryImpl implements CardRepository, SyncableRepository {
       }
     }
   }
+
   Future<void> _syncImageIfNeeded(UserCardRemoteEntity remote) async {
     if (remote.localImgPath.isEmpty) return;
 
@@ -187,27 +186,24 @@ class CardRepositoryImpl implements CardRepository, SyncableRepository {
     if (await file.exists()) return;
 
     if (remote.arasaacId != null && remote.arasaacId != 0) {
-      await ImageUtil.saveImageFromUrl(ARASAACService().getPictogramUrl(remote.arasaacId!));
+      await ImageUtil.saveImageFromUrl(
+        ARASAACService().getPictogramUrl(remote.arasaacId!),
+      );
       return;
     }
 
-    if (remote.remoteImagePath != null &&
-        remote.remoteImagePath!.isNotEmpty) {
-      final ref =
-      FirebaseStorage.instance.refFromURL(remote.remoteImagePath!);
+    if (remote.remoteImagePath != null && remote.remoteImagePath!.isNotEmpty) {
+      final ref = FirebaseStorage.instance.refFromURL(remote.remoteImagePath!);
 
-        final filePath = remote.localImgPath;
-        final file = File(filePath);
+      final filePath = remote.localImgPath;
+      final file = File(filePath);
 
-        try {
-          final task = ref.writeToFile(file);
-          await task;
-        } catch (e) {
-          print('Image download failed: $e');
-        }
-
+      try {
+        final task = ref.writeToFile(file);
+        await task;
+      } catch (e) {
+        print('Image download failed: $e');
+      }
     }
   }
-
-
 }

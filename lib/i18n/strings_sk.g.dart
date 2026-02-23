@@ -213,6 +213,11 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get preparing_pdf => 'Pripravujem PDF...';
 	@override String get or => 'alebo';
 	@override String get unknown_error => 'Nastala neznáma chyba. Prosím opakujte pokus neskôr.';
+	@override String get delete_account => 'Naozaj chcete vymazať váš účet?';
+	@override String get delete_account_info => 'Túto akciu nie je možné vrátiť späť. Všetky vaŠe dáta budú vymazané!';
+	@override String get delete_reauthenticate => 'Pre vymazanie vášho účtu sa prosím odhláste a prihláste, aby ste sa re-autorizovali.';
+	@override String get delete_success => 'Účet bol úspešne odstránený.';
+	@override String get delete_account_name => 'Odstrániť účet';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -384,6 +389,11 @@ extension on TranslationsSk {
 			'preparing_pdf' => 'Pripravujem PDF...',
 			'or' => 'alebo',
 			'unknown_error' => 'Nastala neznáma chyba. Prosím opakujte pokus neskôr.',
+			'delete_account' => 'Naozaj chcete vymazať váš účet?',
+			'delete_account_info' => 'Túto akciu nie je možné vrátiť späť. Všetky vaŠe dáta budú vymazané!',
+			'delete_reauthenticate' => 'Pre vymazanie vášho účtu sa prosím odhláste a prihláste, aby ste sa re-autorizovali.',
+			'delete_success' => 'Účet bol úspešne odstránený.',
+			'delete_account_name' => 'Odstrániť účet',
 			_ => null,
 		};
 	}

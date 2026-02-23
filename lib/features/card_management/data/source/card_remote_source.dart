@@ -10,24 +10,32 @@ import '../model/user_card_entity.dart';
 class CardRemoteSource {
   final FirebaseFirestore _firestore;
   final FirebaseStorage _storage;
-  final String collectionPath = 'user_cards';
+
+  CollectionReference<Map<String, dynamic>> _userCardsRef(String uid) {
+    return _firestore.collection('users').doc(uid).collection('user_cards');
+  }
 
   CardRemoteSource({FirebaseFirestore? firestore, FirebaseStorage? storage})
     : _firestore = firestore ?? FirebaseFirestore.instance,
       _storage = storage ?? FirebaseStorage.instance;
 
-  Future<String> uploadFile(File file, String folder, String filename) async {
-    final ref = _storage.ref().child('$folder/$filename');
+  Future<String> uploadFile(File file, String uid, String filename) async {
+    final ref = _storage.ref().child(
+      'users/$uid/eating_habits_images/$filename',
+    );
     await ref.putFile(file);
     return await ref.getDownloadURL();
   }
 
-  Future<String> createRemote(UserCardRemoteEntity entity, {File? file}) async {
+  Future<String> createRemote(UserCardRemoteEntity entity) async {
+    final uid = entity.userId;
+
     final docRef = entity.remoteId != null
-        ? _firestore.collection(collectionPath).doc(entity.remoteId)
-        : _firestore.collection(collectionPath).doc();
+        ? _userCardsRef(uid).doc(entity.remoteId)
+        : _userCardsRef(uid).doc();
 
     await docRef.set(_entityToMap(entity));
+
     return docRef.id;
   }
 
@@ -40,14 +48,14 @@ class CardRemoteSource {
     }
   }
 
-  Future<void> updateRemote(UserCardRemoteEntity entity, {File? file}) async {
-    if (entity.remoteId == null) throw ArgumentError('remoteId is null');
+  Future<void> updateRemote(UserCardRemoteEntity entity) async {
+    if (entity.remoteId == null) {
+      throw ArgumentError('remoteId is null');
+    }
 
-    final docRef = _firestore
-        .collection(collectionPath)
-        .doc(entity.remoteId.toString());
+    final docRef = _userCardsRef(entity.userId).doc(entity.remoteId);
 
-    if (((entity.localImgPath.isEmpty)) &&
+    if (entity.localImgPath.isEmpty &&
         entity.remoteImagePath != null &&
         entity.remoteImagePath!.isNotEmpty) {
       await deleteRemoteImage(entity.remoteImagePath!);
@@ -59,11 +67,9 @@ class CardRemoteSource {
   Future<void> deleteRemote(UserCardEntity entity) async {
     if (entity.remoteId == null) return;
 
-    final docRef = _firestore
-        .collection(collectionPath)
-        .doc(entity.remoteId.toString());
+    final uid = entity.userId;
 
-    await docRef.delete();
+    await _userCardsRef(uid).doc(entity.remoteId).delete();
 
     if (entity.remoteImgPath != null && entity.remoteImgPath!.isNotEmpty) {
       await deleteRemoteImage(entity.remoteImgPath!);
@@ -74,12 +80,9 @@ class CardRemoteSource {
     required String userId,
   }) async {
     try {
-      final querySnapshot = await _firestore
-          .collection(collectionPath)
-          .where('userId', isEqualTo: userId)
-          .get();
+      final snapshot = await _userCardsRef(userId).get();
 
-      return querySnapshot.docs.map((doc) => mapFromSnapshot(doc)).toList();
+      return snapshot.docs.map((doc) => mapFromSnapshot(doc)).toList();
     } catch (e) {
       print('Error fetching remote user cards: $e');
       return [];

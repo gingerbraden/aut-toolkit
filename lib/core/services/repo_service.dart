@@ -1,3 +1,4 @@
+import 'package:aut_toolkit/core/services/firebase_service.dart';
 import 'package:aut_toolkit/core/services/sync_manager.dart';
 import 'package:aut_toolkit/features/aac_keyboard/data/aac_keyboard_repository_impl.dart';
 import 'package:aut_toolkit/features/aac_keyboard/data/source/aac_keyboard_local_source.dart';
@@ -99,7 +100,10 @@ class RepoService {
     );
 
     aacKeyboardRepositoryImpl = AACKeyboardRepositoryImpl(
-      AACKeyboardLocalSource(objectbox.aacKeyboardBox, objectbox.keyboardSlotBox),
+      AACKeyboardLocalSource(
+        objectbox.aacKeyboardBox,
+        objectbox.keyboardSlotBox,
+      ),
       AACKeyboardRemoteSource(),
       syncManager,
     );
@@ -125,5 +129,9 @@ class RepoService {
     await firstThenBoardRepositoryImpl.fetchRemote();
     await visualListRepositoryImpl.fetchRemote();
     await aacKeyboardRepositoryImpl.fetchRemote();
+  }
+
+  Future<void> deleteAlLForUser() async {
+    await FirebaseService().deleteAccount();
   }
 }

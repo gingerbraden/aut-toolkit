@@ -31,4 +31,9 @@ class CardLocalSource {
     q.close();
     return result;
   }
+
+  void removeAll() {
+    final all = cardBox.getAll();
+    cardBox.removeMany(all.map((e) => e.id).toList());
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:aut_toolkit/features/authentication/provider/authentication_notifier.dart';
 import 'package:aut_toolkit/features/settings/view/app_language_tile.dart';
+import 'package:aut_toolkit/features/settings/view/delete_account_tile.dart';
 import 'package:aut_toolkit/features/settings/view/log_out_tile.dart';
 import 'package:aut_toolkit/features/settings/view/selected_person_management_tile.dart';
 import 'package:aut_toolkit/features/settings/view/theme_mode_tile.dart';
@@ -46,6 +47,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           const Divider(),
           TtsSettingsTile(),
           const Divider(),
+          DeleteAccountTile(),
         ],
       ),
     );

@@ -1,52 +1,57 @@
-import 'dart:io';
 import 'package:aut_toolkit/features/good_habits/data/model/good_habit_remote_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
 import '../../../../core/model/sync_entity.dart';
 import '../model/good_habit_entity.dart';
 
 class GoodHabitRemoteSource {
   final FirebaseFirestore _firestore;
-  final String collectionPath = 'good_habits';
 
-  GoodHabitRemoteSource({FirebaseFirestore? firestore, FirebaseStorage? storage})
-      : _firestore = firestore ?? FirebaseFirestore.instance;
+  CollectionReference<Map<String, dynamic>> _userHabitsRef(String uid) {
+    return _firestore.collection('users').doc(uid).collection('good_habits');
+  }
 
-  Future<String> createRemote(GoodHabitRemoteEntity entity, {File? file}) async {
+  GoodHabitRemoteSource({
+    FirebaseFirestore? firestore,
+    FirebaseStorage? storage,
+  }) : _firestore = firestore ?? FirebaseFirestore.instance;
+
+  Future<String> createRemote(GoodHabitRemoteEntity entity) async {
+    final uid = entity.userId;
+
     final docRef = entity.remoteId != null
-        ? _firestore.collection(collectionPath).doc(entity.remoteId)
-        : _firestore.collection(collectionPath).doc();
-    Map<String, dynamic> data = _entityToMap(entity);
-    await docRef.set(data);
+        ? _userHabitsRef(uid).doc(entity.remoteId)
+        : _userHabitsRef(uid).doc();
+
+    await docRef.set(_entityToMap(entity));
+
     return docRef.id;
   }
 
-  Future<void> updateRemote(GoodHabitRemoteEntity entity, {File? file}) async {
-    if (entity.remoteId == null) throw ArgumentError('remoteId is null');
-    final docRef = _firestore.collection(collectionPath).doc(entity.remoteId.toString());
-    final data = _entityToMap(entity);
+  Future<void> updateRemote(GoodHabitRemoteEntity entity) async {
+    if (entity.remoteId == null) {
+      throw ArgumentError('remoteId is null');
+    }
 
-    await docRef.update(data);
+    final docRef = _userHabitsRef(entity.userId).doc(entity.remoteId);
+
+    await docRef.update(_entityToMap(entity));
   }
 
   Future<void> deleteRemote(GoodHabitEntity entity) async {
-    if (entity.remoteId == null) {
-      return;
-    }
-    final docRef = _firestore.collection(collectionPath).doc(entity.remoteId.toString());
-    await docRef.delete();
+    if (entity.remoteId == null) return;
+
+    await _userHabitsRef(entity.userId).doc(entity.remoteId).delete();
   }
 
-  Future<List<GoodHabitRemoteEntity>> getAllRemote({required String userId}) async {
+  Future<List<GoodHabitRemoteEntity>> getAllRemote({
+    required String userId,
+  }) async {
     try {
-      final querySnapshot = await _firestore
-          .collection(collectionPath)
-          .where('userId', isEqualTo: userId)
-          .get();
+      final snapshot = await _userHabitsRef(userId).get();
 
-      return querySnapshot.docs
-          .map((doc) => mapFromSnapshot(doc))
-          .toList();
+      return snapshot.docs.map((doc) => mapFromSnapshot(doc)).toList();
     } catch (e) {
       print('Error fetching remote habits: $e');
       return [];
@@ -71,26 +76,25 @@ class GoodHabitRemoteSource {
     };
   }
 
-
   GoodHabitRemoteEntity mapFromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> snap
-      ) {
+    DocumentSnapshot<Map<String, dynamic>> snap,
+  ) {
     final d = snap.data() ?? {};
 
     return GoodHabitRemoteEntity(
-      localId: d['localId'] ?? 0,
-      from: DateTime.parse(d['from']),
-      to: d['to'] != null ? DateTime.parse(d['to']) : null,
-      userId: d['userId'] ?? '',
-      name: d['name'] ?? '',
-      description: d['description'] ?? '',
-      isOccuringFlag: d['isOccuringFlag'] ?? false,
-      selectedPersonId: d['selectedPersonId'] ?? '',
+        localId: d['localId'] ?? 0,
+        from: DateTime.parse(d['from']),
+        to: d['to'] != null ? DateTime.parse(d['to']) : null,
+        userId: d['userId'] ?? '',
+        name: d['name'] ?? '',
+        description: d['description'] ?? '',
+        isOccuringFlag: d['isOccuringFlag'] ?? false,
+        selectedPersonId: d['selectedPersonId'] ?? '',
 
-      updatedAt: d['updatedAt'] != null
-          ? DateTime.parse(d['updatedAt'])
-          : DateTime.now(),
-    )
+        updatedAt: d['updatedAt'] != null
+            ? DateTime.parse(d['updatedAt'])
+            : DateTime.now(),
+      )
       ..remoteId = snap.id
       ..isSynced = true
       ..isDeleted = d['isDeleted'] ?? false

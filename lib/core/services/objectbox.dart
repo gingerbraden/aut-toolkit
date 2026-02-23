@@ -16,7 +16,8 @@ class ObjectBox {
 
   late final Box<EatingHabitEntity> eatingHabitEntityBox;
   late final Box<ChallengingBehaviourEntity> challengingBehaviourBox;
-  late final Box<ChallengingBehaviourDiaryEntryEntity> challengingBehaviourDiaryEntryBox;
+  late final Box<ChallengingBehaviourDiaryEntryEntity>
+  challengingBehaviourDiaryEntryBox;
   late final Box<GoodHabitEntity> goodHabitBox;
   late final Box<SelectedPersonEntity> selectedPersonBox;
   late final Box<UserCardEntity> cardBox;
@@ -28,7 +29,8 @@ class ObjectBox {
   ObjectBox._create(this.store) {
     eatingHabitEntityBox = Box<EatingHabitEntity>(store);
     challengingBehaviourBox = Box<ChallengingBehaviourEntity>(store);
-    challengingBehaviourDiaryEntryBox = Box<ChallengingBehaviourDiaryEntryEntity>(store);
+    challengingBehaviourDiaryEntryBox =
+        Box<ChallengingBehaviourDiaryEntryEntity>(store);
     goodHabitBox = Box<GoodHabitEntity>(store);
     selectedPersonBox = Box<SelectedPersonEntity>(store);
     cardBox = Box<UserCardEntity>(store);
@@ -42,5 +44,20 @@ class ObjectBox {
     final docsDir = await getApplicationDocumentsDirectory();
     final store = await openStore(directory: '${docsDir.path}/objectbox');
     return ObjectBox._create(store);
+  }
+}
+
+extension ObjectBoxWipe on ObjectBox {
+  Future<void> wipeAllData() async {
+    eatingHabitEntityBox.removeAll();
+    challengingBehaviourBox.removeAll();
+    challengingBehaviourDiaryEntryBox.removeAll();
+    goodHabitBox.removeAll();
+    selectedPersonBox.removeAll();
+    cardBox.removeAll();
+    firstThenBoardBox.removeAll();
+    visualListBox.removeAll();
+    keyboardSlotBox.removeAll();
+    aacKeyboardBox.removeAll();
   }
 }

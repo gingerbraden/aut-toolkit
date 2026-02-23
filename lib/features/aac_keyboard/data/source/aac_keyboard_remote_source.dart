@@ -6,15 +6,19 @@ import '../model/keyboard_slot_remote_entity.dart';
 
 class AACKeyboardRemoteSource {
   final FirebaseFirestore _firestore;
-  final String keyboardCollection = 'aac_keyboards';
+
+  CollectionReference<Map<String, dynamic>> _userKeyboardsRef(String uid) {
+    return _firestore.collection('users').doc(uid).collection('aac_keyboards');
+  }
 
   AACKeyboardRemoteSource({FirebaseFirestore? firestore})
     : _firestore = firestore ?? FirebaseFirestore.instance;
 
   Future<String> createKeyboard(AACKeyboardRemoteEntity entity) async {
+    final uid = entity.userId;
     final docRef = entity.remoteId != null
-        ? _firestore.collection(keyboardCollection).doc(entity.remoteId)
-        : _firestore.collection(keyboardCollection).doc();
+        ? _userKeyboardsRef(uid).doc(entity.remoteId)
+        : _userKeyboardsRef(uid).doc();
 
     await docRef.set(_keyboardToMap(entity));
     return docRef.id;
@@ -22,18 +26,15 @@ class AACKeyboardRemoteSource {
 
   Future<void> updateKeyboard(AACKeyboardRemoteEntity entity) async {
     if (entity.remoteId == null) throw ArgumentError('remoteId is null');
-    final docRef = _firestore
-        .collection(keyboardCollection)
-        .doc(entity.remoteId);
 
+    final docRef = _userKeyboardsRef(entity.userId).doc(entity.remoteId);
     await docRef.update(_keyboardToMap(entity));
   }
 
   Future<void> deleteKeyboard(AACKeyboardRemoteEntity entity) async {
     if (entity.remoteId == null) return;
-    final docRef = _firestore
-        .collection(keyboardCollection)
-        .doc(entity.remoteId);
+
+    final docRef = _userKeyboardsRef(entity.userId).doc(entity.remoteId);
     await docRef.delete();
   }
 
@@ -41,12 +42,8 @@ class AACKeyboardRemoteSource {
     required String userId,
   }) async {
     try {
-      final querySnapshot = await _firestore
-          .collection(keyboardCollection)
-          .where('userId', isEqualTo: userId)
-          .get();
-
-      return querySnapshot.docs.map(_keyboardFromSnapshot).toList();
+      final snapshot = await _userKeyboardsRef(userId).get();
+      return snapshot.docs.map(_keyboardFromSnapshot).toList();
     } catch (e) {
       print('Error fetching keyboards: $e');
       return [];
@@ -55,17 +52,13 @@ class AACKeyboardRemoteSource {
 
   Future<List<KeyboardSlotRemoteEntity>> getSlots({
     required String keyboardRemoteId,
+    required String userId,
   }) async {
-    final snap = await _firestore
-        .collection(keyboardCollection)
-        .doc(keyboardRemoteId)
-        .get();
-
+    final snap = await _userKeyboardsRef(userId).doc(keyboardRemoteId).get();
     if (!snap.exists) return [];
 
     final data = snap.data() ?? {};
-    final rawSlots = (data['slots'] as List?) ?? const [];
-
+    final rawSlots = (data['slots'] as List?) ?? [];
     return rawSlots
         .map((m) => _slotFromMap(Map<String, dynamic>.from(m as Map)))
         .toList();
@@ -73,17 +66,15 @@ class AACKeyboardRemoteSource {
 
   Future<void> createSlot({
     required String keyboardRemoteId,
+    required String userId,
     required KeyboardSlotRemoteEntity slot,
   }) async {
-    final docRef = _firestore
-        .collection(keyboardCollection)
-        .doc(keyboardRemoteId);
+    final docRef = _userKeyboardsRef(userId).doc(keyboardRemoteId);
 
     await _firestore.runTransaction((tx) async {
       final snap = await tx.get(docRef);
-      if (!snap.exists) {
+      if (!snap.exists)
         throw StateError('Keyboard $keyboardRemoteId does not exist');
-      }
 
       final data = snap.data() ?? {};
       final slotsRaw = (data['slots'] as List?) ?? [];
@@ -92,7 +83,6 @@ class AACKeyboardRemoteSource {
           .toList();
 
       final int slotId = slot.id!;
-
       final idx = slots.indexWhere(
         (s) => (s['remoteId'] ?? '') == slot.remoteId,
       );
@@ -113,17 +103,15 @@ class AACKeyboardRemoteSource {
 
   Future<void> updateSlot({
     required String keyboardRemoteId,
+    required String userId,
     required KeyboardSlotRemoteEntity slot,
   }) async {
-    final docRef = _firestore
-        .collection(keyboardCollection)
-        .doc(keyboardRemoteId);
+    final docRef = _userKeyboardsRef(userId).doc(keyboardRemoteId);
 
     await _firestore.runTransaction((tx) async {
       final snap = await tx.get(docRef);
-      if (!snap.exists) {
+      if (!snap.exists)
         throw StateError('Keyboard $keyboardRemoteId does not exist');
-      }
 
       final data = snap.data() ?? {};
       final slotsRaw = (data['slots'] as List?) ?? [];
@@ -134,9 +122,8 @@ class AACKeyboardRemoteSource {
       final idx = slots.indexWhere(
         (s) => (s['remoteId'] ?? '') == slot.remoteId,
       );
-      if (idx == -1) {
+      if (idx == -1)
         throw StateError('Slot with id=${slot.id} not found in keyboard');
-      }
 
       slots[idx] = _slotToMap(slot);
 
@@ -149,12 +136,11 @@ class AACKeyboardRemoteSource {
 
   Future<void> deleteSlot({
     required String keyboardRemoteId,
+    required String userId,
     required String remoteId,
     bool softDelete = false,
   }) async {
-    final docRef = _firestore
-        .collection(keyboardCollection)
-        .doc(keyboardRemoteId);
+    final docRef = _userKeyboardsRef(userId).doc(keyboardRemoteId);
 
     await _firestore.runTransaction((tx) async {
       final snap = await tx.get(docRef);

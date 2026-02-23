@@ -174,5 +174,10 @@
   "choose_cover_and_save" : "Vybrať ikonu a vytvoriť priečinok",
   "preparing_pdf": "Pripravujem PDF...",
   "or": "alebo",
-  "unknown_error": "Nastala neznáma chyba. Prosím opakujte pokus neskôr."
+  "unknown_error": "Nastala neznáma chyba. Prosím opakujte pokus neskôr.",
+  "delete_account": "Naozaj chcete vymazať váš účet?",
+  "delete_account_info": "Túto akciu nie je možné vrátiť späť. Všetky vaŠe dáta budú vymazané!",
+  "delete_reauthenticate": "Pre vymazanie vášho účtu sa prosím odhláste a prihláste, aby ste sa re-autorizovali.",
+  "delete_success": "Účet bol úspešne odstránený.",
+  "delete_account_name": "Odstrániť účet"
 }

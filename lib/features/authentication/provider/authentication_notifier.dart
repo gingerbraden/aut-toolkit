@@ -73,6 +73,17 @@ class AuthentificationNotifier extends Notifier<User?> {
   }
 
   User? getUser() => state;
+
+  Future<String?> deleteAccount() async {
+    final result = await _firebaseService.deleteAccount();
+
+    if (result == null) {
+      await _googleSignIn.signOut();
+      state = null;
+    }
+
+    return result;
+  }
 }
 
 final authentificationNotifierProvider =

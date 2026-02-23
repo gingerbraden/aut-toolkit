@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,58 +8,54 @@ import '../model/challenging_behaviour_remote_entity.dart';
 
 class ChallengingBehaviourRemoteSource {
   final FirebaseFirestore _firestore;
-  final String collectionPath = 'challenging_behaviour';
+
+  CollectionReference<Map<String, dynamic>> _userBehavioursRef(String uid) {
+    return _firestore
+        .collection('users')
+        .doc(uid)
+        .collection('challenging_behaviour');
+  }
 
   ChallengingBehaviourRemoteSource({
     FirebaseFirestore? firestore,
     FirebaseStorage? storage,
   }) : _firestore = firestore ?? FirebaseFirestore.instance;
 
-  Future<String> createRemote(
-    ChallengingBehaviourRemoteEntity entity, {
-    File? file,
-  }) async {
+  Future<String> createRemote(ChallengingBehaviourRemoteEntity entity) async {
+    final uid = entity.userId;
+
     final docRef = entity.remoteId != null
-        ? _firestore.collection(collectionPath).doc(entity.remoteId)
-        : _firestore.collection(collectionPath).doc();
-    Map<String, dynamic> data = _entityToMap(entity);
-    await docRef.set(data);
+        ? _userBehavioursRef(uid).doc(entity.remoteId)
+        : _userBehavioursRef(uid).doc();
+
+    await docRef.set(_entityToMap(entity));
+
     return docRef.id;
   }
 
-  Future<void> updateRemote(
-    ChallengingBehaviourRemoteEntity entity, {
-    File? file,
-  }) async {
-    if (entity.remoteId == null) throw ArgumentError('remoteId is null');
-    final docRef = _firestore
-        .collection(collectionPath)
-        .doc(entity.remoteId.toString());
-    final data = _entityToMap(entity);
+  Future<void> updateRemote(ChallengingBehaviourRemoteEntity entity) async {
+    if (entity.remoteId == null) {
+      throw ArgumentError('remoteId is null');
+    }
 
-    await docRef.update(data);
+    await _userBehavioursRef(
+      entity.userId,
+    ).doc(entity.remoteId).update(_entityToMap(entity));
   }
 
   Future<void> deleteRemote(ChallengingBehaviourEntity entity) async {
-    if (entity.remoteId == null) {
-      return;
-    }
-    final docRef = _firestore
-        .collection(collectionPath)
-        .doc(entity.remoteId.toString());
-    await docRef.delete();
+    if (entity.remoteId == null) return;
+
+    await _userBehavioursRef(entity.userId).doc(entity.remoteId).delete();
   }
 
   Future<List<ChallengingBehaviourRemoteEntity>> getAllRemote({
     required String userId,
   }) async {
     try {
-      final querySnapshot = await _firestore
-          .collection(collectionPath)
-          .where('userId', isEqualTo: userId)
-          .get();
+      final snapshot = await _userBehavioursRef(userId).get();
 
-      return querySnapshot.docs.map((doc) => mapFromSnapshot(doc)).toList();
+      return snapshot.docs.map((doc) => mapFromSnapshot(doc)).toList();
     } catch (e) {
       print('Error fetching remote challenging behaviours: $e');
       return [];

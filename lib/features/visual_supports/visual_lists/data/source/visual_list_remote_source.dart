@@ -6,7 +6,10 @@ import '../model/visual_list_remote_entity.dart';
 
 class VisualListRemoteSource {
   final FirebaseFirestore _firestore;
-  final String collectionPath = 'visual_lists';
+
+  CollectionReference<Map<String, dynamic>> _userVisualListsRef(String uid) {
+    return _firestore.collection('users').doc(uid).collection('visual_lists');
+  }
 
   VisualListRemoteSource({
     FirebaseFirestore? firestore,
@@ -14,31 +17,26 @@ class VisualListRemoteSource {
   }) : _firestore = firestore ?? FirebaseFirestore.instance;
 
   Future<String> createRemote(VisualListRemoteEntity entity) async {
+    final uid = entity.userId;
     final docRef = entity.remoteId != null
-        ? _firestore.collection(collectionPath).doc(entity.remoteId)
-        : _firestore.collection(collectionPath).doc();
+        ? _userVisualListsRef(uid).doc(entity.remoteId)
+        : _userVisualListsRef(uid).doc();
 
     await docRef.set(_entityToMap(entity));
     return docRef.id;
   }
 
   Future<void> updateRemote(VisualListRemoteEntity entity) async {
-    if (entity.remoteId == null) {
-      throw ArgumentError('remoteId is null');
-    }
+    if (entity.remoteId == null) throw ArgumentError('remoteId is null');
 
-    final docRef =
-    _firestore.collection(collectionPath).doc(entity.remoteId.toString());
-
+    final docRef = _userVisualListsRef(entity.userId).doc(entity.remoteId);
     await docRef.update(_entityToMap(entity));
   }
 
   Future<void> deleteRemote(VisualListRemoteEntity entity) async {
     if (entity.remoteId == null) return;
 
-    final docRef =
-    _firestore.collection(collectionPath).doc(entity.remoteId.toString());
-
+    final docRef = _userVisualListsRef(entity.userId).doc(entity.remoteId);
     await docRef.delete();
   }
 
@@ -46,14 +44,8 @@ class VisualListRemoteSource {
     required String userId,
   }) async {
     try {
-      final querySnapshot = await _firestore
-          .collection(collectionPath)
-          .where('userId', isEqualTo: userId)
-          .get();
-
-      return querySnapshot.docs
-          .map((doc) => mapFromSnapshot(doc))
-          .toList();
+      final snapshot = await _userVisualListsRef(userId).get();
+      return snapshot.docs.map(mapFromSnapshot).toList();
     } catch (e) {
       print('Error fetching remote visual lists: $e');
       return [];
@@ -77,24 +69,24 @@ class VisualListRemoteSource {
   }
 
   VisualListRemoteEntity mapFromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> snap,
-      ) {
+    DocumentSnapshot<Map<String, dynamic>> snap,
+  ) {
     final d = snap.data() ?? {};
 
     return VisualListRemoteEntity(
-      localId: d['localId'] ?? 0,
-      userId: d['userId'] ?? '',
-      name: d['name'] ?? '',
-      isVisualSchedule: d['isVisualSchedule'] ?? false,
-      isVisualDiagram: d['isVisualDiagram'] ?? false,
-      stepsOrderJson: d['stepsOrderJson'],
-      updatedAt: d['updatedAt'] != null
-          ? DateTime.parse(d['updatedAt'])
-          : DateTime.now(),
-      steps: (d['steps'] as List<dynamic>? ?? [])
-          .map((e) => e as String)
-          .toList(),
-    )
+        localId: d['localId'] ?? 0,
+        userId: d['userId'] ?? '',
+        name: d['name'] ?? '',
+        isVisualSchedule: d['isVisualSchedule'] ?? false,
+        isVisualDiagram: d['isVisualDiagram'] ?? false,
+        stepsOrderJson: d['stepsOrderJson'],
+        updatedAt: d['updatedAt'] != null
+            ? DateTime.parse(d['updatedAt'])
+            : DateTime.now(),
+        steps: (d['steps'] as List<dynamic>? ?? [])
+            .map((e) => e as String)
+            .toList(),
+      )
       ..remoteId = snap.id
       ..isSynced = d['isSynced'] ?? true
       ..isDeleted = d['isDeleted'] ?? false

@@ -1,29 +1,37 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
 import '../../../../core/model/sync_entity.dart';
 import '../model/eating_habit_entity.dart';
 import '../model/eating_habit_remote_entity.dart';
+
 class EatingHabitRemoteSource {
   final FirebaseFirestore _firestore;
   final FirebaseStorage _storage;
-  final String collectionPath = 'eating_habits';
+
+  CollectionReference<Map<String, dynamic>> _userEatingHabitsRef(String uid) {
+    return _firestore.collection('users').doc(uid).collection('eating_habits');
+  }
 
   EatingHabitRemoteSource({
     FirebaseFirestore? firestore,
     FirebaseStorage? storage,
-  })  : _firestore = firestore ?? FirebaseFirestore.instance,
-        _storage = storage ?? FirebaseStorage.instance;
+  }) : _firestore = firestore ?? FirebaseFirestore.instance,
+       _storage = storage ?? FirebaseStorage.instance;
 
-  Future<String> uploadFile(File file, String folder, String filename) async {
-    final ref = _storage.ref().child('$folder/$filename');
+  Future<String> uploadFile(File file, String uid, String filename) async {
+    final ref = _storage.ref().child(
+      'users/$uid/eating_habits_images/$filename',
+    );
     await ref.putFile(file);
     return await ref.getDownloadURL();
   }
 
   Future<void> deleteRemoteImage(String imageUrl) async {
     try {
-      final ref = FirebaseStorage.instance.refFromURL(imageUrl);
+      final ref = _storage.refFromURL(imageUrl);
       await ref.delete();
     } on FirebaseException catch (e) {
       print("Error deleting image: ${e.code}");
@@ -31,9 +39,10 @@ class EatingHabitRemoteSource {
   }
 
   Future<String> createRemote(EatingHabitRemoteEntity entity) async {
+    final uid = entity.userId;
     final docRef = entity.remoteId != null
-        ? _firestore.collection(collectionPath).doc(entity.remoteId)
-        : _firestore.collection(collectionPath).doc();
+        ? _userEatingHabitsRef(uid).doc(entity.remoteId)
+        : _userEatingHabitsRef(uid).doc();
 
     await docRef.set(_entityToMap(entity));
     return docRef.id;
@@ -42,10 +51,11 @@ class EatingHabitRemoteSource {
   Future<void> updateRemote(EatingHabitRemoteEntity entity) async {
     if (entity.remoteId == null) throw ArgumentError('remoteId is null');
 
-    final docRef =
-    _firestore.collection(collectionPath).doc(entity.remoteId.toString());
+    final docRef = _userEatingHabitsRef(entity.userId).doc(entity.remoteId);
 
-    if ((entity.imageFilePath == null || (entity.imageFilePath != null && entity.imageFilePath!.isEmpty)) && entity.remoteImagePath != null && entity.remoteImagePath!.isNotEmpty) {
+    if ((entity.imageFilePath == null || entity.imageFilePath!.isEmpty) &&
+        entity.remoteImagePath != null &&
+        entity.remoteImagePath!.isNotEmpty) {
       await deleteRemoteImage(entity.remoteImagePath!);
     }
 
@@ -55,10 +65,7 @@ class EatingHabitRemoteSource {
   Future<void> deleteRemote(EatingHabitEntity entity) async {
     if (entity.remoteId == null) return;
 
-    final docRef = _firestore
-        .collection(collectionPath)
-        .doc(entity.remoteId.toString());
-
+    final docRef = _userEatingHabitsRef(entity.userId).doc(entity.remoteId);
     await docRef.delete();
 
     if (entity.remoteImgPath != null && entity.remoteImgPath!.isNotEmpty) {
@@ -70,12 +77,8 @@ class EatingHabitRemoteSource {
     required String userId,
   }) async {
     try {
-      final querySnapshot = await _firestore
-          .collection(collectionPath)
-          .where('userId', isEqualTo: userId)
-          .get();
-
-      return querySnapshot.docs.map((doc) => mapFromSnapshot(doc)).toList();
+      final snapshot = await _userEatingHabitsRef(userId).get();
+      return snapshot.docs.map(mapFromSnapshot).toList();
     } catch (e) {
       print('Error fetching remote eating habits: $e');
       return [];
@@ -98,33 +101,33 @@ class EatingHabitRemoteSource {
       'isDeleted': e.isDeleted,
       'pendingAction': e.pendingAction.index,
       'updatedAt': e.updatedAt.toIso8601String(),
-      'remoteImgPath': e.remoteImagePath
+      'remoteImgPath': e.remoteImagePath,
     };
   }
 
   EatingHabitRemoteEntity mapFromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> snap) {
+    DocumentSnapshot<Map<String, dynamic>> snap,
+  ) {
     final d = snap.data() ?? {};
 
     return EatingHabitRemoteEntity(
-      localId: d['localId'] ?? 0,
-      from: DateTime.parse(d['from']),
-      to: d['to'] != null ? DateTime.parse(d['to']) : null,
-      isEatingFlag: d['isEatingFlag'] ?? false,
-      name: d['name'] ?? '',
-      description: d['description'] ?? '',
-      userId: d['userId'] ?? '',
-      selectedPersonId: d['selectedPersonId'] ?? '',
-      imageFilePath: d['imageFilePath'],
-      updatedAt: d['updatedAt'] != null
-          ? DateTime.parse(d['updatedAt'])
-          : DateTime.now(),
-      remoteImagePath: d['remoteImgPath']
-    )
+        localId: d['localId'] ?? 0,
+        from: DateTime.parse(d['from']),
+        to: d['to'] != null ? DateTime.parse(d['to']) : null,
+        isEatingFlag: d['isEatingFlag'] ?? false,
+        name: d['name'] ?? '',
+        description: d['description'] ?? '',
+        userId: d['userId'] ?? '',
+        selectedPersonId: d['selectedPersonId'] ?? '',
+        imageFilePath: d['imageFilePath'],
+        updatedAt: d['updatedAt'] != null
+            ? DateTime.parse(d['updatedAt'])
+            : DateTime.now(),
+        remoteImagePath: d['remoteImgPath'],
+      )
       ..remoteId = snap.id
       ..isSynced = true
       ..isDeleted = d['isDeleted'] ?? false
       ..pendingAction = PendingAction.values[d['pendingAction'] ?? 0];
   }
 }
-
