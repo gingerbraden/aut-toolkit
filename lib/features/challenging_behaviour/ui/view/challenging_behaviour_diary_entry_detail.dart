@@ -72,7 +72,11 @@ class _ChallengingBehaviourDiaryEntryDetailState
               );
 
               if (confirm == true) {
-                viewModel.deleteEntry(ref: ref, entry: widget.entry);
+                viewModel.deleteEntry(
+                  ref: ref,
+                  entry: widget.entry,
+                  cbId: widget.cbId,
+                );
                 router.pop();
               }
             },

@@ -14,7 +14,10 @@ class ChallengingBehaviourDiaryEntryDetailViewModel extends Notifier<void> {
   void deleteEntry({
     required WidgetRef ref,
     required ChallengingBehaviourDiaryEntry entry,
+    required int cbId,
   }) {
-    ref.read(challengingBehavioursProvider.notifier).deleteDiaryEntry(entry);
+    ref
+        .read(challengingBehavioursProvider.notifier)
+        .deleteDiaryEntry(cbId, entry);
   }
 }

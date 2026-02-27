@@ -3,11 +3,15 @@ import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challeng
 
 abstract class ChallengingBehaviourRepository {
   List<ChallengingBehaviour> getAllCb();
+
   void saveCb(ChallengingBehaviour cb);
+
   void deleteCb(ChallengingBehaviour cb);
 
   void addDe(int cbId, ChallengingBehaviourDiaryEntry cbed);
-  void deleteDe(ChallengingBehaviourDiaryEntry cbed);
+
+  void deleteDe(int cbId, ChallengingBehaviourDiaryEntry cbed);
+
   List<ChallengingBehaviourDiaryEntry> getAllDe(int cbId);
 
   Stream<List<ChallengingBehaviour>> watchAll();

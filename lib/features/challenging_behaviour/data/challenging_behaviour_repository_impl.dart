@@ -68,10 +68,22 @@ class ChallengingBehaviourRepositoryImpl
   }
 
   @override
-  void deleteDe(ChallengingBehaviourDiaryEntry cbed) {
-    if (cbed.id != null) {
-      _localSource.deleteDiaryEntry(cbed.id!);
-    }
+  void deleteDe(int cbId, ChallengingBehaviourDiaryEntry cbed) {
+    if (cbed.id == null) return;
+
+    final parent = _localSource.getById(cbId);
+
+    if (parent == null) return;
+
+    _localSource.deleteDiaryEntry(cbed.id!);
+
+    parent.pendingAction = PendingAction.UPDATE.index;
+    parent.isSynced = false;
+    parent.updatedAt = DateTime.now();
+
+    _localSource.putBehaviour(parent);
+
+    _syncManager.processOnce();
   }
 
   @override

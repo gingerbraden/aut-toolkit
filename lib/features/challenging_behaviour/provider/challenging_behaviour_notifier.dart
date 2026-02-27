@@ -88,7 +88,7 @@ class ChallengingBehavioursNotifier
     _repo.addDe(cbId, entry);
   }
 
-  void deleteDiaryEntry(ChallengingBehaviourDiaryEntry entry) {
-    _repo.deleteDe(entry);
+  void deleteDiaryEntry(int cbId, ChallengingBehaviourDiaryEntry entry) {
+    _repo.deleteDe(cbId, entry);
   }
 }
