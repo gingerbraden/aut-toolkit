@@ -570,6 +570,12 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'E-mail already in use. Please log in.'
 	String get account_with_email_exists => 'E-mail already in use. Please log in.';
+
+	/// en: 'Generate a PDF report'
+	String get pdf_report_creation => 'Generate a PDF report';
+
+	/// en: 'Creates a document for sharing. Includes records from the eating habits, challenging behaviours, and good habits.'
+	String get pdf_report_creation_desc => 'Creates a document for sharing. Includes records from the eating habits, challenging behaviours, and good habits.';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -752,6 +758,8 @@ extension on Translations {
 			'really_reset_password' => 'Do you really want to reset your password?',
 			'mail_sent' => 'Password reset link was sent to your e-mail.',
 			'account_with_email_exists' => 'E-mail already in use. Please log in.',
+			'pdf_report_creation' => 'Generate a PDF report',
+			'pdf_report_creation_desc' => 'Creates a document for sharing. Includes records from the eating habits, challenging behaviours, and good habits.',
 			_ => null,
 		};
 	}

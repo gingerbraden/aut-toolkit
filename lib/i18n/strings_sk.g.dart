@@ -224,6 +224,8 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get really_reset_password => 'Naozaj si prajete zmeniť svoje heslo?';
 	@override String get mail_sent => 'Odkaz na zmenu hesla bol odoslaný na Váš e-mail.';
 	@override String get account_with_email_exists => 'E-mail už bol použitý na registráciu. Prosím prihláste sa.';
+	@override String get pdf_report_creation => 'Vygenerovanie PDF reportu';
+	@override String get pdf_report_creation_desc => 'Vytvorenie dokumentu na zdieľanie. Obsahuje záznamy z jedálnička, nevhodných správaní a návykov.';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -406,6 +408,8 @@ extension on TranslationsSk {
 			'really_reset_password' => 'Naozaj si prajete zmeniť svoje heslo?',
 			'mail_sent' => 'Odkaz na zmenu hesla bol odoslaný na Váš e-mail.',
 			'account_with_email_exists' => 'E-mail už bol použitý na registráciu. Prosím prihláste sa.',
+			'pdf_report_creation' => 'Vygenerovanie PDF reportu',
+			'pdf_report_creation_desc' => 'Vytvorenie dokumentu na zdieľanie. Obsahuje záznamy z jedálnička, nevhodných správaní a návykov.',
 			_ => null,
 		};
 	}

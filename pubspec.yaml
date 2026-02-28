@@ -109,6 +109,8 @@ flutter:
   assets:
     - .env
     - res/sk-en.json
+    - res/fonts/NotoSans-Regular.ttf
+    - res/fonts/NotoSans-Bold.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

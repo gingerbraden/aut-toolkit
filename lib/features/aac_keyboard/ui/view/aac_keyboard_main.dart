@@ -187,8 +187,6 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
                   );
 
                   await AACKeyboardPrintUtil.shareWithSharePlus(file);
-
-                  debugPrint('PDF saved: ${file.path}');
                 });
               },
             ),

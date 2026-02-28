@@ -1,6 +1,7 @@
 import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/services/firebase_service.dart';
 import 'package:aut_toolkit/core/services/repo_service.dart';
+import 'package:aut_toolkit/core/services/report_printing_service.dart';
 import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:aut_toolkit/features/selected_person/domain/model/selected_person.dart';
 import 'package:aut_toolkit/features/selected_person/provider/selected_person_notifier.dart';
@@ -64,7 +65,6 @@ class _HomePageState extends ConsumerState<HomePage> {
       }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +145,20 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ],
               ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 8,
+                  bottom: 8,
+                  left: 10,
+                  right: 10,
+                ),
+                child: Divider(),
+              ),
+              _buildCard(
+                t.pdf_report_creation,
+                t.pdf_report_creation_desc,
+                null,
+              ),
             ],
           ),
         ),
@@ -174,7 +188,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                   final newPerson = SelectedPerson(
                     userId: FirebaseService().currentUser!.uid,
                     name: name,
-                    isSelected: false, remoteId: docRef.id, updatedAt: DateTime.now(),
+                    isSelected: false,
+                    remoteId: docRef.id,
+                    updatedAt: DateTime.now(),
                   );
 
                   ref.read(selectedPersonsProvider.notifier).add(newPerson);
@@ -190,11 +206,44 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  Widget _buildCard(String title, String subtitle, String route) {
+  Widget _buildCard(String title, String subtitle, String? route) {
     return InkWell(
       borderRadius: BorderRadius.circular(16),
-      onTap: () {
-        router.push(route);
+      onTap: () async {
+        if (route != null) {
+          router.push(route);
+        } else {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => AlertDialog(
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 24,
+                vertical: 20,
+              ),
+              content: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 260),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(strokeWidth: 3),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(t.preparing_pdf),
+                  ],
+                ),
+              ),
+            ),
+          );
+          await ReportPrintingService().generateAndSharePdf();
+
+          Navigator.of(context).pop();
+        }
       },
       child: Card(
         elevation: 0,
