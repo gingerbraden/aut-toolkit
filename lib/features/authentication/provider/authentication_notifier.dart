@@ -84,6 +84,10 @@ class AuthentificationNotifier extends Notifier<User?> {
 
     return result;
   }
+
+  Future<void> resetPassword(String email) async {
+    await _firebaseService.resetPassword(email);
+  }
 }
 
 final authentificationNotifierProvider =

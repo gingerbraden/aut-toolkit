@@ -26,8 +26,7 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = ref.read(authenticationViewModelProvider.notifier);
-
+    final viewModel = ref.watch(authenticationViewModelProvider.notifier);
     ref.listen<AuthenticationState>(authenticationViewModelProvider, (
       previous,
       next,
@@ -73,7 +72,9 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: PopupMenuButton<AppLocale>(
-        onSelected: (locale) => viewModel.changeLocale(locale.name),
+        onSelected: (locale) => setState(() {
+          viewModel.changeLocale(locale.name);
+        }),
         itemBuilder: (BuildContext context) => AppLocale.values
             .map(
               (locale) => PopupMenuItem<AppLocale>(
@@ -89,7 +90,7 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
 
   List<Widget> _initialText() => [
     Padding(
-      padding: const EdgeInsets.all(25.0),
+      padding: const EdgeInsets.fromLTRB(25, 0, 25, 25),
       child: Text(t.good_day, style: Theme.of(context).textTheme.displayLarge),
     ),
     Padding(
@@ -119,28 +120,70 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
       ),
     ),
     const SizedBox(height: 25),
-    Consumer(
-      builder: (context, ref, _) {
-        final isLoading = ref.watch(authenticationViewModelProvider).loading;
-        return ElevatedButton(
-          onPressed: isLoading
-              ? null
-              : () => viewModel.logIn(
-                  loginEmailController.text,
-                  loginPasswordController.text,
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Consumer(
+          builder: (context, ref, _) {
+            final isLoading = ref
+                .watch(authenticationViewModelProvider)
+                .loading;
+            return ElevatedButton(
+              onPressed: isLoading
+                  ? null
+                  : () => viewModel.logIn(
+                      loginEmailController.text,
+                      loginPasswordController.text,
+                    ),
+              child: isLoading
+                  ? SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 2,
+                      ),
+                    )
+                  : Text(t.log_in_button),
+            );
+          },
+        ),
+        TextButton(
+          onPressed: () async {
+            final TextEditingController emailController =
+                TextEditingController();
+
+            final email = await showDialog<String>(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text(t.password_reset),
+                content: TextField(
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(hintText: t.email),
                 ),
-          child: isLoading
-              ? SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                    strokeWidth: 2,
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text(t.cancel),
                   ),
-                )
-              : Text(t.log_in_button),
-        );
-      },
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, emailController.text.trim());
+                    },
+                    child: Text(t.submit),
+                  ),
+                ],
+              ),
+            );
+
+            if (email != null && email.isNotEmpty) {
+              viewModel.resetPassword(email);
+            }
+          },
+          child: Text(t.forgot_password),
+        ),
+      ],
     ),
     Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -150,11 +193,14 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
         textAlign: TextAlign.center,
       ),
     ),
-    ElevatedButton(
-      onPressed: () {
-        viewModel.logInGoogle();
-      },
-      child: Text(t.sign_in_google),
+    Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: ElevatedButton(
+        onPressed: () {
+          viewModel.logInGoogle();
+        },
+        child: Text(t.sign_in_google),
+      ),
     ),
   ];
 
@@ -172,6 +218,7 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
 
   void _showSignUpDialog(AuthenticationViewModel viewModel) {
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) => AlertDialog(
         title: Text(t.enter_details),
@@ -185,7 +232,10 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
             TextField(
               controller: signInPasswordController,
               obscureText: true,
-              decoration: InputDecoration(labelText: t.password),
+              decoration: InputDecoration(
+                labelText: t.password,
+                helperText: t.invalid_password,
+              ),
             ),
             TextField(
               controller: signInPasswordRepeatController,

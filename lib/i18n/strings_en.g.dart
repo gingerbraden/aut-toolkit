@@ -552,6 +552,24 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Delete account'
 	String get delete_account_name => 'Delete account';
+
+	/// en: 'Forgotten password?'
+	String get forgot_password => 'Forgotten password?';
+
+	/// en: 'Password reset'
+	String get password_reset => 'Password reset';
+
+	/// en: 'Submit'
+	String get submit => 'Submit';
+
+	/// en: 'Do you really want to reset your password?'
+	String get really_reset_password => 'Do you really want to reset your password?';
+
+	/// en: 'Password reset link was sent to your e-mail.'
+	String get mail_sent => 'Password reset link was sent to your e-mail.';
+
+	/// en: 'E-mail already in use. Please log in.'
+	String get account_with_email_exists => 'E-mail already in use. Please log in.';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -728,6 +746,12 @@ extension on Translations {
 			'delete_reauthenticate' => 'To delete your account, please sign out and sign in again to reauthenticate.',
 			'delete_success' => 'Accoun succesfully deleted.',
 			'delete_account_name' => 'Delete account',
+			'forgot_password' => 'Forgotten password?',
+			'password_reset' => 'Password reset',
+			'submit' => 'Submit',
+			'really_reset_password' => 'Do you really want to reset your password?',
+			'mail_sent' => 'Password reset link was sent to your e-mail.',
+			'account_with_email_exists' => 'E-mail already in use. Please log in.',
 			_ => null,
 		};
 	}

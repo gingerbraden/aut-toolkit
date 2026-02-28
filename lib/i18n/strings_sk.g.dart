@@ -218,6 +218,12 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get delete_reauthenticate => 'Pre vymazanie vášho účtu sa prosím odhláste a prihláste, aby ste sa re-autorizovali.';
 	@override String get delete_success => 'Účet bol úspešne odstránený.';
 	@override String get delete_account_name => 'Odstrániť účet';
+	@override String get forgot_password => 'Zabudli ste heslo?';
+	@override String get password_reset => 'Resetovanie hesla';
+	@override String get submit => 'Odoslať';
+	@override String get really_reset_password => 'Naozaj si prajete zmeniť svoje heslo?';
+	@override String get mail_sent => 'Odkaz na zmenu hesla bol odoslaný na Váš e-mail.';
+	@override String get account_with_email_exists => 'E-mail už bol použitý na registráciu. Prosím prihláste sa.';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -394,6 +400,12 @@ extension on TranslationsSk {
 			'delete_reauthenticate' => 'Pre vymazanie vášho účtu sa prosím odhláste a prihláste, aby ste sa re-autorizovali.',
 			'delete_success' => 'Účet bol úspešne odstránený.',
 			'delete_account_name' => 'Odstrániť účet',
+			'forgot_password' => 'Zabudli ste heslo?',
+			'password_reset' => 'Resetovanie hesla',
+			'submit' => 'Odoslať',
+			'really_reset_password' => 'Naozaj si prajete zmeniť svoje heslo?',
+			'mail_sent' => 'Odkaz na zmenu hesla bol odoslaný na Váš e-mail.',
+			'account_with_email_exists' => 'E-mail už bol použitý na registráciu. Prosím prihláste sa.',
 			_ => null,
 		};
 	}

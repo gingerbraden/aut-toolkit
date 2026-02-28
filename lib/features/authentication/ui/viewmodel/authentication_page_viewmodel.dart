@@ -13,7 +13,8 @@ final authenticationViewModelProvider =
 
 class AuthenticationViewModel extends Notifier<AuthenticationState> {
   @override
-  AuthenticationState build() => AuthenticationState(loading: false);
+  AuthenticationState build() =>
+      AuthenticationState(loading: false, isPasswordValid: true);
 
   Future<void> logIn(String email, String password) async {
     state = state.copyWith(loading: true, message: null);
@@ -66,11 +67,15 @@ class AuthenticationViewModel extends Notifier<AuthenticationState> {
         return;
       }
 
-      await ref
+      final error = await ref
           .read(authentificationNotifierProvider.notifier)
           .signUp(email.trim(), password.trim());
 
-      state = state.copyWith(message: t.registration_succesful);
+      if (error != null) {
+        state = state.copyWith(message: error);
+      } else {
+        state = state.copyWith(message: t.registration_succesful);
+      }
     } finally {
       state = state.copyWith(loading: false);
     }
@@ -83,18 +88,35 @@ class AuthenticationViewModel extends Notifier<AuthenticationState> {
   void clearMessage() {
     state = state.copyWith(message: null);
   }
+
+  void resetPassword(String email) {
+    ref.read(authentificationNotifierProvider.notifier).resetPassword(email);
+  }
+
+  void toggleIsPasswordValid(bool valid) =>
+      state = state.copyWith(isPasswordValid: valid);
 }
 
 class AuthenticationState {
   final bool loading;
   final String? message;
+  final bool isPasswordValid;
 
-  AuthenticationState({required this.loading, this.message});
+  AuthenticationState({
+    required this.loading,
+    this.message,
+    required this.isPasswordValid,
+  });
 
-  AuthenticationState copyWith({bool? loading, String? message}) {
+  AuthenticationState copyWith({
+    bool? loading,
+    String? message,
+    bool? isPasswordValid,
+  }) {
     return AuthenticationState(
       loading: loading ?? this.loading,
       message: message,
+      isPasswordValid: isPasswordValid ?? this.isPasswordValid,
     );
   }
 }

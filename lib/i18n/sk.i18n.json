@@ -179,5 +179,11 @@
   "delete_account_info": "Túto akciu nie je možné vrátiť späť. Všetky vaŠe dáta budú vymazané!",
   "delete_reauthenticate": "Pre vymazanie vášho účtu sa prosím odhláste a prihláste, aby ste sa re-autorizovali.",
   "delete_success": "Účet bol úspešne odstránený.",
-  "delete_account_name": "Odstrániť účet"
+  "delete_account_name": "Odstrániť účet",
+  "forgot_password": "Zabudli ste heslo?",
+  "password_reset": "Resetovanie hesla",
+  "submit": "Odoslať",
+  "really_reset_password": "Naozaj si prajete zmeniť svoje heslo?",
+  "mail_sent": "Odkaz na zmenu hesla bol odoslaný na Váš e-mail.",
+  "account_with_email_exists": "E-mail už bol použitý na registráciu. Prosím prihláste sa."
 }

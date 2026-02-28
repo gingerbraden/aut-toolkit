@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+import '../../i18n/strings.g.dart';
+
 class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -22,6 +24,7 @@ class FirebaseService {
       );
       return null;
     } on FirebaseAuthException catch (e) {
+      if (e.code == "email-already-in-use") return t.account_with_email_exists;
       return e.message;
     } catch (e) {
       return 'Unknown error occurred';
@@ -125,5 +128,9 @@ class FirebaseService {
     for (var prefix in result.prefixes) {
       await _deleteFolderRecursive(prefix);
     }
+  }
+
+  Future<void> resetPassword(String email) async {
+    _auth.sendPasswordResetEmail(email: email);
   }
 }

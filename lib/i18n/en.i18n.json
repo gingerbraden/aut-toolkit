@@ -178,5 +178,11 @@
   "delete_account_info": "This action can not be undone. All your data will be wiped!",
   "delete_reauthenticate": "To delete your account, please sign out and sign in again to reauthenticate.",
   "delete_success": "Accoun succesfully deleted.",
-  "delete_account_name": "Delete account"
+  "delete_account_name": "Delete account",
+  "forgot_password": "Forgotten password?",
+  "password_reset": "Password reset",
+  "submit": "Submit",
+  "really_reset_password": "Do you really want to reset your password?",
+  "mail_sent": "Password reset link was sent to your e-mail.",
+  "account_with_email_exists": "E-mail already in use. Please log in."
 }
