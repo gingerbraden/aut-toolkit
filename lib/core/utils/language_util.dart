@@ -1,6 +1,6 @@
 class LanguageUtil {
 
-  static final LANGUAGES = {"sk", "en", "cz"};
+  static final LANGUAGES = {"sk", "en", "cs"};
 
   static Map<String, String> setCardNameToLanguage(Map<String, String> currMap, String currLocale, String newName) {
     Map<String, String> ret = currMap;

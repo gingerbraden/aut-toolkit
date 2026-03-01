@@ -1,3 +1,4 @@
+import 'package:aut_toolkit/core/services/tts_service.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,7 @@ Future main() async {
     },
   );
   LocaleSettings.setLocaleRaw(locale ?? 'sk');
+  TtsService.setLanguage(locale != null ? locale.toUpperCase() : 'SK');
   final initialThemeMode = _themeModeFromString(theme);
   WidgetsFlutterBinding.ensureInitialized();
   objectbox = await ObjectBox.create();

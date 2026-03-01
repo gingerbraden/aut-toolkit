@@ -5,7 +5,7 @@ class TtsService {
 
   static String _currentLocale = 'en-GB';
 
-  static double _speechRate = 1.0;
+  static double _speechRate = 0.8;
   static double _volume = 1.0;
   static double _pitch = 1.0;
 
@@ -24,7 +24,7 @@ class TtsService {
         });
         break;
 
-      case "CZ":
+      case "CS":
         _currentLocale = "cs-CZ";
         await _tts.setLanguage(_currentLocale);
         await _tts.setVoice({
@@ -88,7 +88,7 @@ class TtsService {
     switch(_currentLocale) {
       case "sk-SK": speak(TEST_SK);
       case "en-GB": speak(TEST_ENG);
-      case "cz-CZ": speak(TEST_CZ);
+      case "cs-CZ": speak(TEST_CZ);
     }
   }
 }
