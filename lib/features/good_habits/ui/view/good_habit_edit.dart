@@ -1,4 +1,5 @@
 import 'package:aut_toolkit/core/widgets/icon/occuring_icon.dart';
+import 'package:aut_toolkit/core/widgets/info_small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -62,7 +63,9 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
+          padding: EdgeInsets.symmetric(
+            horizontal: AppConstants.BASE_APP_UI_PADDING,
+          ),
           child: Card(
             child: Padding(
               padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
@@ -83,8 +86,12 @@ class _GoodHabitEditState extends ConsumerState<GoodHabitEdit> {
                     ),
                     const SizedBox(height: 8),
                     _dateFields(formState, formviewModel),
+                    InfoSmallText(description: t.from_to_info),
+                    const SizedBox(height: 8),
                     const Divider(),
                     _isOccuringRadioButtons(formState, formviewModel),
+                    InfoSmallText(description: t.behaviour_occuring_info),
+                    const SizedBox(height: 8),
                     const Divider(),
                     SizedBoxDivider(),
                     TextFormField(

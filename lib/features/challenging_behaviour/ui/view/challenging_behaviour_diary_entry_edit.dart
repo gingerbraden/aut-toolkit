@@ -2,6 +2,7 @@ import 'package:aut_toolkit/core/constants/app_constants.dart';
 import 'package:aut_toolkit/core/utils/date_util.dart';
 import 'package:aut_toolkit/core/widgets/divider/divider_sized_box_divider.dart';
 import 'package:aut_toolkit/core/widgets/divider/sized_box_divider.dart';
+import 'package:aut_toolkit/core/widgets/info_small_text.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour_diary_entry.dart';
 import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class _ChallengingBehaviourDiaryEntryEditState
   late TextEditingController _peopleController;
   late TextEditingController _outcomeController;
   late TextEditingController _reflectionController;
+  final _peopleFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -69,6 +71,7 @@ class _ChallengingBehaviourDiaryEntryEditState
     _peopleController.dispose();
     _outcomeController.dispose();
     _reflectionController.dispose();
+    _peopleFocusNode.dispose();
     super.dispose();
   }
 
@@ -83,11 +86,7 @@ class _ChallengingBehaviourDiaryEntryEditState
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          widget.isNew
-              ? t.create
-              : t.edit,
-        ),
+        title: Text(widget.isNew ? t.create : t.edit),
         centerTitle: true,
         forceMaterialTransparency: true,
         actions: [
@@ -114,7 +113,9 @@ class _ChallengingBehaviourDiaryEntryEditState
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppConstants.BASE_APP_UI_PADDING,
+        ),
         child: Card(
           child: Padding(
             padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
@@ -126,10 +127,18 @@ class _ChallengingBehaviourDiaryEntryEditState
                   SizedBoxDivider(),
                   SizedBoxDivider(),
                   _durationDateFields(state, viewModel),
+                  SizedBox(height: 16),
+                  InfoSmallText(
+                    description: t.challenging_behaviour_duration_info,
+                  ),
                   DividerSizedBoxDivider(),
                   _circumstancesField(),
                   DividerSizedBoxDivider(),
                   _peopleField(state, viewModel),
+                  SizedBox(height: 16),
+                  InfoSmallText(
+                    description: t.challenging_behaviour_people_info,
+                  ),
                   DividerSizedBoxDivider(),
                   _outcomeField(),
                   DividerSizedBoxDivider(),
@@ -232,19 +241,22 @@ class _ChallengingBehaviourDiaryEntryEditState
         const SizedBox(height: 8),
         TextField(
           controller: _peopleController,
+          focusNode: _peopleFocusNode,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             hintText: t.after_typing_enter_submit,
           ),
-          textInputAction: TextInputAction.done,
+          textInputAction: TextInputAction.next,
           onSubmitted: (val) {
             viewModel.addPerson(val);
             _peopleController.clear();
+            _peopleFocusNode.requestFocus();
           },
           onChanged: (val) {
             if (val.endsWith(' ') || val.endsWith(',')) {
               viewModel.addPerson(val.trim().replaceAll(',', ''));
               _peopleController.clear();
+              _peopleFocusNode.requestFocus();
             }
           },
         ),
@@ -275,7 +287,7 @@ class _ChallengingBehaviourDiaryEntryEditState
   Future<void> _pickDateTime(
     BuildContext context,
     ChallengingBehaviourDiaryEntryEditViewModel viewModel,
-      ChallengingBehaviourDiaryEntryEditState state
+    ChallengingBehaviourDiaryEntryEditState state,
   ) async {
     final pickedDate = await showDatePicker(
       context: context,

@@ -188,6 +188,17 @@
   "account_with_email_exists": "E-mail already in use. Please log in.",
   "pdf_report_creation": "Generate a PDF report",
   "pdf_report_creation_desc": "Creates a document for sharing. Includes records from the eating habits, challenging behaviours, and good habits.",
-  "incorrect_password": "Incorrect password"
+  "incorrect_password": "Incorrect password",
+  "add_person_info": "After creating a person, it will be possible to track their eating habits, challenging behaviour, and good habits. You can also add additional people – their records will be kept separate. To access records for another created person, simply select them in this menu. Visual supports and cards are not unique to a specific person.",
+  "from_to_info": "Since when (and possibly until when) is this record valid?",
+  "is_eating_info": "Does the person eat this food or not?",
+  "eating_habit_photo_info": "Photo of the meal, food item, or ingredient.",
+  "eating_habit_name": "Name of the meal, food item, or ingredient...",
+  "from_info": "Since when is this record valid?",
+  "behaviour_occuring_info": "Is this behaviour occuring?",
+  "challenging_behaviour_duration_info": "How long did this behaviour last, and when did it occur?",
+  "challenging_behaviour_people_info": "Who was present?",
+  "visual_schedule_info": "Cards are used to fill the visual schedule/diagram. When you click \"Add Step\", a list of cards will appear — just select any card and it will be added to the schedule. To change the order of steps, use the horizontal icon on the right side of the row for the corresponding card.",
+  "first_then_board_info": "Cards are used to fill the First/Then board. When you click \"First\" or \"Then\", a list of cards will appear — just select any card and it will be added to the board."
 
 }

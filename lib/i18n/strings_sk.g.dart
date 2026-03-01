@@ -228,6 +228,17 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get pdf_report_creation => 'Vygenerovanie PDF reportu';
 	@override String get pdf_report_creation_desc => 'Vytvorenie dokumentu na zdieľanie. Obsahuje záznamy z jedálnička, nevhodných správaní a návykov.';
 	@override String get incorrect_password => 'Nesprávne heslo';
+	@override String get add_person_info => 'Po vytvorení osoby bude možné evidovať jedálniček, nevhodné správanie a návyky. Je možné pridať aj ďalšie osoby - ich záznamy budú oddelené. Pre pristúpenie k záznamom pre inú vytvorenú osobu, stačí ju zvoliť v tomto meu. Vizuálne pomôcky a kartičky nie sú unikátne pre osobu.';
+	@override String get from_to_info => 'Odkedy (prípadne dokedy) je tento zápis aktuálny?';
+	@override String get is_eating_info => 'Toleruje túto potravinu, alebo nie?';
+	@override String get eating_habit_photo_info => 'Fotografia jedla, potraviny, suroviny.';
+	@override String get eating_habit_name => 'Názov jedla, potraviny, suroviny...';
+	@override String get from_info => 'Odkedy je tento zápis aktuálny?';
+	@override String get behaviour_occuring_info => 'Nastáva toto správanie?';
+	@override String get challenging_behaviour_duration_info => 'Koľko toto správanie trvalo, a kedy nastalo?';
+	@override String get challenging_behaviour_people_info => 'Kto bol prítomný?';
+	@override String get visual_schedule_info => 'Pre naplnenie vizuálneho rozvrhu/diagramu sa používajú kartičky. Po kliknutí na "Pridať krok" sa zobrazí zoznam kartičiek, kde stačí ľubovoľnú zvoliť a bude pridaná do rozvrhu. Pre zmenu poradia krokov použite horizontálnu ikonku na pravej strane riadku s danou kartičkou.';
+	@override String get first_then_board_info => 'Pre naplnenie najprv/potom tabuľky sa používajú kartičky. Po kliknutí na "Najprv" alebo "Potom" sa zobrazí zoznam kartičiek, kde stačí ľubovoľnú zvoliť a bude pridaná do tabuľky.';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -414,6 +425,17 @@ extension on TranslationsSk {
 			'pdf_report_creation' => 'Vygenerovanie PDF reportu',
 			'pdf_report_creation_desc' => 'Vytvorenie dokumentu na zdieľanie. Obsahuje záznamy z jedálnička, nevhodných správaní a návykov.',
 			'incorrect_password' => 'Nesprávne heslo',
+			'add_person_info' => 'Po vytvorení osoby bude možné evidovať jedálniček, nevhodné správanie a návyky. Je možné pridať aj ďalšie osoby - ich záznamy budú oddelené. Pre pristúpenie k záznamom pre inú vytvorenú osobu, stačí ju zvoliť v tomto meu. Vizuálne pomôcky a kartičky nie sú unikátne pre osobu.',
+			'from_to_info' => 'Odkedy (prípadne dokedy) je tento zápis aktuálny?',
+			'is_eating_info' => 'Toleruje túto potravinu, alebo nie?',
+			'eating_habit_photo_info' => 'Fotografia jedla, potraviny, suroviny.',
+			'eating_habit_name' => 'Názov jedla, potraviny, suroviny...',
+			'from_info' => 'Odkedy je tento zápis aktuálny?',
+			'behaviour_occuring_info' => 'Nastáva toto správanie?',
+			'challenging_behaviour_duration_info' => 'Koľko toto správanie trvalo, a kedy nastalo?',
+			'challenging_behaviour_people_info' => 'Kto bol prítomný?',
+			'visual_schedule_info' => 'Pre naplnenie vizuálneho rozvrhu/diagramu sa používajú kartičky. Po kliknutí na "Pridať krok" sa zobrazí zoznam kartičiek, kde stačí ľubovoľnú zvoliť a bude pridaná do rozvrhu. Pre zmenu poradia krokov použite horizontálnu ikonku na pravej strane riadku s danou kartičkou.',
+			'first_then_board_info' => 'Pre naplnenie najprv/potom tabuľky sa používajú kartičky. Po kliknutí na "Najprv" alebo "Potom" sa zobrazí zoznam kartičiek, kde stačí ľubovoľnú zvoliť a bude pridaná do tabuľky.',
 			_ => null,
 		};
 	}

@@ -2,6 +2,7 @@ import 'package:aut_toolkit/core/constants/app_constants.dart';
 import 'package:aut_toolkit/core/utils/date_util.dart';
 import 'package:aut_toolkit/core/widgets/divider/sized_box_divider.dart';
 import 'package:aut_toolkit/core/widgets/icon/occuring_icon.dart';
+import 'package:aut_toolkit/core/widgets/info_small_text.dart';
 import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,8 +39,7 @@ class _ChallengingBehaviourEditScreenState
     _descriptionController = TextEditingController(text: widget.cb.description);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(challengingBehaviourEditViewModelProvider(widget.cb).notifier);
+      ref.read(challengingBehaviourEditViewModelProvider(widget.cb).notifier);
     });
   }
 
@@ -52,7 +52,9 @@ class _ChallengingBehaviourEditScreenState
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(challengingBehaviourEditViewModelProvider(widget.cb));
+    final state = ref.watch(
+      challengingBehaviourEditViewModelProvider(widget.cb),
+    );
     final viewModel = ref.read(
       challengingBehaviourEditViewModelProvider(widget.cb).notifier,
     );
@@ -100,9 +102,14 @@ class _ChallengingBehaviourEditScreenState
                 child: Column(
                   children: [
                     _nameTextField(),
+                    SizedBox(height: 8),
                     _dateField(state, viewModel),
+                    InfoSmallText(description: t.from_info),
+                    SizedBox(height: 8),
                     const Divider(),
                     _occuringRadioGroup(state, viewModel),
+                    InfoSmallText(description: t.behaviour_occuring_info),
+                    SizedBox(height: 8),
                     const Divider(),
                     SizedBoxDivider(),
                     _descriptionTextField(),
@@ -155,7 +162,9 @@ class _ChallengingBehaviourEditScreenState
         );
         if (newDate != null) {
           ref
-              .read(challengingBehaviourEditViewModelProvider(widget.cb).notifier)
+              .read(
+                challengingBehaviourEditViewModelProvider(widget.cb).notifier,
+              )
               .updateDate(newDate);
         }
       },

@@ -3,6 +3,7 @@ import 'package:aut_toolkit/core/services/firebase_service.dart';
 import 'package:aut_toolkit/core/services/repo_service.dart';
 import 'package:aut_toolkit/core/services/report_printing_service.dart';
 import 'package:aut_toolkit/core/utils/router_utils.dart';
+import 'package:aut_toolkit/core/widgets/info_small_text.dart';
 import 'package:aut_toolkit/features/selected_person/domain/model/selected_person.dart';
 import 'package:aut_toolkit/features/selected_person/provider/selected_person_notifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -32,7 +33,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       final allPersons = ref.read(selectedPersonsProvider);
 
       if (allPersons.isEmpty) {
-        _showCreatePersonDialog(true);
+        _showCreatePersonDialog();
       }
     });
   }
@@ -159,6 +160,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 t.pdf_report_creation_desc,
                 null,
               ),
+              const SizedBox(height: 8),
             ],
           ),
         ),
@@ -166,44 +168,58 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  void _showCreatePersonDialog(bool isFirst) {
-    showDialog(
-      context: context,
-      barrierDismissible: !isFirst,
-      builder: (context) {
-        String name = '';
-        return AlertDialog(
-          title: Text(t.add_managed_person),
-          content: TextField(
-            onChanged: (value) => name = value,
-            decoration: InputDecoration(hintText: t.create),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (name.isNotEmpty) {
-                  final docRef = FirebaseFirestore.instance
-                      .collection('selected_persons')
-                      .doc();
-                  final newPerson = SelectedPerson(
-                    userId: FirebaseService().currentUser!.uid,
-                    name: name,
-                    isSelected: false,
-                    remoteId: docRef.id,
-                    updatedAt: DateTime.now(),
-                  );
+  Future<bool> _showCreatePersonDialog() async {
+    return await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            String name = '';
+            return AlertDialog(
+              title: Text(t.add_managed_person),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    onChanged: (value) => name = value,
+                    decoration: InputDecoration(hintText: t.name),
+                  ),
+                  SizedBox(height: AppConstants.BASE_APP_UI_PADDING),
+                  InfoSmallText(description: t.add_person_info),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: Text(t.cancel),
+                ),
+                TextButton(
+                  onPressed: () {
+                    if (name.isNotEmpty) {
+                      final docRef = FirebaseFirestore.instance
+                          .collection('selected_persons')
+                          .doc();
+                      final newPerson = SelectedPerson(
+                        userId: FirebaseService().currentUser!.uid,
+                        name: name,
+                        isSelected: false,
+                        remoteId: docRef.id,
+                        updatedAt: DateTime.now(),
+                      );
 
-                  ref.read(selectedPersonsProvider.notifier).add(newPerson);
+                      ref.read(selectedPersonsProvider.notifier).add(newPerson);
 
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(t.create),
-            ),
-          ],
-        );
-      },
-    );
+                      Navigator.of(context).pop(true);
+                    }
+                  },
+                  child: Text(t.create),
+                ),
+              ],
+            );
+          },
+        ) ??
+        false;
   }
 
   Widget _buildCard(String title, String subtitle, String? route) {
@@ -351,9 +367,15 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ),
                     ),
                   ],
-                  onChanged: (person) {
+                  onChanged: (person) async {
                     if (person == null) {
-                      _showCreatePersonDialog(false);
+                      final previousSelected = selected;
+                      final ret = await _showCreatePersonDialog();
+                      if (!ret && previousSelected != null) {
+                        ref
+                            .read(selectedPersonsProvider.notifier)
+                            .add(previousSelected);
+                      }
                     } else {
                       ref.read(selectedPersonsProvider.notifier).add(person);
                     }

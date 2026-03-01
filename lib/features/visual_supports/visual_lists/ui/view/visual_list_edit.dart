@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:aut_toolkit/core/constants/app_constants.dart';
+import 'package:aut_toolkit/core/widgets/info_small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -190,6 +191,11 @@ class _VisualListEditState extends ConsumerState<VisualListEdit> {
                           ),
                       ],
                     ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Divider(),
+                  ),
+                  InfoSmallText(description: t.visual_schedule_info),
                 ],
               ),
             ),

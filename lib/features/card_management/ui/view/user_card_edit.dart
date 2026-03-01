@@ -2,6 +2,7 @@ import 'package:aut_toolkit/app/router.dart';
 import 'package:aut_toolkit/core/constants/app_constants.dart';
 import 'package:aut_toolkit/core/utils/card_util.dart';
 import 'package:aut_toolkit/core/widgets/divider/sized_box_divider.dart';
+import 'package:aut_toolkit/core/widgets/info_small_text.dart';
 import 'package:aut_toolkit/core/widgets/square_image_filled_width.dart';
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
 import 'package:aut_toolkit/i18n/strings.g.dart';
@@ -161,28 +162,7 @@ class _UserCardEditState extends ConsumerState<UserCardEdit> {
                       SquareImageFilledWidth(imageFilePath: state.imagePath!),
                     SizedBoxDivider(),
                     Divider(),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.info_outline,
-                          size: 16,
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            t.card_name_language_info,
-                            style: Theme.of(context).textTheme.labelSmall
-                                ?.copyWith(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurfaceVariant,
-                                ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    InfoSmallText(description: t.card_name_language_info),
                   ],
                 ),
               ),

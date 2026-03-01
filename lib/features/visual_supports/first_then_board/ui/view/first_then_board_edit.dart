@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../app/router.dart';
+import '../../../../../core/widgets/info_small_text.dart';
 import '../../../../../i18n/strings.g.dart';
 import '../../../../card_management/domain/model/user_card.dart';
 import '../../domain/model/first_then_board.dart';
@@ -156,6 +157,11 @@ class _FirstThenBoardEditState extends ConsumerState<FirstThenBoardEdit> {
                           ),
                       ],
                     ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Divider(),
+                  ),
+                  InfoSmallText(description: t.first_then_board_info),
                 ],
               ),
             ),

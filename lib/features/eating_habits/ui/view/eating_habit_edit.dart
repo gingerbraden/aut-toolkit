@@ -1,3 +1,4 @@
+import 'package:aut_toolkit/core/widgets/info_small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -50,7 +51,9 @@ class EatingHabitEdit extends ConsumerWidget {
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppConstants.BASE_APP_UI_PADDING,
+        ),
         child: Card(
           child: Padding(
             padding: EdgeInsets.all(AppConstants.BASE_APP_UI_PADDING),
@@ -59,13 +62,22 @@ class EatingHabitEdit extends ConsumerWidget {
                 _nameTextField(state, viewModel),
                 const SizedBox(height: 8),
                 _dateFields(state, viewModel, context),
+                InfoSmallText(description: t.from_to_info),
+                const SizedBox(height: 8),
+
                 const Divider(),
                 _isEatingRadioButtons(state, viewModel),
+                const SizedBox(height: 8),
+
+                InfoSmallText(description: t.is_eating_info),
+                const SizedBox(height: 8),
                 const Divider(),
+
                 SizedBoxDivider(),
                 _descriptionTextField(state, viewModel),
                 SizedBoxDivider(),
                 _imageButtons(state, viewModel, context),
+                InfoSmallText(description: t.eating_habit_photo_info),
               ],
             ),
           ),
@@ -86,7 +98,7 @@ class EatingHabitEdit extends ConsumerWidget {
     return TextFormField(
       initialValue: state.name,
       decoration: InputDecoration(
-        labelText: t.name,
+        labelText: t.eating_habit_name,
         border: const OutlineInputBorder(),
       ),
       onChanged: viewModel.updateName,
@@ -271,7 +283,6 @@ class EatingHabitEdit extends ConsumerWidget {
                 ),
                 SizedBoxDivider(),
                 SquareImageFilledWidth(imageFilePath: state.imagePath!),
-
               ],
             ),
     );
