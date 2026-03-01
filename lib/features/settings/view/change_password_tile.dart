@@ -19,9 +19,11 @@ class _ChangePasswordTileState extends ConsumerState<ChangePasswordTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      enabled: FirebaseAuth.instance.currentUser!.providerData.any(
-        (p) => p.providerId == 'password',
-      ),
+      enabled: FirebaseAuth.instance.currentUser != null
+          ? FirebaseAuth.instance.currentUser!.providerData.any(
+              (p) => p.providerId == 'password',
+            )
+          : false,
       leading: const Icon(Icons.password),
       title: Text(t.password_reset),
       onTap: isLoading ? null : _confirmSignOut,

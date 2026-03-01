@@ -544,6 +544,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'This action can not be undone. All your data will be wiped!'
 	String get delete_account_info => 'This action can not be undone. All your data will be wiped!';
 
+	/// en: 'To confirm the deletion of your account, please use your password.'
+	String get delete_account_info_password => 'To confirm the deletion of your account, please use your password.';
+
 	/// en: 'To delete your account, please sign out and sign in again to reauthenticate.'
 	String get delete_reauthenticate => 'To delete your account, please sign out and sign in again to reauthenticate.';
 
@@ -576,6 +579,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Creates a document for sharing. Includes records from the eating habits, challenging behaviours, and good habits.'
 	String get pdf_report_creation_desc => 'Creates a document for sharing. Includes records from the eating habits, challenging behaviours, and good habits.';
+
+	/// en: 'Incorrect password'
+	String get incorrect_password => 'Incorrect password';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -749,6 +755,7 @@ extension on Translations {
 			'unknown_error' => 'An unexpected error occured. Please try again later.',
 			'delete_account' => 'Do you really want to delete your account?',
 			'delete_account_info' => 'This action can not be undone. All your data will be wiped!',
+			'delete_account_info_password' => 'To confirm the deletion of your account, please use your password.',
 			'delete_reauthenticate' => 'To delete your account, please sign out and sign in again to reauthenticate.',
 			'delete_success' => 'Accoun succesfully deleted.',
 			'delete_account_name' => 'Delete account',
@@ -760,6 +767,7 @@ extension on Translations {
 			'account_with_email_exists' => 'E-mail already in use. Please log in.',
 			'pdf_report_creation' => 'Generate a PDF report',
 			'pdf_report_creation_desc' => 'Creates a document for sharing. Includes records from the eating habits, challenging behaviours, and good habits.',
+			'incorrect_password' => 'Incorrect password',
 			_ => null,
 		};
 	}

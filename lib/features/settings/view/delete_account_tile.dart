@@ -1,5 +1,7 @@
 import 'package:aut_toolkit/app/router.dart';
+import 'package:aut_toolkit/core/services/firebase_service.dart';
 import 'package:aut_toolkit/features/authentication/provider/authentication_notifier.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -35,11 +37,29 @@ class _DeleteAccountTileState extends ConsumerState<DeleteAccountTile> {
   }
 
   Future<void> _confirmDelete() async {
+    final passwordController = TextEditingController();
+
     final shouldDelete = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(t.delete_account),
-        content: Text(t.delete_account_info),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(t.delete_account_info),
+            if (FirebaseService().checkSignInProvider() == signInMethod.EMAIL) const SizedBox(height: 16), Text(t.delete_account_info_password),
+            const SizedBox(height: 16),
+            if (FirebaseService().checkSignInProvider() == signInMethod.EMAIL)
+              TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: t.password,
+                  border: OutlineInputBorder(),
+                ),
+              ),
+          ],
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -55,26 +75,47 @@ class _DeleteAccountTileState extends ConsumerState<DeleteAccountTile> {
     );
 
     if (shouldDelete == true) {
-      await _deleteAccount();
+      await _deleteAccount(passwordController.text);
     }
+
+    passwordController.dispose();
   }
 
-  Future<void> _deleteAccount() async {
+  Future<void> _deleteAccount(String password) async {
     setState(() => isDeleting = true);
+
+    if (FirebaseService().checkSignInProvider() == signInMethod.EMAIL) {
+      try {
+        final ret = await FirebaseService().reauthenticateUser(password);
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'invalid-credential') {
+          setState(() => isDeleting = false);
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(t.incorrect_password)));
+          return;
+        }
+      }
+    }
+
+    if (FirebaseService().checkSignInProvider() == signInMethod.GOOGLE) {
+      try {
+        FirebaseService().reauthenticateWithGoogle();
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'invalid-credential') {
+          return;
+        }
+      }
+    }
 
     final authNotifier = ref.read(authentificationNotifierProvider.notifier);
     final result = await authNotifier.deleteAccount();
 
-    setState(() => isDeleting = false);
-
-    if (result == 'requires-recent-login') {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(t.delete_reauthenticate)));
-    } else if (result != null) {
+    if (result != null) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(result)));
+      setState(() => isDeleting = false);
     } else {
       ScaffoldMessenger.of(
         context,

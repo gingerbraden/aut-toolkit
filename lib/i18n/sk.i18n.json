@@ -176,7 +176,8 @@
   "or": "alebo",
   "unknown_error": "Nastala neznáma chyba. Prosím opakujte pokus neskôr.",
   "delete_account": "Naozaj chcete vymazať váš účet?",
-  "delete_account_info": "Túto akciu nie je možné vrátiť späť. Všetky vaŠe dáta budú vymazané!",
+  "delete_account_info": "Túto akciu nie je možné vrátiť späť. Všetky vaše dáta budú vymazané!",
+  "delete_account_info_password": "Pre potvrdenie odstránenia vášho účtu, prosím zadajte svoje heslo.",
   "delete_reauthenticate": "Pre vymazanie vášho účtu sa prosím odhláste a prihláste, aby ste sa re-autorizovali.",
   "delete_success": "Účet bol úspešne odstránený.",
   "delete_account_name": "Odstrániť účet",
@@ -187,5 +188,6 @@
   "mail_sent": "Odkaz na zmenu hesla bol odoslaný na Váš e-mail.",
   "account_with_email_exists": "E-mail už bol použitý na registráciu. Prosím prihláste sa.",
   "pdf_report_creation": "Vygenerovanie PDF reportu",
-  "pdf_report_creation_desc": "Vytvorenie dokumentu na zdieľanie. Obsahuje záznamy z jedálnička, nevhodných správaní a návykov."
+  "pdf_report_creation_desc": "Vytvorenie dokumentu na zdieľanie. Obsahuje záznamy z jedálnička, nevhodných správaní a návykov.",
+  "incorrect_password": "Nesprávne heslo"
 }

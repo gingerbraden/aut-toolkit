@@ -176,6 +176,7 @@
   "unknown_error": "An unexpected error occured. Please try again later.",
   "delete_account": "Do you really want to delete your account?",
   "delete_account_info": "This action can not be undone. All your data will be wiped!",
+  "delete_account_info_password": "To confirm the deletion of your account, please use your password.",
   "delete_reauthenticate": "To delete your account, please sign out and sign in again to reauthenticate.",
   "delete_success": "Accoun succesfully deleted.",
   "delete_account_name": "Delete account",
@@ -186,6 +187,7 @@
   "mail_sent": "Password reset link was sent to your e-mail.",
   "account_with_email_exists": "E-mail already in use. Please log in.",
   "pdf_report_creation": "Generate a PDF report",
-  "pdf_report_creation_desc": "Creates a document for sharing. Includes records from the eating habits, challenging behaviours, and good habits."
+  "pdf_report_creation_desc": "Creates a document for sharing. Includes records from the eating habits, challenging behaviours, and good habits.",
+  "incorrect_password": "Incorrect password"
 
 }

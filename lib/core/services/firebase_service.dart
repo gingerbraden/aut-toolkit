@@ -3,8 +3,11 @@ import 'package:aut_toolkit/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../i18n/strings.g.dart';
+
+enum signInMethod { GOOGLE, EMAIL, NONE }
 
 class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -132,5 +135,59 @@ class FirebaseService {
 
   Future<void> resetPassword(String email) async {
     _auth.sendPasswordResetEmail(email: email);
+  }
+
+  signInMethod checkSignInProvider() {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      return signInMethod.NONE;
+    }
+
+    List<UserInfo> providerData = user.providerData;
+
+    bool signedInWithGoogle = providerData.any(
+      (p) => p.providerId == 'google.com',
+    );
+    bool signedInWithEmailPassword = providerData.any(
+      (p) => p.providerId == 'password',
+    );
+
+    if (signedInWithGoogle) return signInMethod.GOOGLE;
+    if (signedInWithEmailPassword) return signInMethod.EMAIL;
+    return signInMethod.NONE;
+  }
+
+  Future<void> reauthenticateWithGoogle() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    final googleUser = await GoogleSignIn().signIn();
+    final googleAuth = await googleUser!.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    await user!.reauthenticateWithCredential(credential);
+  }
+
+  Future<void> reauthenticateUser(String password) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        final credential = EmailAuthProvider.credential(
+          email: user.email!,
+          password: password,
+        );
+
+        await user.reauthenticateWithCredential(credential);
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-credential') {
+        rethrow;
+      }
+    }
   }
 }

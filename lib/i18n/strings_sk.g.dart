@@ -214,7 +214,8 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get or => 'alebo';
 	@override String get unknown_error => 'Nastala neznáma chyba. Prosím opakujte pokus neskôr.';
 	@override String get delete_account => 'Naozaj chcete vymazať váš účet?';
-	@override String get delete_account_info => 'Túto akciu nie je možné vrátiť späť. Všetky vaŠe dáta budú vymazané!';
+	@override String get delete_account_info => 'Túto akciu nie je možné vrátiť späť. Všetky vaše dáta budú vymazané!';
+	@override String get delete_account_info_password => 'Pre potvrdenie odstránenia vášho účtu, prosím zadajte svoje heslo.';
 	@override String get delete_reauthenticate => 'Pre vymazanie vášho účtu sa prosím odhláste a prihláste, aby ste sa re-autorizovali.';
 	@override String get delete_success => 'Účet bol úspešne odstránený.';
 	@override String get delete_account_name => 'Odstrániť účet';
@@ -226,6 +227,7 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get account_with_email_exists => 'E-mail už bol použitý na registráciu. Prosím prihláste sa.';
 	@override String get pdf_report_creation => 'Vygenerovanie PDF reportu';
 	@override String get pdf_report_creation_desc => 'Vytvorenie dokumentu na zdieľanie. Obsahuje záznamy z jedálnička, nevhodných správaní a návykov.';
+	@override String get incorrect_password => 'Nesprávne heslo';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -398,7 +400,8 @@ extension on TranslationsSk {
 			'or' => 'alebo',
 			'unknown_error' => 'Nastala neznáma chyba. Prosím opakujte pokus neskôr.',
 			'delete_account' => 'Naozaj chcete vymazať váš účet?',
-			'delete_account_info' => 'Túto akciu nie je možné vrátiť späť. Všetky vaŠe dáta budú vymazané!',
+			'delete_account_info' => 'Túto akciu nie je možné vrátiť späť. Všetky vaše dáta budú vymazané!',
+			'delete_account_info_password' => 'Pre potvrdenie odstránenia vášho účtu, prosím zadajte svoje heslo.',
 			'delete_reauthenticate' => 'Pre vymazanie vášho účtu sa prosím odhláste a prihláste, aby ste sa re-autorizovali.',
 			'delete_success' => 'Účet bol úspešne odstránený.',
 			'delete_account_name' => 'Odstrániť účet',
@@ -410,6 +413,7 @@ extension on TranslationsSk {
 			'account_with_email_exists' => 'E-mail už bol použitý na registráciu. Prosím prihláste sa.',
 			'pdf_report_creation' => 'Vygenerovanie PDF reportu',
 			'pdf_report_creation_desc' => 'Vytvorenie dokumentu na zdieľanie. Obsahuje záznamy z jedálnička, nevhodných správaní a návykov.',
+			'incorrect_password' => 'Nesprávne heslo',
 			_ => null,
 		};
 	}
