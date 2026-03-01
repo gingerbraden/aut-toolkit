@@ -53,8 +53,7 @@ Future main() async {
     ),
   );
   await FirebaseAppCheck.instance.activate(
-    webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
-    androidProvider: AndroidProvider.debug,
+    providerAndroid: AndroidPlayIntegrityProvider(),
   );
   await RepoService().init();
 

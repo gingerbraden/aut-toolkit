@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/widgets/pdf_generating_dialog.dart';
 import '../../../../i18n/strings.g.dart';
 import '../viewmodel/aac_keyboard_viewmodel.dart';
 import 'aac_keyboard_grid.dart';
@@ -178,7 +179,12 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
                 final kb = state.currentKeyboard;
                 if (kb == null) return;
 
-                await runWithLoading(context, () async {
+                await PdfGeneratingWaitingDialog.show(
+                  context,
+                  message: t.preparing_pdf,
+                );
+
+                try {
                   final file = await AACKeyboardPrintUtil.exportToA4PdfRaster(
                     root: kb,
                     theme: Theme.of(context),
@@ -187,7 +193,9 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
                   );
 
                   await AACKeyboardPrintUtil.shareWithSharePlus(file);
-                });
+                } finally {
+                  PdfGeneratingWaitingDialog.hide(context);
+                }
               },
             ),
           if (!state.locked)
@@ -199,8 +207,7 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
                   builder: (context) {
                     return AlertDialog(
                       title: Text(t.clear_keyboard_ask),
-                      content: Text(
-                          t.clear_keyboard_ask_additional),
+                      content: Text(t.clear_keyboard_ask_additional),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(false),
@@ -223,139 +230,94 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
         ],
       ),
       body: Padding(
-              padding: EdgeInsets.only(
-                bottom: AppConstants.BASE_APP_UI_PADDING * 2,
+        padding: EdgeInsets.only(bottom: AppConstants.BASE_APP_UI_PADDING * 2),
+        child: Column(
+          children: [
+            if (state.inputMode == KeyboardInputMode.aacGrid)
+              InkWell(
+                onTap: vm.onPressedBarPressed,
+                child: PressedBar(
+                  pressedCards: state.pressedCards,
+                  onClear: vm.clearPressedCards,
+                  onClearLast: vm.clearLastCard,
+                  onSwitchToQwerty: vm.switchKb,
+                ),
               ),
-              child: Column(
-                children: [
-                  if (state.inputMode == KeyboardInputMode.aacGrid)
-                    InkWell(
-                      onTap: vm.onPressedBarPressed,
-                      child: PressedBar(
-                        pressedCards: state.pressedCards,
-                        onClear: vm.clearPressedCards,
-                        onClearLast: vm.clearLastCard,
-                        onSwitchToQwerty: vm.switchKb,
-                      ),
-                    ),
-                  if (state.inputMode == KeyboardInputMode.aacGrid)
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: AppConstants.BASE_APP_UI_PADDING,
-                        horizontal: AppConstants.BASE_APP_UI_PADDING * 2,
-                      ),
-                      child: SizedBox(
-                        height: 22,
-                        child: state.keyboardStack.isNotEmpty
-                            ? Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: vm.goBack,
-                                    icon: const Icon(Icons.arrow_back),
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints(
-                                      minWidth: 40,
-                                      minHeight: 40,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  const Expanded(
-                                    child: Divider(height: 1, thickness: 1),
-                                  ),
-                                ],
-                              )
-                            : const Divider(height: 1, thickness: 1),
-                      ),
-                    ),
-                  Expanded(
-                    child: state.inputMode == KeyboardInputMode.aacGrid
-                        ? KeyboardGrid(
-                            rows: state.rows,
-                            columns: state.columns,
-                            slotBuilder: vm.slotAt,
-                            onSlotPressed: vm.onSlotPressed,
-                            onAssignCard: (x, y, card) =>
-                                vm.assignCardToPosition(x: x, y: y, card: card),
-                            onCreateFolder: (x, y, name, coverCard) =>
-                                vm.assignFolderToPosition(
-                                  x: x,
-                                  y: y,
-                                  name: name,
-                                  coverCard: coverCard,
-                                ),
-                            onDelete: (x, y) => vm.deleteSlot(x: x, y: y),
-                            keyboard: state.currentKeyboard!,
-                          )
-                        : QwertyKeyboard(
-                            typedText: state.typedText,
-                            onClose: vm.switchKb,
-                            onKey: (k) {
-                              switch (k) {
-                                case '{backspace}':
-                                  vm.backspaceTyped();
-                                  return;
-                                case '{clear}':
-                                  vm.clearTyped();
-                                  return;
-                                case '{acute}':
-                                  vm.applyAcute();
-                                  return;
-                                case '{caron}':
-                                  vm.applyCaron();
-                                  return;
-                                default:
-                                  vm.typeText(k);
-                              }
-                            },
-                            onSpeak: vm.speakTyped,
+            if (state.inputMode == KeyboardInputMode.aacGrid)
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: AppConstants.BASE_APP_UI_PADDING,
+                  horizontal: AppConstants.BASE_APP_UI_PADDING * 2,
+                ),
+                child: SizedBox(
+                  height: 22,
+                  child: state.keyboardStack.isNotEmpty
+                      ? Row(
+                          children: [
+                            IconButton(
+                              onPressed: vm.goBack,
+                              icon: const Icon(Icons.arrow_back),
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(
+                                minWidth: 40,
+                                minHeight: 40,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const Expanded(
+                              child: Divider(height: 1, thickness: 1),
+                            ),
+                          ],
+                        )
+                      : const Divider(height: 1, thickness: 1),
+                ),
+              ),
+            Expanded(
+              child: state.inputMode == KeyboardInputMode.aacGrid
+                  ? KeyboardGrid(
+                      rows: state.rows,
+                      columns: state.columns,
+                      slotBuilder: vm.slotAt,
+                      onSlotPressed: vm.onSlotPressed,
+                      onAssignCard: (x, y, card) =>
+                          vm.assignCardToPosition(x: x, y: y, card: card),
+                      onCreateFolder: (x, y, name, coverCard) =>
+                          vm.assignFolderToPosition(
+                            x: x,
+                            y: y,
+                            name: name,
+                            coverCard: coverCard,
                           ),
-                  ),
-                ],
-              ),
+                      onDelete: (x, y) => vm.deleteSlot(x: x, y: y),
+                      keyboard: state.currentKeyboard!,
+                    )
+                  : QwertyKeyboard(
+                      typedText: state.typedText,
+                      onClose: vm.switchKb,
+                      onKey: (k) {
+                        switch (k) {
+                          case '{backspace}':
+                            vm.backspaceTyped();
+                            return;
+                          case '{clear}':
+                            vm.clearTyped();
+                            return;
+                          case '{acute}':
+                            vm.applyAcute();
+                            return;
+                          case '{caron}':
+                            vm.applyCaron();
+                            return;
+                          default:
+                            vm.typeText(k);
+                        }
+                      },
+                      onSpeak: vm.speakTyped,
+                    ),
             ),
-    );
-  }
-
-  Future<T> runWithLoading<T>(
-    BuildContext context,
-    Future<T> Function() task,
-  ) async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => AlertDialog(
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 24,
-          vertical: 20,
-        ),
-        content: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 260,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(strokeWidth: 3),
-              ),
-              const SizedBox(height: 20),
-              Text(t.preparing_pdf),
-            ],
-          ),
+          ],
         ),
       ),
     );
-
-    try {
-      return await task();
-    } finally {
-      if (context.mounted) {
-        Navigator.of(context).pop();
-      }
-    }
   }
 }

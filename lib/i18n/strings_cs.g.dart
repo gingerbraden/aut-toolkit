@@ -241,6 +241,10 @@ class TranslationsCs with BaseTranslations<AppLocale, Translations> implements T
 	@override String get first_then_board_info => 'Pro naplnění tabulky Nejprve/Potom se používají kartičky. Po kliknutí na "Nejprve" nebo "Potom" se zobrazí seznam kartiček, kde stačí libovolnou vybrat a bude přidána do tabulky.';
 	@override String get clear_keyboard_ask => 'Opravdu chcete vyčistit klávesnici?';
 	@override String get clear_keyboard_ask_additional => 'Pokud nejste ve složce, budou smazány všechny kartičky a složky. Pokud jste ve složce, budou smazány pouze kartičky a složky v této složce. Toto nelze vrátit zpět.';
+	@override String get choose_layout => 'Vyberte rozložení';
+	@override String get two_large => '2 karty na řádek (velké)';
+	@override String get four_medium => '4 karty na řádek (střední)';
+	@override String get six_small => '6 karet na řádek (malé)';
 }
 
 /// The flat map containing all translations for locale <cs>.
@@ -440,6 +444,10 @@ extension on TranslationsCs {
 			'first_then_board_info' => 'Pro naplnění tabulky Nejprve/Potom se používají kartičky. Po kliknutí na "Nejprve" nebo "Potom" se zobrazí seznam kartiček, kde stačí libovolnou vybrat a bude přidána do tabulky.',
 			'clear_keyboard_ask' => 'Opravdu chcete vyčistit klávesnici?',
 			'clear_keyboard_ask_additional' => 'Pokud nejste ve složce, budou smazány všechny kartičky a složky. Pokud jste ve složce, budou smazány pouze kartičky a složky v této složce. Toto nelze vrátit zpět.',
+			'choose_layout' => 'Vyberte rozložení',
+			'two_large' => '2 karty na řádek (velké)',
+			'four_medium' => '4 karty na řádek (střední)',
+			'six_small' => '6 karet na řádek (malé)',
 			_ => null,
 		};
 	}

@@ -19,6 +19,8 @@ final filteredUserCardsProvider = Provider<List<UserCard>>((ref) {
 });
 
 class UserCardsListViewModel extends Notifier<List<UserCard>> {
+  final Set<int> _selectedIds = {};
+
   @override
   List<UserCard> build() => [];
 
@@ -26,24 +28,63 @@ class UserCardsListViewModel extends Notifier<List<UserCard>> {
     state = cards;
   }
 
+  bool get isSelectionMode => _selectedIds.isNotEmpty;
+
+  Set<int> get selectedIds => _selectedIds;
+
+  void toggleSelection(UserCard card) {
+    if (_selectedIds.contains(card.id)) {
+      _selectedIds.remove(card.id);
+    } else {
+      _selectedIds.add(card.id!);
+    }
+    state = [...state];
+  }
+
+  void startSelection(UserCard card) {
+    _selectedIds.add(card.id!);
+    state = [...state];
+  }
+
+  void clearSelection() {
+    _selectedIds.clear();
+    state = [...state];
+  }
+
+  bool isSelected(UserCard card) =>
+      _selectedIds.contains(card.id);
+
+  List<UserCard> get selectedCards =>
+      state.where((c) => _selectedIds.contains(c.id)).toList();
+
   void sort(UserCardSort sort) {
     switch (sort) {
       case UserCardSort.nameAsc:
         state = [...state]
           ..sort(
-            (a, b) => a.names.values.first.toLowerCase().compareTo(
-              b.names.values.first.toLowerCase(),
-            ),
+                (a, b) => a.names.values.first
+                .toLowerCase()
+                .compareTo(b.names.values.first.toLowerCase()),
           );
         break;
       case UserCardSort.nameDesc:
         state = [...state]
           ..sort(
-            (a, b) => b.names.values.first.toLowerCase().compareTo(
-              a.names.values.first.toLowerCase(),
-            ),
+                (a, b) => b.names.values.first
+                .toLowerCase()
+                .compareTo(a.names.values.first.toLowerCase()),
           );
         break;
+    }
+  }
+
+  void selectAll(List<UserCard> allCards) {
+    if (_selectedIds.length == allCards.length) {
+      clearSelection();
+    } else {
+      _selectedIds.clear();
+      _selectedIds.addAll(allCards.where((c) => c.id != null).map((c) => c.id!));
+      state = [...state];
     }
   }
 }

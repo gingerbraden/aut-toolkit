@@ -201,6 +201,10 @@
   "visual_schedule_info": "Cards are used to fill the visual schedule/diagram. When you click \"Add Step\", a list of cards will appear — just select any card and it will be added to the schedule. To change the order of steps, use the horizontal icon on the right side of the row for the corresponding card.",
   "first_then_board_info": "Cards are used to fill the First/Then board. When you click \"First\" or \"Then\", a list of cards will appear — just select any card and it will be added to the board.",
   "clear_keyboard_ask": "Do you really want to clear the keyboard?",
-  "clear_keyboard_ask_additional": "If you are not in a folder, all cards and folders will be deleted. If you are inside a folder, only the cards and folders in that folder will be deleted. This action can not be undone"
+  "clear_keyboard_ask_additional": "If you are not in a folder, all cards and folders will be deleted. If you are inside a folder, only the cards and folders in that folder will be deleted. This action can not be undone",
+  "choose_layout": "Choose layout",
+  "two_large": "2 cards per row (large)",
+  "four_medium": "4 cards per row (medium)",
+  "six_small": "6 cards per row (small)"
 
 }

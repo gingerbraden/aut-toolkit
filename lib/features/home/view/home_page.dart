@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_constants.dart';
+import '../../../core/widgets/pdf_generating_dialog.dart';
 import '../../../i18n/strings.g.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -229,36 +230,18 @@ class _HomePageState extends ConsumerState<HomePage> {
         if (route != null) {
           router.push(route);
         } else {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) => AlertDialog(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 24,
-                vertical: 20,
-              ),
-              content: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 260),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(strokeWidth: 3),
-                    ),
-                    const SizedBox(height: 20),
-                    Text(t.preparing_pdf),
-                  ],
-                ),
-              ),
-            ),
+          await PdfGeneratingWaitingDialog.show(
+            context,
+            message: t.preparing_pdf,
           );
-          await ReportPrintingService().generateAndSharePdf();
 
-          Navigator.of(context).pop();
+          try {
+            await ReportPrintingService().generateAndSharePdf();
+          } finally {
+            if (mounted) {
+              PdfGeneratingWaitingDialog.hide(context);
+            }
+          }
         }
       },
       child: Card(

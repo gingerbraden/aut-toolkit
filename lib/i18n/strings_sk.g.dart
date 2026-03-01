@@ -241,6 +241,10 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get first_then_board_info => 'Pre naplnenie najprv/potom tabuľky sa používajú kartičky. Po kliknutí na "Najprv" alebo "Potom" sa zobrazí zoznam kartičiek, kde stačí ľubovoľnú zvoliť a bude pridaná do tabuľky.';
 	@override String get clear_keyboard_ask => 'Naozaj si prajete vyčistiť klávesnicu?';
 	@override String get clear_keyboard_ask_additional => 'Ak sa nenachádzate v priečinku, vymazané budú všetky kartičky a priečinky. Ak sa nachádzate v priečinku, vymazané budú iba kartičky a priečinky v danom priečinku. Túto akciu nie je možné vrátiť.';
+	@override String get choose_layout => 'Vyberte rozloženie';
+	@override String get two_large => '2 kartičky na riadok (veľké)';
+	@override String get four_medium => '4 kartičky na riadok (stredné)';
+	@override String get six_small => '6 kartičiek na riadok (malé)';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -440,6 +444,10 @@ extension on TranslationsSk {
 			'first_then_board_info' => 'Pre naplnenie najprv/potom tabuľky sa používajú kartičky. Po kliknutí na "Najprv" alebo "Potom" sa zobrazí zoznam kartičiek, kde stačí ľubovoľnú zvoliť a bude pridaná do tabuľky.',
 			'clear_keyboard_ask' => 'Naozaj si prajete vyčistiť klávesnicu?',
 			'clear_keyboard_ask_additional' => 'Ak sa nenachádzate v priečinku, vymazané budú všetky kartičky a priečinky. Ak sa nachádzate v priečinku, vymazané budú iba kartičky a priečinky v danom priečinku. Túto akciu nie je možné vrátiť.',
+			'choose_layout' => 'Vyberte rozloženie',
+			'two_large' => '2 kartičky na riadok (veľké)',
+			'four_medium' => '4 kartičky na riadok (stredné)',
+			'six_small' => '6 kartičiek na riadok (malé)',
 			_ => null,
 		};
 	}

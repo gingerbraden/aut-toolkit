@@ -621,6 +621,18 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'If you are not in a folder, all cards and folders will be deleted. If you are inside a folder, only the cards and folders in that folder will be deleted. This action can not be undone'
 	String get clear_keyboard_ask_additional => 'If you are not in a folder, all cards and folders will be deleted. If you are inside a folder, only the cards and folders in that folder will be deleted. This action can not be undone';
+
+	/// en: 'Choose layout'
+	String get choose_layout => 'Choose layout';
+
+	/// en: '2 cards per row (large)'
+	String get two_large => '2 cards per row (large)';
+
+	/// en: '4 cards per row (medium)'
+	String get four_medium => '4 cards per row (medium)';
+
+	/// en: '6 cards per row (small)'
+	String get six_small => '6 cards per row (small)';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -820,6 +832,10 @@ extension on Translations {
 			'first_then_board_info' => 'Cards are used to fill the First/Then board. When you click "First" or "Then", a list of cards will appear — just select any card and it will be added to the board.',
 			'clear_keyboard_ask' => 'Do you really want to clear the keyboard?',
 			'clear_keyboard_ask_additional' => 'If you are not in a folder, all cards and folders will be deleted. If you are inside a folder, only the cards and folders in that folder will be deleted. This action can not be undone',
+			'choose_layout' => 'Choose layout',
+			'two_large' => '2 cards per row (large)',
+			'four_medium' => '4 cards per row (medium)',
+			'six_small' => '6 cards per row (small)',
 			_ => null,
 		};
 	}
