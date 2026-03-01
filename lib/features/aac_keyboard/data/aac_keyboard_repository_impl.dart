@@ -90,7 +90,7 @@ class AACKeyboardRepositoryImpl
 
   @override
   void deleteSlot(KeyboardSlot slot, int parentKeyboardId) {
-    final entity = slot.toEntity();
+    final entity = slot.toEntity(parentKeyboard: _localSource.getById(parentKeyboardId));
     if (entity.id == 0) return;
     entity.isDeleted = true;
     entity.pendingAction = PendingAction.DELETE.index;
@@ -286,6 +286,11 @@ class AACKeyboardRepositoryImpl
 
           kb.isSynced = true;
           _localSource.putKeyboard(kb);
+
+          final deletedSlots = kb.slots.where((s) => s.isDeleted == true).toList();
+          for (final slot in deletedSlots) {
+            if (slot.id != null) _localSource.deleteSlot(slot.id!);
+          }
         } else if (action == PendingAction.DELETE) {
           if (kb.remoteId != null) {
             await _remoteSource.deleteKeyboard(kb.toRemote());
@@ -297,25 +302,7 @@ class AACKeyboardRepositoryImpl
       }
     }
 
-    final pendingSlots = _localSource.getAllPendingSlots();
-    for (final slot in pendingSlots) {
-      try {
-        final parentKb = slot.keyboard.target;
-        if (parentKb == null) continue;
 
-        if (parentKb.pendingAction == PendingAction.NONE.index) {
-          parentKb.pendingAction = PendingAction.UPDATE.index;
-          parentKb.isSynced = false;
-          _localSource.putKeyboard(parentKb);
-        }
-
-        slot.pendingAction = PendingAction.NONE.index;
-        slot.isSynced = true;
-        _localSource.updateSlot(slot);
-      } catch (_) {
-        continue;
-      }
-    }
   }
 
   @override

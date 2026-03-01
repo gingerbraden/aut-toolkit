@@ -293,6 +293,13 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
     ref
         .read(aacKeyboardsProvider.notifier)
         .updateSlot(updatedSlot!, state.currentKeyboard!.id!);
+
+    final kbId = state.currentKeyboard!.id!;
+    final refreshed = ref.read(aacKeyboardsProvider.notifier).getKeyboard(kbId);
+    if (refreshed != null) {
+      state = state.copyWith(currentKeyboard: refreshed);
+      _bubbleCurrentKeyboardUpStack();
+    }
   }
 
   Future<void> assignFolderToPosition({
@@ -382,6 +389,13 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
     ref
         .read(aacKeyboardsProvider.notifier)
         .updateSlot(updatedSlot!, state.currentKeyboard!.id!);
+
+    final kbId = state.currentKeyboard!.id!;
+    final refreshed = ref.read(aacKeyboardsProvider.notifier).getKeyboard(kbId);
+    if (refreshed != null) {
+      state = state.copyWith(currentKeyboard: refreshed);
+      _bubbleCurrentKeyboardUpStack();
+    }
   }
 
   void deleteSlot({required int x, required int y}) {

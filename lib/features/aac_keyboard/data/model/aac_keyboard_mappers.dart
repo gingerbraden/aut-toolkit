@@ -127,7 +127,10 @@ extension AACKeyboardEntityToRemote on AACKeyboardEntity {
         localId: id ?? 0,
         userId: userId,
         name: name,
-        slots: slots.map((e) => e.toRemote()).toList(),
+        slots: slots
+            .where((e) => e.isDeleted != true)
+            .map((e) => e.toRemote())
+            .toList(),
         updatedAt: updatedAt,
         isInternal: isInternal,
         isSelected: isSelected,
