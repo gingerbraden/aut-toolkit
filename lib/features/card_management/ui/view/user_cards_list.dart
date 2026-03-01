@@ -21,6 +21,7 @@ class UserCardsList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cards = ref.watch(filteredUserCardsProvider);
     final viewModel = ref.watch(userCardsListViewModelProvider.notifier);
+    ref.watch(userCardsListViewModelProvider); // watch state for rebuilds
 
     final isSelectionMode = viewModel.isSelectionMode;
 
@@ -35,7 +36,6 @@ class UserCardsList extends ConsumerWidget {
           item.names[LocaleSettings.currentLocale.languageCode] ?? '',
       itemBuilder: (item) {
         final isSelected = viewModel.isSelected(item);
-        final isSelectionMode = viewModel.isSelectionMode;
 
         return GestureDetector(
           onLongPress: () {
