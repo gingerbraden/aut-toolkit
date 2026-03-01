@@ -99,6 +99,11 @@ class AACKeyboardRepositoryImpl
     _localSource.addSlot(parentKeyboardId: parentKeyboardId, slot: entity);
     _markKeyboardDirty(parentKeyboardId);
 
+    final nestedKeyboard = slot.keyboard;
+    if (nestedKeyboard != null) {
+      deleteKeyboard(nestedKeyboard);
+    }
+
     _syncManager.processOnce();
   }
 
