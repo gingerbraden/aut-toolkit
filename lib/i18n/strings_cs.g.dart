@@ -239,6 +239,8 @@ class TranslationsCs with BaseTranslations<AppLocale, Translations> implements T
 	@override String get challenging_behaviour_people_info => 'Kdo byl přítomen?';
 	@override String get visual_schedule_info => 'Pro naplnění vizuálního rozvrhu/diagramu se používají kartičky. Po kliknutí na "Přidat krok" se zobrazí seznam kartiček, kde stačí libovolnou vybrat a bude přidána do rozvrhu. Pro změnu pořadí kroků použijte horizontální ikonu na pravé straně řádku s danou kartičkou.';
 	@override String get first_then_board_info => 'Pro naplnění tabulky Nejprve/Potom se používají kartičky. Po kliknutí na "Nejprve" nebo "Potom" se zobrazí seznam kartiček, kde stačí libovolnou vybrat a bude přidána do tabulky.';
+	@override String get clear_keyboard_ask => 'Opravdu chcete vyčistit klávesnici?';
+	@override String get clear_keyboard_ask_additional => 'Pokud nejste ve složce, budou smazány všechny kartičky a složky. Pokud jste ve složce, budou smazány pouze kartičky a složky v této složce. Toto nelze vrátit zpět.';
 }
 
 /// The flat map containing all translations for locale <cs>.
@@ -436,6 +438,8 @@ extension on TranslationsCs {
 			'challenging_behaviour_people_info' => 'Kdo byl přítomen?',
 			'visual_schedule_info' => 'Pro naplnění vizuálního rozvrhu/diagramu se používají kartičky. Po kliknutí na "Přidat krok" se zobrazí seznam kartiček, kde stačí libovolnou vybrat a bude přidána do rozvrhu. Pro změnu pořadí kroků použijte horizontální ikonu na pravé straně řádku s danou kartičkou.',
 			'first_then_board_info' => 'Pro naplnění tabulky Nejprve/Potom se používají kartičky. Po kliknutí na "Nejprve" nebo "Potom" se zobrazí seznam kartiček, kde stačí libovolnou vybrat a bude přidána do tabulky.',
+			'clear_keyboard_ask' => 'Opravdu chcete vyčistit klávesnici?',
+			'clear_keyboard_ask_additional' => 'Pokud nejste ve složce, budou smazány všechny kartičky a složky. Pokud jste ve složce, budou smazány pouze kartičky a složky v této složce. Toto nelze vrátit zpět.',
 			_ => null,
 		};
 	}

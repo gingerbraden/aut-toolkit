@@ -421,6 +421,27 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
         .deleteSlot(slotToDelete, state.currentKeyboard!.id!);
   }
 
+  Future<void> deleteAllSlotsRecursively() async {
+    final currentKb = state.currentKeyboard;
+    if (currentKb == null) return;
+
+    await _deleteNested(currentKb);
+
+    state = state.copyWith(
+      currentKeyboard: currentKb.copyWith(slots: []),
+    );
+    _bubbleCurrentKeyboardUpStack();
+  }
+
+  Future<void> _deleteNested(AACKeyboard kb) async {
+    for (final slot in kb.slots) {
+      if (slot.keyboard != null) {
+        await _deleteNested(slot.keyboard!);
+      }
+      ref.read(aacKeyboardsProvider.notifier).deleteSlot(slot, kb.id!);
+    }
+  }
+
   bool get isLocked => state.locked;
 
   void setLocked(bool value) {

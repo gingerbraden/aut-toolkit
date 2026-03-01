@@ -190,6 +190,36 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
                 });
               },
             ),
+          if (!state.locked)
+            IconButton(
+              icon: const Icon(Icons.delete_forever),
+              onPressed: () async {
+                final confirm = await showDialog<bool>(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text(t.clear_keyboard_ask),
+                      content: Text(
+                          t.clear_keyboard_ask_additional),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: Text(t.cancel),
+                        ),
+                        ElevatedButton(
+                          onPressed: () => Navigator.of(context).pop(true),
+                          child: Text(t.delete),
+                        ),
+                      ],
+                    );
+                  },
+                );
+
+                if (confirm == true) {
+                  await vm.deleteAllSlotsRecursively();
+                }
+              },
+            ),
         ],
       ),
       body: Padding(

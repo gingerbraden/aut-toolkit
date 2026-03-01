@@ -239,6 +239,8 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get challenging_behaviour_people_info => 'Kto bol prítomný?';
 	@override String get visual_schedule_info => 'Pre naplnenie vizuálneho rozvrhu/diagramu sa používajú kartičky. Po kliknutí na "Pridať krok" sa zobrazí zoznam kartičiek, kde stačí ľubovoľnú zvoliť a bude pridaná do rozvrhu. Pre zmenu poradia krokov použite horizontálnu ikonku na pravej strane riadku s danou kartičkou.';
 	@override String get first_then_board_info => 'Pre naplnenie najprv/potom tabuľky sa používajú kartičky. Po kliknutí na "Najprv" alebo "Potom" sa zobrazí zoznam kartičiek, kde stačí ľubovoľnú zvoliť a bude pridaná do tabuľky.';
+	@override String get clear_keyboard_ask => 'Naozaj si prajete vyčistiť klávesnicu?';
+	@override String get clear_keyboard_ask_additional => 'Ak sa nenachádzate v priečinku, vymazané budú všetky kartičky a priečinky. Ak sa nachádzate v priečinku, vymazané budú iba kartičky a priečinky v danom priečinku. Túto akciu nie je možné vrátiť.';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -436,6 +438,8 @@ extension on TranslationsSk {
 			'challenging_behaviour_people_info' => 'Kto bol prítomný?',
 			'visual_schedule_info' => 'Pre naplnenie vizuálneho rozvrhu/diagramu sa používajú kartičky. Po kliknutí na "Pridať krok" sa zobrazí zoznam kartičiek, kde stačí ľubovoľnú zvoliť a bude pridaná do rozvrhu. Pre zmenu poradia krokov použite horizontálnu ikonku na pravej strane riadku s danou kartičkou.',
 			'first_then_board_info' => 'Pre naplnenie najprv/potom tabuľky sa používajú kartičky. Po kliknutí na "Najprv" alebo "Potom" sa zobrazí zoznam kartičiek, kde stačí ľubovoľnú zvoliť a bude pridaná do tabuľky.',
+			'clear_keyboard_ask' => 'Naozaj si prajete vyčistiť klávesnicu?',
+			'clear_keyboard_ask_additional' => 'Ak sa nenachádzate v priečinku, vymazané budú všetky kartičky a priečinky. Ak sa nachádzate v priečinku, vymazané budú iba kartičky a priečinky v danom priečinku. Túto akciu nie je možné vrátiť.',
 			_ => null,
 		};
 	}
