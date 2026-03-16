@@ -55,7 +55,7 @@ class TranslationsCs with BaseTranslations<AppLocale, Translations> implements T
 	@override String get cancel => 'Zrušit';
 	@override String get home => 'Domů';
 	@override String get settings => 'Nastavení';
-	@override String get kid_mode_button => 'Dětský režim aplikace';
+	@override String get kid_mode_button => 'AAC board';
 	@override String get signed_in_as => 'Přihlášen jako: ';
 	@override String get log_out => 'Odhlásit se';
 	@override String get app_language => 'Jazyk aplikace';
@@ -274,7 +274,7 @@ extension on TranslationsCs {
 			'cancel' => 'Zrušit',
 			'home' => 'Domů',
 			'settings' => 'Nastavení',
-			'kid_mode_button' => 'Dětský režim aplikace',
+			'kid_mode_button' => 'AAC board',
 			'signed_in_as' => 'Přihlášen jako: ',
 			'log_out' => 'Odhlásit se',
 			'app_language' => 'Jazyk aplikace',

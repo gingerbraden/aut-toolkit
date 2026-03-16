@@ -95,8 +95,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Settings'
 	String get settings => 'Settings';
 
-	/// en: 'Child app mode'
-	String get kid_mode_button => 'Child app mode';
+	/// en: 'AAC Board'
+	String get kid_mode_button => 'AAC Board';
 
 	/// en: 'Signed in as: '
 	String get signed_in_as => 'Signed in as: ';
@@ -664,7 +664,7 @@ extension on Translations {
 			'cancel' => 'Cancel',
 			'home' => 'Home',
 			'settings' => 'Settings',
-			'kid_mode_button' => 'Child app mode',
+			'kid_mode_button' => 'AAC Board',
 			'signed_in_as' => 'Signed in as: ',
 			'log_out' => 'Log out',
 			'app_language' => 'App language',

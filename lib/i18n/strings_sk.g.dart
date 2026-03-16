@@ -55,7 +55,7 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get cancel => 'Zrušiť';
 	@override String get home => 'Domov';
 	@override String get settings => 'Nastavenia';
-	@override String get kid_mode_button => 'Mód aplikácie dieťaťa';
+	@override String get kid_mode_button => 'AAC board';
 	@override String get signed_in_as => 'Prihlásený ako: ';
 	@override String get log_out => 'Odhlásiť sa';
 	@override String get app_language => 'Jazyk aplikácie';
@@ -274,7 +274,7 @@ extension on TranslationsSk {
 			'cancel' => 'Zrušiť',
 			'home' => 'Domov',
 			'settings' => 'Nastavenia',
-			'kid_mode_button' => 'Mód aplikácie dieťaťa',
+			'kid_mode_button' => 'AAC board',
 			'signed_in_as' => 'Prihlásený ako: ',
 			'log_out' => 'Odhlásiť sa',
 			'app_language' => 'Jazyk aplikácie',
