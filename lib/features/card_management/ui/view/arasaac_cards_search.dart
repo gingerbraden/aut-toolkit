@@ -31,6 +31,26 @@ class _ARASAACCardsSearchState extends ConsumerState<ARASAACCardsSearch> {
         title: Text(t.arasaac_icons),
         elevation: 0,
         forceMaterialTransparency: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.copyright),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Copyright'),
+                  content: const Text('The pictographic symbols used are the property of the Government of Aragón and have been created by Sergio Palao for ARASAAC (http://www.arasaac.org), that distributes them under Creative Commons License BY-NC-SA.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          )
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
