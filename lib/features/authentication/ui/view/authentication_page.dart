@@ -71,19 +71,24 @@ class _AuthenticationPageState extends ConsumerState<AuthenticationPage> {
   Widget _languagePopup(AuthenticationViewModel viewModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: PopupMenuButton<AppLocale>(
-        onSelected: (locale) => setState(() {
-          viewModel.changeLocale(locale.name);
-        }),
-        itemBuilder: (BuildContext context) => AppLocale.values
-            .map(
-              (locale) => PopupMenuItem<AppLocale>(
-                value: locale,
-                child: Text(locale.name.toUpperCase()),
-              ),
-            )
-            .toList(),
-        icon: const Icon(Icons.language),
+      child: Row(
+        children: [
+          Text(t.change_app_language),
+          PopupMenuButton<AppLocale>(
+            onSelected: (locale) => setState(() {
+              viewModel.changeLocale(locale.name);
+            }),
+            itemBuilder: (BuildContext context) => AppLocale.values
+                .map(
+                  (locale) => PopupMenuItem<AppLocale>(
+                    value: locale,
+                    child: Text(locale.name.toUpperCase()),
+                  ),
+                )
+                .toList(),
+            icon: const Icon(Icons.language),
+          ),
+        ],
       ),
     );
   }

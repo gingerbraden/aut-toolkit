@@ -140,7 +140,7 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get currently_managed_person => 'Práve spravovaná osoba:';
 	@override String get crop_image => 'Orezať obrázok';
 	@override String get cards => 'Kartičky';
-	@override String get cards_desc => 'Kartičky sú používané v AAC klávesnici a môžu byť použité pri tvorbe procesurálnych diagramov';
+	@override String get cards_desc => 'Kartičky sú používané v AAC klávesnici a pri tvorbe vizuálnych pomôcok. Nie sú viazané na osobu. Dlhým podržaním kartičky aktivujete mód na generovanie kartičiek na tlač.';
 	@override String get visual_sequence_boards => 'Procesurálne diagramy';
 	@override String get visual_sequence_boards_desc => 'Správa procesurálnych diagramov';
 	@override String get arasaac_icons => 'ARASAAC Ikony';
@@ -228,7 +228,7 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get pdf_report_creation => 'Vygenerovanie PDF reportu';
 	@override String get pdf_report_creation_desc => 'Vytvorenie dokumentu na zdieľanie. Obsahuje záznamy z jedálnička, nevhodných správaní a návykov.';
 	@override String get incorrect_password => 'Nesprávne heslo';
-	@override String get add_person_info => 'Po vytvorení osoby bude možné evidovať jedálniček, nevhodné správanie a návyky. Je možné pridať aj ďalšie osoby - ich záznamy budú oddelené. Pre pristúpenie k záznamom pre inú vytvorenú osobu, stačí ju zvoliť v tomto meu. Vizuálne pomôcky a kartičky nie sú unikátne pre osobu.';
+	@override String get add_person_info => 'Po vytvorení osoby bude možné evidovať jedálniček, nevhodné správanie a návyky. Je možné pridať aj ďalšie osoby - ich záznamy budú oddelené. Pre pristúpenie k záznamom pre inú vytvorenú osobu, stačí ju zvoliť v tomto menu. Vizuálne pomôcky a kartičky nie sú unikátne pre osobu.';
 	@override String get from_to_info => 'Odkedy (prípadne dokedy) je tento zápis aktuálny?';
 	@override String get is_eating_info => 'Toleruje túto potravinu, alebo nie?';
 	@override String get eating_habit_photo_info => 'Fotografia jedla, potraviny, suroviny.';
@@ -245,6 +245,7 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get two_large => '2 kartičky na riadok (veľké)';
 	@override String get four_medium => '4 kartičky na riadok (stredné)';
 	@override String get six_small => '6 kartičiek na riadok (malé)';
+	@override String get visual_supports_desc => 'Vizuálne diagramy, rozvrhy a najprv-potom tabuľky. Na ich vytvorenie sú potrebné kartičky. Nie sú viazané na osobu.';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -353,7 +354,7 @@ extension on TranslationsSk {
 			'currently_managed_person' => 'Práve spravovaná osoba:',
 			'crop_image' => 'Orezať obrázok',
 			'cards' => 'Kartičky',
-			'cards_desc' => 'Kartičky sú používané v AAC klávesnici a môžu byť použité pri tvorbe procesurálnych diagramov',
+			'cards_desc' => 'Kartičky sú používané v AAC klávesnici a pri tvorbe vizuálnych pomôcok. Nie sú viazané na osobu. Dlhým podržaním kartičky aktivujete mód na generovanie kartičiek na tlač.',
 			'visual_sequence_boards' => 'Procesurálne diagramy',
 			'visual_sequence_boards_desc' => 'Správa procesurálnych diagramov',
 			'arasaac_icons' => 'ARASAAC Ikony',
@@ -431,7 +432,7 @@ extension on TranslationsSk {
 			'pdf_report_creation' => 'Vygenerovanie PDF reportu',
 			'pdf_report_creation_desc' => 'Vytvorenie dokumentu na zdieľanie. Obsahuje záznamy z jedálnička, nevhodných správaní a návykov.',
 			'incorrect_password' => 'Nesprávne heslo',
-			'add_person_info' => 'Po vytvorení osoby bude možné evidovať jedálniček, nevhodné správanie a návyky. Je možné pridať aj ďalšie osoby - ich záznamy budú oddelené. Pre pristúpenie k záznamom pre inú vytvorenú osobu, stačí ju zvoliť v tomto meu. Vizuálne pomôcky a kartičky nie sú unikátne pre osobu.',
+			'add_person_info' => 'Po vytvorení osoby bude možné evidovať jedálniček, nevhodné správanie a návyky. Je možné pridať aj ďalšie osoby - ich záznamy budú oddelené. Pre pristúpenie k záznamom pre inú vytvorenú osobu, stačí ju zvoliť v tomto menu. Vizuálne pomôcky a kartičky nie sú unikátne pre osobu.',
 			'from_to_info' => 'Odkedy (prípadne dokedy) je tento zápis aktuálny?',
 			'is_eating_info' => 'Toleruje túto potravinu, alebo nie?',
 			'eating_habit_photo_info' => 'Fotografia jedla, potraviny, suroviny.',
@@ -448,6 +449,7 @@ extension on TranslationsSk {
 			'two_large' => '2 kartičky na riadok (veľké)',
 			'four_medium' => '4 kartičky na riadok (stredné)',
 			'six_small' => '6 kartičiek na riadok (malé)',
+			'visual_supports_desc' => 'Vizuálne diagramy, rozvrhy a najprv-potom tabuľky. Na ich vytvorenie sú potrebné kartičky. Nie sú viazané na osobu.',
 			_ => null,
 		};
 	}

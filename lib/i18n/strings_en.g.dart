@@ -339,8 +339,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Cards'
 	String get cards => 'Cards';
 
-	/// en: 'Cards are used in the AAC board, and can be used inside processural diagrams.'
-	String get cards_desc => 'Cards are used in the AAC board, and can be used inside processural diagrams.';
+	/// en: 'Cards are used in the AAC board and visual supports. They are not tied to a person. By long-pressing the card, you activate the mode for generating printable cards.'
+	String get cards_desc => 'Cards are used in the AAC board and visual supports. They are not tied to a person. By long-pressing the card, you activate the mode for generating printable cards.';
 
 	/// en: 'Visual sequence boards'
 	String get visual_sequence_boards => 'Visual sequence boards';
@@ -633,6 +633,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: '6 cards per row (small)'
 	String get six_small => '6 cards per row (small)';
+
+	/// en: 'Visual diagrams, schedules, and first-then tables. They require cards to be created. They are not tied to a person.'
+	String get visual_supports_desc => 'Visual diagrams, schedules, and first-then tables. They require cards to be created. They are not tied to a person.';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -741,7 +744,7 @@ extension on Translations {
 			'currently_managed_person' => 'Currently managed person:',
 			'crop_image' => 'Crop image',
 			'cards' => 'Cards',
-			'cards_desc' => 'Cards are used in the AAC board, and can be used inside processural diagrams.',
+			'cards_desc' => 'Cards are used in the AAC board and visual supports. They are not tied to a person. By long-pressing the card, you activate the mode for generating printable cards.',
 			'visual_sequence_boards' => 'Visual sequence boards',
 			'visual_sequence_boards_desc' => 'Visual sequence boards management',
 			'arasaac_icons' => 'ARASAAC Icons',
@@ -836,6 +839,7 @@ extension on Translations {
 			'two_large' => '2 cards per row (large)',
 			'four_medium' => '4 cards per row (medium)',
 			'six_small' => '6 cards per row (small)',
+			'visual_supports_desc' => 'Visual diagrams, schedules, and first-then tables. They require cards to be created. They are not tied to a person.',
 			_ => null,
 		};
 	}

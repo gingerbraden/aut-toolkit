@@ -102,9 +102,9 @@
   "currently_managed_person": "Právě spravovaná osoba:",
   "crop_image": "Oříznout obrázek",
   "cards": "Kartičky",
-  "cards_desc": "Kartičky se používají v AAC klávesnici a mohou být použity při tvorbě procesních diagramů",
-  "visual_sequence_boards": "Procesní diagramy",
-  "visual_sequence_boards_desc": "Správa procesních diagramů",
+  "cards_desc": "Kartičky se používají v AAC klávesnici a při tvorbě vizuálních pomůcek. Nejsou vázány na osobu. Dlouhým podržením kartičky aktivujete mód pro generování kartiček pro tisk.",
+  "visual_sequence_boards": "Vizuální diagramy",
+  "visual_sequence_boards_desc": "Správa vizuálních diagramů",
   "arasaac_icons": "ARASAAC Ikony",
   "create_card": "Vytvořit kartičku",
   "create_card_decision": "Jaký zdroj obrázku chcete použít?",
@@ -206,6 +206,7 @@
   "choose_layout": "Vyberte rozložení",
   "two_large": "2 karty na řádek (velké)",
   "four_medium": "4 karty na řádek (střední)",
-  "six_small": "6 karet na řádek (malé)"
+  "six_small": "6 karet na řádek (malé)",
+  "visual_supports_desc": "Vizuální diagramy, rozvrhy a nejprve-pak tabulky. K jejich vytvoření jsou zapotřebí kartičky. Nejsou vázány na osobu."
 
 }

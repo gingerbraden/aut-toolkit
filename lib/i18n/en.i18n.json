@@ -101,7 +101,7 @@
   "currently_managed_person": "Currently managed person:",
   "crop_image": "Crop image",
   "cards": "Cards",
-  "cards_desc": "Cards are used in the AAC board, and can be used inside processural diagrams.",
+  "cards_desc": "Cards are used in the AAC board and visual supports. They are not tied to a person. By long-pressing the card, you activate the mode for generating printable cards.",
   "visual_sequence_boards": "Visual sequence boards",
   "visual_sequence_boards_desc": "Visual sequence boards management",
   "arasaac_icons": "ARASAAC Icons",
@@ -205,6 +205,7 @@
   "choose_layout": "Choose layout",
   "two_large": "2 cards per row (large)",
   "four_medium": "4 cards per row (medium)",
-  "six_small": "6 cards per row (small)"
+  "six_small": "6 cards per row (small)",
+  "visual_supports_desc": "Visual diagrams, schedules, and first-then tables. They require cards to be created. They are not tied to a person."
 
 }

@@ -140,9 +140,9 @@ class TranslationsCs with BaseTranslations<AppLocale, Translations> implements T
 	@override String get currently_managed_person => 'Právě spravovaná osoba:';
 	@override String get crop_image => 'Oříznout obrázek';
 	@override String get cards => 'Kartičky';
-	@override String get cards_desc => 'Kartičky se používají v AAC klávesnici a mohou být použity při tvorbě procesních diagramů';
-	@override String get visual_sequence_boards => 'Procesní diagramy';
-	@override String get visual_sequence_boards_desc => 'Správa procesních diagramů';
+	@override String get cards_desc => 'Kartičky se používají v AAC klávesnici a při tvorbě vizuálních pomůcek. Nejsou vázány na osobu. Dlouhým podržením kartičky aktivujete mód pro generování kartiček pro tisk.';
+	@override String get visual_sequence_boards => 'Vizuální diagramy';
+	@override String get visual_sequence_boards_desc => 'Správa vizuálních diagramů';
 	@override String get arasaac_icons => 'ARASAAC Ikony';
 	@override String get create_card => 'Vytvořit kartičku';
 	@override String get create_card_decision => 'Jaký zdroj obrázku chcete použít?';
@@ -245,6 +245,7 @@ class TranslationsCs with BaseTranslations<AppLocale, Translations> implements T
 	@override String get two_large => '2 karty na řádek (velké)';
 	@override String get four_medium => '4 karty na řádek (střední)';
 	@override String get six_small => '6 karet na řádek (malé)';
+	@override String get visual_supports_desc => 'Vizuální diagramy, rozvrhy a nejprve-pak tabulky. K jejich vytvoření jsou zapotřebí kartičky. Nejsou vázány na osobu.';
 }
 
 /// The flat map containing all translations for locale <cs>.
@@ -353,9 +354,9 @@ extension on TranslationsCs {
 			'currently_managed_person' => 'Právě spravovaná osoba:',
 			'crop_image' => 'Oříznout obrázek',
 			'cards' => 'Kartičky',
-			'cards_desc' => 'Kartičky se používají v AAC klávesnici a mohou být použity při tvorbě procesních diagramů',
-			'visual_sequence_boards' => 'Procesní diagramy',
-			'visual_sequence_boards_desc' => 'Správa procesních diagramů',
+			'cards_desc' => 'Kartičky se používají v AAC klávesnici a při tvorbě vizuálních pomůcek. Nejsou vázány na osobu. Dlouhým podržením kartičky aktivujete mód pro generování kartiček pro tisk.',
+			'visual_sequence_boards' => 'Vizuální diagramy',
+			'visual_sequence_boards_desc' => 'Správa vizuálních diagramů',
 			'arasaac_icons' => 'ARASAAC Ikony',
 			'create_card' => 'Vytvořit kartičku',
 			'create_card_decision' => 'Jaký zdroj obrázku chcete použít?',
@@ -448,6 +449,7 @@ extension on TranslationsCs {
 			'two_large' => '2 karty na řádek (velké)',
 			'four_medium' => '4 karty na řádek (střední)',
 			'six_small' => '6 karet na řádek (malé)',
+			'visual_supports_desc' => 'Vizuální diagramy, rozvrhy a nejprve-pak tabulky. K jejich vytvoření jsou zapotřebí kartičky. Nejsou vázány na osobu.',
 			_ => null,
 		};
 	}

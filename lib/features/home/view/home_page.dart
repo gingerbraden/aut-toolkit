@@ -122,30 +122,31 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
                 child: Divider(),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 125,
-                      child: _buildCard(
-                        t.visual_supports,
-                        "",
-                        RouterUtils.getVisualSupportsPagePath(),
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        child: _buildCard(
+                          t.visual_supports,
+                          t.visual_supports_desc,
+                          RouterUtils.getVisualSupportsPagePath(),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: SizedBox(
-                      height: 125,
-                      child: _buildCard(
-                        t.cards,
-                        "",
-                        RouterUtils.getCardsPath(),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: SizedBox(
+                        child: _buildCard(
+                          t.cards,
+                          t.cards_desc,
+                          RouterUtils.getCardsPath(),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Padding(
                 padding: EdgeInsets.only(
