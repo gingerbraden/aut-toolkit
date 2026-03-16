@@ -10,9 +10,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../app/router.dart';
+import '../../../../core/provider/locale_change_notifier.dart';
 
 final arasaacCardsSearchViewModelProvider =
-    NotifierProvider<ARASAACCardsSearchViewModel, ARASAACCardsSearchState>(
+    NotifierProvider.autoDispose<ARASAACCardsSearchViewModel, ARASAACCardsSearchState>(
       ARASAACCardsSearchViewModel.new,
     );
 
@@ -22,7 +23,12 @@ class ARASAACCardsSearchViewModel extends Notifier<ARASAACCardsSearchState> {
     final repo = ARASAACRepository();
     final controller = TextEditingController();
     final prefs = SharedPreferencesAsync();
-    _loadTranslations();
+    final locale = ref.watch(localeChangeNotifierProvider);
+
+    if (locale.languageCode.isNotEmpty && locale.languageCode != "en") {
+      _loadTranslations(locale.languageCode.toLowerCase());
+    }
+
     return ARASAACCardsSearchState(
       repo: repo,
       searchController: controller,
@@ -30,8 +36,20 @@ class ARASAACCardsSearchViewModel extends Notifier<ARASAACCardsSearchState> {
     );
   }
 
-  Future<void> _loadTranslations() async {
-    final jsonString = await rootBundle.loadString('res/sk-en.json');
+  Future<void> _loadTranslations(String locale) async {
+    var jsonString = null;
+    switch (locale) {
+      case "sk":
+        jsonString = await rootBundle.loadString('res/sk-en.json');
+        break;
+      case "cs":
+        jsonString = await rootBundle.loadString('res/cs-en.json');
+        break;
+      default:
+        return;
+    }
+
+
     final Map<String, dynamic> jsonMap = json.decode(jsonString);
     final parsed = jsonMap.map(
       (key, value) => MapEntry(
@@ -49,21 +67,27 @@ class ARASAACCardsSearchViewModel extends Notifier<ARASAACCardsSearchState> {
     if (query == state.lastQuery) {
       return;
     }
-    if (query.isEmpty || !state.translations.keys.contains(query)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(t.no_icons_found),
-          behavior: SnackBarBehavior.floating,
-          showCloseIcon: true,
-        ),
+    if (state.translations.isEmpty && query.isNotEmpty) {
+      final future = state.repo.searchPictograms(query);
+      if (!ref.mounted) return;
+      state = state.copyWith(futurePictograms: future, lastQuery: query);
+    } else {
+      if (query.isEmpty || !state.translations.keys.contains(query)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(t.no_icons_found),
+            behavior: SnackBarBehavior.floating,
+            showCloseIcon: true,
+          ),
+        );
+        return;
+      }
+      final future = state.repo.searchPictograms(
+        state.translations[query]!.join(" "),
       );
-      return;
+      if (!ref.mounted) return;
+      state = state.copyWith(futurePictograms: future, lastQuery: query);
     }
-    final future = state.repo.searchPictograms(
-      state.translations[query]!.join(" "),
-    );
-    if (!ref.mounted) return;
-    state = state.copyWith(futurePictograms: future, lastQuery: query);
   }
 
   Future<bool?> showConfirmDialog(
