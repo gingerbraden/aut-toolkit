@@ -68,4 +68,26 @@ class ChallengingBehaviourDetailViewModel extends Notifier<void> {
       ),
     );
   }
+
+  void newDiaryEntryFromQR(
+    ChallengingBehaviour cb,
+    ChallengingBehaviourDiaryEntry de,
+  ) {
+    router.push(
+      RouterUtils.getNewChallengingBehaviourDiaryEntryPath(),
+      extra: ChallengingBehaviourDiaryEntryTransport(
+        cbId: cb.id!,
+        entry: ChallengingBehaviourDiaryEntry(
+          location: de.location,
+          date: de.date,
+          duration: de.duration,
+          circumstances: de.circumstances,
+          people: de.people,
+          outcome: de.outcome,
+          reflection: de.reflection,
+        ),
+        isNew: true,
+      ),
+    );
+  }
 }

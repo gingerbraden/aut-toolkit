@@ -636,6 +636,18 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Visual diagrams, schedules, and first-then tables. They require cards to be created. They are not tied to a person.'
 	String get visual_supports_desc => 'Visual diagrams, schedules, and first-then tables. They require cards to be created. They are not tied to a person.';
+
+	/// en: 'Add entry using QR code'
+	String get add_entry_from_QR => 'Add entry using QR code';
+
+	/// en: 'Share entry'
+	String get share_entry => 'Share entry';
+
+	/// en: 'Scan QR code'
+	String get scan_qr => 'Scan QR code';
+
+	/// en: 'Invalid QR code'
+	String get incorrect_qr => 'Invalid QR code';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -840,6 +852,10 @@ extension on Translations {
 			'four_medium' => '4 cards per row (medium)',
 			'six_small' => '6 cards per row (small)',
 			'visual_supports_desc' => 'Visual diagrams, schedules, and first-then tables. They require cards to be created. They are not tied to a person.',
+			'add_entry_from_QR' => 'Add entry using QR code',
+			'share_entry' => 'Share entry',
+			'scan_qr' => 'Scan QR code',
+			'incorrect_qr' => 'Invalid QR code',
 			_ => null,
 		};
 	}

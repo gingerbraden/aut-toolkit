@@ -9,6 +9,7 @@ import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/utils/qr_painter.dart';
 import '../viewmodel/challenging_behaviour_diary_entry_detail_viewmodel.dart';
 
 class ChallengingBehaviourDiaryEntryDetail extends ConsumerStatefulWidget {
@@ -115,18 +116,30 @@ class _ChallengingBehaviourDiaryEntryDetailState
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          router.push(
-            RouterUtils.getChallengingBehaviourDiaryEntryEditPath(),
-            extra: ChallengingBehaviourDiaryEntryTransport(
-              cbId: widget.cbId,
-              entry: widget.entry,
-              isNew: false,
-            ),
-          );
-        },
-        child: const Icon(Icons.edit),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(
+            heroTag: 'edit_fab',
+            onPressed: () {
+              router.push(
+                RouterUtils.getChallengingBehaviourDiaryEntryEditPath(),
+                extra: ChallengingBehaviourDiaryEntryTransport(
+                  cbId: widget.cbId,
+                  entry: widget.entry,
+                  isNew: false,
+                ),
+              );
+            },
+            child: const Icon(Icons.edit),
+          ),
+          const SizedBox(height: 16),
+          FloatingActionButton(
+            heroTag: 'share_fab',
+            onPressed: () => _showQrCodeDialog(widget.entry),
+            child: const Icon(Icons.qr_code),
+          ),
+        ],
       ),
     );
   }
@@ -161,5 +174,28 @@ class _ChallengingBehaviourDiaryEntryDetailState
                   .toList(),
             ),
     ];
+  }
+
+  void _showQrCodeDialog(ChallengingBehaviourDiaryEntry entry) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(t.share_entry),
+        content: SizedBox(
+          width: 250,
+          height: 250,
+          child: CustomPaint(
+            painter: QrPainterCustom(data: entry.toJson()),
+            size: const Size(250, 250),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(t.close),
+          ),
+        ],
+      ),
+    );
   }
 }

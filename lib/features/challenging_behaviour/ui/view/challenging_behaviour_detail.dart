@@ -7,12 +7,14 @@ import 'package:aut_toolkit/core/widgets/divider/sized_box_divider.dart';
 import 'package:aut_toolkit/core/widgets/icon/occuring_icon.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/data/model/challenging_behaviour_diary_entry_transport.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour.dart';
+import 'package:aut_toolkit/features/challenging_behaviour/domain/model/challenging_behaviour_diary_entry.dart';
 import 'package:aut_toolkit/features/challenging_behaviour/provider/challenging_behaviour_notifier.dart';
 import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../viewmodel/challenging_behaviour_detail_viewmodel.dart';
+import 'challenging_behaviour_diary_qr_scanner.dart';
 
 class ChallengingBehaviourDetail extends ConsumerStatefulWidget {
   final ChallengingBehaviour cbdef;
@@ -61,7 +63,9 @@ class _ChallengingBehaviourDetailState
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: AppConstants.BASE_APP_UI_PADDING),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppConstants.BASE_APP_UI_PADDING,
+        ),
         child: Column(
           children: [
             Card(
@@ -83,6 +87,8 @@ class _ChallengingBehaviourDetailState
             ),
             const Divider(height: 32),
             _addEntryButton(cb, viewModel),
+            const SizedBoxDivider(),
+            _addEntryFromQRButton(cb, viewModel),
             const SizedBoxDivider(),
             _diaryEntries(cb),
           ],
@@ -145,6 +151,31 @@ class _ChallengingBehaviourDetailState
         onPressed: () => vm.newDiaryEntry(cb),
         icon: const Icon(Icons.add),
         label: Text(t.add_new_entry),
+      ),
+    );
+  }
+
+  Widget _addEntryFromQRButton(
+    ChallengingBehaviour cb,
+    ChallengingBehaviourDetailViewModel vm,
+  ) {
+    return Center(
+      child: ElevatedButton.icon(
+        onPressed: () async {
+          final scannedEntry =
+              await Navigator.push<ChallengingBehaviourDiaryEntry>(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const ChallengingBehaviourDiaryQrScanner(),
+                ),
+              );
+
+          if (scannedEntry != null) {
+            vm.newDiaryEntryFromQR(cb, scannedEntry);
+          }
+        },
+        icon: const Icon(Icons.qr_code_scanner),
+        label: Text(t.add_entry_from_QR),
       ),
     );
   }

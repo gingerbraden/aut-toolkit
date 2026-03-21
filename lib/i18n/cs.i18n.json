@@ -207,6 +207,9 @@
   "two_large": "2 karty na řádek (velké)",
   "four_medium": "4 karty na řádek (střední)",
   "six_small": "6 karet na řádek (malé)",
-  "visual_supports_desc": "Vizuální diagramy, rozvrhy a nejprve-pak tabulky. K jejich vytvoření jsou zapotřebí kartičky. Nejsou vázány na osobu."
-
+  "visual_supports_desc": "Vizuální diagramy, rozvrhy a nejprve-pak tabulky. K jejich vytvoření jsou zapotřebí kartičky. Nejsou vázány na osobu.",
+  "add_entry_from_QR": "Přidat záznam pomocí QR kódu",
+  "share_entry": "Sdílet záznam",
+  "scan_qr": "Naskenovat QR kód",
+  "incorrect_qr": "Nesprávný QR kód"
 }

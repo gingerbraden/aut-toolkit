@@ -246,6 +246,10 @@ class TranslationsCs with BaseTranslations<AppLocale, Translations> implements T
 	@override String get four_medium => '4 karty na řádek (střední)';
 	@override String get six_small => '6 karet na řádek (malé)';
 	@override String get visual_supports_desc => 'Vizuální diagramy, rozvrhy a nejprve-pak tabulky. K jejich vytvoření jsou zapotřebí kartičky. Nejsou vázány na osobu.';
+	@override String get add_entry_from_QR => 'Přidat záznam pomocí QR kódu';
+	@override String get share_entry => 'Sdílet záznam';
+	@override String get scan_qr => 'Naskenovat QR kód';
+	@override String get incorrect_qr => 'Nesprávný QR kód';
 }
 
 /// The flat map containing all translations for locale <cs>.
@@ -450,6 +454,10 @@ extension on TranslationsCs {
 			'four_medium' => '4 karty na řádek (střední)',
 			'six_small' => '6 karet na řádek (malé)',
 			'visual_supports_desc' => 'Vizuální diagramy, rozvrhy a nejprve-pak tabulky. K jejich vytvoření jsou zapotřebí kartičky. Nejsou vázány na osobu.',
+			'add_entry_from_QR' => 'Přidat záznam pomocí QR kódu',
+			'share_entry' => 'Sdílet záznam',
+			'scan_qr' => 'Naskenovat QR kód',
+			'incorrect_qr' => 'Nesprávný QR kód',
 			_ => null,
 		};
 	}

@@ -206,6 +206,10 @@
   "two_large": "2 cards per row (large)",
   "four_medium": "4 cards per row (medium)",
   "six_small": "6 cards per row (small)",
-  "visual_supports_desc": "Visual diagrams, schedules, and first-then tables. They require cards to be created. They are not tied to a person."
+  "visual_supports_desc": "Visual diagrams, schedules, and first-then tables. They require cards to be created. They are not tied to a person.",
+  "add_entry_from_QR": "Add entry using QR code",
+  "share_entry": "Share entry",
+  "scan_qr": "Scan QR code",
+  "incorrect_qr": "Invalid QR code"
 
 }

@@ -246,6 +246,10 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get four_medium => '4 kartičky na riadok (stredné)';
 	@override String get six_small => '6 kartičiek na riadok (malé)';
 	@override String get visual_supports_desc => 'Vizuálne diagramy, rozvrhy a najprv-potom tabuľky. Na ich vytvorenie sú potrebné kartičky. Nie sú viazané na osobu.';
+	@override String get add_entry_from_QR => 'Pridať záznam pomocou QR kódu';
+	@override String get share_entry => 'Zdieľať záznam';
+	@override String get scan_qr => 'Naskenovať QR kód';
+	@override String get incorrect_qr => 'Nesprávny QR kód';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -450,6 +454,10 @@ extension on TranslationsSk {
 			'four_medium' => '4 kartičky na riadok (stredné)',
 			'six_small' => '6 kartičiek na riadok (malé)',
 			'visual_supports_desc' => 'Vizuálne diagramy, rozvrhy a najprv-potom tabuľky. Na ich vytvorenie sú potrebné kartičky. Nie sú viazané na osobu.',
+			'add_entry_from_QR' => 'Pridať záznam pomocou QR kódu',
+			'share_entry' => 'Zdieľať záznam',
+			'scan_qr' => 'Naskenovať QR kód',
+			'incorrect_qr' => 'Nesprávny QR kód',
 			_ => null,
 		};
 	}

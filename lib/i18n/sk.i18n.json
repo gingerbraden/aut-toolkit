@@ -207,5 +207,9 @@
   "two_large": "2 kartičky na riadok (veľké)",
   "four_medium": "4 kartičky na riadok (stredné)",
   "six_small": "6 kartičiek na riadok (malé)",
-  "visual_supports_desc": "Vizuálne diagramy, rozvrhy a najprv-potom tabuľky. Na ich vytvorenie sú potrebné kartičky. Nie sú viazané na osobu."
+  "visual_supports_desc": "Vizuálne diagramy, rozvrhy a najprv-potom tabuľky. Na ich vytvorenie sú potrebné kartičky. Nie sú viazané na osobu.",
+  "add_entry_from_QR": "Pridať záznam pomocou QR kódu",
+  "share_entry": "Zdieľať záznam",
+  "scan_qr": "Naskenovať QR kód",
+  "incorrect_qr": "Nesprávny QR kód"
 }
