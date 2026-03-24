@@ -95,7 +95,7 @@ class _FirstThenBoardListViewState extends ConsumerState<FirstThenBoardList> {
             crossAxisCount: columns,
             crossAxisSpacing: 0,
             mainAxisSpacing: 0,
-            childAspectRatio: 1.5,
+            childAspectRatio: 1.2,
           ),
           itemCount: boards.length,
           itemBuilder: (_, i) => _gridTile(boards[i]),
@@ -106,46 +106,53 @@ class _FirstThenBoardListViewState extends ConsumerState<FirstThenBoardList> {
 
   Widget _gridTile(FirstThenBoard board) {
     return InkWell(
-      onTap: () {
-        router.push(RouterUtils.getFirstThenBoardShowPath(), extra: board);
-      },
-      onLongPress: () {
-        router.push(RouterUtils.getNewFirstThenBoardPath(), extra: board);
-      },
       child: Card(
         elevation: 0,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _image(board.first.localImgPath),
-                const SizedBox(width: 8),
-                const Icon(Icons.arrow_forward, size: 18),
-                const SizedBox(width: 8),
-                _image(board.then.localImgPath),
-              ],
-            ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _image(board.first.localImgPath),
+                  const SizedBox(width: 8),
+                  const Icon(Icons.arrow_forward, size: 18),
+                  const SizedBox(width: 8),
+                  _image(board.then.localImgPath),
+                ],
+              ),
 
-            const SizedBox(height: 8),
+              const SizedBox(height: 8),
 
-            Flexible(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppConstants.BASE_APP_UI_PADDING,
-                ),
-                child: Text(
-                  board.name,
-                  style: const TextStyle(fontSize: 16),
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+              Flexible(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppConstants.BASE_APP_UI_PADDING,
+                  ),
+                  child: Text(
+                    board.name,
+                    style: const TextStyle(fontSize: 16),
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
-            ),
-          ],
+
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(onPressed: () {
+                    router.push(RouterUtils.getFirstThenBoardShowPath(), extra: board);
+                  }, icon: Icon(Icons.play_circle)),
+                  IconButton(onPressed: () {router.push(RouterUtils.getNewFirstThenBoardPath(), extra: board);}, icon: Icon(Icons.edit)),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

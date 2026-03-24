@@ -5,7 +5,7 @@ class TtsService {
 
   static String _currentLocale = 'en-GB';
 
-  static double _speechRate = 0.8;
+  static double _speechRate = 0.5;
   static double _volume = 1.0;
   static double _pitch = 1.0;
 

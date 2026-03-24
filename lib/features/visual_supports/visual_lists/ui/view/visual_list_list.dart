@@ -102,22 +102,25 @@ class _VisualListScreenState extends ConsumerState<VisualListList> {
       child: ListTile(
         title: Text(list.name),
         subtitle: Text("${list.steps.length} ${t.steps(n: list.steps.length)}"),
-        onTap: () {
-          if (widget.isDiagram) {
-            router.push(
-              RouterUtils.getVisualListDiagramShowPath(),
-              extra: list,
-            );
-          } else {
-            router.push(
-              RouterUtils.getVisualListScheduleShowPath(),
-              extra: list,
-            );
-          }
-        },
-        onLongPress: () {
-          router.push(RouterUtils.getNewVisualListPath(), extra: list);
-        },
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(onPressed: () {
+              if (widget.isDiagram) {
+                router.push(
+                  RouterUtils.getVisualListDiagramShowPath(),
+                  extra: list,
+                );
+              } else {
+                router.push(
+                  RouterUtils.getVisualListScheduleShowPath(),
+                  extra: list,
+                );
+              }
+            }, icon: Icon(Icons.play_circle)),
+            IconButton(onPressed: () {router.push(RouterUtils.getNewVisualListPath(), extra: list);}, icon: Icon(Icons.edit)),
+          ],
+        ),
       ),
     );
   }
