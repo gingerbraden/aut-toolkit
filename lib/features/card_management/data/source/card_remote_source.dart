@@ -12,7 +12,7 @@ class CardRemoteSource {
   final FirebaseStorage _storage;
 
   CollectionReference<Map<String, dynamic>> _userCardsRef(String uid) {
-    return _firestore.collection('users').doc(uid).collection('user_cards');
+    return _firestore.collection('users').doc(uid).collection('cards_images');
   }
 
   CardRemoteSource({FirebaseFirestore? firestore, FirebaseStorage? storage})
@@ -21,7 +21,7 @@ class CardRemoteSource {
 
   Future<String> uploadFile(File file, String uid, String filename) async {
     final ref = _storage.ref().child(
-      'users/$uid/eating_habits_images/$filename',
+      'users/$uid/cards_images/$filename',
     );
     await ref.putFile(file);
     return await ref.getDownloadURL();
