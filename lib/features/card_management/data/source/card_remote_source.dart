@@ -12,7 +12,7 @@ class CardRemoteSource {
   final FirebaseStorage _storage;
 
   CollectionReference<Map<String, dynamic>> _userCardsRef(String uid) {
-    return _firestore.collection('users').doc(uid).collection('cards_images');
+    return _firestore.collection('users').doc(uid).collection('user_cards');
   }
 
   CardRemoteSource({FirebaseFirestore? firestore, FirebaseStorage? storage})
