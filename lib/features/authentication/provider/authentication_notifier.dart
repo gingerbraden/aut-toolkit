@@ -1,8 +1,10 @@
+import 'package:aut_toolkit/core/services/objectbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../core/services/firebase_service.dart';
+import '../../../main.dart';
 
 class AuthentificationNotifier extends Notifier<User?> {
   final FirebaseService _firebaseService = FirebaseService();
@@ -67,6 +69,7 @@ class AuthentificationNotifier extends Notifier<User?> {
   }
 
   Future<void> signOut() async {
+    await objectbox.wipeAllData();
     await _firebaseService.signOut();
     await _googleSignIn.signOut();
     state = null;
