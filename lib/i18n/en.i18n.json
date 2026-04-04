@@ -11,7 +11,7 @@
   "no_sign_in_details": "Missing e-mail or password",
   "passwords_dont_match": "Passwords don't match",
   "invalid_mail": "Invalid e-mail address",
-  "invalid_password": "Password must contain at elast 6 characters",
+  "invalid_password": "Must contain at least 6 characters",
   "invalid_email_password": "Incorrect e-mail or password",
   "sign_in_button": "Sign in",
   "cancel": "Cancel",
@@ -149,8 +149,8 @@
   "adverb": "Adverb",
   "conjunction": "Conjunction",
   "determiner": "Determiner",
-  "please_choose_word_category": "Please choose a word type",
-  "word_category": "Word type",
+  "please_choose_word_category": "Please choose a word class",
+  "word_category": "Word class",
   "data_sync": "Syncing data, please wait...",
   "unlocking": "Unlocking...",
   "locking": "Keyboard is locked",
@@ -210,6 +210,8 @@
   "add_entry_from_QR": "Add entry using QR code",
   "share_entry": "Share entry",
   "scan_qr": "Scan QR code",
-  "incorrect_qr": "Invalid QR code"
-
+  "incorrect_qr": "Invalid QR code",
+  "use_fitz": "se Fitzgerald key color coding"
 }
+
+

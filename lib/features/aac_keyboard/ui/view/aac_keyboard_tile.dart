@@ -7,14 +7,15 @@ import 'aac_keyboard_image_tile.dart';
 
 class AACKeyboardTile extends StatelessWidget {
   final KeyboardSlot? slot;
+  final bool useColor;
 
-  const AACKeyboardTile({super.key, required this.slot});
+  const AACKeyboardTile({super.key, required this.slot, required this.useColor});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      color: slot?.card != null && slot?.keyboard == null
+      color: useColor && slot?.card != null && slot?.keyboard == null
           ? CardUtil.getColorForWordCat(slot!.card!.wordCategory!)
           : slot?.keyboard != null
           ? Colors.blue.shade50

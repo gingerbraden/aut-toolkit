@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 
 class KeyboardPrintView extends StatelessWidget {
   final AACKeyboard keyboard;
-
+  final bool useColor;
   final bool showTitle;
 
   const KeyboardPrintView({
     super.key,
     required this.keyboard,
     this.showTitle = true,
+    required this.useColor
   });
 
   KeyboardSlot? _slotAt(int x, int y) {
@@ -68,7 +69,7 @@ class KeyboardPrintView extends StatelessWidget {
                           child: ColoredBox(
                             color: Colors.transparent,
                             child: SizedBox.expand(
-                              child: AACKeyboardTile(slot: slot),
+                              child: AACKeyboardTile(slot: slot, useColor: this.useColor,),
                             ),
                           ),
                         );

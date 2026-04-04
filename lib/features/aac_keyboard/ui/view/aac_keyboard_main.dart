@@ -171,6 +171,7 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
               rows: state.rows,
               columns: state.columns,
               onChanged: (r, c) => vm.updateGridSize(rows: r, columns: c),
+              onChangedColor: (c) => vm.updateUseColor(useColor: c), useColor: state.useColor,
             ),
           if (!state.locked)
             IconButton(
@@ -189,7 +190,8 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
                     root: kb,
                     theme: Theme.of(context),
                     pixelRatio: 3.5,
-                    showTitle: true,
+                    showTitle: false,
+                    useColor: state.useColor
                   );
 
                   await AACKeyboardPrintUtil.shareWithSharePlus(file);
@@ -241,6 +243,7 @@ class _AACKeyboardMainState extends ConsumerState<AACKeyboardMain> {
                   onClear: vm.clearPressedCards,
                   onClearLast: vm.clearLastCard,
                   onSwitchToQwerty: vm.switchKb,
+                  useColor: state.useColor,
                 ),
               ),
             if (state.inputMode == KeyboardInputMode.aacGrid)

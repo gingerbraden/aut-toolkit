@@ -77,8 +77,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Invalid e-mail address'
 	String get invalid_mail => 'Invalid e-mail address';
 
-	/// en: 'Password must contain at elast 6 characters'
-	String get invalid_password => 'Password must contain at elast 6 characters';
+	/// en: 'Must contain at least 6 characters'
+	String get invalid_password => 'Must contain at least 6 characters';
 
 	/// en: 'Incorrect e-mail or password'
 	String get invalid_email_password => 'Incorrect e-mail or password';
@@ -473,11 +473,11 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Determiner'
 	String get determiner => 'Determiner';
 
-	/// en: 'Please choose a word type'
-	String get please_choose_word_category => 'Please choose a word type';
+	/// en: 'Please choose a word class'
+	String get please_choose_word_category => 'Please choose a word class';
 
-	/// en: 'Word type'
-	String get word_category => 'Word type';
+	/// en: 'Word class'
+	String get word_category => 'Word class';
 
 	/// en: 'Syncing data, please wait...'
 	String get data_sync => 'Syncing data, please wait...';
@@ -648,6 +648,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Invalid QR code'
 	String get incorrect_qr => 'Invalid QR code';
+
+	/// en: 'se Fitzgerald key color coding'
+	String get use_fitz => 'se Fitzgerald key color coding';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -670,7 +673,7 @@ extension on Translations {
 			'no_sign_in_details' => 'Missing e-mail or password',
 			'passwords_dont_match' => 'Passwords don\'t match',
 			'invalid_mail' => 'Invalid e-mail address',
-			'invalid_password' => 'Password must contain at elast 6 characters',
+			'invalid_password' => 'Must contain at least 6 characters',
 			'invalid_email_password' => 'Incorrect e-mail or password',
 			'sign_in_button' => 'Sign in',
 			'cancel' => 'Cancel',
@@ -799,8 +802,8 @@ extension on Translations {
 			'adverb' => 'Adverb',
 			'conjunction' => 'Conjunction',
 			'determiner' => 'Determiner',
-			'please_choose_word_category' => 'Please choose a word type',
-			'word_category' => 'Word type',
+			'please_choose_word_category' => 'Please choose a word class',
+			'word_category' => 'Word class',
 			'data_sync' => 'Syncing data, please wait...',
 			'unlocking' => 'Unlocking...',
 			'locking' => 'Keyboard is locked',
@@ -856,6 +859,7 @@ extension on Translations {
 			'share_entry' => 'Share entry',
 			'scan_qr' => 'Scan QR code',
 			'incorrect_qr' => 'Invalid QR code',
+			'use_fitz' => 'se Fitzgerald key color coding',
 			_ => null,
 		};
 	}

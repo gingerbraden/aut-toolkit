@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../core/model/sync_entity.dart';
@@ -28,12 +29,15 @@ class AACKeyboardState {
   final KeyboardInputMode inputMode;
   final String typedText;
 
+  final bool useColor;
+
   AACKeyboardState({
     required this.currentKeyboard,
     required this.keyboardStack,
     required this.rows,
     required this.columns,
     required this.pressedCards,
+    required this.useColor,
     this.locked = true,
     this.isLoading = true,
 
@@ -49,7 +53,7 @@ class AACKeyboardState {
     List<UserCard>? pressedCards,
     bool? locked,
     bool? isLoading,
-
+    bool? useColor,
     KeyboardInputMode? inputMode,
     String? typedText,
   }) {
@@ -61,7 +65,7 @@ class AACKeyboardState {
       pressedCards: pressedCards ?? this.pressedCards,
       locked: locked ?? this.locked,
       isLoading: isLoading ?? this.isLoading,
-
+      useColor: useColor ?? this.useColor,
       inputMode: inputMode ?? this.inputMode,
       typedText: typedText ?? this.typedText,
     );
@@ -88,6 +92,7 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
            pressedCards: [],
            inputMode: KeyboardInputMode.aacGrid,
            typedText: '',
+           useColor: true
          ),
        ) {
     Future.microtask(_ensureKeyboardLoaded);
@@ -95,6 +100,10 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
 
   Future<void> _ensureKeyboardLoaded() async {
     state = state.copyWith(isLoading: true);
+
+    final prefs = await SharedPreferences.getInstance();
+
+    final useColorFromPrefs = prefs.getBool('useColor');
 
     final userId = FirebaseService().currentUser!.uid;
     final existing = await ref
@@ -107,6 +116,7 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
         isLoading: false,
         rows: existing.rows,
         columns: existing.cols,
+        useColor: useColorFromPrefs ?? true
       );
       return;
     }
@@ -233,6 +243,16 @@ class AACKeyboardViewModel extends StateNotifier<AACKeyboardState> {
     } catch (_) {
       return null;
     }
+  }
+
+  Future<void> updateUseColor({required bool useColor}) async {
+    state = state.copyWith(
+      useColor: useColor,
+    );
+
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setBool('useColor', useColor);
   }
 
   Future<void> assignCardToPosition({

@@ -116,9 +116,10 @@ class AACKeyboardPrintUtil {
   static Future<File> exportToA4PdfRaster({
     required AACKeyboard root,
     required ThemeData theme,
+    required bool useColor,
     String filename = 'aac_keyboards_raster_a4_landscape.pdf',
     double pixelRatio = 3.0,
-    bool showTitle = true,
+    bool showTitle = true
   }) async {
     final pageFormat = PdfPageFormat.a4.landscape;
 
@@ -133,7 +134,7 @@ class AACKeyboardPrintUtil {
         pixelRatio: pixelRatio,
         widget: Theme(
           data: theme,
-          child: KeyboardPrintView(keyboard: kb, showTitle: showTitle),
+          child: KeyboardPrintView(keyboard: kb, showTitle: showTitle, useColor: useColor,),
         ),
         beforeSnapshot: (ctx) => precacheKeyboardFileImages(kb, ctx),
       );

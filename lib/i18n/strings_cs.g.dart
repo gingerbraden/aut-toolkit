@@ -250,6 +250,7 @@ class TranslationsCs with BaseTranslations<AppLocale, Translations> implements T
 	@override String get share_entry => 'Sdílet záznam';
 	@override String get scan_qr => 'Naskenovat QR kód';
 	@override String get incorrect_qr => 'Nesprávný QR kód';
+	@override String get use_fitz => 'Používat Fitzgeraldovo barevné kódování';
 }
 
 /// The flat map containing all translations for locale <cs>.
@@ -458,6 +459,7 @@ extension on TranslationsCs {
 			'share_entry' => 'Sdílet záznam',
 			'scan_qr' => 'Naskenovat QR kód',
 			'incorrect_qr' => 'Nesprávný QR kód',
+			'use_fitz' => 'Používat Fitzgeraldovo barevné kódování',
 			_ => null,
 		};
 	}

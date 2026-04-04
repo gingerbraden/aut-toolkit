@@ -205,7 +205,7 @@ class _KeyboardGridState extends ConsumerState<KeyboardGrid> {
                       y: y,
                       slot: slot,
                     ),
-                    child: Ink(child: AACKeyboardTile(slot: slot)),
+                    child: Ink(child: AACKeyboardTile(slot: slot, useColor: state.useColor,)),
                   ),
                 ),
               );

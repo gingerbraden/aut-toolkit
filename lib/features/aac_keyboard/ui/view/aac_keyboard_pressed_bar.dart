@@ -10,6 +10,7 @@ class PressedBar extends StatefulWidget {
   final VoidCallback onClear;
   final VoidCallback onClearLast;
   final VoidCallback onSwitchToQwerty;
+  final bool useColor;
 
   const PressedBar({
     super.key,
@@ -17,6 +18,7 @@ class PressedBar extends StatefulWidget {
     required this.onClear,
     required this.onClearLast,
     required this.onSwitchToQwerty,
+    required this.useColor
   });
 
   @override
@@ -109,6 +111,7 @@ class _PressedBarState extends State<PressedBar> {
                             card: card,
                             updatedAt: DateTime.now(),
                           ),
+                          useColor: widget.useColor,
                         ),
                       ),
                     );

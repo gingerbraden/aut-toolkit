@@ -5,13 +5,17 @@ import '../../../../i18n/strings.g.dart';
 class GridSettingsMenu extends StatelessWidget {
   final int rows;
   final int columns;
+  final bool useColor;
   final void Function(int rows, int columns) onChanged;
+  final void Function(bool useColor) onChangedColor;
 
   const GridSettingsMenu({
     super.key,
     required this.rows,
     required this.columns,
+    required this.useColor,
     required this.onChanged,
+    required this.onChangedColor,
   });
 
   @override
@@ -21,12 +25,16 @@ class GridSettingsMenu extends StatelessWidget {
       onPressed: () async {
         final result = await showDialog<_GridSizeResult>(
           context: context,
-          builder: (context) =>
-              _GridSizeDialog(initialRows: rows, initialColumns: columns),
+          builder: (context) => _GridSizeDialog(
+            initialRows: rows,
+            initialColumns: columns,
+            initialUseColor: useColor,
+          ),
         );
 
         if (result != null) {
           onChanged(result.rows, result.columns);
+          onChangedColor(result.useColor);
         }
       },
     );
@@ -36,17 +44,20 @@ class GridSettingsMenu extends StatelessWidget {
 class _GridSizeResult {
   final int rows;
   final int columns;
+  final bool useColor;
 
-  const _GridSizeResult(this.rows, this.columns);
+  const _GridSizeResult(this.rows, this.columns, this.useColor);
 }
 
 class _GridSizeDialog extends StatefulWidget {
   final int initialRows;
   final int initialColumns;
+  final bool initialUseColor;
 
   const _GridSizeDialog({
     required this.initialRows,
     required this.initialColumns,
+    required this.initialUseColor,
   });
 
   @override
@@ -56,6 +67,7 @@ class _GridSizeDialog extends StatefulWidget {
 class _GridSizeDialogState extends State<_GridSizeDialog> {
   late int _rows = widget.initialRows;
   late int _cols = widget.initialColumns;
+  late bool _useColor = widget.initialUseColor;
 
   static const int _minRows = 1;
   static const int _maxRows = 12;
@@ -74,24 +86,25 @@ class _GridSizeDialogState extends State<_GridSizeDialog> {
             value: _rows,
             min: _minRows,
             max: _maxRows,
-            onDecrement: _rows > _minRows
-                ? () => setState(() => _rows--)
-                : null,
-            onIncrement: _rows < _maxRows
-                ? () => setState(() => _rows++)
-                : null,
+            onDecrement: _rows > _minRows ? () => setState(() => _rows--) : null,
+            onIncrement: _rows < _maxRows ? () => setState(() => _rows++) : null,
           ),
           _StepperRow(
             label: t.cols,
             value: _cols,
             min: _minCols,
             max: _maxCols,
-            onDecrement: _cols > _minCols
-                ? () => setState(() => _cols--)
-                : null,
-            onIncrement: _cols < _maxCols
-                ? () => setState(() => _cols++)
-                : null,
+            onDecrement: _cols > _minCols ? () => setState(() => _cols--) : null,
+            onIncrement: _cols < _maxCols ? () => setState(() => _cols++) : null,
+          ),
+          Row(
+            children: [
+              Expanded(child: Text(t.use_fitz)),
+              Switch(
+                value: _useColor,
+                onChanged: (value) => setState(() => _useColor = value),
+              ),
+            ],
           ),
         ],
       ),
@@ -102,7 +115,7 @@ class _GridSizeDialogState extends State<_GridSizeDialog> {
         ),
         FilledButton(
           onPressed: () =>
-              Navigator.of(context).pop(_GridSizeResult(_rows, _cols)),
+              Navigator.of(context).pop(_GridSizeResult(_rows, _cols, _useColor)),
           child: Text(t.save),
         ),
       ],
