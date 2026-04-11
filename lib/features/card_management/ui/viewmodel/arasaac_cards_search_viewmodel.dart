@@ -49,15 +49,13 @@ class ARASAACCardsSearchViewModel extends Notifier<ARASAACCardsSearchState> {
         return;
     }
 
-
     final Map<String, dynamic> jsonMap = json.decode(jsonString);
-    final parsed = jsonMap.map(
-      (key, value) => MapEntry(
-        StringUtils().removeDiacritics(key),
-        List<String>.from(value),
-      ),
-    );
-    state = state.copyWith(translations: parsed);
+    final merged = Map<String, List<String>>.from(state.translations);
+    jsonMap.forEach((key, value) {
+      final normalizedKey = StringUtils().removeDiacritics(key);
+      merged[normalizedKey] = [...(merged[normalizedKey] ?? []), ...List<String>.from(value)];
+    });
+    state = state.copyWith(translations: merged);
   }
 
   void performSearch(BuildContext context) {
@@ -80,6 +78,7 @@ class ARASAACCardsSearchViewModel extends Notifier<ARASAACCardsSearchState> {
             showCloseIcon: true,
           ),
         );
+        state = state.copyWith(lastQuery: query, futurePictograms: Future.value([]));
         return;
       }
       final future = state.repo.searchPictograms(

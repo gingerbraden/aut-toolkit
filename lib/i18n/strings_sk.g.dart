@@ -252,6 +252,7 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get incorrect_qr => 'Nesprávny QR kód';
 	@override String get use_fitz => 'Používať Fitzgeraldove farebné kódovanie';
 	@override String get at => 'o';
+	@override String get arasaac_search_defaul => 'Pre vyhľadanie symbolov použite textové pole v hornej časti obrazovky.';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -462,6 +463,7 @@ extension on TranslationsSk {
 			'incorrect_qr' => 'Nesprávny QR kód',
 			'use_fitz' => 'Používať Fitzgeraldove farebné kódovanie',
 			'at' => 'o',
+			'arasaac_search_defaul' => 'Pre vyhľadanie symbolov použite textové pole v hornej časti obrazovky.',
 			_ => null,
 		};
 	}

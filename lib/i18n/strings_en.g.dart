@@ -654,6 +654,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'at'
 	String get at => 'at';
+
+	/// en: 'Use the text field at the top of the screen to search for symbols.'
+	String get arasaac_search_defaul => 'Use the text field at the top of the screen to search for symbols.';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -864,6 +867,7 @@ extension on Translations {
 			'incorrect_qr' => 'Invalid QR code',
 			'use_fitz' => 'se Fitzgerald key color coding',
 			'at' => 'at',
+			'arasaac_search_defaul' => 'Use the text field at the top of the screen to search for symbols.',
 			_ => null,
 		};
 	}

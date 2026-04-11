@@ -213,5 +213,6 @@
   "scan_qr": "Naskenovat QR kód",
   "incorrect_qr": "Nesprávný QR kód",
   "use_fitz": "Používat Fitzgeraldovo barevné kódování",
-  "at": "o"
+  "at": "o",
+  "arasaac_search_defaul": "Pro vyhledávání symbolů použijte textové pole v horní části obrazovky."
 }

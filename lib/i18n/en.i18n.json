@@ -212,7 +212,8 @@
   "scan_qr": "Scan QR code",
   "incorrect_qr": "Invalid QR code",
   "use_fitz": "se Fitzgerald key color coding",
-  "at": "at"
+  "at": "at",
+  "arasaac_search_defaul": "Use the text field at the top of the screen to search for symbols."
 }
 
 
