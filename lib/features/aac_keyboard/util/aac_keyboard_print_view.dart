@@ -69,7 +69,7 @@ class KeyboardPrintView extends StatelessWidget {
                           child: ColoredBox(
                             color: Colors.transparent,
                             child: SizedBox.expand(
-                              child: AACKeyboardTile(slot: slot, useColor: this.useColor,),
+                              child: AACKeyboardTile(slot: slot, useColor: this.useColor, isLocked: false,),
                             ),
                           ),
                         );

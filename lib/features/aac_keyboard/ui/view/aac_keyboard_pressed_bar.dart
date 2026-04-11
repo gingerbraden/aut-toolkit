@@ -112,6 +112,7 @@ class _PressedBarState extends State<PressedBar> {
                             updatedAt: DateTime.now(),
                           ),
                           useColor: widget.useColor,
+                          isLocked: false,
                         ),
                       ),
                     );
