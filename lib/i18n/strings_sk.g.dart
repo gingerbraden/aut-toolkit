@@ -251,6 +251,7 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get scan_qr => 'Naskenovať QR kód';
 	@override String get incorrect_qr => 'Nesprávny QR kód';
 	@override String get use_fitz => 'Používať Fitzgeraldove farebné kódovanie';
+	@override String get at => 'o';
 }
 
 /// The flat map containing all translations for locale <sk>.
@@ -460,6 +461,7 @@ extension on TranslationsSk {
 			'scan_qr' => 'Naskenovať QR kód',
 			'incorrect_qr' => 'Nesprávny QR kód',
 			'use_fitz' => 'Používať Fitzgeraldove farebné kódovanie',
+			'at' => 'o',
 			_ => null,
 		};
 	}

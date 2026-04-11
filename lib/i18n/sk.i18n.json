@@ -212,5 +212,6 @@
   "share_entry": "Zdieľať záznam",
   "scan_qr": "Naskenovať QR kód",
   "incorrect_qr": "Nesprávny QR kód",
-  "use_fitz": "Používať Fitzgeraldove farebné kódovanie"
+  "use_fitz": "Používať Fitzgeraldove farebné kódovanie",
+  "at": "o"
 }

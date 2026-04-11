@@ -7,7 +7,7 @@ class DateUtil {
   }
   static String returnDateInStringFormatWithTime(DateTime? date) {
     if (date == null) return '';
-    return '${date.day}.${date.month}.${date.year} o ${date.hour}:${date.minute < 10 ? '0${date.minute}' : '${date.minute}'}';
+    return '${date.day}.${date.month}.${date.year} ${t.at} ${date.hour}:${date.minute < 10 ? '0${date.minute}' : '${date.minute}'}';
   }
   static String getDayOfWeekString(int n) {
     switch(n) {

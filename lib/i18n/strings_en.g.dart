@@ -218,11 +218,11 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs.'
 	String get challenging_behaviour_desc => 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs.';
 
-	/// en: 'Occuring'
-	String get occuring => 'Occuring';
+	/// en: 'Occurring'
+	String get occuring => 'Occurring';
 
-	/// en: 'Not occuring'
-	String get not_occuring => 'Not occuring';
+	/// en: 'Not occurring'
+	String get not_occuring => 'Not occurring';
 
 	/// en: 'Location'
 	String get location => 'Location';
@@ -375,8 +375,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'This action cannot be undone.'
 	String get cant_undo_action => 'This action cannot be undone.';
 
-	/// en: 'An error occured'
-	String get error_occured => 'An error occured';
+	/// en: 'An error occurred'
+	String get error_occured => 'An error occurred';
 
 	/// en: 'No image was set.'
 	String get no_image_set => 'No image was set.';
@@ -535,8 +535,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'or'
 	String get or => 'or';
 
-	/// en: 'An unexpected error occured. Please try again later.'
-	String get unknown_error => 'An unexpected error occured. Please try again later.';
+	/// en: 'An unexpected error occurred. Please try again later.'
+	String get unknown_error => 'An unexpected error occurred. Please try again later.';
 
 	/// en: 'Do you really want to delete your account?'
 	String get delete_account => 'Do you really want to delete your account?';
@@ -601,8 +601,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Since when is this record valid?'
 	String get from_info => 'Since when is this record valid?';
 
-	/// en: 'Is this behaviour occuring?'
-	String get behaviour_occuring_info => 'Is this behaviour occuring?';
+	/// en: 'Is this behaviour occurring?'
+	String get behaviour_occuring_info => 'Is this behaviour occurring?';
 
 	/// en: 'How long did this behaviour last, and when did it occur?'
 	String get challenging_behaviour_duration_info => 'How long did this behaviour last, and when did it occur?';
@@ -651,6 +651,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'se Fitzgerald key color coding'
 	String get use_fitz => 'se Fitzgerald key color coding';
+
+	/// en: 'at'
+	String get at => 'at';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -720,8 +723,8 @@ extension on Translations {
 			'sort' => 'Sort by',
 			'challenging_behaviour' => 'Challenging behaviour',
 			'challenging_behaviour_desc' => 'Autistic children may show challenging behavior when overwhelmed or unable to communicate needs.',
-			'occuring' => 'Occuring',
-			'not_occuring' => 'Not occuring',
+			'occuring' => 'Occurring',
+			'not_occuring' => 'Not occurring',
 			'location' => 'Location',
 			'please_enter_location' => 'Please enter a location',
 			'duration' => 'Duration',
@@ -771,7 +774,7 @@ extension on Translations {
 			'detail' => 'Detail',
 			'delete' => 'Delete',
 			'cant_undo_action' => 'This action cannot be undone.',
-			'error_occured' => 'An error occured',
+			'error_occured' => 'An error occurred',
 			'no_image_set' => 'No image was set.',
 			'registration_succesful' => 'Registration was succesful. You can now log in.',
 			'visual_supports' => 'Visual supports',
@@ -821,7 +824,7 @@ extension on Translations {
 			'choose_cover_and_save' => 'Choose icon and create folder',
 			'preparing_pdf' => 'Preparing PDF...',
 			'or' => 'or',
-			'unknown_error' => 'An unexpected error occured. Please try again later.',
+			'unknown_error' => 'An unexpected error occurred. Please try again later.',
 			'delete_account' => 'Do you really want to delete your account?',
 			'delete_account_info' => 'This action can not be undone. All your data will be wiped!',
 			'delete_account_info_password' => 'To confirm the deletion of your account, please use your password.',
@@ -843,7 +846,7 @@ extension on Translations {
 			'eating_habit_photo_info' => 'Photo of the meal, food item, or ingredient.',
 			'eating_habit_name' => 'Name of the meal, food item, or ingredient...',
 			'from_info' => 'Since when is this record valid?',
-			'behaviour_occuring_info' => 'Is this behaviour occuring?',
+			'behaviour_occuring_info' => 'Is this behaviour occurring?',
 			'challenging_behaviour_duration_info' => 'How long did this behaviour last, and when did it occur?',
 			'challenging_behaviour_people_info' => 'Who was present?',
 			'visual_schedule_info' => 'Cards are used to fill the visual schedule/diagram. When you click "Add Step", a list of cards will appear — just select any card and it will be added to the schedule. To change the order of steps, use the horizontal icon on the right side of the row for the corresponding card.',
@@ -860,6 +863,7 @@ extension on Translations {
 			'scan_qr' => 'Scan QR code',
 			'incorrect_qr' => 'Invalid QR code',
 			'use_fitz' => 'se Fitzgerald key color coding',
+			'at' => 'at',
 			_ => null,
 		};
 	}

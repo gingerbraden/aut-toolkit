@@ -77,6 +77,7 @@ class EatingHabitEdit extends ConsumerWidget {
                 _descriptionTextField(state, viewModel),
                 SizedBoxDivider(),
                 _imageButtons(state, viewModel, context),
+                SizedBoxDivider(),
                 InfoSmallText(description: t.eating_habit_photo_info),
               ],
             ),
