@@ -348,8 +348,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Visual sequence boards management'
 	String get visual_sequence_boards_desc => 'Visual sequence boards management';
 
-	/// en: 'ARASAAC Icons'
-	String get arasaac_icons => 'ARASAAC Icons';
+	/// en: 'ARASAAC Symbols'
+	String get arasaac_icons => 'ARASAAC Symbols';
 
 	/// en: 'Create cards'
 	String get create_card => 'Create cards';
@@ -768,7 +768,7 @@ extension on Translations {
 			'cards_desc' => 'Cards are used in the AAC board and visual supports. They are not tied to a person. By long-pressing the card, you activate the mode for generating printable cards.',
 			'visual_sequence_boards' => 'Visual sequence boards',
 			'visual_sequence_boards_desc' => 'Visual sequence boards management',
-			'arasaac_icons' => 'ARASAAC Icons',
+			'arasaac_icons' => 'ARASAAC Symbols',
 			'create_card' => 'Create cards',
 			'create_card_decision' => 'What source would like to use for the icon?',
 			'from_gallery' => 'Gallery',

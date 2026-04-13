@@ -143,7 +143,7 @@ class TranslationsSk with BaseTranslations<AppLocale, Translations> implements T
 	@override String get cards_desc => 'Kartičky sú používané v AAC klávesnici a pri tvorbe vizuálnych pomôcok. Nie sú viazané na osobu. Dlhým podržaním kartičky aktivujete mód na generovanie kartičiek na tlač.';
 	@override String get visual_sequence_boards => 'Procesurálne diagramy';
 	@override String get visual_sequence_boards_desc => 'Správa procesurálnych diagramov';
-	@override String get arasaac_icons => 'ARASAAC Ikony';
+	@override String get arasaac_icons => 'ARASAAC Symboly';
 	@override String get create_card => 'Vytvoriť kartičku';
 	@override String get create_card_decision => 'Aký si želáte použiť zdroj obrázku?';
 	@override String get from_gallery => 'Galéria';
@@ -364,7 +364,7 @@ extension on TranslationsSk {
 			'cards_desc' => 'Kartičky sú používané v AAC klávesnici a pri tvorbe vizuálnych pomôcok. Nie sú viazané na osobu. Dlhým podržaním kartičky aktivujete mód na generovanie kartičiek na tlač.',
 			'visual_sequence_boards' => 'Procesurálne diagramy',
 			'visual_sequence_boards_desc' => 'Správa procesurálnych diagramov',
-			'arasaac_icons' => 'ARASAAC Ikony',
+			'arasaac_icons' => 'ARASAAC Symboly',
 			'create_card' => 'Vytvoriť kartičku',
 			'create_card_decision' => 'Aký si želáte použiť zdroj obrázku?',
 			'from_gallery' => 'Galéria',

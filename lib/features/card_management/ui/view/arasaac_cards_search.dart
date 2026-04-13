@@ -118,7 +118,7 @@ class _ARASAACCardsSearchState extends ConsumerState<ARASAACCardsSearch> {
 
                   final pictograms = snapshot.data ?? [];
                   if (state.lastQuery.isEmpty) {
-                    return Center(child: Text(t.arasaac_search_defaul));
+                    return Center(child: Text(t.arasaac_search_defaul, textAlign: TextAlign.center,));
                   }
                   if (pictograms.isEmpty) {
                     return Center(child: Text(t.no_entries));

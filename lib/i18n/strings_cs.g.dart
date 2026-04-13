@@ -143,7 +143,7 @@ class TranslationsCs with BaseTranslations<AppLocale, Translations> implements T
 	@override String get cards_desc => 'Kartičky se používají v AAC klávesnici a při tvorbě vizuálních pomůcek. Nejsou vázány na osobu. Dlouhým podržením kartičky aktivujete mód pro generování kartiček pro tisk.';
 	@override String get visual_sequence_boards => 'Vizuální diagramy';
 	@override String get visual_sequence_boards_desc => 'Správa vizuálních diagramů';
-	@override String get arasaac_icons => 'ARASAAC Ikony';
+	@override String get arasaac_icons => 'ARASAAC Symboly';
 	@override String get create_card => 'Vytvořit kartičku';
 	@override String get create_card_decision => 'Jaký zdroj obrázku chcete použít?';
 	@override String get from_gallery => 'Galerie';
@@ -364,7 +364,7 @@ extension on TranslationsCs {
 			'cards_desc' => 'Kartičky se používají v AAC klávesnici a při tvorbě vizuálních pomůcek. Nejsou vázány na osobu. Dlouhým podržením kartičky aktivujete mód pro generování kartiček pro tisk.',
 			'visual_sequence_boards' => 'Vizuální diagramy',
 			'visual_sequence_boards_desc' => 'Správa vizuálních diagramů',
-			'arasaac_icons' => 'ARASAAC Ikony',
+			'arasaac_icons' => 'ARASAAC Symboly',
 			'create_card' => 'Vytvořit kartičku',
 			'create_card_decision' => 'Jaký zdroj obrázku chcete použít?',
 			'from_gallery' => 'Galerie',
