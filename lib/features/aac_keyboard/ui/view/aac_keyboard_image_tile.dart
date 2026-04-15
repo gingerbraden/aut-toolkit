@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../card_management/domain/model/user_card.dart';
@@ -29,7 +30,7 @@ class CardTileContent extends StatelessWidget {
         ),
         const SizedBox(height: 6),
         Text(
-          card.names.values.first,
+          card.names[LocaleSettings.currentLocale.languageCode]!,
           textAlign: TextAlign.center,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
