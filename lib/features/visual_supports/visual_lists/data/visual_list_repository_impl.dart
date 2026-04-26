@@ -4,17 +4,22 @@ import 'package:aut_toolkit/features/visual_supports/visual_lists/data/source/vi
 import 'package:aut_toolkit/features/visual_supports/visual_lists/data/source/visual_list_remote_source.dart';
 import 'package:aut_toolkit/features/visual_supports/visual_lists/domain/model/visual_list.dart';
 import 'package:aut_toolkit/features/visual_supports/visual_lists/domain/repository/visual_list_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../core/model/sync_entity.dart';
+import '../../../../core/services/firebase_service.dart';
 import '../../../../core/services/sync_manager.dart';
 
-class VisualListRepositoryImpl implements VisualListRepository, SyncableRepository {
+class VisualListRepositoryImpl
+    implements VisualListRepository, SyncableRepository {
   final VisualListLocalSource _localSource;
   final VisualListRemoteSource _remoteSource;
   final SyncManager _syncManager;
 
-  VisualListRepositoryImpl(this._localSource, this._remoteSource, this._syncManager) {
+  VisualListRepositoryImpl(
+    this._localSource,
+    this._remoteSource,
+    this._syncManager,
+  ) {
     _syncManager.processors.add(processPending);
     _syncManager.addProcessor(fetchRemote);
   }
@@ -64,7 +69,7 @@ class VisualListRepositoryImpl implements VisualListRepository, SyncableReposito
 
   @override
   Future<void> fetchRemote() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
+    final userId = FirebaseService().currentUser?.uid;
     if (userId == null) return;
 
     try {
@@ -76,8 +81,7 @@ class VisualListRepositoryImpl implements VisualListRepository, SyncableReposito
       for (final remoteEntity in remoteData) {
         remoteIds.add(remoteEntity.remoteId!);
 
-        final local =
-        _localSource.getByRemoteId(remoteEntity.remoteId!);
+        final local = _localSource.getByRemoteId(remoteEntity.remoteId!);
 
         final entityToSave = remoteEntity.toEntity();
         entityToSave.id = 0;
@@ -143,7 +147,7 @@ class VisualListRepositoryImpl implements VisualListRepository, SyncableReposito
   @override
   Stream<List<VisualList>> watchAll() {
     return _localSource.watchAll().map(
-          (entities) => entities.map((e) => e.toModel()).toList(),
+      (entities) => entities.map((e) => e.toModel()).toList(),
     );
   }
 }

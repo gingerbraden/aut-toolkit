@@ -3,9 +3,9 @@ import 'package:aut_toolkit/features/good_habits/data/model/good_habit_mappers.d
 import 'package:aut_toolkit/features/good_habits/data/source/good_habit_local_source.dart';
 import 'package:aut_toolkit/features/good_habits/data/source/good_habit_remote_source.dart';
 import 'package:aut_toolkit/features/good_habits/domain/model/good_habit.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/model/sync_entity.dart';
+import '../../../core/services/firebase_service.dart';
 import '../../../core/services/sync_manager.dart';
 import '../domain/repository/good_habit_repository.dart';
 
@@ -96,7 +96,7 @@ class GoodHabitRepositoryImpl
 
   @override
   Future<void> fetchRemote() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
+    final userId = FirebaseService().currentUser?.uid;
     if (userId == null) return;
 
     try {

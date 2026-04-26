@@ -4,17 +4,22 @@ import 'package:aut_toolkit/features/visual_supports/first_then_board/data/sourc
 import 'package:aut_toolkit/features/visual_supports/first_then_board/data/source/first_then_board_remote_source.dart';
 import 'package:aut_toolkit/features/visual_supports/first_then_board/domain/model/first_then_board.dart';
 import 'package:aut_toolkit/features/visual_supports/first_then_board/domain/repository/first_then_board_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../core/model/sync_entity.dart';
+import '../../../../core/services/firebase_service.dart';
 import '../../../../core/services/sync_manager.dart';
 
-class FirstThenBoardRepositoryImpl implements FirstThenBoardRepository, SyncableRepository {
+class FirstThenBoardRepositoryImpl
+    implements FirstThenBoardRepository, SyncableRepository {
   final FirstThenBoardLocalSource _localSource;
   final FirstThenBoardRemoteSource _remoteSource;
   final SyncManager _syncManager;
 
-  FirstThenBoardRepositoryImpl(this._localSource, this._remoteSource, this._syncManager) {
+  FirstThenBoardRepositoryImpl(
+    this._localSource,
+    this._remoteSource,
+    this._syncManager,
+  ) {
     _syncManager.processors.add(processPending);
     _syncManager.addProcessor(fetchRemote);
   }
@@ -56,7 +61,7 @@ class FirstThenBoardRepositoryImpl implements FirstThenBoardRepository, Syncable
 
   @override
   Future<void> fetchRemote() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
+    final userId = FirebaseService().currentUser?.uid;
     if (userId == null) return;
 
     try {
@@ -68,8 +73,7 @@ class FirstThenBoardRepositoryImpl implements FirstThenBoardRepository, Syncable
       for (final remoteEntity in remoteData) {
         remoteIds.add(remoteEntity.remoteId!);
 
-        final local =
-        _localSource.getByRemoteId(remoteEntity.remoteId!);
+        final local = _localSource.getByRemoteId(remoteEntity.remoteId!);
 
         final entityToSave = remoteEntity.toEntity();
         entityToSave.id = 0;
@@ -92,7 +96,6 @@ class FirstThenBoardRepositoryImpl implements FirstThenBoardRepository, Syncable
     } catch (e) {
       print('Error fetching remote first-then boards in repository: $e');
     }
-
   }
 
   @override
@@ -136,7 +139,7 @@ class FirstThenBoardRepositoryImpl implements FirstThenBoardRepository, Syncable
   @override
   Stream<List<FirstThenBoard>> watchAll() {
     return _localSource.watchAll().map(
-          (entities) => entities.map((e) => e.toModel()).toList(),
+      (entities) => entities.map((e) => e.toModel()).toList(),
     );
   }
 }

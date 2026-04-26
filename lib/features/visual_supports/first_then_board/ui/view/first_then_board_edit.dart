@@ -5,7 +5,7 @@ import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../app/router.dart';
+import '../../../../../router.dart';
 import '../../../../../core/widgets/info_small_text.dart';
 import '../../../../../i18n/strings.g.dart';
 import '../../../../card_management/domain/model/user_card.dart';

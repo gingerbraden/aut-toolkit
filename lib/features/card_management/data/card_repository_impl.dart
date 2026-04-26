@@ -9,10 +9,10 @@ import 'package:aut_toolkit/features/card_management/data/source/card_local_sour
 import 'package:aut_toolkit/features/card_management/data/source/card_remote_source.dart';
 import 'package:aut_toolkit/main.dart';
 import 'package:aut_toolkit/objectbox.g.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../../core/model/sync_entity.dart';
+import '../../../core/services/firebase_service.dart';
 import '../../../core/services/sync_manager.dart';
 import '../domain/model/user_card.dart';
 import '../domain/repository/card_repository.dart';
@@ -68,7 +68,7 @@ class CardRepositoryImpl implements CardRepository, SyncableRepository {
 
   @override
   Future<void> fetchRemote() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
+    final userId = FirebaseService().currentUser?.uid;
     if (userId == null) return;
 
     try {

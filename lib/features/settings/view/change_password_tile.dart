@@ -1,9 +1,9 @@
-import 'package:aut_toolkit/app/router.dart';
+import 'package:aut_toolkit/router.dart';
 import 'package:aut_toolkit/features/authentication/provider/authentication_notifier.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/services/firebase_service.dart';
 import '../../../i18n/strings.g.dart';
 
 class ChangePasswordTile extends ConsumerStatefulWidget {
@@ -19,8 +19,8 @@ class _ChangePasswordTileState extends ConsumerState<ChangePasswordTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      enabled: FirebaseAuth.instance.currentUser != null
-          ? FirebaseAuth.instance.currentUser!.providerData.any(
+      enabled: FirebaseService().currentUser != null
+          ? FirebaseService().currentUser!.providerData.any(
               (p) => p.providerId == 'password',
             )
           : false,
@@ -63,12 +63,12 @@ class _ChangePasswordTileState extends ConsumerState<ChangePasswordTile> {
 
   Future<void> _signOut() async {
     setState(() => isLoading = true);
-    if (FirebaseAuth.instance.currentUser!.providerData.any(
+    if (FirebaseService().currentUser!.providerData.any(
       (p) => p.providerId == 'password',
     )) {
       await ref
           .read(authentificationNotifierProvider.notifier)
-          .resetPassword(FirebaseAuth.instance.currentUser!.email!);
+          .resetPassword(FirebaseService().currentUser!.email!);
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(t.mail_sent)));

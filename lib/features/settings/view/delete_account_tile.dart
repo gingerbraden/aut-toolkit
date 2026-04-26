@@ -1,4 +1,4 @@
-import 'package:aut_toolkit/app/router.dart';
+import 'package:aut_toolkit/router.dart';
 import 'package:aut_toolkit/core/services/firebase_service.dart';
 import 'package:aut_toolkit/features/authentication/provider/authentication_notifier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,9 +47,9 @@ class _DeleteAccountTileState extends ConsumerState<DeleteAccountTile> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(t.delete_account_info),
-            if (FirebaseService().checkSignInProvider() == signInMethod.EMAIL) const SizedBox(height: 16), Text(t.delete_account_info_password),
+            if (FirebaseService().checkSignInProvider() == SignInMethod.email) const SizedBox(height: 16), Text(t.delete_account_info_password),
             const SizedBox(height: 16),
-            if (FirebaseService().checkSignInProvider() == signInMethod.EMAIL)
+            if (FirebaseService().checkSignInProvider() == SignInMethod.email)
               TextField(
                 controller: passwordController,
                 obscureText: true,
@@ -84,7 +84,7 @@ class _DeleteAccountTileState extends ConsumerState<DeleteAccountTile> {
   Future<void> _deleteAccount(String password) async {
     setState(() => isDeleting = true);
 
-    if (FirebaseService().checkSignInProvider() == signInMethod.EMAIL) {
+    if (FirebaseService().checkSignInProvider() == SignInMethod.email) {
       try {
         final ret = await FirebaseService().reauthenticateUser(password);
       } on FirebaseAuthException catch (e) {
@@ -98,7 +98,7 @@ class _DeleteAccountTileState extends ConsumerState<DeleteAccountTile> {
       }
     }
 
-    if (FirebaseService().checkSignInProvider() == signInMethod.GOOGLE) {
+    if (FirebaseService().checkSignInProvider() == SignInMethod.google) {
       try {
         FirebaseService().reauthenticateWithGoogle();
       } on FirebaseAuthException catch (e) {

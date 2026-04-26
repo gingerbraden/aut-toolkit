@@ -1,4 +1,4 @@
-import 'package:aut_toolkit/app/router.dart';
+import 'package:aut_toolkit/router.dart';
 import 'package:aut_toolkit/core/utils/date_util.dart';
 import 'package:aut_toolkit/core/widgets/description_detail.dart';
 import 'package:aut_toolkit/core/widgets/square_image_filled_width.dart';

@@ -1,3 +1,4 @@
+/// The keyword object returned from the ARASAAC API
 class KeywordDTO {
   final int idKeyword;
   final String keyword;

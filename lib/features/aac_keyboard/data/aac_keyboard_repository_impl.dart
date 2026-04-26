@@ -5,10 +5,10 @@ import 'package:aut_toolkit/features/aac_keyboard/data/source/aac_keyboard_remot
 import 'package:aut_toolkit/features/aac_keyboard/domain/model/aac_keyboard.dart';
 import 'package:aut_toolkit/features/aac_keyboard/domain/model/keyboad_slot.dart';
 import 'package:aut_toolkit/features/aac_keyboard/domain/repository/aac_keyboard_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../core/model/sync_entity.dart';
+import '../../../core/services/firebase_service.dart';
 import '../../../core/services/sync_manager.dart';
 import 'model/aac_keyboard_entity.dart';
 import 'model/keyboard_slot_entity.dart';
@@ -90,7 +90,9 @@ class AACKeyboardRepositoryImpl
 
   @override
   void deleteSlot(KeyboardSlot slot, int parentKeyboardId) {
-    final entity = slot.toEntity(parentKeyboard: _localSource.getById(parentKeyboardId));
+    final entity = slot.toEntity(
+      parentKeyboard: _localSource.getById(parentKeyboardId),
+    );
     if (entity.id == 0) return;
     entity.isDeleted = true;
     entity.pendingAction = PendingAction.DELETE.index;
@@ -127,7 +129,7 @@ class AACKeyboardRepositoryImpl
 
   @override
   Future<void> fetchRemote() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
+    final userId = FirebaseService().currentUser?.uid;
     if (userId == null) return;
 
     try {
@@ -292,7 +294,9 @@ class AACKeyboardRepositoryImpl
           kb.isSynced = true;
           _localSource.putKeyboard(kb);
 
-          final deletedSlots = kb.slots.where((s) => s.isDeleted == true).toList();
+          final deletedSlots = kb.slots
+              .where((s) => s.isDeleted == true)
+              .toList();
           for (final slot in deletedSlots) {
             if (slot.id != null) _localSource.deleteSlot(slot.id!);
           }
@@ -306,8 +310,6 @@ class AACKeyboardRepositoryImpl
         continue;
       }
     }
-
-
   }
 
   @override

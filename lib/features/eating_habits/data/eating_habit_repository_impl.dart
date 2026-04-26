@@ -8,21 +8,23 @@ import 'package:aut_toolkit/features/eating_habits/data/source/eating_habit_loca
 import 'package:aut_toolkit/features/eating_habits/data/source/eating_habit_remote_source.dart';
 import 'package:aut_toolkit/features/eating_habits/domain/model/eating_habit.dart';
 import 'package:aut_toolkit/features/eating_habits/domain/repository/eating_habit_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../../core/model/sync_entity.dart';
+import '../../../core/services/firebase_service.dart';
 import '../../../core/services/sync_manager.dart';
-class EatingHabitRepositoryImpl implements EatingHabitRepository, SyncableRepository {
+
+class EatingHabitRepositoryImpl
+    implements EatingHabitRepository, SyncableRepository {
   final EatingHabitLocalSource _localSource;
   final EatingHabitRemoteSource _remoteSource;
   final SyncManager _syncManager;
 
   EatingHabitRepositoryImpl(
-      this._localSource,
-      this._remoteSource,
-      this._syncManager,
-      ) {
+    this._localSource,
+    this._remoteSource,
+    this._syncManager,
+  ) {
     _syncManager.processors.add(processPending);
     _syncManager.addProcessor(fetchRemote);
   }
@@ -62,7 +64,7 @@ class EatingHabitRepositoryImpl implements EatingHabitRepository, SyncableReposi
 
   @override
   Future<void> fetchRemote() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
+    final userId = FirebaseService().currentUser?.uid;
     if (userId == null) return;
 
     try {
@@ -74,8 +76,7 @@ class EatingHabitRepositoryImpl implements EatingHabitRepository, SyncableReposi
       for (final remoteEntity in remoteData) {
         remoteIds.add(remoteEntity.remoteId!);
 
-        final local =
-        _localSource.getByRemoteId(remoteEntity.remoteId!);
+        final local = _localSource.getByRemoteId(remoteEntity.remoteId!);
 
         final entityToSave = remoteEntity.toEntity();
         entityToSave.id = 0;
@@ -119,7 +120,9 @@ class EatingHabitRepositoryImpl implements EatingHabitRepository, SyncableReposi
           e.remoteImgPath = "";
         }
 
-        if (e.imageFilePath != null && File(e.imageFilePath!).existsSync() && e.remoteImgPath == null) {
+        if (e.imageFilePath != null &&
+            File(e.imageFilePath!).existsSync() &&
+            e.remoteImgPath == null) {
           final file = File(e.imageFilePath!);
 
           uploadedUrl = await _remoteSource.uploadFile(
@@ -155,7 +158,6 @@ class EatingHabitRepositoryImpl implements EatingHabitRepository, SyncableReposi
         e.pendingAction = PendingAction.NONE.index;
         e.isSynced = true;
         _localSource.put(e);
-
       } catch (err) {
         print("Error syncing eating habit: $err");
         continue;
@@ -165,9 +167,9 @@ class EatingHabitRepositoryImpl implements EatingHabitRepository, SyncableReposi
 
   @override
   Stream<List<EatingHabit>> watchAll() {
-    return _localSource
-        .watchAll()
-        .map((entities) => entities.map((e) => e.toModel()).toList());
+    return _localSource.watchAll().map(
+      (entities) => entities.map((e) => e.toModel()).toList(),
+    );
   }
 
   Future<void> _syncImageIfNeeded(EatingHabitRemoteEntity remote) async {
@@ -178,10 +180,8 @@ class EatingHabitRepositoryImpl implements EatingHabitRepository, SyncableReposi
 
     if (await file.exists()) return;
 
-    if (remote.remoteImagePath != null &&
-        remote.remoteImagePath!.isNotEmpty) {
-      final ref =
-      FirebaseStorage.instance.refFromURL(remote.remoteImagePath!);
+    if (remote.remoteImagePath != null && remote.remoteImagePath!.isNotEmpty) {
+      final ref = FirebaseStorage.instance.refFromURL(remote.remoteImagePath!);
 
       final filePath = remote.imageFilePath;
       final file = File(filePath!);
@@ -192,7 +192,6 @@ class EatingHabitRepositoryImpl implements EatingHabitRepository, SyncableReposi
       } catch (e) {
         print('Image download failed: $e');
       }
-
     }
   }
 }

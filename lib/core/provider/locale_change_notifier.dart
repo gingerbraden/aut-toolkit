@@ -3,6 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../i18n/strings.g.dart';
 
+/// Listenable notifier for the application locale
+///
+/// Used for changing the application's language in Settings or in the Auth screen
 class LocaleChangeNotifier extends Notifier<AppLocale> {
   final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
 

@@ -1,14 +1,18 @@
 import 'package:dio/dio.dart';
 
-import 'api_service.dart';
+import 'arasaac_api.dart';
 
+/// ARASAAC API service, used to get communication symbols
 class ARASAACService {
-  final ApiService _api = ApiService();
+  final ARASAACAPI _api = ARASAACAPI();
 
   static const String PICTOGRAM_SEARCH_PATH = "/pictograms/en/search/";
   static const String PICTOGRAM_IMAGE_PATH = "https://static.arasaac.org/pictograms/";
   static const int PICTOGRAM_SIZE_300 = 300;
 
+  /// The main method that returns the list of symbols.
+  ///
+  /// [searchText] is the query used to search for the symbols.
   Future<List<dynamic>> searchPictograms({
     required String searchText,
   }) async {

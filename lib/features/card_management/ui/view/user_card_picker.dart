@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../app/router.dart';
+import '../../../../router.dart';
 import '../../../../core/widgets/square_items_list.dart';
 import '../../../../i18n/strings.g.dart';
 import '../../domain/model/user_card.dart';

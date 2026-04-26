@@ -26,24 +26,22 @@ import 'package:aut_toolkit/features/visual_supports/visual_lists/ui/view/visual
 import 'package:aut_toolkit/features/visual_supports/visual_lists/ui/view/visual_list_edit.dart';
 import 'package:aut_toolkit/features/visual_supports/visual_lists/ui/view/visual_list_list.dart';
 import 'package:aut_toolkit/features/visual_supports/visual_lists/ui/view/visual_list_schedule_show.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/authentication/ui/view/authentication_page.dart';
-import '../features/eating_habits/domain/model/eating_habit.dart';
-import '../features/eating_habits/ui/view/eating_habit_detail.dart';
-import '../features/eating_habits/ui/view/eating_habit_edit.dart';
-import '../features/eating_habits/ui/view/eating_habits_list.dart';
-import '../features/good_habits/ui/view/good_habit_detail.dart';
-import '../features/good_habits/ui/view/good_habit_edit.dart';
-import '../features/good_habits/ui/view/good_habits_list.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
+import 'core/services/firebase_service.dart';
+import 'features/authentication/ui/view/authentication_page.dart';
+import 'features/eating_habits/domain/model/eating_habit.dart';
+import 'features/eating_habits/ui/view/eating_habit_detail.dart';
+import 'features/eating_habits/ui/view/eating_habit_edit.dart';
+import 'features/eating_habits/ui/view/eating_habits_list.dart';
+import 'features/good_habits/ui/view/good_habit_detail.dart';
+import 'features/good_habits/ui/view/good_habit_edit.dart';
+import 'features/good_habits/ui/view/good_habits_list.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/',
   redirect: (context, state) {
-    final user = _auth.currentUser;
+    final user = FirebaseService().currentUser;
     final loggingIn = state.matchedLocation == RouterUtils.SLASH;
 
     if (user != null) {
@@ -64,7 +62,7 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: RouterUtils.AAC_KEYBOARD_MAIN,
           builder: (context, state) {
-            return AACKeyboardMain(goHome: () {  },);
+            return AACKeyboardMain(goHome: () {});
           },
           routes: [
             GoRoute(
@@ -255,7 +253,10 @@ final GoRouter router = GoRouter(
                   path: RouterUtils.NEW_FIRST_THEN_BOARD,
                   builder: (context, state) {
                     final board = state.extra as FirstThenBoard;
-                    return FirstThenBoardEdit(board: board, isNew: board.name.isEmpty);
+                    return FirstThenBoardEdit(
+                      board: board,
+                      isNew: board.name.isEmpty,
+                    );
                   },
                   routes: [
                     GoRoute(
@@ -276,8 +277,12 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: RouterUtils.VISUAL_LISTS,
               builder: (context, state) {
-                final isDiagram = state.extra != null ? state.extra as String : "";
-                return VisualListList(isDiagram: isDiagram == AppConstants.VISUAL_DIAGRAM);
+                final isDiagram = state.extra != null
+                    ? state.extra as String
+                    : "";
+                return VisualListList(
+                  isDiagram: isDiagram == AppConstants.VISUAL_DIAGRAM,
+                );
               },
               routes: [
                 GoRoute(

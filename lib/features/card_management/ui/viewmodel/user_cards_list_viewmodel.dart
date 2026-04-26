@@ -1,7 +1,8 @@
 import 'package:aut_toolkit/features/card_management/domain/model/user_card.dart';
 import 'package:aut_toolkit/features/card_management/provider/card_notifier.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../core/services/firebase_service.dart';
 
 final userCardsListViewModelProvider =
     NotifierProvider<UserCardsListViewModel, List<UserCard>>(
@@ -10,7 +11,7 @@ final userCardsListViewModelProvider =
 
 final filteredUserCardsProvider = Provider<List<UserCard>>((ref) {
   final allCards = ref.watch(cardsProvider);
-  final currentUserId = FirebaseAuth.instance.currentUser?.uid;
+  final currentUserId = FirebaseService().currentUser?.uid;
   if (currentUserId == null) return [];
   return allCards
       .where((card) => card.userId == currentUserId)
@@ -51,8 +52,7 @@ class UserCardsListViewModel extends Notifier<List<UserCard>> {
     state = [...state];
   }
 
-  bool isSelected(UserCard card) =>
-      _selectedIds.contains(card.id);
+  bool isSelected(UserCard card) => _selectedIds.contains(card.id);
 
   List<UserCard> get selectedCards =>
       state.where((c) => _selectedIds.contains(c.id)).toList();
@@ -62,17 +62,17 @@ class UserCardsListViewModel extends Notifier<List<UserCard>> {
       case UserCardSort.nameAsc:
         state = [...state]
           ..sort(
-                (a, b) => a.names.values.first
-                .toLowerCase()
-                .compareTo(b.names.values.first.toLowerCase()),
+            (a, b) => a.names.values.first.toLowerCase().compareTo(
+              b.names.values.first.toLowerCase(),
+            ),
           );
         break;
       case UserCardSort.nameDesc:
         state = [...state]
           ..sort(
-                (a, b) => b.names.values.first
-                .toLowerCase()
-                .compareTo(a.names.values.first.toLowerCase()),
+            (a, b) => b.names.values.first.toLowerCase().compareTo(
+              a.names.values.first.toLowerCase(),
+            ),
           );
         break;
     }
@@ -83,7 +83,9 @@ class UserCardsListViewModel extends Notifier<List<UserCard>> {
       clearSelection();
     } else {
       _selectedIds.clear();
-      _selectedIds.addAll(allCards.where((c) => c.id != null).map((c) => c.id!));
+      _selectedIds.addAll(
+        allCards.where((c) => c.id != null).map((c) => c.id!),
+      );
       state = [...state];
     }
   }

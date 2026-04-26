@@ -1,4 +1,4 @@
-import 'package:aut_toolkit/app/router.dart';
+import 'package:aut_toolkit/router.dart';
 import 'package:aut_toolkit/core/utils/router_utils.dart';
 import 'package:aut_toolkit/features/authentication/provider/authentication_notifier.dart';
 import 'package:aut_toolkit/i18n/strings.g.dart';

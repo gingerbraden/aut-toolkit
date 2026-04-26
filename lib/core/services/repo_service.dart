@@ -23,12 +23,13 @@ import 'package:aut_toolkit/features/visual_supports/visual_lists/data/source/vi
 import 'package:aut_toolkit/features/visual_supports/visual_lists/data/visual_list_repository_impl.dart';
 import 'package:aut_toolkit/main.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../features/good_habits/data/good_habit_repository_impl.dart';
 import '../../features/good_habits/data/source/good_habit_local_source.dart';
 import '../../features/good_habits/data/source/good_habit_remote_source.dart';
 
+/// Used to instantiate the repositories, so the application has a single
+/// source of truth
 class RepoService {
   late final SyncManager syncManager;
   late final GoodHabitRepositoryImpl goodHabitRepository;
@@ -118,7 +119,7 @@ class RepoService {
         !result.contains(ConnectivityResult.mobile))
       return;
 
-    final user = FirebaseAuth.instance.currentUser;
+    final user = FirebaseService().currentUser;
     if (user == null) return;
 
     await cardRepositoryImpl.fetchRemote();

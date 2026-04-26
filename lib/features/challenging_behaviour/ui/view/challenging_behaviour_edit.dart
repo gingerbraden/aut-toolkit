@@ -7,7 +7,7 @@ import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../app/router.dart';
+import '../../../../router.dart';
 import '../../domain/model/challenging_behaviour.dart';
 import '../viewmodel/challenging_behaviour_edit_viewmodel.dart';
 

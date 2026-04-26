@@ -1,4 +1,4 @@
-import 'package:aut_toolkit/app/router.dart';
+import 'package:aut_toolkit/router.dart';
 import 'package:aut_toolkit/core/services/tts_service.dart';
 import 'package:aut_toolkit/core/utils/image_util.dart';
 import 'package:aut_toolkit/core/utils/language_util.dart';

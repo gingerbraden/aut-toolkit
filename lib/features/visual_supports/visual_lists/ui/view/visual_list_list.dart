@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../app/router.dart';
+import '../../../../../router.dart';
 import '../../../../../core/constants/app_constants.dart';
 import '../../../../../core/utils/router_utils.dart';
 import '../../../../../i18n/strings.g.dart';

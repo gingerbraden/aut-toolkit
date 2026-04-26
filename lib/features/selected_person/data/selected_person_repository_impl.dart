@@ -5,9 +5,9 @@ import 'package:aut_toolkit/features/good_habits/data/source/good_habit_local_so
 import 'package:aut_toolkit/features/selected_person/data/model/selected_person_mappers.dart';
 import 'package:aut_toolkit/features/selected_person/data/source/selected_person_local_source.dart';
 import 'package:aut_toolkit/features/selected_person/data/source/selected_person_remote_source.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/model/sync_entity.dart';
+import '../../../core/services/firebase_service.dart';
 import '../../../core/services/sync_manager.dart';
 import '../domain/model/selected_person.dart';
 import '../domain/repository/selected_person_repository.dart';
@@ -69,7 +69,6 @@ class SelectedPersonRepositoryImpl
     _syncManager.processOnce();
   }
 
-
   @override
   void delete(SelectedPerson sp) {
     if (sp.id == null || sp.id == 0) return;
@@ -120,7 +119,8 @@ class SelectedPersonRepositoryImpl
       }
     }
 
-    final remainingPersons = _localSource.getAll()
+    final remainingPersons = _localSource
+        .getAll()
         .where((p) => !p.isDeleted && p.id != sp.id)
         .toList();
 
@@ -135,7 +135,6 @@ class SelectedPersonRepositoryImpl
 
     _syncManager.processOnce();
   }
-
 
   @override
   Future<void> processPending() async {
@@ -177,7 +176,7 @@ class SelectedPersonRepositoryImpl
 
   @override
   Future<void> fetchRemote() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
+    final userId = FirebaseService().currentUser?.uid;
     if (userId == null) return;
 
     try {
@@ -189,8 +188,7 @@ class SelectedPersonRepositoryImpl
       for (final remoteEntity in remoteData) {
         remoteIds.add(remoteEntity.remoteId!);
 
-        final local =
-        _localSource.getByRemoteId(remoteEntity.remoteId!);
+        final local = _localSource.getByRemoteId(remoteEntity.remoteId!);
 
         final entityToSave = remoteEntity.toEntity();
         entityToSave.id = 0;
@@ -217,8 +215,8 @@ class SelectedPersonRepositoryImpl
 
   @override
   Stream<List<SelectedPerson>> watchAll() {
-    return _localSource
-        .watchAll()
-        .map((entities) => entities.map((e) => e.toModel()).toList());
+    return _localSource.watchAll().map(
+      (entities) => entities.map((e) => e.toModel()).toList(),
+    );
   }
 }

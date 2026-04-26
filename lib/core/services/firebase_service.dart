@@ -7,8 +7,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../i18n/strings.g.dart';
 
-enum signInMethod { GOOGLE, EMAIL, NONE }
+enum SignInMethod { google, email, none }
 
+/// Service wrapper for Firebase features.
+///
+/// Mainly used for the authentication methods in the Auth screen, but also
+/// used for accessing the FirebaseAuth instance for getting the current user data.
 class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -68,6 +72,7 @@ class FirebaseService {
     }
   }
 
+  /// Method used to recursively delete all user's subcollections
   Future<String?> deleteAccount() async {
     try {
       final user = _auth.currentUser;
@@ -137,11 +142,11 @@ class FirebaseService {
     _auth.sendPasswordResetEmail(email: email);
   }
 
-  signInMethod checkSignInProvider() {
+  SignInMethod checkSignInProvider() {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
-      return signInMethod.NONE;
+      return SignInMethod.none;
     }
 
     List<UserInfo> providerData = user.providerData;
@@ -153,9 +158,9 @@ class FirebaseService {
       (p) => p.providerId == 'password',
     );
 
-    if (signedInWithGoogle) return signInMethod.GOOGLE;
-    if (signedInWithEmailPassword) return signInMethod.EMAIL;
-    return signInMethod.NONE;
+    if (signedInWithGoogle) return SignInMethod.google;
+    if (signedInWithEmailPassword) return SignInMethod.email;
+    return SignInMethod.none;
   }
 
   Future<void> reauthenticateWithGoogle() async {

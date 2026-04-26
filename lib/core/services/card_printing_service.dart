@@ -9,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../features/card_management/domain/model/user_card.dart';
 import '../../i18n/strings.g.dart';
 
+/// Service used for generating PDF documents of user selected cards.
 class CardPrintingService {
   static final CardPrintingService _instance = CardPrintingService._();
 

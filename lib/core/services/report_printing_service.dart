@@ -9,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../i18n/strings.g.dart';
 
+/// Service used for generating PDF document of the habits and behaviours.
 class ReportPrintingService {
   static final ReportPrintingService _instance = ReportPrintingService._();
 
@@ -178,7 +179,7 @@ class ReportPrintingService {
     );
 
     final tempDir = await getTemporaryDirectory();
-    final file = File('${tempDir.path}/combined_habits_report.pdf');
+    final file = File('${tempDir.path}/report.pdf');
     await file.writeAsBytes(await pdf.save());
 
     await Share.shareXFiles([XFile(file.path)]);

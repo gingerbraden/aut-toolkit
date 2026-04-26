@@ -1,5 +1,6 @@
 import 'keyword_dto.dart';
 
+/// The pictogram object returned from the ARASAAC API
 class PictogramDTO {
   final int id;
   final String desc;

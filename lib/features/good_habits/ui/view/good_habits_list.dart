@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../app/router.dart';
+import '../../../../router.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/services/firebase_service.dart';
 import '../../../../core/utils/date_util.dart';

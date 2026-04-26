@@ -3,6 +3,9 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 typedef PendingProcessor = Future<void> Function();
 
+/// Used for syncing the local database with the online database.
+///
+/// [
 class SyncManager {
   SyncManager._internal({
     Connectivity? connectivity,
@@ -23,6 +26,8 @@ class SyncManager {
 
   final List<PendingProcessor> processors = [];
 
+  /// Starts the manager and listens for changes in connectivity
+  /// - if it changes, trigger a process
   void start() {
     if (_started) return;
     _started = true;

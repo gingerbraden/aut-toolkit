@@ -8,7 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'app/router.dart';
+import 'router.dart';
 import 'core/provider/locale_change_notifier.dart';
 import 'core/provider/theme_mode_notifier.dart';
 import 'core/services/objectbox.dart';

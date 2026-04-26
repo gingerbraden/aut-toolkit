@@ -8,7 +8,7 @@ import 'package:aut_toolkit/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../app/router.dart';
+import '../../../../router.dart';
 import '../viewmodel/challenging_behaviour_diary_entry_edit_viewmodel.dart';
 
 class ChallengingBehaviourDiaryEntryEdit extends ConsumerStatefulWidget {

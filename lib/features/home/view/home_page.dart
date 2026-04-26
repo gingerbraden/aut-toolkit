@@ -1,4 +1,4 @@
-import 'package:aut_toolkit/app/router.dart';
+import 'package:aut_toolkit/router.dart';
 import 'package:aut_toolkit/core/services/firebase_service.dart';
 import 'package:aut_toolkit/core/services/repo_service.dart';
 import 'package:aut_toolkit/core/services/report_printing_service.dart';

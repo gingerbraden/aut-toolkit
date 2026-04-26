@@ -1,5 +1,6 @@
 import '../../i18n/strings.g.dart';
 
+/// Constants used throughout the application
 class AppConstants {
 
   static final double BASE_APP_UI_PADDING = 16.0;
@@ -16,6 +17,7 @@ class AppConstants {
 
   static const String EMPTY_STRING = "";
 
+  /// Return a localized text of the [key] given
   static String getLabel(String key) {
     switch(key) {
       case NAME_ASC: return '${t.name} (${t.ascending})';

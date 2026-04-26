@@ -1,5 +1,6 @@
 import 'package:flutter_tts/flutter_tts.dart';
 
+/// Service used as a wrapper for text2speech features..
 class TtsService {
   static final FlutterTts _tts = FlutterTts();
 

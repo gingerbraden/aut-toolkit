@@ -1,7 +1,7 @@
 import 'package:aut_toolkit/core/widgets/divider/sized_box_divider.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../app/router.dart';
+import '../../../../router.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/router_utils.dart';
 import '../../../../i18n/strings.g.dart';

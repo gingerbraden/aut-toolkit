@@ -3,6 +3,7 @@ import '../model/Pictogram.dart';
 import '../model/dto/pictogram_dto.dart';
 import '../services/arasaac_service.dart';
 
+/// Repository layer used for accessing the ARASAAC API
 class ARASAACRepository {
   final ARASAACService _service = ARASAACService();
 

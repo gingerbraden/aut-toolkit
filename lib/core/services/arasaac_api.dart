@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
 
-class ApiService {
+/// The base API configuration for the ARASAAC API
+class ARASAACAPI {
   late final Dio dio;
 
-  ApiService() {
+  ARASAACAPI() {
     dio = Dio(
       BaseOptions(
         baseUrl: 'https://api.arasaac.org/api',
